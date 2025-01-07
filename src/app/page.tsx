@@ -1,7 +1,8 @@
+import ChatBoxButton from "@/components/chatbox/ChatBoxButton";
 export default function Home() {
   return (
     <div>
-      page
+      <ChatBoxButton></ChatBoxButton>
     </div>
   );
 }
