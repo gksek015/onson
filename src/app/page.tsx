@@ -10,8 +10,8 @@ export default function Home() {
         <SearchBar />
       </div>
       <div className="py-4">
-        <h2 className="px-5 text-xl font-semibold">NEW</h2>
         <div className="px-5 space-y-4">
+        <h2 className="px-5 text-xl font-semibold">NEW</h2>
           <VolunteerCard />
           <VolunteerCard />
           <VolunteerCard />

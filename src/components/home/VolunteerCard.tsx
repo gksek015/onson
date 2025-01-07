@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
+import oldman2 from './oldman2.jpg'
 
 const VolunteerCard = () => {
   return (
@@ -16,8 +17,8 @@ const VolunteerCard = () => {
               <span className="mr-4">이지원</span>
               <span>25.01.02</span>
             </div>
-            <div className="bg-slate-400 md:w-1/3 flex flex-col items-center">
-              <Image fill sizes="96px" className="object-cover rounded-full" />
+            <div className=" md:w-1/3 flex flex-col w-64  items-center">
+              <Image src={oldman2} alt='' className="object-cover" />
             </div>
           </div>
         </div>
