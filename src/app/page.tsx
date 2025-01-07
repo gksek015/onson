@@ -2,6 +2,7 @@ import CategoryBar from '@/components/home/CategoryBar';
 import HeroSection from '@/components/home/HeroSection';
 import SearchBar from '@/components/home/SearchBar';
 import VolunteerCard from '@/components/home/VolunteerCard';
+import ChatBoxButton from '@/components/chatbox/ChatBoxButton';
 
 const volunteers = Array(8).fill(null);
 
@@ -22,6 +23,9 @@ export default function Home() {
             <VolunteerCard key={index} />
           ))}
         </div>
+      </div>
+      <div>
+        <ChatBoxButton></ChatBoxButton>
       </div>
     </section>
   );
