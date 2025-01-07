@@ -1,10 +1,22 @@
-interface Props {
+"use client"
+
+import { useState } from "react";
+import CategorySelectComp from "./CategorySelectComp";
+
+interface PostFormProps  {
     categories: string[];
   }
 
-const PostForm= ({categories} : Props) => {
+const PostForm= ({categories} : PostFormProps) => {
+    const [selectedCategory, setSelectedCategory] = useState('');
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        console.log({ selectedCategory }); // 선택한 카테고리 출력
+    };
+
     return (
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="title" className="block text-sm font-medium text-gray-700">
               제목
@@ -19,7 +31,7 @@ const PostForm= ({categories} : Props) => {
     
           <div>
             <label htmlFor="address" className="block text-sm font-medium text-gray-700">
-              주소
+              위치
             </label>
             <input
               type="text"
@@ -31,22 +43,10 @@ const PostForm= ({categories} : Props) => {
             />
           </div>
     
-          <div>
-            <label htmlFor="category" className="block text-sm font-medium text-gray-700">
-              봉사 종류
-            </label>
-            <select
-              id="category"
-              name="category"
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            >
-              {categories?.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-          </div>
+          <CategorySelectComp
+          categories={categories}
+          onSelectCategory={(category) => setSelectedCategory(category)}
+          />
     
           <div>
             <label htmlFor="date" className="block text-sm font-medium text-gray-700">

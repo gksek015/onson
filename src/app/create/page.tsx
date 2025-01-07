@@ -25,7 +25,7 @@ const Page = () => {
         <h1 className="text-lg font-bold">봉사 요청</h1>
         <button
           type="submit"
-          form="volunteerForm"
+          form="PostForm"
           className="text-blue-500 font-semibold"
         >
           등록
