@@ -1,22 +1,28 @@
 import CategoryBar from '@/components/home/CategoryBar';
+import HeroSection from '@/components/home/HeroSection';
 import SearchBar from '@/components/home/SearchBar';
 import VolunteerCard from '@/components/home/VolunteerCard';
 
+const volunteers = Array(8).fill(null);
+
 export default function Home() {
   return (
-    <main className=''>
+    <section>
       <div className="flex justify-center items-center gap-3 mx-4">
         <CategoryBar />
         <SearchBar />
       </div>
+      <div>
+        <HeroSection />
+      </div>
       <div className="py-4">
-        <div className="px-5 space-y-4">
         <h2 className="px-5 text-xl font-semibold">NEW</h2>
-          <VolunteerCard />
-          <VolunteerCard />
-          <VolunteerCard />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-5">
+          {volunteers.map((_, index) => (
+            <VolunteerCard key={index} />
+          ))}
         </div>
       </div>
-    </main>
+    </section>
   );
 }
