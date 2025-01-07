@@ -4,7 +4,7 @@ import VolunteerCard from '@/components/home/VolunteerCard';
 
 export default function Home() {
   return (
-    <>
+    <main className=''>
       <div className="flex justify-center items-center gap-3 mx-4">
         <CategoryBar />
         <SearchBar />
@@ -17,6 +17,6 @@ export default function Home() {
           <VolunteerCard />
         </div>
       </div>
-    </>
+    </main>
   );
 }

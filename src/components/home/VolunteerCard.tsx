@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import React from 'react';
-import oldman2 from './oldman2.jpg'
+import oldman from './oldman.jpg';
+import oldman2 from './oldman2.jpg';
 
 const VolunteerCard = () => {
   return (
-    <div className="flex items-center pt-10">
-      <div className="w-[1440px] mx-auto p-6 rounded-lg">
+    <div className="flex items-center pt-3">
+      <div className="max-w-content mx-auto p-6 rounded-lg">
         <div className="flex flex-col md:flex-row gap-12">
           <div className="p-5 border-b">
             <div className="flex items-center gap-2 mb-2">
@@ -17,8 +18,8 @@ const VolunteerCard = () => {
               <span className="mr-4">이지원</span>
               <span>25.01.02</span>
             </div>
-            <div className=" md:w-1/3 flex flex-col w-64  items-center">
-              <Image src={oldman2} alt='' className="object-cover" />
+            <div className="md:w-1/2 flex flex-col items-center w-64 mt-6">
+              <Image src={oldman} alt='photo' className="object-cover" />
             </div>
           </div>
         </div>
