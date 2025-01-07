@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import CategorySelectComp from "./CategorySelectComp";
+import PhotoComp from "./PhotoComp";
 
 interface PostFormProps  {
     categories: string[];
@@ -77,14 +78,7 @@ const PostForm= ({categories} : PostFormProps) => {
 
           
     
-          <div className="flex items-center space-x-4">
-            <button
-              type="button"
-              className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center border border-gray-300"
-            >
-              📷
-            </button>
-          </div>
+          <PhotoComp/>
         </form>
       );
 }
