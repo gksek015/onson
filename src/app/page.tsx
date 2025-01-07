@@ -17,7 +17,7 @@ export default function Home() {
       </div>
       <div className="py-4">
         <h2 className="px-5 text-xl font-semibold">NEW</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-5 pb-20">
           {volunteers.map((_, index) => (
             <VolunteerCard key={index} />
           ))}

@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { DropdownIcon } from '../icons/HomeIcons';
+import { ArrowIcon } from '../icons/HomeIcons';
 
 const CategoryBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,10 +22,7 @@ const CategoryBar = () => {
       whitespace-nowrap min-h-[38px]"
         onClick={toggleDropdown}
       >
-        봉사 종류
-        <span className="ml-2">
-          <DropdownIcon />
-        </span>
+        <ArrowIcon />
       </button>
 
       {isOpen && (
