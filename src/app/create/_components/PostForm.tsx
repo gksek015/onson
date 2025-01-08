@@ -9,7 +9,7 @@ interface PostFormProps  {
   }
 
 const PostForm= ({categories} : PostFormProps) => {
-    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

@@ -17,17 +17,17 @@ export const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => 
 
       {/* 바텀시트 */}
       <div
-        className={`fixed bottom-0 left-0 w-full bg-white rounded-t-lg p-6 z-50 shadow-lg
+        className={`fixed top-0 left-0 w-full h-full bg-white z-50 shadow-lg
                      transition-transform duration-300 transform 
                      ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}
       >
-        <div className="flex justify-end">
+        <div className="flex justify-end p-4">
           {/* 닫기 버튼 */}
-          <button className="text-gray-500 hover:text-gray-700" onClick={onClose}>
+          <button className="text-gray-500 hover:text-gray-700 text-xl" onClick={onClose}>
             ✕
           </button>
         </div>
-        <div>{children}</div>
+        <div className="p-6">{children}</div>
       </div>
     </>
   );
