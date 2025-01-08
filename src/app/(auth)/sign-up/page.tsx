@@ -5,24 +5,19 @@ import Link from 'next/link';
 import SignUpForm from '@app/(auth)/sign-up/_components/SignUpForm';
 
 export const metadata: Metadata = {
-  title: 'SEEWHAT 회원가입',
-  description:
-    'SEEWHAT에 새로운 계정을 만들고 가입하세요. 간편한 회원가입 절차를 통해 SEEWHAT의 다양한 서비스를 이용해보세요.'
+  title: 'ON:SON 회원가입',
+  description: 'ON:SON에 오신것을 환영합니다. ON:SON의 회원이 되시고 따뜻한 봉사의 손길을 전해주세요'
 };
 
 const SignUpPage = () => {
   return (
     <>
       <div className="min-h-screen flex flex-col items-center justify-center p-4">
-        <h1 className="text-white text-3xl font-bold mb-8">SEEWHAT</h1>
+        <Link href="/">뒤로</Link>
+        <h1 className="text-3xl font-bold mb-8">회원가입</h1>
         <SignUpForm />
-        <div className="flex flex-col items-center space-y-2 text-sm text-darkGray my-5">
-          <Link href="/login" className="hover:text-white my-1">
-            이미 계정이 있으신가요? Login
-          </Link>
-          <Link href="/" className="hover:text-white">
-            홈페이지로 이동하기 Home
-          </Link>
+        <div className="flex flex-col items-center space-y-2 text-sm my-5">
+          <Link href="/login">이미 계정이 있으신가요?</Link>
         </div>
       </div>
     </>
