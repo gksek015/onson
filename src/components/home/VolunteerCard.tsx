@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import oldman2 from './oldman2.jpg';
+import oldman2 from '@/assets/oldman2.jpg';
 
 const VolunteerCard = () => {
   return (
