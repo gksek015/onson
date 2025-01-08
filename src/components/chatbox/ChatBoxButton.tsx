@@ -4,6 +4,7 @@ import { useState } from 'react';
 import ChatBoxModal from './ChatBoxModal';
 
 // 실시간 채팅, ai chat봇을 위한 플로팅 버튼
+// (PR 커밋 테스트용 주석)
 
 const ChatBoxButton = () => {
   const [isOpen, setIsOpen] = useState(false); // 모달 열기 닫기 상태
