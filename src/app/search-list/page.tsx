@@ -1,7 +1,4 @@
-const page = () => {
-  return (
-    <div>page</div>
-  )
-}
-
-export default page
+const SearchPage = () => {
+  return <div>SearchPage</div>;
+};
+export default SearchPage;
