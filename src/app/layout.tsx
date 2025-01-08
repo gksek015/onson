@@ -33,8 +33,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div>
           <Header />
-          {children}
-
+          <main className="mt-8 flex-1">{children}</main>
           <div className="block sm:hidden">
             <BottomNav />
           </div>
