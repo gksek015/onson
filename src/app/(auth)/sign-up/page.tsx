@@ -1,44 +1,31 @@
-'use client';
+import type { Metadata } from 'next';
 
-import { useEffect, useState } from 'react';
-import { createClient } from '@/utils/supabase/client';
-import { SupabaseClient } from '@supabase/supabase-js';
-import { Database } from '@/types/supabase';
+import Link from 'next/link';
+
+import SignUpForm from '@app/(auth)/sign-up/_components/SignUpForm';
+
+export const metadata: Metadata = {
+  title: 'SEEWHAT 회원가입',
+  description:
+    'SEEWHAT에 새로운 계정을 만들고 가입하세요. 간편한 회원가입 절차를 통해 SEEWHAT의 다양한 서비스를 이용해보세요.'
+};
 
 const SignUpPage = () => {
-  const [testData, setTestData] = useState<Database['public']['Tables']['posts']['Row'][] | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const testSupabaseConnection = async () => {
-      try {
-        const supabase: SupabaseClient<Database> = createClient();
-
-        const { data, error } = await supabase.from('posts').select('*');
-
-        if (error) throw error;
-        setTestData(data);
-      } catch (err) {
-        console.error('Supabase 연결 오류:', err instanceof Error ? err.message : String(err));
-        setError(err instanceof Error ? err.message : '알 수 없는 오류');
-      }
-    };
-
-    testSupabaseConnection();
-  }, []);
-
   return (
-    <div>
-      <h1>회원가입</h1>
-      <p>Supabase 연결 테스트 결과:</p>
-      {error ? (
-        <p style={{ color: 'red' }}>에러 발생: {error}</p>
-      ) : testData ? (
-        <pre>{JSON.stringify(testData, null, 2)}</pre>
-      ) : (
-        <p>데이터 로딩 중...</p>
-      )}
-    </div>
+    <>
+      <div className="min-h-screen flex flex-col items-center justify-center p-4">
+        <h1 className="text-white text-3xl font-bold mb-8">SEEWHAT</h1>
+        <SignUpForm />
+        <div className="flex flex-col items-center space-y-2 text-sm text-darkGray my-5">
+          <Link href="/login" className="hover:text-white my-1">
+            이미 계정이 있으신가요? Login
+          </Link>
+          <Link href="/" className="hover:text-white">
+            홈페이지로 이동하기 Home
+          </Link>
+        </div>
+      </div>
+    </>
   );
 };
 
