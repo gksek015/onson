@@ -64,7 +64,7 @@ const DateComp = ({ onSelectRange }: DateCompProps) => {
               onClick={handleClose}
               className="bg-gray-200 text-gray-600 font-semibold py-2 px-4 rounded-md hover:bg-gray-300"
             >
-              닫기
+              선택하기기
             </button>
           </div>
         </div>

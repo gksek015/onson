@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const PhotoComp = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -20,6 +21,10 @@ const PhotoComp = () => {
 
       setSelectedFiles((prevFiles) => [...prevFiles, ...newFiles]);
       setError(null); // 에러 초기화
+
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     }
   };
 
@@ -47,7 +52,8 @@ const PhotoComp = () => {
           accept="image/*"
           className="hidden"
           onChange={handleFileChange}
-          disabled={selectedFiles.length >= 5} // 5장 이상 업로드 방지
+          disabled={selectedFiles.length >= 5}
+          ref={fileInputRef}
         />
       </div>
 
