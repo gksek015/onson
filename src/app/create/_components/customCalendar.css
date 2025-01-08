@@ -53,6 +53,16 @@
   outline-offset: 2px;
 }
 
-.custom-calendar .react-calendar__month-view__days__day--weekend {
-  color: #ef4444; /* Tailwind Red */
+.custom-calendar .react-calendar__month-view__days__day {
+  color: #000; /* 기본 글씨 색상 */
+}
+
+.custom-calendar .react-calendar__month-view__days__day:nth-child(7n + 1) {
+  /* 일요일 */
+  color: #ef4444; /* 빨간색 */
+}
+
+.custom-calendar .react-calendar__month-view__days__day:nth-child(7n) {
+  /* 토요일 */
+  color: #ef4444; /* 빨간색 */
 }

@@ -35,14 +35,13 @@ const DateComp = ({ onSelectRange }: DateCompProps) => {
 
   return (
     <div className="relative">
-      {/* 선택된 기간 표시 */}
       <input
         type="text"
         value={formatRange(selectedRange)}
         placeholder="기간을 선택하세요"
         readOnly
         onClick={handleOpen}
-        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-gray-700 focus:outline-none cursor-pointer"
+        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm cursor-pointer"
       />
 
       {/* 바텀시트 */}
@@ -55,6 +54,8 @@ const DateComp = ({ onSelectRange }: DateCompProps) => {
               onChange={(value) => handleRangeSelect(value as Date | Date[])}
               value={selectedRange}
               locale="ko-KR"
+              formatDay={(locale, date) => `${date.getDate()}`}
+              calendarType="hebrew"
               className="custom-calendar w-full"
             />
           </div>

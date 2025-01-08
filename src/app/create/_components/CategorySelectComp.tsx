@@ -25,9 +25,9 @@ const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProp
 
   return (
     <div>
-      <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+      {/* <label htmlFor="category" className="block text-sm font-medium text-gray-700">
         봉사 종류
-      </label>
+      </label> */}
       <input
         type="text"
         id="category"

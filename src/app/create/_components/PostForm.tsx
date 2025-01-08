@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import CategorySelectComp from "./CategorySelectComp";
-import PhotoComp from "./PhotoComp";
-import DateComp from "./DateComp";
+import { useState } from 'react';
+import CategorySelectComp from './CategorySelectComp';
+import PhotoComp from './PhotoComp';
+import DateComp from './DateComp';
 
 interface PostFormProps {
   categories: string[];
@@ -18,8 +18,8 @@ const PostForm = ({ categories }: PostFormProps) => {
     console.log({
       selectedCategory,
       selectedRange: selectedRange
-        ? `${selectedRange[0].toLocaleDateString("ko-KR")} ~ ${selectedRange[1].toLocaleDateString("ko-KR")}`
-        : "기간 선택 안됨",
+        ? `${selectedRange[0].toLocaleDateString('ko-KR')} ~ ${selectedRange[1].toLocaleDateString('ko-KR')}`
+        : '기간 선택 안됨'
     });
   };
 
@@ -51,16 +51,16 @@ const PostForm = ({ categories }: PostFormProps) => {
         />
       </div>
 
-      <CategorySelectComp
-        categories={categories}
-        onSelectCategory={(category) => setSelectedCategory(category)}
-      />
-
-      <div>
-        <label htmlFor="date" className="block text-sm font-medium text-gray-700">
-          날짜
+      <div className="space-y-4">
+        <label htmlFor="tag" className="block text-sm font-medium text-gray-700">
+          태그
         </label>
-        <DateComp onSelectRange={(range) => setSelectedRange(range)} />
+
+        {/* 두 컴포넌트를 한 줄로 배치 */}
+        <div className="flex justify-between items-center space-x-4">
+          <CategorySelectComp categories={categories} onSelectCategory={(category) => setSelectedCategory(category)} />
+          <DateComp onSelectRange={(range) => setSelectedRange(range)} />
+        </div>
       </div>
 
       <div>
@@ -78,12 +78,12 @@ const PostForm = ({ categories }: PostFormProps) => {
 
       <PhotoComp />
 
-      <button
+      {/* <button
         type="submit"
         className="mt-4 w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
       >
         제출하기
-      </button>
+      </button> */}
     </form>
   );
 };
