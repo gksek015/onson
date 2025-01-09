@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BottomSheet } from '../../../components/common/BottomSheet';
+import { BottomSheet } from '../BottomSheet';
 
 interface CategorySelectProps {
   categories: string[];
@@ -12,9 +12,7 @@ const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProp
 
   const handleCheckboxChange = (category: string) => {
     setSelectedCategories((prev) =>
-      prev.includes(category)
-        ? prev.filter((item) => item !== category)
-        : [...prev, category]
+      prev.includes(category) ? prev.filter((item) => item !== category) : [...prev, category]
     );
   };
 
@@ -25,30 +23,23 @@ const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProp
 
   return (
     <div>
-      <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+      {/* <label htmlFor="category" className="block text-sm font-medium text-gray-700">
         봉사 종류
-      </label>
+      </label> */}
       <input
         type="text"
         id="category"
         name="category"
-        value={
-          selectedCategories.length > 0
-            ? selectedCategories.join(', ') // 선택된 항목 표시
-            : '봉사 종류 선택'
-        }
+        value={selectedCategories.length > 0 ? selectedCategories.join(', ') : '봉사 종류 선택'}
         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm cursor-pointer"
         readOnly
-        onClick={() => setSheetOpen(true)} // 바텀시트 열기
+        onClick={() => setSheetOpen(true)}
       />
 
       {/* 바텀시트 */}
-      <BottomSheet
-        isOpen={isSheetOpen}
-        onClose={() => setSheetOpen(false)}
-      >
+      <BottomSheet isOpen={isSheetOpen} onClose={() => setSheetOpen(false)}>
         <div className="p-4">
-          <h2 className="text-lg font-medium mb-4">봉사 종류 선택</h2>
+          <h2 className="text-sm font-medium mb-4">봉사 종류 선택</h2>
           <ul className="space-y-2">
             {categories?.map((category) => (
               <li
