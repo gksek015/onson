@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BottomSheet } from '../../../components/common/BottomSheet';
+import { BottomSheet } from '../BottomSheet';
 
 interface CategorySelectProps {
   categories: string[];
@@ -30,11 +30,7 @@ const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProp
         type="text"
         id="category"
         name="category"
-        value={
-          selectedCategories.length > 0
-            ? selectedCategories.join(', ')
-            : '봉사 종류 선택'
-        }
+        value={selectedCategories.length > 0 ? selectedCategories.join(', ') : '봉사 종류 선택'}
         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm cursor-pointer"
         readOnly
         onClick={() => setSheetOpen(true)}

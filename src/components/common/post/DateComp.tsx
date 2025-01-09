@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { BottomSheet } from "../../../components/common/BottomSheet";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
-import "./customCalendar.css";
+import { useState } from 'react';
+import { BottomSheet } from '../BottomSheet';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import './customCalendar.css';
 
 interface DateCompProps {
   onSelectRange: (range: [Date, Date] | null) => void;
@@ -28,9 +28,9 @@ const DateComp = ({ onSelectRange }: DateCompProps) => {
   };
 
   const formatRange = (range: [Date, Date] | null): string => {
-    if (!range) return "기간을 선택하세요";
+    if (!range) return '기간을 선택하세요';
     const [start, end] = range;
-    return `${start.toLocaleDateString("ko-KR")} ~ ${end.toLocaleDateString("ko-KR")}`;
+    return `${start.toLocaleDateString('ko-KR')} ~ ${end.toLocaleDateString('ko-KR')}`;
   };
 
   return (
@@ -64,7 +64,7 @@ const DateComp = ({ onSelectRange }: DateCompProps) => {
               onClick={handleClose}
               className="bg-gray-200 text-gray-600 font-semibold py-2 px-4 rounded-md hover:bg-gray-300"
             >
-              선택하기기
+              선택하기
             </button>
           </div>
         </div>

@@ -55,8 +55,6 @@ const PostForm = ({ categories }: PostFormProps) => {
         <label htmlFor="tag" className="block text-sm font-medium text-gray-700">
           태그
         </label>
-
-        {/* 두 컴포넌트를 한 줄로 배치 */}
         <div className="flex justify-between items-center space-x-4">
           <CategorySelectComp categories={categories} onSelectCategory={(category) => setSelectedCategory(category)} />
           <DateComp onSelectRange={(range) => setSelectedRange(range)} />
@@ -77,13 +75,6 @@ const PostForm = ({ categories }: PostFormProps) => {
       </div>
 
       <PhotoComp />
-
-      {/* <button
-        type="submit"
-        className="mt-4 w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
-      >
-        제출하기
-      </button> */}
     </form>
   );
 };
