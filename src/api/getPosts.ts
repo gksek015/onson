@@ -28,6 +28,5 @@ export const getPosts = async (): Promise<PostType[]> => {
     throw new Error('Failed to fetch posts');
   }
 
-  console.log('data',data)
   return data as PostType[];
 };
