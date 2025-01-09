@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BottomSheet } from '../BottomSheet';
+import { BottomSheet } from '@/components/common/BottomSheet';
 
 interface CategorySelectProps {
   categories: string[];

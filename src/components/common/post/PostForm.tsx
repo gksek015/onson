@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import CategorySelectComp from './CategorySelectComp';
-import PhotoComp from './PhotoComp';
-import DateComp from './DateComp';
+import CategorySelectComp from '@/components/common/post/CategorySelectComp';
+import PhotoComp from '@/components/common/post/PhotoComp';
+import DateComp from '@/components/common/post//DateComp';
 
 interface PostFormProps {
   categories: string[];

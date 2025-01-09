@@ -1,6 +1,8 @@
+import UpdatePostComp from "@app/update/_components/UpdatePostComp"
+
 const page = () => {
   return (
-    <div>page</div>
+    <UpdatePostComp/>
   )
 }
 
