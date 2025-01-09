@@ -1,5 +1,4 @@
 'use client';
-import React from 'react';
 import { ArrowIcon } from '../icons/HomeIcons';
 
 const CategoryBar = () => {

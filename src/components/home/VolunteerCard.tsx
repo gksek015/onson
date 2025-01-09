@@ -1,8 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-// import React, { useEffect } from 'react';
-// import oldman2 from '@/assets/oldman2.jpg';
 import { PostType } from '@/api/getPosts';
 import Link from 'next/link';
 

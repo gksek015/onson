@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CategoryBar from '@/components/home/CategoryBar';
 import HeroSection from '@/components/home/HeroSection';
 import SearchBar from '@/components/home/SearchBar';
