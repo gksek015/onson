@@ -35,4 +35,5 @@ export const getIsLogin = async () => {
   return !!session;
 };
 
+export const supabase = createClient();
 export default createClient;

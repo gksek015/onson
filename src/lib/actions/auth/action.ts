@@ -2,11 +2,10 @@
 
 import { redirect } from 'next/navigation';
 
-import createClient from '@/utils/supabase/server';
+import { supabase } from '@/utils/supabase/server';
 
 // 회원가입
 export const signup = async (formData: FormData) => {
-  const supabase = createClient();
 
   const data = {
     email: formData.get('email') as string,
