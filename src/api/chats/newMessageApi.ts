@@ -1,6 +1,7 @@
-import { supabase } from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/client";
 
-const sendMessage = async(chatId:number, userId:string, content:string) => {
+const sendMessage = async (chatId: number, userId: string, content: string) => {
+    const supabase = createClient()
     const { data, error } = await supabase
     .from('messages')
     .insert([{ chat_id: chatId, user_id: userId, content }]);

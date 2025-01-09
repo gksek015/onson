@@ -1,6 +1,7 @@
-import { supabase } from '@/utils/supabase/client';
+import { createClient } from "@/utils/supabase/client";
 
 const newChatApi = async (user1Id: string, user2Id: string) => {
+  const supabase = createClient()
   const { data: existingChat, error: existingError } = await supabase
     .from('chats')
     .select('*')
