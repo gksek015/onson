@@ -1,30 +1,46 @@
-'use client';
-
 import { useState } from 'react';
 import CategorySelectComp from '@/components/common/post/CategorySelectComp';
 import PhotoComp from '@/components/common/post/PhotoComp';
-import DateComp from '@/components/common/post//DateComp';
+import DateComp from '@/components/common/post/DateComp';
 
 interface PostFormProps {
   categories: string[];
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
 }
 
-const PostForm = ({ categories }: PostFormProps) => {
-  const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
+interface FormData {
+  title: string;
+  address: string;
+  content: string;
+  category: string[];
+  date: string | null;
+  images: File[]; // 이미지 파일 배열
+}
+
+const PostForm: React.FC<PostFormProps> = ({ categories, setFormData }) => {
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [selectedRange, setSelectedRange] = useState<[Date, Date] | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log({
-      selectedCategory,
-      selectedRange: selectedRange
-        ? `${selectedRange[0].toLocaleDateString('ko-KR')} ~ ${selectedRange[1].toLocaleDateString('ko-KR')}`
-        : '기간 선택 안됨'
-    });
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleCategorySelect = (categories: string[]) => {
+    setSelectedCategory(categories.join(', '));
+    setFormData((prev) => ({ ...prev, category: categories }));
+  };
+
+  const handleDateSelect = (range: [Date, Date] | null) => {
+    setSelectedRange(range);
+    setFormData((prev) => ({
+      ...prev,
+      date: range ? `${range[0].toISOString()} ~ ${range[1].toISOString()}` : null,
+    }));
   };
 
   return (
-    <form className="space-y-4" onSubmit={handleSubmit}>
+    <form className="space-y-4">
       <div>
         <label htmlFor="title" className="block text-sm font-medium text-gray-700">
           제목
@@ -34,6 +50,7 @@ const PostForm = ({ categories }: PostFormProps) => {
           id="title"
           name="title"
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          onChange={handleInputChange}
         />
       </div>
 
@@ -48,6 +65,7 @@ const PostForm = ({ categories }: PostFormProps) => {
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           placeholder="지역 선택"
           readOnly
+          onChange={handleInputChange}
         />
       </div>
 
@@ -56,8 +74,8 @@ const PostForm = ({ categories }: PostFormProps) => {
           태그
         </label>
         <div className="flex justify-between items-center space-x-4">
-          <CategorySelectComp categories={categories} onSelectCategory={(category) => setSelectedCategory(category)} />
-          <DateComp onSelectRange={(range) => setSelectedRange(range)} />
+          <CategorySelectComp categories={categories} onSelectCategory={handleCategorySelect} />
+          <DateComp onSelectRange={handleDateSelect} />
         </div>
       </div>
 
@@ -71,10 +89,11 @@ const PostForm = ({ categories }: PostFormProps) => {
           rows={4}
           maxLength={500}
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          onChange={handleInputChange}
         />
       </div>
 
-      <PhotoComp />
+      <PhotoComp onImageSelect={(images: File[]) => setFormData((prev) => ({ ...prev, images }))} />
     </form>
   );
 };

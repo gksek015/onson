@@ -3,10 +3,15 @@
 import Image from "next/image";
 import { useState, useRef } from "react";
 
-const PhotoComp = () => {
+interface PhotoCompProps {
+  onImageSelect: (images: File[]) => void; // 파일 배열을 전달받는 콜백
+}
+
+const PhotoComp = ({onImageSelect}: PhotoCompProps) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {

@@ -1,7 +1,5 @@
 const UpdatePostComp = () => {
-  return (
-    <div>UpdatePostComp</div>
-  )
-}
+  return <div>page</div>;
+};
 
-export default UpdatePostComp
+export default UpdatePostComp;

@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { BottomSheet } from '@/components/common/BottomSheet';
+import { useState } from 'react';
 
 interface CategorySelectProps {
   categories: string[];
-  onSelectCategory: (selectedCategories: string[]) => void;
+  onSelectCategory: (category: string[]) => void;
 }
 
 const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProps) => {
@@ -31,7 +31,7 @@ const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProp
         id="category"
         name="category"
         value={selectedCategories.length > 0 ? selectedCategories.join(', ') : '봉사 종류 선택'}
-        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm cursor-pointer"
+        className="mt-1 block w-full cursor-pointer rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         readOnly
         onClick={() => setSheetOpen(true)}
       />
@@ -39,12 +39,12 @@ const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProp
       {/* 바텀시트 */}
       <BottomSheet isOpen={isSheetOpen} onClose={() => setSheetOpen(false)}>
         <div className="p-4">
-          <h2 className="text-sm font-medium mb-4">봉사 종류 선택</h2>
+          <h2 className="mb-4 text-sm font-medium">봉사 종류 선택</h2>
           <ul className="space-y-2">
             {categories?.map((category) => (
               <li
                 key={category}
-                className="flex items-center justify-between p-2 rounded-md cursor-pointer hover:bg-gray-200"
+                className="flex cursor-pointer items-center justify-between rounded-md p-2 hover:bg-gray-200"
                 onClick={() => handleCheckboxChange(category)}
               >
                 <span className="text-sm text-gray-700">{category}</span>
@@ -53,14 +53,14 @@ const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProp
                   id={category}
                   checked={selectedCategories.includes(category)}
                   onChange={(e) => e.stopPropagation()}
-                  className="rounded border-gray-300 focus:ring-indigo-500 cursor-pointer"
+                  className="cursor-pointer rounded border-gray-300 focus:ring-indigo-500"
                 />
               </li>
             ))}
           </ul>
           <button
             onClick={handleApply}
-            className="mt-4 w-full bg-gray-400 text-white py-2 px-4 rounded-md hover:bg-indigo-600"
+            className="mt-4 w-full rounded-md bg-gray-400 px-4 py-2 text-white hover:bg-indigo-600"
           >
             적용하기
           </button>
