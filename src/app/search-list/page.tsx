@@ -1,11 +1,4 @@
-import Adress from './_components/Adress';
-
 const SearchPage = () => {
-  return (
-    <div>
-      SearchPage
-      <Adress />
-    </div>
-  );
+  return <div>All List Page</div>;
 };
 export default SearchPage;
