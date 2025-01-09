@@ -1,5 +1,5 @@
-import Message from './chatUI/Message';
 import InputBox from './chatUI/InputBox';
+import Message from './chatUI/Message';
 
 // 채팅방
 
