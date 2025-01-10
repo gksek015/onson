@@ -5,15 +5,8 @@ import PostForm from '@/components/common/post/PostForm';
 import { categories } from '@/data/categories';
 import { supabase } from '@/utils/supabase/client';
 import {v4 as uuidv4} from 'uuid';
+import type { FormData } from '@/types/formdata';
 
-interface FormData {
-  title: string;
-  address: string;
-  content: string;
-  category: string;
-  date: string;
-  images: File[];
-}
 
 const NewPostComp = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -50,7 +43,7 @@ const NewPostComp = () => {
           category: formData.category,
           date: formData.date,
           address: formData.address,
-          user_id: '08aa57ac-e595-4b97-a231-db81a5daa35c', //user.id, // 로그인한 사용자 ID
+          user_id: '08aa57ac-e595-4b97-a231-db81a5daa35c', //user.id,  // 로그인한 사용자 ID
           completed: false
         })
         .select() // 삽입된 데이터 반환
@@ -58,7 +51,7 @@ const NewPostComp = () => {
 
       if (postError) throw postError;
 
-      // 2. images 테이블에 데이터 추가 (storage에 업로드 후)
+
       for (const image of formData.images) {
         // 완전한 랜덤 UUID로 파일 이름 생성
         const filename = `${uuidv4()}.${image.name.split('.').pop()}`;

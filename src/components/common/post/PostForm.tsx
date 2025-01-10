@@ -1,25 +1,21 @@
+import { useState } from 'react';
+
 import CategorySelectComp from '@/components/common/post/CategorySelectComp';
 import DateComp from '@/components/common/post/DateComp';
 import PhotoComp from '@/components/common/post/PhotoComp';
-import { useState } from 'react';
+
+import type { FormData } from '@/types/formdata';
 
 interface PostFormProps {
   categories: string[];
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
 }
 
-interface FormData {
-  title: string;
-  address: string;
-  content: string;
-  category: string;
-  date: string;
-  images: File[]; // 이미지 파일 배열
-}
-
-const PostForm: React.FC<PostFormProps> = ({ categories, setFormData }) => {
+const PostForm= ({ categories, setFormData } : PostFormProps) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [selectedRange, setSelectedRange] = useState<[Date, Date] | null>(null);
+
+  console.log(selectedCategory,selectedRange);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -40,7 +36,7 @@ const PostForm: React.FC<PostFormProps> = ({ categories, setFormData }) => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); // 폼 기본 동작 방지
+    e.preventDefault();
     console.log('Form submitted!');
   };
 

@@ -11,17 +11,17 @@ interface DateCompProps {
 }
 
 const DateComp = ({ onSelectRange }: DateCompProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [selectedRange, setSelectedRange] = useState<[Date, Date] | null>(null);
 
-  const handleOpen = () => setIsOpen(true);
-  const handleClose = () => setIsOpen(false);
+  const handleOpen = () => setIsSheetOpen(true);
+  const handleClose = () => setIsSheetOpen(false);
 
   const handleRangeSelect = (range: Date | Date[]) => {
     if (Array.isArray(range) && range.length === 2) {
       setSelectedRange(range as [Date, Date]);
       onSelectRange(range as [Date, Date]);
-      setIsOpen(false);
+      setIsSheetOpen(false);
     } else {
       setSelectedRange(null);
     }
@@ -45,7 +45,7 @@ const DateComp = ({ onSelectRange }: DateCompProps) => {
       />
 
       {/* 바텀시트 */}
-      <BottomSheet isOpen={isOpen} onClose={handleClose}>
+      <BottomSheet isOpen={isSheetOpen} onClose={handleClose}>
         <div className="p-4">
           <h3 className="text-lg font-medium mb-4 text-center">봉사 기간을 선택해 주세요</h3>
           <div className="flex justify-center">
