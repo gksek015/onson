@@ -1,4 +1,4 @@
-import UpdatePostComp from "@app/update/_components/UpdatePostComp"
+import UpdatePostComp from "@app/post-update/_components/UpdatePostComp"
 
 const page = () => {
   return (
