@@ -7,7 +7,7 @@ interface CategorySelectProps {
 }
 
 const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProps) => {
-  const [isSheetOpen, setSheetOpen] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const handleCheckboxChange = (category: string) => {
@@ -18,7 +18,7 @@ const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProp
 
   const handleApply = () => {
     onSelectCategory(selectedCategories);
-    setSheetOpen(false);
+    setIsSheetOpen(false);
   };
 
   return (
@@ -33,11 +33,11 @@ const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProp
         value={selectedCategories.length > 0 ? selectedCategories.join(', ') : '봉사 종류 선택'}
         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm cursor-pointer"
         readOnly
-        onClick={() => setSheetOpen(true)}
+        onClick={() => setIsSheetOpen(true)}
       />
 
       {/* 바텀시트 */}
-      <BottomSheet isOpen={isSheetOpen} onClose={() => setSheetOpen(false)}>
+      <BottomSheet isOpen={isSheetOpen} onClose={() => setIsSheetOpen(false)}>
         <div className="p-4">
           <h2 className="text-sm font-medium mb-4">봉사 종류 선택</h2>
           <ul className="space-y-2">

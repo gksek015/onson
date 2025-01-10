@@ -1,7 +1,7 @@
 'use client';
 
+import { PostType } from '@/app/api/postCard/getPosts';
 import Image from 'next/image';
-import { PostType } from '@/api/getPosts';
 import Link from 'next/link';
 
 interface VolunteerCardProps {
@@ -10,34 +10,31 @@ interface VolunteerCardProps {
 
 const VolunteerCard = ({ post }: VolunteerCardProps) => {
 
+  let firstImg = null;
+  if (post.images && post.images.length > 0) {
+    firstImg = post.images[0].img_url;
+  }
 
-  // console.log(post);
   return (
     <Link href={`/detail/${post.id}`}>
       <div className="flex items-center pt-3">
-        <div className="max-w-content border mx-auto rounded-lg">
-          <div className="flex flex-col md:flex-row gap-12">
+        <div className="mx-auto max-w-content rounded-lg border">
+          <div className="flex flex-col gap-12 md:flex-row">
             <div className="p-5">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="px-3 py-1 bg-gray-400 text-white text-xs rounded-full">{post.category}</span>
-                <span className="px-3 py-1 bg-gray-400 text-white text-xs rounded-full">{post.date}</span>
+              <div className="mb-2 flex items-center gap-2">
+                <span className="rounded-full bg-gray-400 px-3 py-1 text-xs text-white">{post.category}</span>
+                <span className="rounded-full bg-gray-400 px-3 py-1 text-xs text-white">{post.date}</span>
               </div>
-              <h3 className="text-lg font-semibold mb-1">{post.title}</h3>
+              <h3 className="mb-1 text-lg font-semibold">{post.address}</h3>
+              <h3 className="mb-1 text-lg font-semibold">{post.title}</h3>
               <div className="flex items-center text-sm text-gray-600">
                 <span className="mr-4">{post.users.nickname}</span>
                 <span>{post.created_at.split('T')[0]}</span>
               </div>
-              <div className="md:w-1/2 flex flex-col items-center w-64 mt-6">
-                {post.images?.map((image, index) => (
-                  <Image
-                    key={index}
-                    src={image?.img_url}
-                    alt={post.title}
-                    width={800}
-                    height={500}
-                    className="object-cover"
-                  />
-                ))}
+              <div className="mt-6 flex w-64 flex-col items-center md:w-1/2">
+                {firstImg && (
+                  <Image src={firstImg} alt={post.title} width={800} height={500} className="object-cover" />
+                )}
               </div>
             </div>
           </div>
