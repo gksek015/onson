@@ -13,7 +13,7 @@ const ChatBoxButton = () => {
     <>
       <button
         onClick={toggleChatBox}
-        className="fixed bottom-24 right-5 bg-blue-500 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center"
+        className="fixed bottom-24 right-5 bg-blue-500 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center z-100"
       >
         🗨️
       </button>
