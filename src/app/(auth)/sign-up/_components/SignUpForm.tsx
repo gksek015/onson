@@ -2,8 +2,8 @@
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 
 import Button from '@/components/common/Button';
 import AuthInput from '@app/(auth)/_components/AuthInput';
@@ -61,7 +61,7 @@ const SignUpForm = () => {
           {...register('confirmPassword')}
           errorMessage={errors.confirmPassword?.message}
         />
-        <Button className="w-full p-3 bg-[#4B4B4B] text-white rounded-sm " type="submit" label="회원가입" />
+        <Button className="w-full rounded-sm bg-[#4B4B4B] p-3 text-white" type="submit" label="회원가입" />
       </form>
     </div>
   );
