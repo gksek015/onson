@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
 import CategoryBar from '@/components/home/CategoryBar';
 import HeroSection from '@/components/home/HeroSection';
 import SearchBar from '@/components/home/SearchBar';
-import { getPosts } from '@/api/getPosts';
+import { getPosts } from '@/lib/posts/getPosts';
+import { PostType } from '@/types/PostType';
+import { useEffect, useState } from 'react';
 import VolunteerCard from './VolunteerCard';
-import { PostType } from '@/api/getPosts';
 
 export default function MainPage() {
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -28,12 +28,12 @@ export default function MainPage() {
   }, []);
 
   if (loading) {
-    return <div className="text-center py-5">Loading...</div>;
+    return <div className="py-5 text-center">Loading...</div>;
   }
 
   return (
     <section>
-      <div className="flex justify-center items-center gap-3 mx-4">
+      <div className="mx-4 flex items-center justify-center gap-3">
         <CategoryBar />
         <SearchBar />
       </div>
@@ -42,7 +42,7 @@ export default function MainPage() {
       </div>
       <div className="py-4">
         <h2 className="px-5 text-xl font-semibold">방금 등록된 봉사</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-5 pb-20">
+        <div className="grid grid-cols-1 gap-4 px-5 pb-20 sm:grid-cols-2 lg:grid-cols-4">
           {posts.map((post) => (
             <VolunteerCard key={post.id} post={post} />
           ))}
