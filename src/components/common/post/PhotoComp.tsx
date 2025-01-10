@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 
 interface PhotoCompProps {
   onImageSelect: (images: File[]) => void; // 파일 배열을 전달받는 콜백
@@ -23,7 +23,10 @@ const PhotoComp = ({onImageSelect}: PhotoCompProps) => {
         return;
       }
 
-      setSelectedFiles((prevFiles) => [...prevFiles, ...newFiles]);
+      const updatedFiles = [...selectedFiles, ...newFiles];
+
+      setSelectedFiles(updatedFiles);
+      onImageSelect(updatedFiles)
       setError(null);
 
       if (fileInputRef.current) {

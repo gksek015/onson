@@ -7,7 +7,7 @@ import 'react-calendar/dist/Calendar.css';
 import './customCalendar.css';
 
 interface DateCompProps {
-  onSelectRange: (range: [Date, Date] | null) => void;
+  onSelectRange: (range: [Date, Date]) => void;
 }
 
 const DateComp = ({ onSelectRange }: DateCompProps) => {

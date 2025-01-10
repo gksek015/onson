@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import CategorySelectComp from '@/components/common/post/CategorySelectComp';
-import PhotoComp from '@/components/common/post/PhotoComp';
 import DateComp from '@/components/common/post/DateComp';
+import PhotoComp from '@/components/common/post/PhotoComp';
+import { useState } from 'react';
 
 interface PostFormProps {
   categories: string[];
@@ -12,8 +12,8 @@ interface FormData {
   title: string;
   address: string;
   content: string;
-  category: string[];
-  date: string | null;
+  category: string;
+  date: string;
   images: File[]; // 이미지 파일 배열
 }
 
@@ -26,21 +26,26 @@ const PostForm: React.FC<PostFormProps> = ({ categories, setFormData }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleCategorySelect = (categories: string[]) => {
+  const handleCategorySelect = (category: string) => {
     setSelectedCategory(categories.join(', '));
-    setFormData((prev) => ({ ...prev, category: categories }));
+    setFormData((prev) => ({ ...prev, category }));
   };
 
-  const handleDateSelect = (range: [Date, Date] | null) => {
+  const handleDateSelect = (range: [Date, Date]) => {
     setSelectedRange(range);
     setFormData((prev) => ({
       ...prev,
-      date: range ? `${range[0].toISOString()} ~ ${range[1].toISOString()}` : null,
+      date: range[0].toISOString().split('T')[0]
     }));
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault(); // 폼 기본 동작 방지
+    console.log('Form submitted!');
+  };
+
   return (
-    <form className="space-y-4">
+    <form className="space-y-4" onSubmit={handleSubmit}>
       <div>
         <label htmlFor="title" className="block text-sm font-medium text-gray-700">
           제목
@@ -64,7 +69,6 @@ const PostForm: React.FC<PostFormProps> = ({ categories, setFormData }) => {
           name="address"
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           placeholder="지역 선택"
-          readOnly
           onChange={handleInputChange}
         />
       </div>
