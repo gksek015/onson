@@ -2,28 +2,30 @@ interface BottomSheetProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  closeAction?: () => void; // 닫기 버튼의 동작을 결정하는 prop(옵션)
 }
 
-export const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
+export const BottomSheet = ({ isOpen, onClose, children, closeAction }: BottomSheetProps) => {
+  // closeAction prop이 전달되면 사용하고 안되면 onClose 사용
+  const handleClose = closeAction || onClose;
+
   return (
     <>
       {/* 배경 오버레이 */}
       <div
-        className={`fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300 ${
-          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        className={`fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity duration-300 ${
+          isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
         onClick={onClose}
       />
 
       {/* 바텀시트 */}
       <div
-        className={`fixed top-0 left-0 w-full h-full bg-white z-50 shadow-lg
-                     transition-transform duration-300 transform 
-                     ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}
+        className={`fixed left-0 top-0 z-50 h-full w-full transform bg-white shadow-lg transition-transform duration-300 ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}
       >
         <div className="flex justify-end p-4">
           {/* 닫기 버튼 */}
-          <button className="text-gray-500 hover:text-gray-700 text-xl" onClick={onClose}>
+          <button className="text-xl text-gray-500 hover:text-gray-700" onClick={handleClose} >
             ✕
           </button>
         </div>
