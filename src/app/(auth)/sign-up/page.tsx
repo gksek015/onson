@@ -12,11 +12,11 @@ export const metadata: Metadata = {
 const SignUpPage = () => {
   return (
     <>
-      <div className="min-h-screen flex flex-col items-center justify-center p-4">
+      <div className="flex min-h-screen flex-col items-center justify-center p-4">
         <Link href="/">뒤로</Link>
-        <h1 className="text-3xl font-bold mb-8">회원가입</h1>
+        <h1 className="mb-8 text-3xl font-bold">회원가입</h1>
         <SignUpForm />
-        <div className="flex flex-col items-center space-y-2 text-sm my-5">
+        <div className="my-5 flex flex-col items-center space-y-2 text-sm">
           <Link href="/login">이미 계정이 있으신가요?</Link>
         </div>
       </div>
