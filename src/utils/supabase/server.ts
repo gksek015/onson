@@ -27,12 +27,4 @@ const createClient = () => {
   });
 };
 
-export const getIsLogin = async () => {
-  const serverClient = createClient();
-  const {
-    data: { session }
-  } = await serverClient.auth.getSession();
-  return !!session;
-};
-
-export default createClient;
+export const supabase = createClient();

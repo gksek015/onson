@@ -1,7 +1,8 @@
 'use client';
 
+import { logout } from '@/lib/actions/auth/action';
 import Link from 'next/link';
-import { useRef, useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const ProfileDropdown = () => {
   const [isDropdown, setIsDropdown] = useState(false);
@@ -28,30 +29,34 @@ const ProfileDropdown = () => {
     };
   }, []);
 
+  const logoutWithUser = async () => {
+    await logout();
+  };
+
   return (
-    <div className="relative w-10 h-10" ref={dropdownRef}>
+    <div className="relative h-10 w-10" ref={dropdownRef}>
       <img
         src="https://via.placeholder.com/40"
         alt="Profile"
-        className="w-10 h-10 rounded-full object-cover border border-gray-300 cursor-pointer"
+        className="h-10 w-10 cursor-pointer rounded-full border border-gray-300 object-cover"
         onClick={toggleDropdown}
       />
       {isDropdown && (
-        <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+        <div className="absolute right-0 z-10 mt-2 w-48 rounded-md border border-gray-200 bg-white shadow-lg">
           <ul>
-            <li className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+            <li className="cursor-pointer px-4 py-2 text-black hover:bg-gray-100">
               <Link href="/my-page">마이페이지</Link>
             </li>
-            <li className="px-4 py-2 text-black hover:bg-gray-100 cursor-pointer">
+            <li className="cursor-pointer px-4 py-2 text-black hover:bg-gray-100">
               <Link href="/continue-chat">대화 이어가기</Link>
             </li>
             <li
-              className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-500"
+              className="cursor-pointer px-4 py-2 text-red-500 hover:bg-gray-100"
               onClick={() => {
                 setIsDropdown(false);
               }}
             >
-              <button>로그아웃</button>
+              <button onClick={logoutWithUser}>로그아웃</button>
             </li>
           </ul>
         </div>
