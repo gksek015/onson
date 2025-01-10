@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import Header from '@/components/layout/Header';
 import BottomNav from '@/components/layout/BottomNav';
+import Providers from './providers';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -33,7 +34,9 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div>
           <Header />
-          <main className="mt-8 flex-1">{children}</main>
+          <Providers>
+            <main className="mt-8 flex-1">{children}</main>
+          </Providers>
           <div className="block sm:hidden">
             <BottomNav />
           </div>

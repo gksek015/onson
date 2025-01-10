@@ -1,9 +1,10 @@
 'use client';
 
-import { getPosts, PostType } from '@/app/api/postCard/getPosts';
 import CategoryButton from '@/components/home/CategoryButton';
 import HeroSection from '@/components/home/HeroSection';
 import SearchBar from '@/components/home/SearchBar';
+import { getPosts } from '@/lib/posts/getPosts';
+import { PostType } from '@/types/PostType';
 import { useEffect, useState } from 'react';
 import VolunteerCard from './VolunteerCard';
 

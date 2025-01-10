@@ -89,7 +89,7 @@ const AddressSearch = () => {
       {error && (
         <div className="text-red-600 my-4">
           <p >검색결과가 없습니다.</p>
-          <p>'서울시 강남구' 형태로 입력해주세요.</p>
+          <p>서울시 강남구 형태로 입력해주세요.</p>
         </div>
       )}
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { PostType } from '@/app/api/postCard/getPosts';
+import type { PostType } from '@/types/PostType';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -9,7 +9,6 @@ interface VolunteerCardProps {
 }
 
 const VolunteerCard = ({ post }: VolunteerCardProps) => {
-
   let firstImg = null;
   if (post.images && post.images.length > 0) {
     firstImg = post.images[0].img_url;
