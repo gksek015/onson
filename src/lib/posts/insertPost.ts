@@ -5,14 +5,7 @@ import type { FormData } from '@/types/formdata';
 // 게시물 데이터를 Supabase Posts 테이블에 삽입하는 함수
 export const insertPost = async (formData: FormData, userId: string): Promise<{ id: string }> => {
   try {
-      // const {
-  //   data: { user }
-  // } = await supabase.auth.getUser();
 
-  // if (!user) {
-  //   alert('사용자가 로그인되지 않았습니다.');
-  //   return;
-  // }
     const { data: post, error } = await supabase
       .from('posts')
       .insert({

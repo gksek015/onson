@@ -2,10 +2,9 @@
 
 import PostForm from '@/components/common/post/PostForm';
 import { categories } from '@/data/categories';
-import { useState } from 'react';
-//import { supabase } from '@/utils/supabase/client';
-//import {v4 as uuidv4} from 'uuid';
-import { insertImageToPost, insertPost, uploadImage } from '@/lib/posts/insertPosts';
+import { useState, useEffect } from 'react';
+import { insertImageToPost, insertPost, uploadImage } from '@/lib/posts/insertPost';
+import { getCurrentUserId } from '@/lib/posts/updatePost';
 import type { FormData } from '@/types/formdata';
 
 const NewPostComp = () => {
@@ -18,22 +17,52 @@ const NewPostComp = () => {
     images: []
   });
 
+  const [userId, setUserId] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const id = await getCurrentUserId();
+      if (!id) {
+        alert('로그인이 필요합니다. 로그인 후 다시 시도하세요.');
+      }
+      setUserId(id as string);
+      setIsLoading(false);
+    };
+
+    fetchUserId();
+  }, []);
+
+  // image 타입 함수
+  const isFile = (image: File | { img_url: string }): image is File => {
+    return image instanceof File;
+  };
+
   const handleSubmit = async () => {
+    if (!userId) {
+      alert('로그인이 필요합니다. 로그인 후 다시 시도하세요.');
+      return;
+    }
     try {
       if (!formData.title || !formData.content || !formData.date) {
-        alert('필수 필드를 모두 입력하세요.'); // 필수 필드가 비어 있는 경우 알림
+        alert('필수 필드를 모두 입력하세요.');
         return;
       }
-
-      const userId = '08aa57ac-e595-4b97-a231-db81a5daa35c'; // 사용자 ID (로그인 후 토큰에서 가져오도록 개선 가능)
-      const bucketName = 'images_bucket'; // Supabase 스토리지 버킷 이름
+      const bucketName = 'images_bucket';
 
       // 게시물 삽입
       const post = await insertPost(formData, userId);
 
-      // 이미지 업로드 및 이미지 테이블 삽입
       for (const image of formData.images) {
-        const imageUrl = await uploadImage(image, bucketName);
+        let imageUrl: string;
+  
+        if (isFile(image)) {
+          imageUrl = await uploadImage(image, bucketName);
+        } else {
+          imageUrl = image.img_url;
+        }
+  
+        // 이미지 테이블 삽입
         await insertImageToPost(post.id, imageUrl);
       }
 
@@ -44,9 +73,13 @@ const NewPostComp = () => {
     }
   };
 
+  if (isLoading) {
+    return <div>로딩 중...</div>;
+  }
 
-
-
+  if (!userId) {
+    return <div>로그인이 필요한 페이지입니다.</div>;
+  }
 
   return (
     <div className="min-h-screen bg-white">

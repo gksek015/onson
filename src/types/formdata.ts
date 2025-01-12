@@ -4,5 +4,5 @@ export interface FormData {
     content: string;
     category: string;
     date: string;
-    images: File[];
+    images: { img_url: string }[] | File[];
   }

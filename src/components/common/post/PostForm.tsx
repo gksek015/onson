@@ -37,6 +37,13 @@ const PostForm = ({ categories, setFormData }: PostFormProps) => {
     }));
   };
 
+  const handleImageSelect = (images: File[]) => {
+    setFormData((prev) => ({
+      ...prev,
+      images, // 이미지 배열 업데이트
+    }));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted!');
@@ -95,7 +102,7 @@ const PostForm = ({ categories, setFormData }: PostFormProps) => {
         />
       </div>
 
-      <PhotoComp onImageSelect={(images: File[]) => setFormData((prev) => ({ ...prev, images }))} />
+      <PhotoComp onImageSelect={handleImageSelect} />
     </form>
   );
 };
