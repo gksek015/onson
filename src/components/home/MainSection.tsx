@@ -1,34 +1,16 @@
 'use client';
 
+import useGetPostMain from '@/app/hooks/useGetPostMain';
 import CategoryButton from '@/components/home/CategoryButton';
 import HeroSection from '@/components/home/HeroSection';
 import SearchBar from '@/components/home/SearchBar';
-import { getPosts } from '@/lib/posts/getPosts';
-import { PostType } from '@/types/PostType';
-import { useEffect, useState } from 'react';
 import VolunteerCard from './VolunteerCard';
 
-export default function MainPage() {
-  const [posts, setPosts] = useState<PostType[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const fetchedPosts = await getPosts();
-        // 최신 게시글 8개만 가져오기
-        setPosts(fetchedPosts.slice(0, 8));
-      } catch (error) {
-        console.error('데이터를 불러오는데 실패했습니다.', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPosts();
-  }, []);
+const MainSection = () => {
+  const { posts, loading } = useGetPostMain();
 
   if (loading) {
-    return <div className="py-5 text-center">Loading...</div>;
+    return <div>Loading...</div>;
   }
 
   return (
@@ -50,4 +32,6 @@ export default function MainPage() {
       </div>
     </section>
   );
-}
+};
+
+export default MainSection;

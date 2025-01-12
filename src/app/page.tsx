@@ -1,10 +1,10 @@
 import ChatBoxButton from '@/components/chatbox/ChatBoxButton';
-import MainPage from '@/components/home/MainPage';
+import MainSection from '@/components/home/MainSection';
 
 export default function Home() {
   return (
     <section>
-      <MainPage />
+      <MainSection />
       <div>
         <ChatBoxButton />
       </div>
