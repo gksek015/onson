@@ -1,26 +1,52 @@
-'use client';
+import { useEffect, useState } from 'react';
 
-import { useState } from 'react';
-import CategorySelectComp from './CategorySelectComp';
-import PhotoComp from './PhotoComp';
-import DateComp from './DateComp';
+import CategorySelectComp from '@/components/common/post/CategorySelectComp';
+import DateComp from '@/components/common/post/DateComp';
+import PhotoComp from '@/components/common/post/PhotoComp';
+
+import type { FormData } from '@/types/formdata';
 
 interface PostFormProps {
   categories: string[];
+  setFormData: React.Dispatch<React.SetStateAction<FormData>>;
 }
 
-const PostForm = ({ categories }: PostFormProps) => {
-  const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
+const PostForm = ({ categories, setFormData }: PostFormProps) => {
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [selectedRange, setSelectedRange] = useState<[Date, Date] | null>(null);
+
+  useEffect(() => {
+    console.log(selectedCategory, selectedRange);
+  }, [selectedCategory, selectedRange]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+    setFormData((prev) => ({ ...prev, category }));
+  };
+
+  const handleDateSelect = (range: [Date, Date]) => {
+    setSelectedRange(range);
+    setFormData((prev) => ({
+      ...prev,
+      date: range[0].toISOString().split('T')[0]
+    }));
+  };
+
+  const handleImageSelect = (images: File[]) => {
+    setFormData((prev) => ({
+      ...prev,
+      images, // 이미지 배열 업데이트
+    }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({
-      selectedCategory,
-      selectedRange: selectedRange
-        ? `${selectedRange[0].toLocaleDateString('ko-KR')} ~ ${selectedRange[1].toLocaleDateString('ko-KR')}`
-        : '기간 선택 안됨'
-    });
+    console.log('Form submitted!');
   };
 
   return (
@@ -33,7 +59,8 @@ const PostForm = ({ categories }: PostFormProps) => {
           type="text"
           id="title"
           name="title"
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          onChange={handleInputChange}
         />
       </div>
 
@@ -45,9 +72,9 @@ const PostForm = ({ categories }: PostFormProps) => {
           type="text"
           id="address"
           name="address"
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           placeholder="지역 선택"
-          readOnly
+          onChange={handleInputChange}
         />
       </div>
 
@@ -55,9 +82,9 @@ const PostForm = ({ categories }: PostFormProps) => {
         <label htmlFor="tag" className="block text-sm font-medium text-gray-700">
           태그
         </label>
-        <div className="flex justify-between items-center space-x-4">
-          <CategorySelectComp categories={categories} onSelectCategory={(category) => setSelectedCategory(category)} />
-          <DateComp onSelectRange={(range) => setSelectedRange(range)} />
+        <div className="flex items-center justify-between space-x-4">
+          <CategorySelectComp categories={categories} onSelectCategory={handleCategorySelect} />
+          <DateComp onSelectRange={handleDateSelect} />
         </div>
       </div>
 
@@ -70,11 +97,12 @@ const PostForm = ({ categories }: PostFormProps) => {
           name="content"
           rows={4}
           maxLength={500}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          onChange={handleInputChange}
         />
       </div>
 
-      <PhotoComp />
+      <PhotoComp onImageSelect={handleImageSelect} />
     </form>
   );
 };
