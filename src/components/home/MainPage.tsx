@@ -4,7 +4,7 @@ import CategoryBar from '@/components/home/CategoryBar';
 import HeroSection from '@/components/home/HeroSection';
 import SearchBar from '@/components/home/SearchBar';
 import { getPosts } from '@/lib/posts/getPosts';
-import { PostType } from '@/types/PostType';
+import type { PostType } from '@/types/PostType';
 import { useEffect, useState } from 'react';
 import VolunteerCard from './VolunteerCard';
 
@@ -33,7 +33,7 @@ export default function MainPage() {
 
   return (
     <section>
-      <div className="mx-4 flex items-center justify-center gap-3">
+      <div className="mx-4 mt-8 flex items-center justify-center gap-3">
         <CategoryBar />
         <SearchBar />
       </div>

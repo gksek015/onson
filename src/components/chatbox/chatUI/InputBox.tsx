@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { IoPaperPlaneOutline } from 'react-icons/io5';
 
 // 메세지 입력창
 
@@ -19,34 +20,17 @@ const InputBox = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center space-x-2 bg-white rounded-full px-2 py-1 border-2 ">
+    <form onSubmit={handleSubmit} className="flex items-center space-x-2 rounded-full border-2 bg-white px-2 py-1">
       <input
         type="text"
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         placeholder="메시지를 입력해주세요"
-        className="flex-1 outline-none indent-2"
+        className="flex-1 indent-2 outline-none"
       />
       {/* 전송 버튼 */}
-      <button
-        type="submit"
-        className="p-2 bg-slate-100 rounded-full flex items-center justify-center"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="feather feather-send"
-        >
-          <line x1="22" y1="2" x2="11" y2="13"></line>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-        </svg>
+      <button type="submit" className="flex items-center justify-center rounded-full bg-slate-100 p-2">
+        <IoPaperPlaneOutline/>
       </button>
     </form>
   );
