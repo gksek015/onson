@@ -1,4 +1,5 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { GrSearch } from 'react-icons/gr';
 
@@ -14,24 +15,12 @@ interface ApiResponse {
   };
 }
 
-interface AddressSearchProps {
-  keyword: string;
-  setKeyword: (value: string) => void;
-  searchResults: Juso[];
-  setSearchResults: (results: Juso[]) => void;
-  error: string | null;
-  setError: (value: string | null) => void;
-}
-
-const AddressSearch = ({
-  keyword,
-  setKeyword,
-  searchResults,
-  setSearchResults,
-  error,
-  setError
-}: AddressSearchProps) => {
+const AddressSearch = () => {
+  const [keyword, setKeyword] = useState(''); // 검색 키워드 상태
+  const [searchResults, setSearchResults] = useState<Juso[]>([]); // 검색 결과 상태
+  const [error, setError] = useState<string | null>(null); // 에러 상태
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (!keyword.trim()) {
@@ -105,7 +94,14 @@ const AddressSearch = ({
       {/* 검색 결과 */}
       <ul>
         {searchResults.map((juso, index) => (
-          <li key={index} className="m-3 py-1 text-base md:text-2xl">
+          <li
+            key={index}
+            className="m-3 py-1 text-base md:text-2xl"
+            onClick={() => {
+              //query string으로 주소 데이터 전달
+              router.push(`/list?address=${juso.siNm}_${juso.sggNm}_${juso.emdNm}`);
+            }}
+          >
             {juso.siNm} {juso.sggNm} {juso.emdNm}
           </li>
         ))}
