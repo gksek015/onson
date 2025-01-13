@@ -33,7 +33,7 @@ export default function MainPage() {
 
   return (
     <section>
-      <div className="mx-4 flex items-center justify-center gap-3">
+      <div className="mx-4 mt-8 flex items-center justify-center gap-3">
         <CategoryBar />
         <SearchBar />
       </div>
