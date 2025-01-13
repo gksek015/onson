@@ -27,8 +27,6 @@ const ChatInBox = ({ userId, otherUserId }: ChatInBoxProps) => {
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
 
-  console.log(userId);
-
   useEffect(() => {
     const fetchChatRooms = async () => {
       const { data, error } = await supabase
