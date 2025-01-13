@@ -12,7 +12,6 @@ const Chatroom = () => {
       </div>
 
       {/* 입력창 */}
-
         <InputBox />
     </div>
   );
