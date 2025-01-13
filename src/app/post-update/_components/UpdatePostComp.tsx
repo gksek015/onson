@@ -4,16 +4,18 @@ import PostForm from '@/components/common/post/PostForm';
 import { categories } from '@/data/categories';
 import { getCurrentUserId, getPost, updatePostById } from '@/lib/posts/updatePost';
 import type { FormData } from '@/types/formdata';
+import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 
 const UpdatePostComp = () => {
-  const postId = '2a9cc6c1-eaca-47e6-acef-df451d450775'
+  const {id: postId} = useParams();
   const [formData, setFormData] = useState<FormData>({
     title: '',
     address: '',
     category: '',
     date: '',
+    end_date: '',
     content: '',
     images: []
   });
@@ -21,7 +23,6 @@ const UpdatePostComp = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-
     const fetchPostData = async () => {
       try {
         // 현재 사용자 ID 가져오기
@@ -44,12 +45,15 @@ const UpdatePostComp = () => {
           setIsAuthorized(false);
           return;
         }
+        
+        const fullAddress = `${post.si} ${post.gu} ${post.dong}` 
 
         setFormData({
           title: post.title,
-          address: post.address,
+          address: fullAddress,
           category: post.category,
           date: post.date,
+          end_date: post.end_date,
           content: post.content,
           images: post.images || []
         });
@@ -92,7 +96,7 @@ const UpdatePostComp = () => {
       </header>
 
       <main className="p-4">
-        <PostForm categories={categories} setFormData={setFormData} />
+        <PostForm categories={categories} setFormData={setFormData} formData={formData}/>
       </main>
     </div>) : (
     <p>수정 권한이 없습니다.</p>

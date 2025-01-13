@@ -14,6 +14,7 @@ const NewPostComp = () => {
     content: '',
     category: '',
     date: '',
+    end_date: '',
     images: []
   });
 
@@ -91,7 +92,7 @@ const NewPostComp = () => {
       </header>
 
       <main className="p-4">
-        <PostForm categories={categories} setFormData={setFormData} />
+        <PostForm categories={categories} setFormData={setFormData} formData={formData}/>
       </main>
     </div>
   );

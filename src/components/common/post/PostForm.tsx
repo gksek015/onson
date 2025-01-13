@@ -5,13 +5,15 @@ import DateComp from '@/components/common/post/DateComp';
 import PhotoComp from '@/components/common/post/PhotoComp';
 
 import type { FormData } from '@/types/formdata';
+import dayjs from 'dayjs';
 
 interface PostFormProps {
   categories: string[];
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  formData: FormData;
 }
 
-const PostForm = ({ categories, setFormData }: PostFormProps) => {
+const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [selectedRange, setSelectedRange] = useState<[Date, Date] | null>(null);
 
@@ -30,13 +32,17 @@ const PostForm = ({ categories, setFormData }: PostFormProps) => {
   };
 
   const handleDateSelect = (range: [Date, Date]) => {
-    setSelectedRange(range);
+    const [startDate, endDate] = range;
+  
+    setSelectedRange([startDate, endDate]);
+  
+    // `dayjs`로 `YYYY-MM-DD` 포맷 설정
     setFormData((prev) => ({
       ...prev,
-      date: range[0].toISOString().split('T')[0]
+      date: dayjs(startDate).format('YYYY-MM-DD'),
+      end_date: dayjs(endDate).format('YYYY-MM-DD'),
     }));
   };
-
   const handleImageSelect = (images: File[]) => {
     setFormData((prev) => ({
       ...prev,
@@ -59,6 +65,7 @@ const PostForm = ({ categories, setFormData }: PostFormProps) => {
           type="text"
           id="title"
           name="title"
+          value={formData.title}
           className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           onChange={handleInputChange}
         />
@@ -72,6 +79,7 @@ const PostForm = ({ categories, setFormData }: PostFormProps) => {
           type="text"
           id="address"
           name="address"
+          value={formData.address}
           className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           placeholder="지역 선택"
           onChange={handleInputChange}
@@ -83,8 +91,8 @@ const PostForm = ({ categories, setFormData }: PostFormProps) => {
           태그
         </label>
         <div className="flex items-center justify-between space-x-4">
-          <CategorySelectComp categories={categories} onSelectCategory={handleCategorySelect} />
-          <DateComp onSelectRange={handleDateSelect} />
+          <CategorySelectComp formData={formData} categories={categories} onSelectCategory={handleCategorySelect} />
+          <DateComp onSelectRange={handleDateSelect} formData={formData}/>
         </div>
       </div>
 
@@ -95,6 +103,7 @@ const PostForm = ({ categories, setFormData }: PostFormProps) => {
         <textarea
           id="content"
           name="content"
+          value={formData.content}
           rows={4}
           maxLength={500}
           className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -102,7 +111,7 @@ const PostForm = ({ categories, setFormData }: PostFormProps) => {
         />
       </div>
 
-      <PhotoComp onImageSelect={handleImageSelect} />
+      <PhotoComp onImageSelect={handleImageSelect} formData={formData}/>
     </form>
   );
 };

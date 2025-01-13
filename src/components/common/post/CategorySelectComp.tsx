@@ -1,13 +1,15 @@
 import { BottomSheet } from '@/components/common/BottomSheet';
+import type { FormData } from '@/types/formdata';
 import { useState } from 'react';
 
 interface CategorySelectProps {
   categories: string[];
   onSelectCategory: (category: string) => void;
+  formData: FormData
 }
 
-const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProps) => {
-  const [isSheetOpen, setIsSheetOpen] = useState(false);
+const CategorySelectComp = ({ categories, onSelectCategory, formData }: CategorySelectProps) => {
+  const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
   const [selectedCategories, setSelectedCategories] = useState<string>('');
 
   const handleCheckboxChange = (category: string) => {
@@ -28,7 +30,7 @@ const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProp
         type="text"
         id="category"
         name="category"
-        value={selectedCategories.length > 0 ? selectedCategories : '봉사 종류 선택'}
+        value={formData.category || '봉사 종류 선택'}
         className="mt-1 block w-full cursor-pointer rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         readOnly
         onClick={() => setIsSheetOpen(true)}

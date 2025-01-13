@@ -1,13 +1,15 @@
 "use client";
 
+import type { FormData } from "@/types/formdata";
 import Image from "next/image";
 import { useRef, useState } from "react";
 
 interface PhotoCompProps {
   onImageSelect: (images: File[]) => void;
+  formData: FormData
 }
 
-const PhotoComp = ({onImageSelect}: PhotoCompProps) => {
+const PhotoComp = ({onImageSelect, formData}: PhotoCompProps) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -68,7 +70,7 @@ const PhotoComp = ({onImageSelect}: PhotoCompProps) => {
           accept="image/*"
           className="hidden"
           onChange={handleFileChange}
-          disabled={selectedFiles.length >= 5}
+          disabled={(formData.images || []).length >= 5}
           ref={fileInputRef}
         />
       </div>
