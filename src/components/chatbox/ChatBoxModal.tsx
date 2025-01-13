@@ -13,7 +13,7 @@ interface ChatBoxModalProps {
 const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   const [activeTab, setActiveTab] = useState('온손이 AI'); //'실시간채팅'과  '온손이 AI' 두개의 탭 상태 관리
   const { userId, error } = useGetUserChatInfo();
-  const { otherUserId, setOtherUserId } = useState<string>('dc5d580d-0f75-4b93-aa34-1431861cf584');
+  // const { otherUserId, setOtherUserId } = useState<string>('dc5d580d-0f75-4b93-aa34-1431861cf584');
 
   if (error) {
     <p>Error : {error}</p>;
@@ -42,11 +42,7 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
         <div className="flex h-full flex-col">
           {/* 컨텐츠 */}
           <div className="flex-1 p-4">
-            {activeTab === '온손이 AI' ? (
-              <AIChatroom></AIChatroom>
-            ) : (
-              <ChatInbox userId={userId} otherUserId={otherUserId} />
-            )}
+            {activeTab === '온손이 AI' ? <AIChatroom></AIChatroom> : <ChatInbox userId={userId} />}
           </div>
           {/* 탭바 */}
           <div className="flex border-t">

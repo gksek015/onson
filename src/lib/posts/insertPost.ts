@@ -1,6 +1,6 @@
+import type { FormData } from '@/types/formdata';
 import { supabase } from '@/utils/supabase/client';
 import { v4 as uuidv4 } from 'uuid';
-import type { FormData } from '@/types/formdata';
 
 // 게시물 데이터를 Supabase Posts 테이블에 삽입하는 함수
 export const insertPost = async (formData: FormData, userId: string): Promise<{ id: string }> => {
@@ -13,6 +13,7 @@ export const insertPost = async (formData: FormData, userId: string): Promise<{ 
         content: formData.content,
         category: formData.category,
         date: formData.date,
+        end_date:formData.date,
         address: formData.address,
         user_id: userId,
         completed: false,

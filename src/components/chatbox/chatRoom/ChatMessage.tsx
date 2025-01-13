@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import InputBox from '../chatUI/InputBox';
 
 interface Message {
   user_id: string;
@@ -46,13 +47,14 @@ const ChatMessage = ({ messages, onSendMessage, onBack }: ChatMessageProps) => {
       </div>
       <footer className="border-t p-4">
         <div className="flex">
-          <input
+          {/* <input
             type="text"
             className="flex-1 rounded-l-lg border p-2"
             placeholder="메시지를 입력하세요..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-          />
+          /> */}
+          <InputBox />
           <button className="rounded-r-lg bg-blue-500 p-2 text-white" onClick={handleSend}>
             전송
           </button>
