@@ -2,18 +2,31 @@
 
 import type { FormData } from "@/types/formdata";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface PhotoCompProps {
   onImageSelect: (images: File[]) => void;
-  formData: FormData
+  formData: {
+    images: Array<{ img_url: string }> | File[];
+  };
 }
 
 const PhotoComp = ({onImageSelect, formData}: PhotoCompProps) => {
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<Array<File | { img_url: string }>>([]);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+
+  useEffect(() => {
+    // 초기 이미지 세팅 (기존 img_url)
+    if (formData.images && formData.images.length > 0) {
+      const initialPreviews = formData.images.map((image) =>
+        "img_url" in image ? image.img_url : URL.createObjectURL(image)
+      );
+      setSelectedFiles(formData.images);
+      setPreviewUrls(initialPreviews);
+    }
+  }, [formData.images]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -30,9 +43,10 @@ const PhotoComp = ({onImageSelect, formData}: PhotoCompProps) => {
       setSelectedFiles(updatedFiles);
 
 
-      const updatedPreviewUrls = updatedFiles.map((file) => URL.createObjectURL(file));
+      const updatedPreviewUrls = updatedFiles.map((file) => "img_url" in file ? file.img_url : URL.createObjectURL(file)
+      );
       setPreviewUrls(updatedPreviewUrls);
-      onImageSelect(updatedFiles);
+      onImageSelect(updatedFiles.filter((file) => file instanceof File) as File[]);
 
       setError(null);
 
@@ -46,10 +60,10 @@ const PhotoComp = ({onImageSelect, formData}: PhotoCompProps) => {
     const updatedFiles = selectedFiles.filter((_, fileIndex) => fileIndex !== index);
     setSelectedFiles(updatedFiles);
 
-    const updatedPreviewUrls = updatedFiles.map((file) => URL.createObjectURL(file));
+    const updatedPreviewUrls = updatedFiles.map((file) => "img_url" in file ? file.img_url : URL.createObjectURL(file));
     setPreviewUrls(updatedPreviewUrls);
 
-    onImageSelect(updatedFiles);
+    onImageSelect(updatedFiles.filter((file) => file instanceof File) as File[]);
   };
 
   return (
@@ -70,7 +84,7 @@ const PhotoComp = ({onImageSelect, formData}: PhotoCompProps) => {
           accept="image/*"
           className="hidden"
           onChange={handleFileChange}
-          disabled={(formData.images || []).length >= 5}
+          disabled={selectedFiles.length >= 5}
           ref={fileInputRef}
         />
       </div>

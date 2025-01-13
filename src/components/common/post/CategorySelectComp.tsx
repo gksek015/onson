@@ -1,6 +1,6 @@
 import { BottomSheet } from '@/components/common/BottomSheet';
 import type { FormData } from '@/types/formdata';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface CategorySelectProps {
   categories: string[];
@@ -10,14 +10,21 @@ interface CategorySelectProps {
 
 const CategorySelectComp = ({ categories, onSelectCategory, formData }: CategorySelectProps) => {
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
-  const [selectedCategories, setSelectedCategories] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+
+    // 초기값 설정: formData.category를 selectedCategory에 세팅
+    useEffect(() => {
+      if (formData.category) {
+        setSelectedCategory(formData.category);
+      }
+    }, [formData.category]);
 
   const handleCheckboxChange = (category: string) => {
-    setSelectedCategories(category);
+    setSelectedCategory(category);
   };
 
   const handleApply = () => {
-    onSelectCategory(selectedCategories);
+    onSelectCategory(selectedCategory);
     setIsSheetOpen(false);
   };
 
@@ -51,15 +58,15 @@ const CategorySelectComp = ({ categories, onSelectCategory, formData }: Category
                 <input
                   type="checkbox"
                   id={category}
-                  checked={selectedCategories.includes(category)}
-                  onChange={(e) => e.stopPropagation()}
+                  checked={selectedCategory.includes(category)}
+                  onChange={(e) => {e.stopPropagation()}}
                   className="cursor-pointer rounded border-gray-300 focus:ring-indigo-500"
                 />
               </li>
             ))}
           </ul>
           <button
-          type='button'
+            type="button"
             onClick={handleApply}
             className="mt-4 w-full rounded-md bg-gray-400 px-4 py-2 text-white hover:bg-indigo-600"
           >

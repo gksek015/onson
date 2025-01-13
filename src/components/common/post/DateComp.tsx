@@ -85,7 +85,7 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
           </div>
           <div className="mt-4 text-center">
             <button
-            type='button'
+              type="button"
               onClick={handleClose}
               className="rounded-md bg-gray-200 px-4 py-2 font-semibold text-gray-600 hover:bg-gray-300"
             >

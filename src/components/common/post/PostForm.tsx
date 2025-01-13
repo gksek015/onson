@@ -14,49 +14,38 @@ interface PostFormProps {
 }
 
 const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
-  const [selectedRange, setSelectedRange] = useState<[Date, Date] | null>(null);
-
-  useEffect(() => {
-    console.log(selectedCategory, selectedRange);
-  }, [selectedCategory, selectedRange]);
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleCategorySelect = (category: string) => {
-    setSelectedCategory(category);
     setFormData((prev) => ({ ...prev, category }));
   };
 
   const handleDateSelect = (range: [Date, Date]) => {
     const [startDate, endDate] = range;
-  
-    setSelectedRange([startDate, endDate]);
-  
-    // `dayjs`로 `YYYY-MM-DD` 포맷 설정
+
     setFormData((prev) => ({
       ...prev,
       date: dayjs(startDate).format('YYYY-MM-DD'),
       end_date: dayjs(endDate).format('YYYY-MM-DD'),
     }));
   };
+
   const handleImageSelect = (images: File[]) => {
     setFormData((prev) => ({
       ...prev,
-      images, // 이미지 배열 업데이트
+      images,
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted!');
   };
 
   return (
-    <form className="space-y-4" onSubmit={handleSubmit}>
+    <form className="space-y-4" onSubmit={handleSubmit} >
       <div>
         <label htmlFor="title" className="block text-sm font-medium text-gray-700">
           제목
