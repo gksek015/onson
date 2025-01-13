@@ -1,12 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 
-const PhotoComp = () => {
+interface PhotoCompProps {
+  onImageSelect: (images: File[]) => void;
+}
+
+const PhotoComp = ({onImageSelect}: PhotoCompProps) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -18,7 +23,15 @@ const PhotoComp = () => {
         return;
       }
 
-      setSelectedFiles((prevFiles) => [...prevFiles, ...newFiles]);
+      // 파일 추가 및 상태 관리
+      const updatedFiles = [...selectedFiles, ...newFiles];
+      setSelectedFiles(updatedFiles);
+
+
+      const updatedPreviewUrls = updatedFiles.map((file) => URL.createObjectURL(file));
+      setPreviewUrls(updatedPreviewUrls);
+      onImageSelect(updatedFiles);
+
       setError(null);
 
       if (fileInputRef.current) {
@@ -28,9 +41,13 @@ const PhotoComp = () => {
   };
 
   const handleRemoveFile = (index: number) => {
-    setSelectedFiles((prevFiles) =>
-      prevFiles.filter((_, fileIndex) => fileIndex !== index)
-    );
+    const updatedFiles = selectedFiles.filter((_, fileIndex) => fileIndex !== index);
+    setSelectedFiles(updatedFiles);
+
+    const updatedPreviewUrls = updatedFiles.map((file) => URL.createObjectURL(file));
+    setPreviewUrls(updatedPreviewUrls);
+
+    onImageSelect(updatedFiles);
   };
 
   return (
@@ -60,7 +77,7 @@ const PhotoComp = () => {
 
       {/* 선택한 파일 미리보기 */}
       <div className="grid grid-cols-3 gap-2">
-        {selectedFiles.map((file, index) => (
+        {previewUrls.map((imgUrl, index) => (
           <div
             key={index}
             className="relative w-20 h-20 border border-gray-300 rounded overflow-hidden"
@@ -68,8 +85,7 @@ const PhotoComp = () => {
             <Image
               width={80}
               height={80}
-              src={URL.createObjectURL(file)}
-              alt={`preview-${index}`}
+              src={imgUrl} alt={`img-${index}`}
               className="w-full h-full object-cover"
             />
             <button

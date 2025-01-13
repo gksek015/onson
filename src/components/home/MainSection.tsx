@@ -1,9 +1,9 @@
 'use client';
 
-import useGetPost from '@/app/hooks/useGetPost';
 import AddressButton from '@/components/home/AddressButton';
 import HeroSection from '@/components/home/HeroSection';
 import VolunteerCard from './VolunteerCard';
+import useGetPost from '@/hooks/useGetPost';
 
 const MainSection = () => {
   const { posts, isPending } = useGetPost();
