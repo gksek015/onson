@@ -35,9 +35,7 @@ const LoginForm = () => {
       });
 
       const user = await login(formData);
-      console.log('loginform====>', user);
       setUser(user);
-      console.log('현재 상태:', useUserStore.getState());
 
       router.push('/');
     } catch (error) {
