@@ -5,9 +5,8 @@ interface BottomSheetProps {
   closeAction?: () => void; // 닫기 버튼의 동작을 결정하는 prop(옵션)
 }
 
-export const BottomSheet = ({ isOpen, onClose, children, closeAction }: BottomSheetProps) => {
-  // closeAction prop이 전달되면 사용하고 안되면 onClose 사용
-  const handleClose = closeAction || onClose;
+export const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => {
+  
 
   return (
     <>
@@ -25,7 +24,7 @@ export const BottomSheet = ({ isOpen, onClose, children, closeAction }: BottomSh
       >
         <div className="flex justify-end p-4">
           {/* 닫기 버튼 */}
-          <button className="text-xl text-gray-500 hover:text-gray-700" onClick={handleClose} >
+          <button className="text-xl text-gray-500 hover:text-gray-700" onClick={onClose}>
             ✕
           </button>
         </div>
