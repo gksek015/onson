@@ -35,7 +35,7 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
         <div className="flex h-full flex-col">
           {/* 컨텐츠 */}
           <div className="flex-1 p-4">
-            {activeTab === '온손이 AI' ? <AIChatroom></AIChatroom> : <ChatInbox></ChatInbox>}
+            {activeTab === '온손이 AI' ? <AIChatroom/> : <ChatInbox/>}
           </div>
           {/* 탭바 */}
           <div className="flex border-t">
