@@ -4,13 +4,12 @@ import { getPosts } from '../../lib/posts/getPosts';
 
 
 const useGetPost = () => {
-  const { data, isPending, isError } = useQuery<PostType[]>({
+  const { data : posts, isPending, isError } = useQuery<PostType[]>({
     queryKey: ['posts'],
     queryFn: getPosts
   })
 
-  return { data, isPending, isError };
+  return { posts, isPending, isError };
 };
 
 export default useGetPost;
-
