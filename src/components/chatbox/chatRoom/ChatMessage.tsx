@@ -27,7 +27,7 @@ const ChatMessage = ({ messages, onSendMessage, onBack }: ChatMessageProps) => {
     <div className="flex h-full flex-col bg-gray-100">
       <header className="flex items-center justify-between bg-blue-600 p-4 text-white">
         <button className="text-sm" onClick={onBack}>
-          ← 뒤로
+          🡸
         </button>
         <h1 className="text-lg font-bold">채팅방</h1>
       </header>

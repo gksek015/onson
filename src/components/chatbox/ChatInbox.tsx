@@ -10,6 +10,7 @@ import ChatMessage from './chatRoom/ChatMessage';
 
 interface ChatInBoxProps {
   userId: string;
+  otherUserId: string;
 }
 
 interface ChatRoom {
@@ -21,7 +22,7 @@ interface ChatRoom {
 
 type Message = Database['public']['Tables']['messages']['Row'];
 
-const ChatInBox = ({ userId }: ChatInBoxProps) => {
+const ChatInBox = ({ userId, otherUserId }: ChatInBoxProps) => {
   const [selectedRoomId, setSelectedRoomId] = useState<string | null>(null);
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
