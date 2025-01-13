@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -9,11 +10,15 @@ import { login } from '@lib/actions/auth/action';
 import Button from '@/components/common/Button';
 import AuthInput from '@app/(auth)/_components/AuthInput';
 
+import { useUserStore } from '@/utils/store/userStore';
 import { userLoginSchema } from '@lib/revalidation/userSchema';
 
 type LoginFormData = z.infer<typeof userLoginSchema>;
 
 const LoginForm = () => {
+  const router = useRouter();
+  const setUser = useUserStore((state) => state.setUser);
+
   const {
     register,
     handleSubmit,
@@ -23,11 +28,21 @@ const LoginForm = () => {
   });
 
   const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-    await login(formData);
+    try {
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+
+      const user = await login(formData);
+      console.log('loginform====>', user);
+      setUser(user);
+      console.log('현재 상태:', useUserStore.getState());
+
+      router.push('/');
+    } catch (error) {
+      console.error('로그인 실패:', error);
+    }
   };
 
   return (
