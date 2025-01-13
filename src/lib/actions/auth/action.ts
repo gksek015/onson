@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 
 import { userLoginSchema } from '@lib/revalidation/userSchema';
 
+import { useUserStore } from '@/utils/store/userStore';
 import { supabase } from '@/utils/supabase/server';
 
 // 회원가입
@@ -68,6 +69,7 @@ export const login = async (formData: FormData) => {
   // 로그아웃
 export const logout = async () => {
     await supabase.auth.signOut();
+    useUserStore.getState().clearUser();
   
     redirect('/');
   };
