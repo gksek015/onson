@@ -13,7 +13,6 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
   if (post.images && post.images.length > 0) {
     firstImg = post.images[0].img_url;
   }
-  console.log(post.images);
 
   return (
     <Link href={`/detail/${post.id}`}>

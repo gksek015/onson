@@ -6,7 +6,9 @@ export default function Home() {
   return (
     <section>
       <Header />
-      <MainSection />
+      <div className='mt-5'>
+        <MainSection />
+      </div>
       <div>
         <ChatBoxButton />
       </div>

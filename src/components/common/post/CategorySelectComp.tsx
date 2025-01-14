@@ -8,11 +8,7 @@ interface CategorySelectProps {
 
 const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProps) => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-<<<<<<< HEAD
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-=======
   const [selectedCategories, setSelectedCategories] = useState<string>('');
->>>>>>> bb2dcb775edcaa7fd376a685b2e1613bdcbfa6d6
 
   const handleCheckboxChange = (category: string) => {
     setSelectedCategories(category);
@@ -61,7 +57,7 @@ const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProp
             ))}
           </ul>
           <button
-          type='button'
+            type="button"
             onClick={handleApply}
             className="mt-4 w-full rounded-md bg-gray-400 px-4 py-2 text-white hover:bg-indigo-600"
           >
