@@ -16,29 +16,12 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   const { user } = useUserStore();
   const router = useRouter();
 
-  // if (!user) {
-  //   return (
-  //     <div>
-  //       <div>not User please Login</div>{' '}
-  //       <button className="rounded bg-blue-500 px-4 py-2 text-white" onClick={() => router.push('/login')}>
-  //         로그인으로 이동
-  //       </button>
-  //       ;
-  //     </div>
-  //   );
-  // }
-
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-white">
       {/* 모달 헤더 */}
       <div className="relative flex items-center justify-center border-b p-8 text-black">
         {/* 이전 버튼: 실시간 채팅 목록 안에 채팅방인 경우에만 생김 ==>
-        실시간 채팅방 에서 실시간 채팅방 목록으로 이동하는 버튼
-        
-        TODO: 여기 디자이너님과 상의 후 버튼 추가되는 것으로 결정나면 컨텐츠 컴포넌트가 ChatInbox 안에서 클릭된 chatroom인지를 파악하시고 onclick 시 이동 로직 추가하셔야할 것 같네요...
-        <button onClick={} className="absolute left-4 text-purple-600">
-          🡸
-        </button> */}
+
         <div className="absolute left-0 right-0 text-center text-lg font-bold">{activeTab}</div>
         {/* 닫기 버튼 */}
         <button onClick={onClose} className="absolute right-4">
