@@ -15,7 +15,8 @@ const NewPostComp = () => {
     category: '',
     date: '',
     end_date: '',
-    images: []
+    images: [],
+    deletedImages: []
   });
 
   const [userId, setUserId] = useState<string>('');

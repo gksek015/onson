@@ -1,20 +1,7 @@
-import type { Metadata } from 'next';
-import localFont from 'next/font/local';
-import './globals.css';
-import Header from '@/components/layout/Header';
 import BottomNav from '@/components/layout/BottomNav';
-import Providers from './providers';
-
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900'
-});
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900'
-});
+import type { Metadata } from 'next';
+import './globals.css';
+import QueryProvider from './QueryProvider';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -27,16 +14,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <head>
         <title>ON:SON</title>
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body>
         <div>
-          <Header />
-          <Providers>
-            <main className="mt-8 flex-1">{children}</main>
-          </Providers>
+          <QueryProvider>
+            <main className="flex-1">{children}</main>
+          </QueryProvider>
           <div className="block sm:hidden">
             <BottomNav />
           </div>

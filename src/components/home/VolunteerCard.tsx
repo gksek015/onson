@@ -1,9 +1,10 @@
 'use client';
 
+import { PostType } from '@/types/PostType';
 import Image from 'next/image';
 // import React, { useEffect } from 'react';
 // import oldman2 from '@/assets/oldman2.jpg';
-import { PostType } from '@/types/PostType';
+
 import Link from 'next/link';
 
 interface VolunteerCardProps {

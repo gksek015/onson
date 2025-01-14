@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import CategorySelectComp from '@/components/common/post/CategorySelectComp';
 import DateComp from '@/components/common/post/DateComp';
 import PhotoComp from '@/components/common/post/PhotoComp';
@@ -33,12 +31,25 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
     }));
   };
 
-  const handleImageSelect = (images: File[]) => {
+  // handleImageSelect: 새 파일 추가
+  const handleImageSelect = (newFiles: File[]) => {
     setFormData((prev) => ({
       ...prev,
-      images,
+      images: [...prev.images, ...newFiles], // 기존 이미지 + 새 파일
     }));
   };
+
+  // handleRemoveImage: 이미지 삭제
+  const handleRemoveImage = (imageUrl: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      deletedImages: [...prev.deletedImages, imageUrl], // 삭제된 이미지 추가
+      images: prev.images.filter((img) =>
+        typeof img === 'object' && 'img_url' in img ? img.img_url !== imageUrl : true
+      ),
+    }));
+  };
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -100,7 +111,7 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
         />
       </div>
 
-      <PhotoComp onImageSelect={handleImageSelect} formData={formData}/>
+      <PhotoComp onRemoveImage={handleRemoveImage} onImageSelect={handleImageSelect} formData={formData}/>
     </form>
   );
 };

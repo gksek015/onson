@@ -1,23 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import useModal from '@/hooks/ui/useModal';
 import ChatBoxModal from './ChatBoxModal';
 
 // 실시간 채팅, ai chat봇을 위한 플로팅 버튼
 
 const ChatBoxButton = () => {
-  const [isOpen, setIsOpen] = useState(false); // 모달 열기 닫기 상태
-  const toggleChatBox = () => setIsOpen(!isOpen);
+  const { isOpen, toggleModal } = useModal();
 
   return (
     <>
       <button
-        onClick={toggleChatBox}
-        className="fixed bottom-24 right-5 bg-blue-500 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center z-100"
+        onClick={toggleModal}
+        className="z-100 fixed bottom-24 right-5 flex h-12 w-12 items-center justify-center rounded-full bg-blue-500 text-white shadow-2xl"
       >
         🗨️
       </button>
-      {isOpen && <ChatBoxModal onClose={toggleChatBox}></ChatBoxModal>}
+      {isOpen && <ChatBoxModal onClose={toggleModal}></ChatBoxModal>}
     </>
   );
 };

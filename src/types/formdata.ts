@@ -5,5 +5,6 @@ export interface FormData {
     category: string;
     date: string;
     end_date: string;
-    images: { img_url: string }[] | File[];
+    images: (File | { img_url: string })[];
+    deletedImages: string[];
   }

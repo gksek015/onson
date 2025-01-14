@@ -17,7 +17,8 @@ const UpdatePostComp = () => {
     date: '',
     end_date: '',
     content: '',
-    images: []
+    images: [],
+    deletedImages: [],
   });
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -55,7 +56,8 @@ const UpdatePostComp = () => {
           date: post.date,
           end_date: post.end_date,
           content: post.content,
-          images: post.images || []
+          images: post.images || [],
+          deletedImages: [],
         });
         setIsAuthorized(true);
       } catch (error) {
@@ -68,17 +70,39 @@ const UpdatePostComp = () => {
     fetchPostData();
   }, [postId]);
 
+
   const handleUpdate = async () => {
     if (!isAuthorized) {
       alert('수정 권한이 없습니다.');
       return;
     }
 
-    const success = await updatePostById(postId as string, formData);
-    if (success) {
+    try {
+      const postUpdateSuccess = await updatePostById(postId as string, formData);
+      if (!postUpdateSuccess) {
+        alert('게시글 수정에 실패했습니다.');
+        return;
+      }
+
+    // // 새 이미지가 추가되었을 때만 updateImages 호출
+    // if (formData.images.length > 0) {
+    //   // 기존 이미지와 새로 추가된 이미지 구분
+    //   const newImages = formData.images.filter((image) => image instanceof File);
+      
+      
+    //   if (newImages.length > 0) {
+    //     const imageUpdateSuccess = await updateImages(postId as string, newImages);
+    //     if (!imageUpdateSuccess) {
+    //       alert('이미지 수정에 실패했습니다.');
+    //       return;
+    //     }
+    //   }
+    // }
+
       alert('게시글이 수정되었습니다.');
-    } else {
-      alert('게시글 수정에 실패했습니다.');
+    } catch (error) {
+      console.error('Error updating post:', error);
+      alert('수정 중 오류가 발생했습니다.');
     }
   };
 
