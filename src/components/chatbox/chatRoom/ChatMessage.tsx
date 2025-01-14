@@ -57,7 +57,7 @@ const ChatMessage = ({ chatId, userId, onBack }: ChatMessageProps) => {
         <div className="flex">
           <input
             type="text"
-            className="flex-1 rounded-l-lg border p-2"
+            className="flex-1 rounded-l-lg border p-2 text-black"
             placeholder="메시지를 입력하세요..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
