@@ -97,9 +97,11 @@ const AddressSearch = () => {
           <li
             key={index}
             className="m-3 py-1 text-base md:text-2xl"
+            // onClick={() => {
+            //   router.push(`/list?address=${juso.siNm}_${juso.sggNm}_${juso.emdNm}`);
+            // }}
             onClick={() => {
-              //query string으로 주소 데이터 전달
-              router.push(`/list?address=${juso.siNm}_${juso.sggNm}_${juso.emdNm}`);
+              router.push(`/list?address=${juso.siNm}_${juso.sggNm}_${juso.emdNm}&searchKeyword=${juso.emdNm}`);
             }}
           >
             {juso.siNm} {juso.sggNm} {juso.emdNm}

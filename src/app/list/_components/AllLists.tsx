@@ -12,6 +12,8 @@ const AllLists = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // const addressKeywords = localStorage.getItem('keywords')
+  // console.log('first', addressKeywords)
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -56,7 +58,6 @@ const AllLists = () => {
   return (
     <div className="p-4">
       <h1 className="mb-4 text-2xl font-bold">게시물 리스트</h1>
-
       {/* 로딩 중 상태 */}
       {loading && <p>로딩 중...</p>}
 
