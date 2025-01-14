@@ -6,9 +6,8 @@ import { getCurrentUserId, getPost, updatePostById } from '@/lib/posts/updatePos
 import type { FormData } from '@/types/formdata';
 import { useEffect, useState } from 'react';
 
-
 const UpdatePostComp = () => {
-  const postId = '2a9cc6c1-eaca-47e6-acef-df451d450775'
+  const postId = '2a9cc6c1-eaca-47e6-acef-df451d450775';
   const [formData, setFormData] = useState<FormData>({
     title: '',
     address: '',
@@ -21,7 +20,6 @@ const UpdatePostComp = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-
     const fetchPostData = async () => {
       try {
         // 현재 사용자 ID 가져오기
@@ -45,9 +43,11 @@ const UpdatePostComp = () => {
           return;
         }
 
+        const fullAddress = `${post.si} ${post.gu} ${post.dong}`;
+
         setFormData({
           title: post.title,
-          address: post.address,
+          address: fullAddress,
           category: post.category,
           date: post.date,
           content: post.content,
@@ -94,7 +94,8 @@ const UpdatePostComp = () => {
       <main className="p-4">
         <PostForm categories={categories} setFormData={setFormData} />
       </main>
-    </div>) : (
+    </div>
+  ) : (
     <p>수정 권한이 없습니다.</p>
   );
 };
