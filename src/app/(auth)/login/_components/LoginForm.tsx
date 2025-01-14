@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { login } from '@lib/actions/auth/action';
+import { kakaoLogin, login } from '@lib/actions/auth/action';
 
 import Button from '@/components/common/Button';
 import AuthInput from '@app/(auth)/_components/AuthInput';
@@ -43,6 +43,11 @@ const LoginForm = () => {
     }
   };
 
+  const hadleKakaoLogin = () => {
+    const currentUrl: string = window.location.origin;
+    kakaoLogin(currentUrl);
+  };
+
   return (
     <div className="w-[768px] max-w-full space-y-4">
       <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
@@ -56,6 +61,11 @@ const LoginForm = () => {
           errorMessage={errors.password?.message}
         />
         <Button className="w-full rounded-sm bg-[#4B4B4B] p-3 text-white" type="submit" label="로그인" />
+        <div className="mt-4 flex justify-center">
+          <Button type="button" onClick={hadleKakaoLogin}>
+            카카오 소셜로그인 - 노란색 배경
+          </Button>
+        </div>
       </form>
     </div>
   );
