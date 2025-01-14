@@ -10,7 +10,7 @@ import { GrFormNext } from 'react-icons/gr';
 
 interface PostContentProps {
   title: string;
-  nickname: string;
+  nickname: string | undefined;
   date: string;
   // isBookmarked: boolean;
   // isUser: boolean;
