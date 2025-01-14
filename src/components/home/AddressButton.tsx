@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import AddressSearch from '../common/AddressSearch';
 import { BottomSheet } from '../common/BottomSheet';
-import { SearchIcon } from '../icons/HomeIcons';
+import { SearchIcon } from '../icons/Icons';
 
 const AddressButton = () => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -13,11 +13,10 @@ const AddressButton = () => {
 
   return (
     <div className="relative w-full">
-
       <input
         readOnly
         placeholder="하고 싶은 봉사를 찾아보세요"
-        className="w-full cursor-pointer rounded-full border px-4 py-3 text-sm border-red-400"
+        className="w-full cursor-pointer rounded-full border border-red-400 px-4 py-3 text-sm"
         onClick={() => setIsSheetOpen(true)}
       />
       <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2">
