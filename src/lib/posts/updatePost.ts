@@ -74,7 +74,7 @@ export const updatePostById = async (
     // 2-2. 새 이미지 업로드 및 `images` 테이블 삽입
     const newImages = updatedData.images?.filter((img) => img instanceof File) as File[];
     for (const file of newImages) {
-      const imageUrl = await uploadImage(file, 'images'); // Storage에 업로드
+      const imageUrl = await uploadImage(file, 'images_bucket'); // Storage에 업로드
       console.log('Uploading new image:', file.name);
 
       const { error: insertError } = await supabase
@@ -108,7 +108,7 @@ export const deleteImageFromPost = async (postId: string, imageUrl: string): Pro
     console.log(`Deleting file from storage: ${filePath}`);
 
     // 1. Storage에서 파일 삭제
-    const { error: storageError } = await supabase.storage.from('images').remove([filePath]);
+    const { error: storageError } = await supabase.storage.from('images_bucket').remove([filePath]);
     if (storageError) {
       console.error('Error deleting file from storage:', storageError);
       throw storageError;
