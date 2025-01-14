@@ -5,6 +5,7 @@ import ChatBoxModal from '@/components/chatbox/ChatBoxModal';
 import useModal from '@/hooks/ui/useModal';
 import { GrFormNext } from 'react-icons/gr';
 
+
 // TODO: 북마크 기능 추가 필요(컴포넌트로)
 // TODO: 포스트 쓴 유저가 로그인한 유저이면 채팅하기 대신에 수정 삭제 버튼 들어감
 
@@ -19,6 +20,7 @@ interface PostContentProps {
 
 const PostContent = ({ title, nickname, date, content }: PostContentProps) => {
   const { isOpen, toggleModal } = useModal();
+  console.log("날짜:", date)
 
   return (
     <div className="my-6 flex flex-col justify-center gap-4 pb-20">

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 // import Chatroom from './chatUI/Chatroom';
-import AIChatroom from './ai/AIChatroom';
+import AIChatbot from './ai/AIChatbot';
 import ChatInbox from './ChatInbox';
 
 interface ChatBoxModalProps {
@@ -34,9 +34,7 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
       <div className="flex-1">
         <div className="flex h-full flex-col">
           {/* 컨텐츠 */}
-          <div className="flex-1 p-4">
-            {activeTab === '온손이 AI' ? <AIChatroom/> : <ChatInbox/>}
-          </div>
+          <div className="flex-1 p-4">{activeTab === '온손이 AI' ? <AIChatbot /> : <ChatInbox />}</div>
           {/* 탭바 */}
           <div className="flex border-t">
             <button
