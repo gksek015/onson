@@ -15,7 +15,11 @@ interface ApiResponse {
   };
 }
 
-const AddressSearch = () => {
+interface AddressSearchProps {
+  onAddressSelect?: (searchKeyword: string) => void; // 부모로 콜백 전달
+}
+
+const AddressSearch = ({ onAddressSelect }: AddressSearchProps) => {
   const [keyword, setKeyword] = useState(''); // 검색 키워드 상태
   const [searchResults, setSearchResults] = useState<Juso[]>([]); // 검색 결과 상태
   const [error, setError] = useState<string | null>(null); // 에러 상태
@@ -97,11 +101,13 @@ const AddressSearch = () => {
           <li
             key={index}
             className="m-3 py-1 text-base md:text-2xl"
-            // onClick={() => {
-            //   router.push(`/list?address=${juso.siNm}_${juso.sggNm}_${juso.emdNm}`);
-            // }}
             onClick={() => {
-              router.push(`/list?address=${juso.siNm}_${juso.sggNm}_${juso.emdNm}&searchKeyword=${juso.emdNm}`);
+              const searchKeyword = `${juso.emdNm}`;
+              // 부모 콜백 호출 및 router.push
+              router.push(`/list?address=${juso.siNm}_${juso.sggNm}_${juso.emdNm}&searchKeyword=${searchKeyword}`);
+              if (onAddressSelect) {
+                onAddressSelect(searchKeyword);
+              }
             }}
           >
             {juso.siNm} {juso.sggNm} {juso.emdNm}
