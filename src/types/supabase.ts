@@ -48,19 +48,19 @@ export type Database = {
       chats: {
         Row: {
           created_at: string
-          id: number
+          id: string
           user1_id: string
           user2_id: string
         }
         Insert: {
           created_at?: string
-          id?: number
+          id?: string
           user1_id: string
           user2_id: string
         }
         Update: {
           created_at?: string
-          id?: number
+          id?: string
           user1_id?: string
           user2_id?: string
         }
@@ -112,39 +112,39 @@ export type Database = {
       }
       messages: {
         Row: {
-          chat_id: number
+          chat_id: string
           content: string
           created_at: string
-          id: number
+          id: string
           read: boolean
           user_id: string
         }
         Insert: {
-          chat_id: number
+          chat_id: string
           content: string
           created_at?: string
-          id?: number
+          id?: string
           read?: boolean
           user_id: string
         }
         Update: {
-          chat_id?: number
+          chat_id?: string
           content?: string
           created_at?: string
-          id?: number
+          id?: string
           read?: boolean
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "messages_chat_id_fkey"
+            foreignKeyName: "message_chat_id_fkey"
             columns: ["chat_id"]
             isOneToOne: false
             referencedRelation: "chats"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "messages_user_id_fkey"
+            foreignKeyName: "message_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
@@ -160,6 +160,7 @@ export type Database = {
           content: string
           created_at: string
           date: string
+          end_date: string
           id: string
           title: string
           user_id: string
@@ -171,6 +172,7 @@ export type Database = {
           content: string
           created_at?: string
           date: string
+          end_date: string
           id?: string
           title: string
           user_id: string
@@ -182,6 +184,7 @@ export type Database = {
           content?: string
           created_at?: string
           date?: string
+          end_date?: string
           id?: string
           title?: string
           user_id?: string

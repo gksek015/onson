@@ -30,7 +30,7 @@ const InputBox = () => {
       />
       {/* 전송 버튼 */}
       <button type="submit" className="flex items-center justify-center rounded-full bg-slate-100 p-2">
-        <IoPaperPlaneOutline/>
+        <IoPaperPlaneOutline />
       </button>
     </form>
   );

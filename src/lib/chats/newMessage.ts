@@ -1,7 +1,7 @@
-import { createClient } from "@/utils/supabase/client";
+import { supabase } from "@/utils/supabase/client";
 
-const sendMessage = async (chatId: number, userId: string, content: string) => {
-    const supabase = createClient()
+// 메세지를 전송해주는 API
+export const sendMessage = async (chatId: string, userId: string, content: string) => {
     const { data, error } = await supabase
     .from('messages')
     .insert([{ chat_id: chatId, user_id: userId, content }]);
@@ -14,4 +14,3 @@ const sendMessage = async (chatId: number, userId: string, content: string) => {
   return { data, error: null };
 }
 
-export default sendMessage
