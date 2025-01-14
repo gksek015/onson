@@ -1,4 +1,4 @@
-import NewPostComp from './_components/NewPostComp';
+import NewPostComp from '@app/create/_components/NewPostComp';
 
 const Page = () => {
   return (

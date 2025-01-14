@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 
 import { userLoginSchema } from '@lib/revalidation/userSchema';
 
+import { useUserStore } from '@/utils/store/userStore';
 import { supabase } from '@/utils/supabase/server';
 
 // 회원가입
@@ -11,7 +12,13 @@ export const signup = async (formData: FormData) => {
 
   const data = {
     email: formData.get('email') as string,
-    password: formData.get('password') as string
+    password: formData.get('password') as string,
+    options: {
+        data: {
+          nickname: formData.get('nickname') as string,
+          profileImage: '', 
+        },
+      },
   };
 
   const { data: userData, error } = await supabase.auth.signUp(data);
@@ -45,18 +52,24 @@ export const login = async (formData: FormData) => {
     }
   
     const { email, password } = result.data;
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data: userData, error } = await supabase.auth.signInWithPassword({ email, password });
   
     if (error) {
       throw new Error(error.message);
     }
-  
-    redirect('/');
+    
+    return {
+        id: userData.user?.id || '',
+        email: userData.user?.email || '',
+        nickname: userData.user?.user_metadata?.nickname || '',
+        profileImage: userData.user?.user_metadata?.profileImage || null,
+      };
   };
 
   // 로그아웃
 export const logout = async () => {
     await supabase.auth.signOut();
+    useUserStore.getState().clearUser();
   
     redirect('/');
   };
