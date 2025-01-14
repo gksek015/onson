@@ -19,6 +19,7 @@ interface PostContentProps {
 
 const PostContent = ({ title, nickname, date, content }: PostContentProps) => {
   const { isOpen, toggleModal } = useModal();
+  console.log("날짜:", date)
 
   return (
     <div className="my-6 flex flex-col justify-center gap-4 pb-20">
