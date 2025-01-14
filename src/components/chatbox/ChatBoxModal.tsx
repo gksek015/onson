@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 // import Chatroom from './chatUI/Chatroom';
-import { useGetUserChatInfo } from '@/hooks/useGetUserChatInfo';
+import { useUserStore } from '@/utils/store/userStore';
+import { useRouter } from 'next/navigation';
 import AIChatroom from './ai/AIChatroom';
-import ChatInbox from './ChatInbox';
+import ChatInBox from './ChatInBox';
 
 interface ChatBoxModalProps {
   onClose: () => void;
@@ -12,12 +13,20 @@ interface ChatBoxModalProps {
 
 const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   const [activeTab, setActiveTab] = useState('온손이 AI'); //'실시간채팅'과  '온손이 AI' 두개의 탭 상태 관리
-  const { userId, error } = useGetUserChatInfo();
-  // const { otherUserId, setOtherUserId } = useState<string>('dc5d580d-0f75-4b93-aa34-1431861cf584');
+  const { user } = useUserStore();
+  const router = useRouter();
 
-  if (error) {
-    <p>Error : {error}</p>;
-  }
+  // if (!user) {
+  //   return (
+  //     <div>
+  //       <div>not User please Login</div>{' '}
+  //       <button className="rounded bg-blue-500 px-4 py-2 text-white" onClick={() => router.push('/login')}>
+  //         로그인으로 이동
+  //       </button>
+  //       ;
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-white">
@@ -42,7 +51,18 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
         <div className="flex h-full flex-col">
           {/* 컨텐츠 */}
           <div className="flex-1 p-4">
-            {activeTab === '온손이 AI' ? <AIChatroom></AIChatroom> : <ChatInbox userId={userId} />}
+            {activeTab === '온손이 AI' ? (
+              <AIChatroom></AIChatroom>
+            ) : user ? (
+              <ChatInBox userId={user.id} />
+            ) : (
+              <div className="flex h-full flex-col items-center justify-center text-center">
+                <p className="mb-4 text-gray-500">실시간 채팅을 이용하려면 로그인이 필요합니다.</p>
+                <button className="rounded bg-blue-500 px-4 py-2 text-white" onClick={() => router.push('/login')}>
+                  로그인으로 이동
+                </button>
+              </div>
+            )}
           </div>
           {/* 탭바 */}
           <div className="flex border-t">

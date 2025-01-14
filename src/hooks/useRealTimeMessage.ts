@@ -27,13 +27,17 @@ export const useRealTimeMessages = (chatId: string) => {
 
     fetchMessages();
 
+    // 채널에서 테이터베이스에 입력된 값을 RealTime을 이용해 구독하는 로직
     const messageSubscription = supabase
       .channel('realtime:messages')
       .on('postgres_changes', {
          event: 'INSERT', 
         schema: 'public',
         table: 'messages'
-      }, (payload) => console.log(payload)
+      }, (payload) => {
+        const newMessage = payload.new as Message
+        setMessages((prevMessages) => [...prevMessages, newMessage])
+      }
     ).subscribe();
 
     return () => {
