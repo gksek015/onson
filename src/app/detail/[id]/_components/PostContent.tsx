@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 
 interface PostContentProps {
   title: string;
-  nickname: string;
+  nickname: string | undefined;
   date: string;
   content: string;
   postId: string;
