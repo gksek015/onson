@@ -104,7 +104,7 @@ const AddressSearch = ({ onAddressSelect }: AddressSearchProps) => {
             onClick={() => {
               const searchKeyword = `${juso.emdNm}`;
               // 부모 콜백 호출 및 router.push
-              router.push(`/list?address=${juso.siNm}_${juso.sggNm}_${juso.emdNm}&searchKeyword=${searchKeyword}`);
+              router.push(`/list?address=${juso.siNm}_${juso.sggNm}_${juso.emdNm}&addressKeyword=${searchKeyword}`);
               if (onAddressSelect) {
                 onAddressSelect(searchKeyword);
               }

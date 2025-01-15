@@ -1,4 +1,5 @@
 'use client';
+
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import AddressSearch from '../common/AddressSearch';
@@ -6,7 +7,7 @@ import { BottomSheet } from '../common/BottomSheet';
 
 const Tags = () => {
   const searchParams = useSearchParams();
-  const [tag, setTag] = useState(searchParams.get('searchKeyword'));
+  const [tag, setTag] = useState(searchParams.get('addressKeyword'));
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   // 태그 지우기
@@ -32,7 +33,7 @@ const Tags = () => {
   // useGetPost를 invalidateQuery 사용해서 전체 리스트를 보여주도록 코드 짜고, 닫기 버튼 눌렀을 때 필터링 된게 초기화 되게 하기
 
   return (
-    <div className='w-4/5'>
+    <div className="w-4/5">
       <div className="flex justify-start text-xs">
         {/* tag가 null이거나 falsy하면 렌더링 안하기 */}
         {tag && (
