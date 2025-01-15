@@ -2,10 +2,10 @@
 
 import PostForm from '@/components/common/post/PostForm';
 import { categories } from '@/data/categories';
-import { useState, useEffect } from 'react';
 import { insertImageToPost, insertPost, uploadImage } from '@/lib/posts/insertPost';
 import { getCurrentUserId } from '@/lib/posts/updatePost';
 import type { FormData } from '@/types/formdata';
+import { useEffect, useState } from 'react';
 
 const NewPostComp = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -14,6 +14,7 @@ const NewPostComp = () => {
     content: '',
     category: '',
     date: '',
+    end_date: '',
     images: []
   });
 
@@ -55,13 +56,13 @@ const NewPostComp = () => {
 
       for (const image of formData.images) {
         let imageUrl: string;
-  
+
         if (isFile(image)) {
           imageUrl = await uploadImage(image, bucketName);
         } else {
           imageUrl = image.img_url;
         }
-  
+
         // 이미지 테이블 삽입
         await insertImageToPost(post.id, imageUrl);
       }

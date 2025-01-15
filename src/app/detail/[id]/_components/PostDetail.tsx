@@ -21,7 +21,7 @@ const PostDetail = ({ postPageId }: PostDetailProps) => {
       {/* 이미지 없으면 그냥 컨텐트만 보여줌 */}
       <PostContent
         title={post.title}
-        nickname={post.users ? post.users.nickname : undefined}
+        nickname={post.users.nickname}
         date={post.date}
         content={post.content}
       />

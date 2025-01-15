@@ -29,7 +29,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
               </h3>
               <h3 className="mb-1 text-lg font-semibold">{post.title}</h3>
               <div className="flex items-center text-sm text-gray-600">
-                <span className="mr-4">{post.users?.nickname}</span>
+                <span className="mr-4">{post.users.nickname}</span>
                 <span>{post.created_at.split('T')[0]}</span>
               </div>
               <div className="mt-6 flex w-64 flex-col items-center md:w-1/2">

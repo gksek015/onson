@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/client";
 
-const sendMessage = async (chatId: number, userId: string, content: string) => {
+const sendMessage = async (chatId: string, userId: string, content: string) => {
     const supabase = createClient()
     const { data, error } = await supabase
     .from('messages')

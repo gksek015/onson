@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
-import type { PostType } from '@/types/PostType';
 import { getPostbyAddress } from '@/lib/posts/getPostsbyAddress';
+import type { PostType } from '@/types/PostType';
+import { useQuery } from '@tanstack/react-query';
 
 const useGetPostsbyAddress = (address?: string) => {
   const {data, isPending, isError} = useQuery<PostType[]>({

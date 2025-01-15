@@ -1,8 +1,8 @@
-import { supabase } from '@/utils/supabase/client';
 import type { PostType } from '@/types/PostType';
+import { supabase } from '@/utils/supabase/client';
 
 export const getPostbyAddress = async (address?: string): Promise<PostType[]> => {
-  let query = supabase.from('posts').select(`*, images(img_url)`);
+  let query = supabase.from('posts').select(`*, images(img_url), users(nickname)`);
 
   if (address) {
     // address가 존재하면 필터링

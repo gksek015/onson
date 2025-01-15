@@ -13,6 +13,7 @@ const UpdatePostComp = () => {
     address: '',
     category: '',
     date: '',
+    end_date: '',
     content: '',
     images: []
   });
@@ -50,6 +51,7 @@ const UpdatePostComp = () => {
           address: fullAddress,
           category: post.category,
           date: post.date,
+          end_date:post.end_date,
           content: post.content,
           images: post.images || []
         });
