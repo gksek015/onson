@@ -16,13 +16,13 @@ const BottomNav = () => {
       </Link>
 
       {/* 게시글 리스트 페이지 이동 버튼 */}
-      <Link href="search-list" className="flex flex-col items-center hover:text-blue-600">
+      <Link href="list" className="flex flex-col items-center hover:text-blue-600">
         <span>🔍</span>
         <span className="text-sm text-black font-bold">봉사 찾기</span>
       </Link>
 
       {/* 게시글 리스트 페이지 이동 버튼 */}
-      <Link href="search-list" className="flex flex-col items-center hover:text-blue-600">
+      <Link href="list" className="flex flex-col items-center hover:text-blue-600">
         <span>💬</span>
         <span className="text-sm text-black font-bold">채팅하기</span>
       </Link>

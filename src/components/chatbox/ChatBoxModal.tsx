@@ -4,7 +4,7 @@ import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import AIChatroom from './ai/AIChatroom';
-import ChatInBox from './ChatInBox';
+import ChatInBox from './ChatInbox';
 import ChatHeader from './chatUI/ChatHeader';
 import ModalHeader from './chatUI/ModalHeader';
 
