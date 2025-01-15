@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
 import AIChatroom from './ai/AIChatroom';
-import ChatInBox from './ChatInBox';
+import ChatInBox from './ChatInbox';
 
 interface ChatBoxModalProps {
   onClose: () => void;

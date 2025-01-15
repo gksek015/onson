@@ -154,38 +154,44 @@ export type Database = {
       }
       posts: {
         Row: {
-          address: string
           category: string
           completed: boolean
           content: string
           created_at: string
           date: string
+          dong: string
           end_date: string
+          gu: string
           id: string
+          si: string
           title: string
           user_id: string
         }
         Insert: {
-          address: string
           category: string
           completed?: boolean
           content: string
           created_at?: string
           date: string
+          dong: string
           end_date: string
+          gu: string
           id?: string
+          si: string
           title: string
           user_id: string
         }
         Update: {
-          address?: string
           category?: string
           completed?: boolean
           content?: string
           created_at?: string
           date?: string
+          dong?: string
           end_date?: string
+          gu?: string
           id?: string
+          si?: string
           title?: string
           user_id?: string
         }

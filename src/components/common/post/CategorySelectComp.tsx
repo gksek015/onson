@@ -1,21 +1,30 @@
 import { BottomSheet } from '@/components/common/BottomSheet';
-import { useState } from 'react';
+import type { FormData } from '@/types/formdata';
+import { useEffect, useState } from 'react';
 
 interface CategorySelectProps {
   categories: string[];
   onSelectCategory: (category: string) => void;
+  formData: FormData
 }
 
-const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProps) => {
-  const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState<string>('');
+const CategorySelectComp = ({ categories, onSelectCategory, formData }: CategorySelectProps) => {
+  const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+
+    // 초기값 설정: formData.category를 selectedCategory에 세팅
+    useEffect(() => {
+      if (formData.category) {
+        setSelectedCategory(formData.category);
+      }
+    }, [formData.category]);
 
   const handleCheckboxChange = (category: string) => {
-    setSelectedCategories(category);
+    setSelectedCategory(category);
   };
 
   const handleApply = () => {
-    onSelectCategory(selectedCategories);
+    onSelectCategory(selectedCategory);
     setIsSheetOpen(false);
   };
 
@@ -28,7 +37,7 @@ const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProp
         type="text"
         id="category"
         name="category"
-        value={selectedCategories.length > 0 ? selectedCategories : '봉사 종류 선택'}
+        value={formData.category || '봉사 종류 선택'}
         className="mt-1 block w-full cursor-pointer rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
         readOnly
         onClick={() => setIsSheetOpen(true)}
@@ -49,15 +58,15 @@ const CategorySelectComp = ({ categories, onSelectCategory }: CategorySelectProp
                 <input
                   type="checkbox"
                   id={category}
-                  checked={selectedCategories.includes(category)}
-                  onChange={(e) => e.stopPropagation()}
+                  checked={selectedCategory.includes(category)}
+                  onChange={(e) => {e.stopPropagation()}}
                   className="cursor-pointer rounded border-gray-300 focus:ring-indigo-500"
                 />
               </li>
             ))}
           </ul>
           <button
-          type='button'
+            type="button"
             onClick={handleApply}
             className="mt-4 w-full rounded-md bg-gray-400 px-4 py-2 text-white hover:bg-indigo-600"
           >

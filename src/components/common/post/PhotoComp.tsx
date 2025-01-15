@@ -1,38 +1,45 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface PhotoCompProps {
   onImageSelect: (images: File[]) => void;
-}
+  onRemoveImage: (imageUrl: string | File) => void;
+  formData: {
+    images: (File | { img_url: string })[];
+  };
+  };
 
-const PhotoComp = ({onImageSelect}: PhotoCompProps) => {
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
+const PhotoComp = ({onImageSelect, onRemoveImage, formData}: PhotoCompProps) => {
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
+  useEffect(() => {
+    // formData.images의 초기 상태를 기반으로 미리보기 URL 설정
+    const initialPreviews = formData.images.map((image) =>
+      "img_url" in image ? image.img_url : URL.createObjectURL(image)
+    );
+    setPreviewUrls(initialPreviews);
+  }, [formData.images]);
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const newFiles = Array.from(event.target.files);
-      const totalFiles = selectedFiles.length + newFiles.length;
 
-      if (totalFiles > 5) {
+      // 이미지 개수 제한 확인
+      if (formData.images.length + newFiles.length > 5) {
         setError("이미지는 최대 5장까지만 업로드할 수 있습니다.");
         return;
       }
 
-      // 파일 추가 및 상태 관리
-      const updatedFiles = [...selectedFiles, ...newFiles];
-      setSelectedFiles(updatedFiles);
+      onImageSelect(newFiles);
 
-
-      const updatedPreviewUrls = updatedFiles.map((file) => URL.createObjectURL(file));
-      setPreviewUrls(updatedPreviewUrls);
-      onImageSelect(updatedFiles);
-
-      setError(null);
+      // 미리보기 URL 추가
+      const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
+      setPreviewUrls((prev) => [...prev, ...newPreviews]);
 
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
@@ -41,14 +48,17 @@ const PhotoComp = ({onImageSelect}: PhotoCompProps) => {
   };
 
   const handleRemoveFile = (index: number) => {
-    const updatedFiles = selectedFiles.filter((_, fileIndex) => fileIndex !== index);
-    setSelectedFiles(updatedFiles);
-
-    const updatedPreviewUrls = updatedFiles.map((file) => URL.createObjectURL(file));
-    setPreviewUrls(updatedPreviewUrls);
-
-    onImageSelect(updatedFiles);
+    const removedFile = formData.images[index];
+  
+    if ('img_url' in removedFile) {
+      onRemoveImage(removedFile.img_url);
+    } else if (removedFile instanceof File) {
+      onRemoveImage(removedFile); // File 삭제
+    }
+  
+    setPreviewUrls((prev) => prev.filter((_, i) => i !== index));
   };
+  
 
   return (
     <div className="space-y-4">
@@ -56,7 +66,7 @@ const PhotoComp = ({onImageSelect}: PhotoCompProps) => {
         <label
           htmlFor="photo-upload"
           className={`w-20 h-20 bg-gray-100 rounded flex items-center justify-center border border-gray-300 cursor-pointer ${
-            selectedFiles.length >= 5 ? "opacity-50 cursor-not-allowed" : ""
+            formData.images.length >= 5 ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >
           📷
@@ -68,7 +78,7 @@ const PhotoComp = ({onImageSelect}: PhotoCompProps) => {
           accept="image/*"
           className="hidden"
           onChange={handleFileChange}
-          disabled={selectedFiles.length >= 5}
+          disabled={formData.images.length >= 5}
           ref={fileInputRef}
         />
       </div>

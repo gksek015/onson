@@ -14,7 +14,9 @@ const NewPostComp = () => {
     content: '',
     category: '',
     date: '',
-    images: []
+    end_date: '',
+    images: [],
+    deletedImages: []
   });
 
   const [userId, setUserId] = useState<string>('');
@@ -34,9 +36,9 @@ const NewPostComp = () => {
   }, []);
 
   // image 타입 함수
-  const isFile = (image: File | { img_url: string }): image is File => {
-    return image instanceof File;
-  };
+  // const isFile = (image: File | { img_url: string }): image is File => {
+  //   return image instanceof File;
+  // };
 
   const handleSubmit = async () => {
     if (!userId) {
@@ -53,16 +55,19 @@ const NewPostComp = () => {
       // 게시물 삽입
       const post = await insertPost(formData, userId);
 
-      for (const image of formData.images) {
+      const remainingImages = formData.images.filter((img) =>
+        !(typeof img === 'object' && 'img_url' in img && formData.deletedImages.includes(img.img_url))
+      );
+    
+      for (const image of remainingImages) {
         let imageUrl: string;
-
-        if (isFile(image)) {
+    
+        if (image instanceof File) {
           imageUrl = await uploadImage(image, bucketName);
         } else {
           imageUrl = image.img_url;
         }
-
-        // 이미지 테이블 삽입
+    
         await insertImageToPost(post.id, imageUrl);
       }
 
@@ -91,7 +96,7 @@ const NewPostComp = () => {
       </header>
 
       <main className="p-4">
-        <PostForm categories={categories} setFormData={setFormData} />
+        <PostForm categories={categories} setFormData={setFormData} formData={formData}/>
       </main>
     </div>
   );
