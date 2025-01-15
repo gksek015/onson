@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 interface PhotoCompProps {
   onImageSelect: (images: File[]) => void;
-  onRemoveImage: (imageUrl: string) => void;
+  onRemoveImage: (imageUrl: string | File) => void;
   formData: {
     images: (File | { img_url: string })[];
   };
@@ -49,21 +49,16 @@ const PhotoComp = ({onImageSelect, onRemoveImage, formData}: PhotoCompProps) => 
 
   const handleRemoveFile = (index: number) => {
     const removedFile = formData.images[index];
-
-    // 미리보기 URL 해제
-    if (typeof removedFile !== "string" && removedFile instanceof File) {
-      const removedPreview = previewUrls[index];
-      URL.revokeObjectURL(removedPreview); // 메모리 누수 방지
-    }
-
-    // 삭제된 파일이 URL인 경우 부모에 전달
-    if ("img_url" in removedFile) {
+  
+    if ('img_url' in removedFile) {
       onRemoveImage(removedFile.img_url);
+    } else if (removedFile instanceof File) {
+      onRemoveImage(removedFile); // File 삭제
     }
-
-    // 미리보기 URL 업데이트
+  
     setPreviewUrls((prev) => prev.filter((_, i) => i !== index));
   };
+  
 
   return (
     <div className="space-y-4">

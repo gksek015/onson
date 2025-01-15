@@ -40,15 +40,23 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
   };
 
   // handleRemoveImage: 이미지 삭제
-  const handleRemoveImage = (imageUrl: string) => {
+  const handleRemoveImage = (imageUrlOrFile: string | File) => {
     setFormData((prev) => ({
       ...prev,
-      deletedImages: [...prev.deletedImages, imageUrl], // 삭제된 이미지 추가
-      images: prev.images.filter((img) =>
-        typeof img === 'object' && 'img_url' in img ? img.img_url !== imageUrl : true
-      ),
+      deletedImages: [
+        ...prev.deletedImages,
+        typeof imageUrlOrFile === 'string' ? imageUrlOrFile : '', // URL만 추가
+      ].filter(Boolean), // 빈 문자열 제거
+      images: prev.images.filter((img) => {
+        if (typeof imageUrlOrFile === 'string') {
+          return img instanceof File || img.img_url !== imageUrlOrFile;
+        } else {
+          return !(img instanceof File && img === imageUrlOrFile);
+        }
+      }),
     }));
   };
+  
 
 
   const handleSubmit = (e: React.FormEvent) => {
