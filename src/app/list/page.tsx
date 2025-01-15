@@ -4,6 +4,7 @@ import Header from '@/components/layout/Header';
 import { Suspense } from 'react';
 import AllLists from './_components/AllLists';
 import SearchBar from './_components/SearchBar';
+import { categories } from '@/data/categories';
 
 const ListPage = () => {
   return (
@@ -12,7 +13,7 @@ const ListPage = () => {
       <div className="mb-20 mt-5 flex w-full flex-col items-center justify-center gap-3">
         <div className="flex w-full items-center justify-center gap-4">
           <SearchBar />
-          <CategoryButton />
+          <CategoryButton categories={categories} />
         </div>
         <Suspense>
           <Tags />

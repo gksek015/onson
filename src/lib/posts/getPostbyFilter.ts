@@ -1,11 +1,16 @@
 import type { PostType } from '@/types/PostType';
 import { supabase } from '@/utils/supabase/client';
 
-export const getPostbyAddress = async (address?: string): Promise<PostType[]> => {
+interface GetPostsParams {
+  address? : string
+  category? : string
+}
+
+export const getPostbyFilter = async ({address, category}: GetPostsParams): Promise<PostType[]> => {
   let query = supabase.from('posts').select(`*, images(img_url), users(nickname)`);
 
+  // address 처리
   if (address) {
-    // address가 존재하면 필터링
     const addressList = address.split('_');
     if (addressList.length === 3) {
       query = query
@@ -13,10 +18,15 @@ export const getPostbyAddress = async (address?: string): Promise<PostType[]> =>
         .ilike('gu', addressList[1]) // gu 일치 조건
         .ilike('dong', addressList[2]); // dong 일치 조건
     }
-  } else {
-    // 전체 게시물 최신순 정렬
-    query = query.order('created_at', { ascending: false });
   }
+  
+  // category 처리
+  if (category){
+    query = query.eq('category', category);
+  } 
+
+  // 전체 게시물 최신순 정렬
+  query = query.order('created_at', { ascending: false });
 
   const { data, error } = await query;
 
