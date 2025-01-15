@@ -4,6 +4,7 @@ import PhotoComp from '@/components/common/post/PhotoComp';
 
 import type { FormData } from '@/types/formdata';
 import dayjs from 'dayjs';
+import AddressComp from './AddressComp';
 
 interface PostFormProps {
   categories: string[];
@@ -57,7 +58,10 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
     }));
   };
   
-
+  // const handleAddressSelect = (selectedAddress: string) => {
+  //   // 선택한 주소를 input에 표시하고 formData에 저장
+  //   setFormData((prev) => ({ ...prev, address: selectedAddress }));
+  // }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,20 +83,8 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
         />
       </div>
 
-      <div>
-        <label htmlFor="address" className="block text-sm font-medium text-gray-700">
-          위치
-        </label>
-        <input
-          type="text"
-          id="address"
-          name="address"
-          value={formData.address}
-          className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          placeholder="지역 선택"
-          onChange={handleInputChange}
-        />
-      </div>
+
+      <AddressComp formData={formData} setFormData={setFormData}/>
 
       <div className="space-y-4">
         <label htmlFor="tag" className="block text-sm font-medium text-gray-700">
