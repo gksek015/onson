@@ -24,6 +24,8 @@ const PostDetail = ({ postPageId }: PostDetailProps) => {
         nickname={post.users.nickname}
         date={post.date}
         content={post.content}
+        postId={post.id}
+        postOwnerId={post.user_id}
       />
     </div>
   );
