@@ -3,13 +3,12 @@ import { PostType } from '@/types/PostType';
 import { useQuery } from '@tanstack/react-query';
 
 const useGetPost = () => {
-  const { data, isPending, isError } = useQuery<PostType[]>({
+  const { data : posts, isPending, isError } = useQuery<PostType[]>({
     queryKey: ['posts'],
     queryFn: getPosts
   })
 
-  return { data, isPending, isError };
+  return { posts, isPending, isError };
 };
 
 export default useGetPost;
-
