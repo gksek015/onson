@@ -6,9 +6,10 @@ import { getCurrentUserId, getPost, updatePostById } from '@/lib/posts/updatePos
 import type { FormData } from '@/types/formdata';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
 const UpdatePostComp = () => {
-  const {id: postId} = useParams();
+  const { id: postId } = useParams();
   const [formData, setFormData] = useState<FormData>({
     title: '',
     address: '',
@@ -17,7 +18,7 @@ const UpdatePostComp = () => {
     end_date: '',
     content: '',
     images: [],
-    deletedImages: [],
+    deletedImages: []
   });
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -29,26 +30,43 @@ const UpdatePostComp = () => {
         // 현재 사용자 ID 가져오기
         const currentUserId = await getCurrentUserId();
         if (!currentUserId) {
-          alert('로그인이 필요합니다.');
+          Swal.fire({
+            title: '로그인이 필요합니다',
+            text: '글을 작성하시려면 로그인이 필요합니다.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '로그인하러 가기',
+            cancelButtonText: '취소'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // 로그인 페이지로 이동
+              router.push('/login');
+            }
+          });
           return;
         }
 
         // 게시글 데이터 가져오기
         const post = await getPost(postId as string);
         if (!post) {
-          alert('게시글을 찾을 수 없습니다.');
+          Swal.fire({
+            title: '게시글을 찾을 수 없습니다.',
+            icon: 'warning'
+          });
           return;
         }
 
         // 작성자와 현재 사용자 비교
         if (post.user_id !== currentUserId) {
-          alert('수정 권한이 없습니다.');
+          Swal.fire({
+            title: '수정 권한이 없습니다.',
+            icon: 'warning'
+          });
           setIsAuthorized(false);
           return;
         }
-        
-        const fullAddress = `${post.si} ${post.gu} ${post.dong}` 
 
+        const fullAddress = `${post.si} ${post.gu} ${post.dong}`;
 
         setFormData({
           title: post.title,
@@ -58,7 +76,7 @@ const UpdatePostComp = () => {
           end_date: post.end_date,
           content: post.content,
           images: post.images || [],
-          deletedImages: [],
+          deletedImages: []
         });
         setIsAuthorized(true);
       } catch (error) {
@@ -69,28 +87,38 @@ const UpdatePostComp = () => {
     };
 
     fetchPostData();
-  }, [postId]);
-
+  }, [router, postId]);
 
   const handleUpdate = async () => {
     if (!isAuthorized) {
-      alert('수정 권한이 없습니다.');
+      Swal.fire({
+        title: '수정 권한이 없습니다.',
+        icon: 'warning'
+      });
       return;
     }
 
     try {
       const postUpdateSuccess = await updatePostById(postId as string, formData);
       if (!postUpdateSuccess) {
-        alert('게시글 수정에 실패했습니다.');
+        Swal.fire({
+          title: '게시글 수정에 실패했습니다.',
+          icon: 'warning'
+        });
         return;
       }
 
-      alert('게시글이 수정되었습니다.');
-
-      router.push(`/posts/${postId}`);
+      Swal.fire({
+        title: '게시글이 수정되었습니다.',
+        icon: 'success'
+      });
+      router.push(`/detail/${postId}`);
     } catch (error) {
       console.error('Error updating post:', error);
-      alert('수정 중 오류가 발생했습니다.');
+      Swal.fire({
+        title: '수정 중 오류가 발생했습니다.',
+        icon: 'warning'
+      });
     }
   };
 
@@ -108,7 +136,7 @@ const UpdatePostComp = () => {
       </header>
 
       <main className="p-4">
-        <PostForm categories={categories} setFormData={setFormData} formData={formData}/>
+        <PostForm categories={categories} setFormData={setFormData} formData={formData} />
       </main>
     </div>
   ) : (

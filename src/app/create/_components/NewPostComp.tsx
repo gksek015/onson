@@ -7,6 +7,7 @@ import { getCurrentUserId } from '@/lib/posts/updatePost';
 import type { FormData } from '@/types/formdata';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
 const NewPostComp = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -28,23 +29,41 @@ const NewPostComp = () => {
     const fetchUserId = async () => {
       const id = await getCurrentUserId();
       if (!id) {
-        alert('로그인이 필요합니다. 로그인 후 다시 시도하세요.');
+        Swal.fire({
+          title: '로그인이 필요합니다',
+          text: '글을 작성하시려면 로그인이 필요합니다.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: '로그인하러 가기',
+          cancelButtonText: '취소'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // 로그인 페이지로 이동
+            router.push('/login');
+          }
+        });
       }
       setUserId(id as string);
       setIsLoading(false);
     };
 
     fetchUserId();
-  }, []);
+  }, [router]);
 
   const handleSubmit = async () => {
     if (!userId) {
-      alert('로그인이 필요합니다. 로그인 후 다시 시도하세요.');
+      Swal.fire({
+        title: '해당 유저가 작성한 게시글이 아닙니다.',
+        icon: 'warning',
+      });
       return;
     }
     try {
       if (!formData.title || !formData.content || !formData.date) {
-        alert('필수 필드를 모두 입력하세요.');
+        Swal.fire({
+          title: '모든 필드를 입력해주세요.',
+          icon: 'warning',
+        });
         return;
       }
       const bucketName = 'images_bucket';
@@ -68,12 +87,18 @@ const NewPostComp = () => {
         await insertImageToPost(post.id, imageUrl);
       }
 
-      alert('봉사 요청이 성공적으로 등록되었습니다!');
+      Swal.fire({
+        title: '봉사 요청이 성공적으로 등록되었습니다!',
+        icon: 'success',
+      });
 
-      router.push('/')
+      router.push(`/detail/${post.id}`)
     } catch (error) {
       console.error('Error submitting post:', error);
-      alert('봉사 요청 등록 중 오류가 발생했습니다.');
+      Swal.fire({
+        title: '봉사 요청 중 에러가 발생했습니다.',
+        icon: 'warning',
+      });
     }
   };
 
