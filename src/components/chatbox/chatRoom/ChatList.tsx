@@ -1,36 +1,39 @@
-interface ChatRoom {
-  id: string;
-  user1_id: string;
-  messages?: { content: string }[];
-  created_at: string;
-}
+import type { ChatRoom } from '@/types/chatType';
 
 interface ChatListProps {
-  chatRooms: ChatRoom[];
-  onSelectRoom: (id: string) => void;
+  chatRooms: (ChatRoom & { otherNickname: string | null })[];
+  onSelectRoom: (chatId: string, otherNickname: string) => void;
 }
 
-const ChatList = ({ chatRooms, onSelectRoom }: ChatListProps) => (
-  <div className="flex h-full flex-col bg-gray-100">
-    <header className="bg-blue-600 p-4 text-white">
-      <h1 className="text-lg font-bold">채팅방 목록</h1>
-    </header>
-    <div className="flex-1 overflow-y-auto">
-      {chatRooms.map((room) => (
-        <div
-          key={room.id}
-          className="flex cursor-pointer items-center border-b p-4 hover:bg-gray-200"
-          onClick={() => onSelectRoom(room.id)}
-        >
-          <div className="flex-1">
-            <h2 className="font-bold">{room.user1_id}</h2>
-            <p className="text-gray-600">{room.messages?.[0]?.content || '새 메시지가 없습니다.'}</p>
-          </div>
-          <span className="text-xs text-gray-500">{new Date(room.created_at).toLocaleDateString()}</span>
-        </div>
-      ))}
+const ChatList = ({ chatRooms, onSelectRoom }: ChatListProps) => {
+  return (
+    <div className="p-4">
+      {chatRooms.map((room) => {
+        const lastMessage = room.messages?.[room.messages.length - 1];
+
+        return (
+          <button
+            key={room.id}
+            className="mb-2 flex w-full items-center justify-between text-left"
+            onClick={() => onSelectRoom(room.id, room.otherNickname || '사용자가 없습니다.')} // 닉네임 전달
+          >
+            <div>
+              <p className="text-sm font-bold text-black">{room.otherNickname || '사용자가 없습니다.'}</p>
+              <p className="w-60 truncate text-sm text-black">{lastMessage?.content || '메시지가 없습니다.'}</p>
+            </div>
+            <div className="text-right">
+              <p className="text-xs text-black">
+                {lastMessage?.created_at
+                  ? new Date(lastMessage.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                  : ''}
+              </p>
+              <span className="text-gray text-xl">›</span>
+            </div>
+          </button>
+        );
+      })}
     </div>
-  </div>
-);
+  );
+};
 
 export default ChatList;

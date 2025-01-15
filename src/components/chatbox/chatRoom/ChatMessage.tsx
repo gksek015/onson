@@ -2,17 +2,22 @@
 
 import { useRealTimeMessages } from '@/hooks/useRealTimeMessage';
 import { sendMessage } from '@/lib/chats/newMessage';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface ChatMessageProps {
   chatId: string;
   userId: string;
-  onBack: () => void;
 }
 
-const ChatMessage = ({ chatId, userId, onBack }: ChatMessageProps) => {
+const ChatMessage = ({ chatId, userId }: ChatMessageProps) => {
   const [input, setInput] = useState('');
   const messages = useRealTimeMessages(chatId);
+  const messageEndRef = useRef<HTMLDivElement>(null);
+
+  // 메세지가 입력될때 마다 스크롤이 내려가도록 동작하는 로직직
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -27,33 +32,29 @@ const ChatMessage = ({ chatId, userId, onBack }: ChatMessageProps) => {
     setInput('');
   };
 
-  return (
-    <div className="flex h-full flex-col bg-gray-100">
-      {/* Header */}
-      <header className="flex items-center justify-between bg-blue-600 p-4 text-white">
-        <button className="text-sm" onClick={onBack}>
-          🡸
-        </button>
-        <h1 className="text-lg font-bold">채팅방</h1>
-      </header>
+  const handleKeyEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') handleSend();
+  };
 
-      {/* Message List */}
+  return (
+    <div className="flex h-screen flex-col">
       <div className="flex-1 overflow-y-auto p-4">
         {messages.map((msg, idx) => (
           <div key={idx} className={`mb-2 ${msg.user_id === userId ? 'text-right' : 'text-left'}`}>
             <span
               className={`inline-block rounded-lg p-2 ${
-                msg.user_id === userId ? 'bg-blue-500 text-white' : 'bg-gray-300'
+                msg.user_id === userId ? 'bg-blue-500 text-white' : 'bg-gray-300 text-black'
               }`}
             >
               {msg.content}
             </span>
           </div>
         ))}
+        <div ref={messageEndRef} />
       </div>
 
       {/* Input Box */}
-      <footer className="border-t p-4">
+      <footer className="sticky bottom-0 border-t p-4">
         <div className="flex">
           <input
             type="text"
@@ -61,6 +62,7 @@ const ChatMessage = ({ chatId, userId, onBack }: ChatMessageProps) => {
             placeholder="메시지를 입력하세요..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyEnter}
           />
           <button className="rounded-r-lg bg-blue-500 p-2 text-white" onClick={handleSend}>
             전송

@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-// import Chatroom from './chatUI/Chatroom';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import AIChatroom from './ai/AIChatroom';
 import ChatInBox from './ChatInBox';
+import ChatHeader from './chatUI/ChatHeader';
+import ModalHeader from './chatUI/ModalHeader';
 
 interface ChatBoxModalProps {
   onClose: () => void;
@@ -13,21 +14,34 @@ interface ChatBoxModalProps {
 
 const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   const [activeTab, setActiveTab] = useState('온손이 AI'); //'실시간채팅'과  '온손이 AI' 두개의 탭 상태 관리
+  const [isInChatRoom, setIsInChatRoom] = useState(false);
+  const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
   const { user } = useUserStore();
   const router = useRouter();
 
+  const handleEnterChatRoom = (chatId: string) => {
+    setSelectedChatId(chatId);
+    setIsInChatRoom(true);
+  };
+
+  const handleBackToList = () => {
+    setSelectedChatId(null);
+    setIsInChatRoom(false);
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-white">
-      {/* 모달 헤더 */}
-      <div className="relative flex items-center justify-center border-b p-8 text-black">
-        {/* 이전 버튼: 실시간 채팅 목록 안에 채팅방인 경우에만 생김 ==>
-
-        <div className="absolute left-0 right-0 text-center text-lg font-bold">{activeTab}</div>
-        {/* 닫기 버튼 */}
-        <button onClick={onClose} className="absolute right-4">
-          ✖️
-        </button>
-      </div>
+      {isInChatRoom && selectedChatId ? (
+        // 채팅방 헤더 부분
+        <ChatHeader
+          chatId={selectedChatId}
+          currentUserId={user?.id || ''}
+          onBack={handleBackToList}
+          onClose={onClose}
+        />
+      ) : (
+        <ModalHeader title={activeTab} onClose={onClose} /> //모달 헤더 부분분
+      )}
 
       {/* 채팅창 부분 + 바텀 탭바*/}
       <div className="flex-1">
@@ -35,9 +49,9 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
           {/* 컨텐츠 */}
           <div className="flex-1 p-4">
             {activeTab === '온손이 AI' ? (
-              <AIChatroom></AIChatroom>
+              <AIChatroom />
             ) : user ? (
-              <ChatInBox userId={user.id} />
+              <ChatInBox userId={user.id} onEnterChatRoom={handleEnterChatRoom} />
             ) : (
               <div className="flex h-full flex-col items-center justify-center text-center">
                 <p className="mb-4 text-gray-500">실시간 채팅을 이용하려면 로그인이 필요합니다.</p>
