@@ -33,7 +33,7 @@ export const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => 
       >
         <div className="flex justify-end p-4">
           {/* 닫기 버튼 */}
-          <button className="text-gray-500 hover:text-gray-700 text-xl" onClick={onClose}>
+          <button type='button' className="text-gray-500 hover:text-gray-700 text-xl" onClick={onClose}>
             ✕
           </button>
         </div>

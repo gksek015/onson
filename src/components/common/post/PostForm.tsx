@@ -1,56 +1,70 @@
-import { useEffect, useState } from 'react';
-
 import CategorySelectComp from '@/components/common/post/CategorySelectComp';
 import DateComp from '@/components/common/post/DateComp';
 import PhotoComp from '@/components/common/post/PhotoComp';
 
 import type { FormData } from '@/types/formdata';
+import dayjs from 'dayjs';
 
 interface PostFormProps {
   categories: string[];
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+  formData: FormData;
 }
 
-const PostForm = ({ categories, setFormData }: PostFormProps) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
-  const [selectedRange, setSelectedRange] = useState<[Date, Date] | null>(null);
-
-  useEffect(() => {
-    console.log(selectedCategory, selectedRange);
-  }, [selectedCategory, selectedRange]);
-
+const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleCategorySelect = (category: string) => {
-    setSelectedCategory(category);
     setFormData((prev) => ({ ...prev, category }));
   };
 
   const handleDateSelect = (range: [Date, Date]) => {
-    setSelectedRange(range);
+    const [startDate, endDate] = range;
+
     setFormData((prev) => ({
       ...prev,
-      date: range[0].toISOString().split('T')[0]
+      date: dayjs(startDate).format('YYYY-MM-DD'),
+      end_date: dayjs(endDate).format('YYYY-MM-DD'),
     }));
   };
 
-  const handleImageSelect = (images: File[]) => {
+  // handleImageSelect: 새 파일 추가
+  const handleImageSelect = (newFiles: File[]) => {
     setFormData((prev) => ({
       ...prev,
-      images, // 이미지 배열 업데이트
+      images: [...prev.images, ...newFiles], // 기존 이미지 + 새 파일
     }));
   };
+
+  // handleRemoveImage: 이미지 삭제
+  const handleRemoveImage = (imageUrlOrFile: string | File) => {
+    setFormData((prev) => ({
+      ...prev,
+      deletedImages: [
+        ...prev.deletedImages,
+        typeof imageUrlOrFile === 'string' ? imageUrlOrFile : '', // URL만 추가
+      ].filter(Boolean), // 빈 문자열 제거
+      images: prev.images.filter((img) => {
+        if (typeof imageUrlOrFile === 'string') {
+          return img instanceof File || img.img_url !== imageUrlOrFile;
+        } else {
+          return !(img instanceof File && img === imageUrlOrFile);
+        }
+      }),
+    }));
+  };
+  
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted!');
   };
 
   return (
-    <form className="space-y-4" onSubmit={handleSubmit}>
+    <form className="space-y-4" onSubmit={handleSubmit} >
       <div>
         <label htmlFor="title" className="block text-sm font-medium text-gray-700">
           제목
@@ -59,6 +73,7 @@ const PostForm = ({ categories, setFormData }: PostFormProps) => {
           type="text"
           id="title"
           name="title"
+          value={formData.title}
           className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           onChange={handleInputChange}
         />
@@ -72,6 +87,7 @@ const PostForm = ({ categories, setFormData }: PostFormProps) => {
           type="text"
           id="address"
           name="address"
+          value={formData.address}
           className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           placeholder="지역 선택"
           onChange={handleInputChange}
@@ -83,8 +99,8 @@ const PostForm = ({ categories, setFormData }: PostFormProps) => {
           태그
         </label>
         <div className="flex items-center justify-between space-x-4">
-          <CategorySelectComp categories={categories} onSelectCategory={handleCategorySelect} />
-          <DateComp onSelectRange={handleDateSelect} />
+          <CategorySelectComp formData={formData} categories={categories} onSelectCategory={handleCategorySelect} />
+          <DateComp onSelectRange={handleDateSelect} formData={formData}/>
         </div>
       </div>
 
@@ -95,6 +111,7 @@ const PostForm = ({ categories, setFormData }: PostFormProps) => {
         <textarea
           id="content"
           name="content"
+          value={formData.content}
           rows={4}
           maxLength={500}
           className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -102,7 +119,7 @@ const PostForm = ({ categories, setFormData }: PostFormProps) => {
         />
       </div>
 
-      <PhotoComp onImageSelect={handleImageSelect} />
+      <PhotoComp onRemoveImage={handleRemoveImage} onImageSelect={handleImageSelect} formData={formData}/>
     </form>
   );
 };
