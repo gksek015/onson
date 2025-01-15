@@ -23,7 +23,7 @@ const ChatHeader = ({ chatId, currentUserId, onClose, onBack }: ChatHeaderProps)
   }, [chatId, currentUserId]);
 
   return (
-    <div className="flex items-center justify-between border-b p-8 text-black">
+    <div className="flex items-center justify-between p-8 text-black">
       <button onClick={onBack} className="left-4 text-xl text-black">
         🡸
       </button>

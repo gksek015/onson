@@ -17,6 +17,6 @@ export const getChatUserNickname = async (chatId:string, currentUserId:string):P
         return null;
     }
 
-    // 현재 유저가 user1_id라면 user2의 닉네임, 반대면 user1의 닉네임 반환
-    return currentUserId === data.user1_id ? data.user2.nickname : data.user1.nickname;
+    // 현재 유저가 user1_id라면 user1의 닉네임, 반대면 user2의 닉네임 반환
+    return currentUserId === data.user1_id ? data.user1.nickname : data.user1.nickname;
 }

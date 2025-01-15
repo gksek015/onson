@@ -12,22 +12,14 @@ import ChatMessage from './chatRoom/ChatMessage';
 
 interface ChatInBoxProps {
   userId: string;
+  selectedChatId: string | null;
   onEnterChatRoom: (chatId: string, nickname: string) => void;
+  onBackToList: () => void;
 }
 
-const ChatInBox = ({ userId, onEnterChatRoom }: ChatInBoxProps) => {
+const ChatInBox = ({ selectedChatId, userId, onEnterChatRoom, onBackToList }: ChatInBoxProps) => {
   const [chatRooms, setChatRooms] = useState<(ChatRoom & { otherNickname: string | null })[]>([]);
-  const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-
-  const handleBackToList = () => {
-    setSelectedChatId(null);
-  };
-
-  const handleSelectRoom = (chatId: string, otherNickname: string) => {
-    setSelectedChatId(chatId);
-    onEnterChatRoom(chatId, otherNickname);
-  };
 
   useEffect(() => {
     const fetchChatRooms = async () => {
@@ -44,16 +36,16 @@ const ChatInBox = ({ userId, onEnterChatRoom }: ChatInBoxProps) => {
     };
 
     fetchChatRooms();
-  }, [selectedChatId, userId]);
+  }, [userId]);
 
   if (loading) return <p>Loading chat rooms...</p>;
 
   if (!chatRooms.length) return <p className="text-black">No chats available.</p>;
 
   return selectedChatId ? (
-    <ChatMessage chatId={selectedChatId} userId={userId} />
+    <ChatMessage selectedChatId={selectedChatId} userId={userId} onBackToList={onBackToList} />
   ) : (
-    <ChatList chatRooms={chatRooms} onSelectRoom={handleSelectRoom} />
+    <ChatList chatRooms={chatRooms} onSelectRoom={onEnterChatRoom} />
   );
 };
 

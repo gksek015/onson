@@ -14,24 +14,23 @@ interface ChatBoxModalProps {
 
 const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   const [activeTab, setActiveTab] = useState('온손이 AI'); //'실시간채팅'과  '온손이 AI' 두개의 탭 상태 관리
-  const [isInChatRoom, setIsInChatRoom] = useState(false);
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
   const { user } = useUserStore();
   const router = useRouter();
 
+  // 채팅방 입장 처리하는 함수수
   const handleEnterChatRoom = (chatId: string) => {
     setSelectedChatId(chatId);
-    setIsInChatRoom(true);
   };
 
+  // 뒤로가기
   const handleBackToList = () => {
     setSelectedChatId(null);
-    setIsInChatRoom(false);
   };
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-white">
-      {isInChatRoom && selectedChatId ? (
+      {selectedChatId ? (
         // 채팅방 헤더 부분
         <ChatHeader
           chatId={selectedChatId}
@@ -51,7 +50,12 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
             {activeTab === '온손이 AI' ? (
               <AIChatroom />
             ) : user ? (
-              <ChatInBox userId={user.id} onEnterChatRoom={handleEnterChatRoom} />
+              <ChatInBox
+                selectedChatId={selectedChatId}
+                userId={user.id}
+                onEnterChatRoom={handleEnterChatRoom}
+                onBackToList={handleBackToList}
+              />
             ) : (
               <div className="flex h-full flex-col items-center justify-center text-center">
                 <p className="mb-4 text-gray-500">실시간 채팅을 이용하려면 로그인이 필요합니다.</p>
