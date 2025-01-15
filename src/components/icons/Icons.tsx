@@ -313,3 +313,24 @@ export const BookmarkBlackIcon = () => {
     </svg>
   );
 };
+
+export const SendMessageIcon = () => {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M5.3335 13.334L26.6668 5.33398L18.6668 26.6673L14.6668 17.334L5.3335 13.334Z"
+        stroke="#D0D0D0"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14.6665 17.334L26.6665 5.33398"
+        stroke="#D0D0D0"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};

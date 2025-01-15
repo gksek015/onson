@@ -6,6 +6,17 @@ interface ChatListProps {
 }
 
 const ChatList = ({ chatRooms, onSelectRoom }: ChatListProps) => {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      weekday: 'short'
+    };
+    return date.toLocaleDateString('ko-KR', options); // 한국어 형식으로 변환
+  };
+
   return (
     <div>
       {chatRooms.map((room) => {
@@ -22,11 +33,7 @@ const ChatList = ({ chatRooms, onSelectRoom }: ChatListProps) => {
               <p className="w-60 truncate text-sm text-black">{lastMessage?.content || '메시지가 없습니다.'}</p>
             </div>
             <div className="text-right">
-              <p className="text-xs text-black">
-                {lastMessage?.created_at
-                  ? new Date(lastMessage.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                  : ''}
-              </p>
+              <p className="text-xs text-black">{lastMessage?.created_at ? formatDate(lastMessage.created_at) : ''}</p>
               <span className="text-xl text-black">›</span>
             </div>
           </button>
