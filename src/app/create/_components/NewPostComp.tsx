@@ -25,6 +25,13 @@ const NewPostComp = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const router = useRouter();
 
+  const isFormValid = (): boolean => {
+    return (
+      formData.title.trim() !== '' &&
+      formData.content.trim() !== '' &&
+      formData.date.trim() !== ''
+    );
+  };
   useEffect(() => {
     const fetchUserId = async () => {
       const id = await getCurrentUserId();
@@ -61,7 +68,7 @@ const NewPostComp = () => {
     try {
       if (!formData.title || !formData.content || !formData.date) {
         Swal.fire({
-          title: '모든 필드를 입력해주세요.',
+          title: '필수 필드를 입력해주세요.',
           icon: 'warning',
         });
         return;
@@ -114,12 +121,17 @@ const NewPostComp = () => {
     <div className="min-h-screen bg-white">
       <header className="flex items-center justify-between border-b px-4 py-3">
         <h1 className="text-lg font-bold">봉사 요청</h1>
-        <button type="submit" onClick={handleSubmit} className="font-semibold text-blue-500">
+        <button type="submit" onClick={isFormValid() ? handleSubmit : undefined}
+        className={`font-semibold ${
+          isFormValid() ? 'text-[#4E4E4E]' : 'text-[#B4B4B4]'
+        }`}
+        disabled={!isFormValid()}
+        >
           등록
         </button>
       </header>
 
-      <main className="p-4">
+      <main>
         <PostForm categories={categories} setFormData={setFormData} formData={formData}/>
       </main>
     </div>

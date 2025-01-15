@@ -1,12 +1,12 @@
 'use client';
 
 import { BottomSheet } from '@/components/common/BottomSheet';
+import type { FormData } from '@/types/formdata';
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './customCalendar.css';
-import type { FormData } from '@/types/formdata';
-import dayjs from 'dayjs'
 
 interface DateCompProps {
   onSelectRange: (range: [Date, Date]) => void;
@@ -17,15 +17,15 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
   const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
   const [selectedRange, setSelectedRange] = useState<[Date, Date] | null>(null);
 
-    // formData 값을 기반으로 selectedRange 초기화
-    useEffect(() => {
-      if (formData.date && formData.end_date) {
-        setSelectedRange([
-          new Date(formData.date), // 문자열을 실제 Date 객체로 변환
-          new Date(formData.end_date),
-        ]);
-      }
-    }, [formData.date, formData.end_date]);
+  // formData 값을 기반으로 selectedRange 초기화
+  useEffect(() => {
+    if (formData.date && formData.end_date) {
+      setSelectedRange([
+        new Date(formData.date), // 문자열을 실제 Date 객체로 변환
+        new Date(formData.end_date)
+      ]);
+    }
+  }, [formData.date, formData.end_date]);
 
   const handleOpen = () => setIsSheetOpen(true);
   const handleClose = () => setIsSheetOpen(false);
@@ -56,7 +56,6 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
     return `${dayjs(date).format('YYYY-MM-DD')} ~ ${dayjs(end_date).format('YYYY-MM-DD')}`;
   };
 
-
   return (
     <div className="relative">
       <input
@@ -84,6 +83,18 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
             />
           </div>
           <div className="mt-4 text-center">
+          {selectedRange && (
+          <div>
+            <p>봉사 날짜</p>
+            <p>
+              {`${dayjs(selectedRange[0]).format('YYYY년 MM월 DD일')} ~ ${
+                selectedRange[1]
+                  ? dayjs(selectedRange[1]).format('YYYY년 MM월 DD일')
+                  : ''
+              }`}
+            </p>
+          </div>
+        )}
             <button
               type="button"
               onClick={handleClose}

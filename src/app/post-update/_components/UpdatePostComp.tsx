@@ -135,7 +135,7 @@ const UpdatePostComp = () => {
         </button>
       </header>
 
-      <main className="p-4">
+      <main>
         <PostForm categories={categories} setFormData={setFormData} formData={formData} />
       </main>
     </div>

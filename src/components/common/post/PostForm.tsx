@@ -28,7 +28,7 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
     setFormData((prev) => ({
       ...prev,
       date: dayjs(startDate).format('YYYY-MM-DD'),
-      end_date: dayjs(endDate).format('YYYY-MM-DD'),
+      end_date: dayjs(endDate).format('YYYY-MM-DD')
     }));
   };
 
@@ -36,7 +36,7 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
   const handleImageSelect = (newFiles: File[]) => {
     setFormData((prev) => ({
       ...prev,
-      images: [...prev.images, ...newFiles], // 기존 이미지 + 새 파일
+      images: [...prev.images, ...newFiles] // 기존 이미지 + 새 파일
     }));
   };
 
@@ -46,7 +46,7 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
       ...prev,
       deletedImages: [
         ...prev.deletedImages,
-        typeof imageUrlOrFile === 'string' ? imageUrlOrFile : '', // URL만 추가
+        typeof imageUrlOrFile === 'string' ? imageUrlOrFile : '' // URL만 추가
       ].filter(Boolean), // 빈 문자열 제거
       images: prev.images.filter((img) => {
         if (typeof imageUrlOrFile === 'string') {
@@ -54,10 +54,10 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
         } else {
           return !(img instanceof File && img === imageUrlOrFile);
         }
-      }),
+      })
     }));
   };
-  
+
   // const handleAddressSelect = (selectedAddress: string) => {
   //   // 선택한 주소를 input에 표시하고 formData에 저장
   //   setFormData((prev) => ({ ...prev, address: selectedAddress }));
@@ -68,51 +68,57 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
   };
 
   return (
-    <form className="space-y-4" onSubmit={handleSubmit} >
-      <div>
-        <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-          제목
-        </label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value={formData.title}
-          className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          onChange={handleInputChange}
-        />
-      </div>
-
-
-      <AddressComp formData={formData} setFormData={setFormData}/>
-
-      <div className="space-y-4">
-        <label htmlFor="tag" className="block text-sm font-medium text-gray-700">
-          태그
-        </label>
-        <div className="flex items-center justify-between space-x-4">
-          <CategorySelectComp formData={formData} categories={categories} onSelectCategory={handleCategorySelect} />
-          <DateComp onSelectRange={handleDateSelect} formData={formData}/>
+    <div className="relative h-[calc(100vh-60px)] overflow-y-auto pb-[80px]">
+      <form className="mt-[28px] space-y-5 px-5 py-4" onSubmit={handleSubmit}>
+        <div className="mb-[28px]">
+          <label htmlFor="title" className="block text-[18px] font-medium text-gray-700">
+            제목
+          </label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={formData.title}
+            placeholder="ex) 어르신 보조, 드론의 재능기부, 환경 정리 등"
+            className="mt-1 block h-[28px] w-full rounded-md border border-gray-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            onChange={handleInputChange}
+          />
         </div>
-      </div>
 
-      <div>
-        <label htmlFor="content" className="block text-sm font-medium text-gray-700">
-          본문 (500자 이내)
-        </label>
-        <textarea
-          id="content"
-          name="content"
-          value={formData.content}
-          rows={4}
-          maxLength={500}
-          className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          onChange={handleInputChange}
-        />
-      </div>
+        <AddressComp formData={formData} setFormData={setFormData} />
 
-      <PhotoComp onRemoveImage={handleRemoveImage} onImageSelect={handleImageSelect} formData={formData}/>
-    </form>
+        <div className="mt-[28px] space-y-1">
+          <label htmlFor="tag" className="block text-[18px] font-medium text-gray-700">
+            태그
+          </label>
+          <div className="flex items-center justify-between space-x-4">
+            <CategorySelectComp formData={formData} categories={categories} onSelectCategory={handleCategorySelect} />
+            <DateComp onSelectRange={handleDateSelect} formData={formData} />
+          </div>
+        </div>
+
+        <div>
+          <div className="flex items-center">
+            <label htmlFor="content" className="block text-[18px] font-medium text-gray-700">
+              본문
+            </label>
+            <span className="ml-3 text-xs font-normal text-gray-400">*500자 이내</span>
+          </div>
+          <textarea
+            id="content"
+            name="content"
+            value={formData.content}
+            placeholder="필요한 준비물이나 유의사항을 적어주세요.              ex) 봉사 시 강도가 높아 무거운 물건을 드는데 자신 있는 분을 찾습니다."
+            rows={4}
+            maxLength={500}
+            className="mt-1 block h-[90px] w-full rounded-md border border-gray-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            onChange={handleInputChange}
+          />
+        </div>
+
+        <PhotoComp onRemoveImage={handleRemoveImage} onImageSelect={handleImageSelect} formData={formData} />
+      </form>
+    </div>
   );
 };
 

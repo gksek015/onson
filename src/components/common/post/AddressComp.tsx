@@ -23,7 +23,7 @@ const AddressComp = ({formData, setFormData} : AddressCompProps) => {
 
   return (
     <div>
-        <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="address" className="block text-[18px] font-medium text-gray-700">
           위치
         </label>
         <input
