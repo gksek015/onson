@@ -7,7 +7,6 @@ import type { FormData } from '@/types/formdata';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-
 const UpdatePostComp = () => {
   const {id: postId} = useParams();
   const [formData, setFormData] = useState<FormData>({
@@ -48,6 +47,7 @@ const UpdatePostComp = () => {
         }
         
         const fullAddress = `${post.si} ${post.gu} ${post.dong}` 
+
 
         setFormData({
           title: post.title,
@@ -122,7 +122,8 @@ const UpdatePostComp = () => {
       <main className="p-4">
         <PostForm categories={categories} setFormData={setFormData} formData={formData}/>
       </main>
-    </div>) : (
+    </div>
+  ) : (
     <p>수정 권한이 없습니다.</p>
   );
 };

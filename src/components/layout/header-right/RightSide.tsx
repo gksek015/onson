@@ -13,7 +13,7 @@ const RightSide = () => {
       </Link>
 
       <Link
-        href="/search-list"
+        href="/list"
         className="text-black  
       border border-black rounded-full px-4 py-2 hover:bg-blue-200"
       >
