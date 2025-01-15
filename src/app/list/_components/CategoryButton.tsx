@@ -1,4 +1,4 @@
-import { FilterIcon } from '../icons/Icons';
+import { FilterIcon } from "@/components/icons/Icons";
 
 const CategoryButton = () => {
   return (

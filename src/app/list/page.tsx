@@ -1,9 +1,9 @@
-import CategoryButton from '@/components/home/CategoryButton';
-import SearchBar from '@/components/home/SearchBar';
-import Tags from '@/components/home/Tags';
+import CategoryButton from '@/app/list/_components/CategoryButton';
+import Tags from '@/app/list/_components/Tags';
 import Header from '@/components/layout/Header';
 import { Suspense } from 'react';
 import AllLists from './_components/AllLists';
+import SearchBar from './_components/SearchBar';
 
 const ListPage = () => {
   return (

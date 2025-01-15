@@ -1,9 +1,9 @@
 'use client';
 
+import AddressSearch from '@/components/common/AddressSearch';
+import { BottomSheet } from '@/components/common/BottomSheet';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import AddressSearch from '../common/AddressSearch';
-import { BottomSheet } from '../common/BottomSheet';
 
 const Tags = () => {
   const searchParams = useSearchParams();

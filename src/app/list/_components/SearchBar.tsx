@@ -1,6 +1,6 @@
 'use client';
 
-import { SearchIcon } from '../icons/Icons';
+import { SearchIcon } from '@/components/icons/Icons';
 
 const SearchBar = () => {
   return (
