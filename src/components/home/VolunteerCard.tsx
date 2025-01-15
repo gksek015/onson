@@ -12,7 +12,6 @@ interface VolunteerCardProps {
 }
 
 const VolunteerCard = ({ post }: VolunteerCardProps) => {
-  // console.log(post);
   return (
     <Link href={`/detail/${post.id}`}>
       <div className="flex items-center pt-3">
