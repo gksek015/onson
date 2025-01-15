@@ -2,10 +2,10 @@
 
 import PostForm from '@/components/common/post/PostForm';
 import { categories } from '@/data/categories';
-import { useState, useEffect } from 'react';
 import { insertImageToPost, insertPost, uploadImage } from '@/lib/posts/insertPost';
 import { getCurrentUserId } from '@/lib/posts/updatePost';
 import type { FormData } from '@/types/formdata';
+import { useEffect, useState } from 'react';
 
 const NewPostComp = () => {
   const [formData, setFormData] = useState<FormData>({
