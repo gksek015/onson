@@ -11,6 +11,7 @@ const AddressButton = () => {
     setIsSheetOpen(false); // BottomSheet 닫기
   };
 
+
   return (
     <div className="relative w-full">
       <input
@@ -30,7 +31,7 @@ const AddressButton = () => {
         onClose={handleSheetClose} // 기본 닫기 동작
       >
         {/* 전달되는 Content 컴포넌트 */}
-        <AddressSearch />
+        <AddressSearch option={'search'}/>
       </BottomSheet>
     </div>
   );
