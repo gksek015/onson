@@ -4,7 +4,7 @@ import PostForm from '@/components/common/post/PostForm';
 import { categories } from '@/data/categories';
 import { getCurrentUserId, getPost, updatePostById } from '@/lib/posts/updatePost';
 import type { FormData } from '@/types/formdata';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 
@@ -22,6 +22,7 @@ const UpdatePostComp = () => {
   });
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchPostData = async () => {
@@ -84,22 +85,9 @@ const UpdatePostComp = () => {
         return;
       }
 
-    // // 새 이미지가 추가되었을 때만 updateImages 호출
-    // if (formData.images.length > 0) {
-    //   // 기존 이미지와 새로 추가된 이미지 구분
-    //   const newImages = formData.images.filter((image) => image instanceof File);
-      
-      
-    //   if (newImages.length > 0) {
-    //     const imageUpdateSuccess = await updateImages(postId as string, newImages);
-    //     if (!imageUpdateSuccess) {
-    //       alert('이미지 수정에 실패했습니다.');
-    //       return;
-    //     }
-    //   }
-    // }
-
       alert('게시글이 수정되었습니다.');
+
+      router.push(`/posts/${postId}`);
     } catch (error) {
       console.error('Error updating post:', error);
       alert('수정 중 오류가 발생했습니다.');

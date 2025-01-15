@@ -63,12 +63,9 @@ export const updatePostById = async (
       return false;
     }
 
-    console.log('Post updated successfully:', postId);
-
     // 2. 이미지 처리
     // 2-1. 삭제된 이미지 처리
     for (const imageUrl of updatedData.deletedImages || []) {
-      console.log('Deleting image:', imageUrl);
       await deleteImageFromPost(postId, imageUrl);
     }
 
@@ -76,7 +73,6 @@ export const updatePostById = async (
     const newImages = updatedData.images?.filter((img) => img instanceof File) as File[];
     for (const file of newImages) {
       const imageUrl = await uploadImage(file, 'images_bucket'); // Storage에 업로드
-      console.log('Uploading new image:', file.name);
 
       const { error: insertError } = await supabase
         .from('images')
@@ -91,7 +87,6 @@ export const updatePostById = async (
       }
     }
 
-    console.log('Images updated successfully for post:', postId);
     return true;
   } catch (error) {
     console.error('Error in updatePostById:', error);
@@ -106,7 +101,6 @@ export const deleteImageFromPost = async (postId: string, imageUrl: string): Pro
   const supabase = createClient();
   try {
     const filePath = imageUrl.replace(/.*images\//, ''); // Storage에서 삭제할 파일 경로 추출
-    console.log(`Deleting file from storage: ${filePath}`);
 
     // 1. Storage에서 파일 삭제
     const { error: storageError } = await supabase.storage.from('images_bucket').remove([filePath]);
@@ -127,7 +121,6 @@ export const deleteImageFromPost = async (postId: string, imageUrl: string): Pro
       throw dbError;
     }
 
-    console.log(`Successfully deleted image: ${imageUrl}`);
   } catch (error) {
     console.error('Error in deleteImageFromPost:', error);
     throw error;

@@ -5,6 +5,7 @@ import { categories } from '@/data/categories';
 import { insertImageToPost, insertPost, uploadImage } from '@/lib/posts/insertPost';
 import { getCurrentUserId } from '@/lib/posts/updatePost';
 import type { FormData } from '@/types/formdata';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const NewPostComp = () => {
@@ -21,6 +22,7 @@ const NewPostComp = () => {
 
   const [userId, setUserId] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUserId = async () => {
@@ -34,11 +36,6 @@ const NewPostComp = () => {
 
     fetchUserId();
   }, []);
-
-  // image 타입 함수
-  // const isFile = (image: File | { img_url: string }): image is File => {
-  //   return image instanceof File;
-  // };
 
   const handleSubmit = async () => {
     if (!userId) {
@@ -72,6 +69,8 @@ const NewPostComp = () => {
       }
 
       alert('봉사 요청이 성공적으로 등록되었습니다!');
+
+      router.push('/')
     } catch (error) {
       console.error('Error submitting post:', error);
       alert('봉사 요청 등록 중 오류가 발생했습니다.');
