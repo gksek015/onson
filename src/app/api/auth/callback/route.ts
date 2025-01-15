@@ -2,9 +2,9 @@ import { getSupabaseClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
+    const origin = new URL(request.url).origin || process.env.NEXT_PUBLIC_BASE_URL; 
     try {
       const { searchParams } = new URL(request.url);
-      const origin = new URL(request.url).origin || process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'; // 기본값 추가
       const code = searchParams.get('code');
       const next = searchParams.get('next') 
         ? new URL(searchParams.get('next')!, origin).toString() 
@@ -31,7 +31,7 @@ export async function GET(request: Request) {
       return NextResponse.redirect(next);
     } catch (err) {
       console.error('Unexpected error:', err);
-      return NextResponse.redirect(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000/auth/error'); // 기본값 사용
+      return NextResponse.redirect(process.env.NEXT_PUBLIC_BASE_URL || `${origin}/auth/error`); 
     }
   }
   
