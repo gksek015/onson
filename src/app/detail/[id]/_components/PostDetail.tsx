@@ -17,15 +17,20 @@ const PostDetail = ({ postPageId }: PostDetailProps) => {
 
   return (
     <div className="mx-auto max-w-2xl">
-      {post.images && <ImageSwiper images={post.images} />}
+      {post.images && <ImageSwiper images={post.images} isPostClosed={post.completed} />}
       {/* 이미지 없으면 그냥 컨텐트만 보여줌 */}
       <PostContent
         title={post.title}
         nickname={post.users.nickname}
-        date={post.date}
+        created_at={post.date}
         content={post.content}
         postId={post.id}
         postOwnerId={post.user_id}
+        category={post.category}
+        startDate={post.date}
+        endDate={post.end_date}
+        address={{ si: post.si, gu: post.gu, dong: post.dong }}
+        isPostClosed={post.completed}
       />
     </div>
   );
