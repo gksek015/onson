@@ -4,9 +4,10 @@ import { supabase } from '@/utils/supabase/client';
 interface GetPostsParams {
   address? : string
   category? : string
+  searchedkeyword? :string
 }
 
-export const getPostbyFilter = async ({address, category}: GetPostsParams): Promise<PostType[]> => {
+export const getPostbyFilter = async ({address, category,searchedkeyword}: GetPostsParams): Promise<PostType[]> => {
   let query = supabase.from('posts').select(`*, images(img_url), users(nickname)`);
 
   // address 처리
@@ -24,6 +25,13 @@ export const getPostbyFilter = async ({address, category}: GetPostsParams): Prom
   if (category){
     query = query.eq('category', category);
   } 
+
+  // searchedkeyword 처리
+  if (searchedkeyword) {
+    query = query.or(
+      `title.ilike.%${searchedkeyword}%,content.ilike.%${searchedkeyword}%`
+    );
+  }
 
   // 전체 게시물 최신순 정렬
   query = query.order('created_at', { ascending: false });

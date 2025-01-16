@@ -8,8 +8,9 @@ const AllLists = () => {
   const searchParams = useSearchParams();
   const address = searchParams.get('address') || undefined; // 쿼리스트링에서 'address' 값 가져오기
   const category = searchParams.get('category') || undefined; // 쿼리스트링에서 'category' 값 가져오기
+  const searchedKeyword = searchParams.get('searchedKeyword') || undefined; // 쿼리스트링에서 'searchedKeyword' 값 가져오기
 
-  const { data: posts, isPending, isError } = useGetPostsbyFilter(address, category);
+  const { data: posts, isPending, isError } = useGetPostsbyFilter(address, category, searchedKeyword);
 
   // const addressList = address?.split('_');
   // const dong = addressList ? addressList[2] : '';

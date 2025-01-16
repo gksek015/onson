@@ -1,3 +1,4 @@
+import AddressTags from '@/app/list/_components/AddressTags';
 import CategoryButton from '@/app/list/_components/CategoryButton';
 import Tags from '@/app/list/_components/Tags';
 import Header from '@/components/layout/Header';
@@ -16,7 +17,10 @@ const ListPage = () => {
             <SearchBar />
             <CategoryButton categories={categories} />
           </div>
-          <Tags />
+          <div className='flex w-3/4 gap-1'>
+            <AddressTags />
+            <Tags />
+          </div>
           <AllLists />
         </Suspense>
       </div>
