@@ -1,38 +1,55 @@
-import Link from 'next/link';
+'use client';
+
+import useModal from '@/hooks/ui/useModal';
+import { useRouter } from 'next/navigation';
+import ChatBoxModal from '../chatbox/ChatBoxModal';
+import { HomePillIcon, MessageStrokeIcon, NoteIcon, PencilPlusIcon } from '../icons/Icons';
 
 const BottomNav = () => {
+  const router = useRouter();
+  const { isOpen, toggleModal } = useModal();
   return (
-    <nav className="fixed bottom-0 w-full bg-gray-100 border-t p-4 flex justify-around">
-      {/* 홈 버튼 */}
-      <Link href="/" className="flex flex-col items-center hover:text-blue-600">
-        <span>🏠</span>
-        <span className="text-sm text-black font-bold">홈</span>
-      </Link>
+    <>
+      <nav className="fixed bottom-0 flex w-full justify-around border-t bg-gray-100 p-4">
+        {/* 홈 버튼 */}
+        <button
+          type="button"
+          onClick={() => router.push('/')}
+          className="flex flex-col items-center hover:text-blue-600"
+        >
+          <HomePillIcon />
+          <span className="text-sm font-bold text-black">홈</span>
+        </button>
 
-      {/* 게시글 작성 버튼 */}
-      <Link href="/create" className="flex flex-col items-center  hover:text-blue-600">
-        <span>📄</span>
-        <span className="text-sm text-black font-bold">봉사 요청</span>
-      </Link>
+        {/* 게시글 작성 버튼 */}
+        <button
+          type="button"
+          onClick={() => router.push('/create')}
+          className="flex flex-col items-center hover:text-blue-600"
+        >
+          <PencilPlusIcon />
+          <span className="text-sm font-bold text-black">봉사 요청</span>
+        </button>
 
-      {/* 게시글 리스트 페이지 이동 버튼 */}
-      <Link href="list" className="flex flex-col items-center hover:text-blue-600">
-        <span>🔍</span>
-        <span className="text-sm text-black font-bold">봉사 찾기</span>
-      </Link>
+        {/* 게시글 리스트 페이지 이동 버튼 */}
+        <button
+          type="button"
+          onClick={() => router.push('/list')}
+          className="flex flex-col items-center hover:text-blue-600"
+        >
+          <NoteIcon />
+          <span className="text-sm font-bold text-black">봉사 찾기</span>
+        </button>
 
-      {/* 게시글 리스트 페이지 이동 버튼 */}
-      <Link href="list" className="flex flex-col items-center hover:text-blue-600">
-        <span>💬</span>
-        <span className="text-sm text-black font-bold">채팅하기</span>
-      </Link>
-
-      {/* 마이페이지 */}
-      <Link href="my-page" className="flex flex-col items-center hover:text-blue-600">
-        <span>👤</span>
-        <span className="text-sm text-black font-bold">마이페이지</span>
-      </Link>
-    </nav>
+        {/* 채팅모달을 열기 위한 버튼 */}
+        <button type="button" onClick={toggleModal} className="flex flex-col items-center hover:text-blue-600">
+          <MessageStrokeIcon />
+          <span className="text-sm font-bold text-black">Chat</span>
+        </button>
+      </nav>
+      {/* 모달열리는 부분 */}
+      {isOpen && <ChatBoxModal onClose={toggleModal} />}
+    </>
   );
 };
 
