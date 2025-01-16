@@ -1,6 +1,7 @@
 'use client';
 
 import { logout } from '@/lib/actions/auth/action';
+import { useUserStore } from '@/utils/store/userStore';
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
@@ -30,8 +31,33 @@ const ProfileDropdown = () => {
     };
   }, []);
 
+  // 클라이언트: 로그아웃 처리 및 디버깅
   const logoutWithUser = async () => {
-    await logout();
+    try {
+      console.log('로그아웃 시작');
+
+      // 서버 로그아웃 호출
+      const result = await logout();
+      console.log('로그아웃 결과:', result);
+
+      if (result?.error) {
+        console.error('Supabase 로그아웃 오류:', result.error);
+        return;
+      }
+
+      // 클라이언트 상태 초기화
+      console.log('클라이언트 상태 초기화');
+      useUserStore.getState().clearUser();
+
+      // 카카오 로그아웃 처리
+      console.log('카카오 로그아웃 시작');
+      const logoutRedirectUri = process.env.NEXT_PUBLIC_BASE_URL;
+      setTimeout(() => {
+        window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&logout_redirect_uri=${logoutRedirectUri}`;
+      }, 100); // 타이밍 보장
+    } catch (err) {
+      console.error('로그아웃 처리 중 오류:', err);
+    }
   };
 
   return (

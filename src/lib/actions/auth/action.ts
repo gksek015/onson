@@ -4,8 +4,8 @@ import { redirect } from 'next/navigation';
 
 import { userLoginSchema } from '@lib/revalidation/userSchema';
 
-import { useUserStore } from '@/utils/store/userStore';
 import { getSupabaseClient } from '@/utils/supabase/server';
+
 const supabase = getSupabaseClient(); 
 // 회원가입
 export const signup = async (formData: FormData) => {
@@ -91,10 +91,34 @@ export const login = async (formData: FormData) => {
 
   
   // 로그아웃
+  // 서버 액션: 로그아웃
 export const logout = async () => {
-    await supabase.auth.signOut();
-    useUserStore.getState().clearUser();
+    try {
+      // Supabase 세션 해제
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error('Supabase 로그아웃 오류:', error);
+        return { error: error.message };
+      }
   
-    redirect('/');
+      // 로그아웃 후 세션 확인
+      const { data: sessionData } = await supabase.auth.getSession();
+      if (sessionData?.session) {
+        console.error('Supabase 세션이 아직 남아 있습니다:', sessionData);
+        return { error: '로그아웃이 제대로 처리되지 않았습니다.' };
+      }
+  
+      console.log('Supabase 로그아웃 성공');
+      return {}; // 성공 시 빈 객체 반환
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error('로그아웃 처리 중 오류:', err.message);
+        return { error: err.message };
+      } else {
+        console.error('알 수 없는 오류 발생:', err);
+        return { error: '알 수 없는 오류가 발생했습니다.' };
+      }
+    }
   };
+  
   
