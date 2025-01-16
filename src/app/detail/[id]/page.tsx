@@ -10,7 +10,7 @@ const PostDetailPage = ({ params }: PostDetailProps) => {
   const { id } = params; // URL에서 id 가져오기
   return (
     <div className="w-full">
-      <Header />
+      <Header postPageId={id} />
       <PostDetail postPageId={id} />
     </div>
   );

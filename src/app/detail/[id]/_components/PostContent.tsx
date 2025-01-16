@@ -1,17 +1,14 @@
 'use client';
 
-'use client';
-
 import { AddressMarkIcon } from '@/components/icons/Icons';
 import { createdAtDate } from '@/utils/date/createdDate';
-import { useUserStore } from '@/utils/store/userStore';
 import BookmarkButton from './BookmarkButton';
 import PostActionButtons from './PostActionButtons';
 import PostTags from './PostTags';
 
 interface PostContentProps {
   title: string;
-  nickname: string | undefined;
+  nickname: string;
   created_at: string;
   content: string;
   postId: string;
@@ -36,7 +33,6 @@ const PostContent = ({
   address,
   isPostClosed
 }: PostContentProps) => {
-  const { user } = useUserStore();
 
   return (
     <div className="my-6 flex flex-col justify-center gap-4 pb-20">
@@ -58,7 +54,7 @@ const PostContent = ({
         </div>
 
         {/* 버튼 */}
-        <PostActionButtons isUserPost={user?.id === postOwnerId} nickname={nickname || ''} />
+        <PostActionButtons title={title} nickname={nickname} postOwnerId={postOwnerId}/>
       </div>
 
       {/* 가로선 */}

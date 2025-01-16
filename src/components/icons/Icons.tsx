@@ -236,9 +236,9 @@ export const ArrowLeftIcon = () => {
           width="37.2727"
           height="37.2727"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feGaussianBlur in="BackgroundImageFix" stdDeviation="1.81818" />
           <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_40000052_704" />
           <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_40000052_704" result="shape" />
@@ -252,7 +252,7 @@ export const ArrowRightIcon = () => {
   return (
     <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g filter="url(#filter0_b_40000052_708)">
-        <rect width="30" height="30" rx="15" fill="black" fill-opacity="0.5" />
+        <rect width="30" height="30" rx="15" fill="black" fillOpacity="0.5" />
         <path
           d="M18.8037 15L13.1453 8.89462C13.0987 8.84542 13.0619 8.78701 13.037 8.72276C13.012 8.65852 12.9995 8.58971 13 8.52034C13.0006 8.45096 13.0142 8.38239 13.0402 8.31859C13.0661 8.25479 13.1039 8.19703 13.1512 8.14864C13.1986 8.10026 13.2546 8.06222 13.3161 8.03672C13.3775 8.01122 13.4432 7.99877 13.5092 8.0001C13.5753 8.00142 13.6405 8.01648 13.701 8.04442C13.7614 8.07235 13.816 8.1126 13.8616 8.16284L19.8584 14.6341C19.9492 14.7321 20 14.8633 20 15C20 15.1367 19.9492 15.2679 19.8584 15.3659L13.8616 21.8372C13.816 21.8874 13.7614 21.9276 13.701 21.9556C13.6405 21.9835 13.5753 21.9986 13.5092 21.9999C13.4432 22.0012 13.3775 21.9888 13.3161 21.9633C13.2546 21.9378 13.1986 21.8997 13.1512 21.8514C13.1039 21.803 13.0661 21.7452 13.0402 21.6814C13.0142 21.6176 13.0006 21.549 13 21.4797C12.9995 21.4103 13.012 21.3415 13.037 21.2772C13.0619 21.213 13.0987 21.1546 13.1453 21.1054L18.8037 15Z"
           fill="#F4F5F5"
@@ -267,9 +267,9 @@ export const ArrowRightIcon = () => {
           width="37.2727"
           height="37.2727"
           filterUnits="userSpaceOnUse"
-          colorInterpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feGaussianBlur in="BackgroundImageFix" stdDeviation="1.81818" />
           <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_40000052_708" />
           <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_40000052_708" result="shape" />
@@ -297,7 +297,7 @@ export const BookmarkColorIcon = () => {
         d="M4.3 16.6V17.6616L5.27574 17.2434L9.9 15.2616L14.5243 17.2434L15.5 17.6616V16.6V5.4C15.5 4.82787 15.2881 4.32067 14.8837 3.91627C14.4793 3.51188 13.9721 3.3 13.4 3.3H6.4C5.82787 3.3 5.32067 3.51188 4.91628 3.91628C4.51188 4.32067 4.3 4.82787 4.3 5.4V16.6Z"
         fill="#F99A2C"
         stroke="#F99A2C"
-        stroke-width="1.4"
+        strokeWidth="1.4"
       />
     </svg>
   );
@@ -309,7 +309,7 @@ export const BookmarkBlackIcon = () => {
       <path
         d="M4.3 16.6V17.6616L5.27574 17.2434L9.9 15.2616L14.5243 17.2434L15.5 17.6616V16.6V5.4C15.5 4.82787 15.2881 4.32067 14.8837 3.91627C14.4793 3.51188 13.9721 3.3 13.4 3.3H6.4C5.82787 3.3 5.32067 3.51188 4.91628 3.91628C4.51188 4.32067 4.3 4.82787 4.3 5.4V16.6Z"
         stroke="#B1B1B1"
-        stroke-width="1.4"
+        strokeWidth="1.4"
       />
     </svg>
   );
@@ -321,16 +321,16 @@ export const AddressMarkIcon = () => {
       <path
         d="M5.50016 8.16671C5.50016 8.82975 5.76355 9.46563 6.2324 9.93447C6.70124 10.4033 7.33712 10.6667 8.00016 10.6667C8.6632 10.6667 9.29909 10.4033 9.76793 9.93447C10.2368 9.46563 10.5002 8.82975 10.5002 8.16671C10.5002 7.50367 10.2368 6.86778 9.76793 6.39894C9.29909 5.9301 8.6632 5.66671 8.00016 5.66671C7.33712 5.66671 6.70124 5.9301 6.2324 6.39894C5.76355 6.86778 5.50016 7.50367 5.50016 8.16671Z"
         stroke="#666666"
-        stroke-width="1.66667"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.66667"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M12.7143 12.8808L9.1785 16.4167C8.86599 16.7289 8.44232 16.9042 8.00058 16.9042C7.55885 16.9042 7.13518 16.7289 6.82267 16.4167L3.286 12.8808C2.35368 11.9485 1.71878 10.7606 1.46157 9.46739C1.20437 8.17419 1.33641 6.83376 1.841 5.61561C2.3456 4.39745 3.20008 3.35628 4.2964 2.62376C5.39272 1.89123 6.68164 1.50024 8.00017 1.50024C9.31869 1.50024 10.6076 1.89123 11.7039 2.62376C12.8003 3.35628 13.6547 4.39745 14.1593 5.61561C14.6639 6.83376 14.796 8.17419 14.5388 9.46739C14.2816 10.7606 13.6466 11.9485 12.7143 12.8808Z"
         stroke="#666666"
-        stroke-width="1.66667"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.66667"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -339,12 +339,12 @@ export const AddressMarkIcon = () => {
 export const RightArrowForChatIcon = () => {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M5 2L11 8L5 14" stroke="#656565" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M5 2L11 8L5 14" stroke="#656565" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 };
 
-export const ShareIcon = () => {
+export const MeatballMenuIcon = () => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44" fill="none">
       <path
@@ -354,6 +354,19 @@ export const ShareIcon = () => {
     </svg>
   );
 };
+
+export const TrashBinIcon = () => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M10 5H14C14 3.89543 13.1046 3 12 3C10.8954 3 10 3.89543 10 5ZM8.5 5C8.5 3.067 10.067 1.5 12 1.5C13.933 1.5 15.5 3.067 15.5 5H21.25C21.6642 5 22 5.33579 22 5.75C22 6.16421 21.6642 6.5 21.25 6.5H19.9309L18.7589 18.6112C18.5729 20.5334 16.9575 22 15.0263 22H8.97369C7.04254 22 5.42715 20.5334 5.24113 18.6112L4.06908 6.5H2.75C2.33579 6.5 2 6.16421 2 5.75C2 5.33579 2.33579 5 2.75 5H8.5ZM6.73416 18.4667C6.84577 19.62 7.815 20.5 8.97369 20.5H15.0263C16.185 20.5 17.1542 19.62 17.2658 18.4667L18.4239 6.5H5.57608L6.73416 18.4667Z"
+        fill="#F44125"
+      />
+    </svg>
+  );
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const SendMessageIcon = () => {
   return (
