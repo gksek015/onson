@@ -20,7 +20,8 @@ interface AddressSearchProps {
   option: string;
 }
 
-const AddressSearch = ({ onAddressSelect, option }: AddressSearchProps) => {
+const AddressSearch = ( { onAddressSelect, option }: AddressSearchProps
+) => {
   const [keyword, setKeyword] = useState(''); // 검색 키워드 상태
   const [searchResults, setSearchResults] = useState<Juso[]>([]); // 검색 결과 상태
   const [error, setError] = useState<string | null>(null); // 에러 상태
@@ -74,12 +75,15 @@ const AddressSearch = ({ onAddressSelect, option }: AddressSearchProps) => {
       <div className="relative flex w-auto items-center gap-2">
         <input
           type="text"
-          placeholder="'시', '구'까지 입력해주세요"
+          placeholder="'동' 단위로 입력해주세요.  ex)역삼동"
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
           className="w-full rounded-lg border p-3 text-base md:mb-6 md:text-2xl"
         />
-        <button type="submit" className="absolute right-2 cursor-pointer text-xl text-gray-500 md:text-4xl">
+        <button
+          type="submit"
+          className="absolute right-2 cursor-pointer text-xl text-gray-500 md:text-4xl"
+        >
           <span className="sr-only">Search</span>
           <GrSearch />
         </button>
@@ -89,12 +93,12 @@ const AddressSearch = ({ onAddressSelect, option }: AddressSearchProps) => {
       {loading && <p>검색 중...</p>}
 
       {/* 에러 메시지 */}
-      {error && (
+      {/* {error && (
         <div className="my-4 text-red-600">
           <p>{error}</p>
           <p>서울시 강남구 형태로 입력해주세요.</p>
         </div>
-      )}
+      )} */}
 
       {/* 검색 결과 */}
       <ul>
