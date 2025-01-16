@@ -1,25 +1,23 @@
 'use client';
 
 import ChatBoxModal from '@/components/chatbox/ChatBoxModal';
-import useModal from '@/hooks/ui/useModal';
 import { RightArrowForChatIcon } from '@/components/icons/Icons';
+import useModal from '@/hooks/ui/useModal';
+import { useUserStore } from '@/utils/store/userStore';
 
 interface PostActionButtonsProps {
-  isUserPost: boolean;
+  title: string;
   nickname: string;
+  postOwnerId: string;
 }
 
-const PostActionButtons = ({ isUserPost, nickname }: PostActionButtonsProps) => {
+const PostActionButtons = ({ title, nickname, postOwnerId }: PostActionButtonsProps) => {
   const { isOpen, toggleModal } = useModal();
+  const { user } = useUserStore();
 
   return (
     <>
-      {isUserPost ? (
-        <div className="flex gap-2">
-          <button className="flex-1 rounded-lg border-2 border-gray-500 px-4 py-3 text-gray-600">수정</button>
-          <button className="flex-1 rounded-lg border-2 border-gray-500 px-4 py-3 text-gray-600">삭제</button>
-        </div>
-      ) : (
+      {user?.id !== postOwnerId && (
         <button
           onClick={toggleModal}
           className="flex w-full items-center justify-between rounded-lg border-2 border-gray-500 px-4 py-3 text-gray-600 focus:outline-none"
