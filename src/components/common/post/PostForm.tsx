@@ -108,10 +108,11 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
             id="content"
             name="content"
             value={formData.content}
-            placeholder="필요한 준비물이나 유의사항을 적어주세요.              ex) 봉사 시 강도가 높아 무거운 물건을 드는데 자신 있는 분을 찾습니다."
+            placeholder={`필요한 준비물이나 유의사항을 적어주세요.
+    ex) 봉사 시 강도가 높아 무거운 물건을 드는데 자신 있는 분을 찾습니다.`}
             rows={4}
             maxLength={500}
-            className="mt-1 block h-[90px] w-full rounded-md border border-gray-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className="mt-1 block h-[90px] w-full whitespace-pre-line rounded-md border border-gray-300 text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             onChange={handleInputChange}
           />
         </div>
