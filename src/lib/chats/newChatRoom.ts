@@ -1,6 +1,6 @@
 import { supabase } from "@/utils/supabase/client";
 
-// 새 채팅방 생성하거나 혹은 기존에 채팅방이 있다면 가져오는 API
+// 새 채팅방 생성하거나 혹은 기존에 채팅방이 있다면 가져오는 로직
 export const newChatApi = async (user1Id: string, user2Id: string) => {
   const { data: existingChat, error: existingError } = await supabase
     .from('chats')
