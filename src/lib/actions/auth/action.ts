@@ -74,7 +74,7 @@ console.log('세션 데이터:', userData);
         redirectTo: `${currentUrl}/api/auth/callback`,
         queryParams: {
           prompt: 'login',
-          state: `${Date.now()}`, 
+          //state: `${Date.now()}`, 
         },
       },
     });

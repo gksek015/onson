@@ -344,7 +344,7 @@ export const RightArrowForChatIcon = () => {
   );
 };
 
-export const ShareIcon = () => {
+export const MeatballMenuIcon = () => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44" fill="none">
       <path
@@ -354,6 +354,19 @@ export const ShareIcon = () => {
     </svg>
   );
 };
+
+export const TrashBinIcon = () => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path
+        d="M10 5H14C14 3.89543 13.1046 3 12 3C10.8954 3 10 3.89543 10 5ZM8.5 5C8.5 3.067 10.067 1.5 12 1.5C13.933 1.5 15.5 3.067 15.5 5H21.25C21.6642 5 22 5.33579 22 5.75C22 6.16421 21.6642 6.5 21.25 6.5H19.9309L18.7589 18.6112C18.5729 20.5334 16.9575 22 15.0263 22H8.97369C7.04254 22 5.42715 20.5334 5.24113 18.6112L4.06908 6.5H2.75C2.33579 6.5 2 6.16421 2 5.75C2 5.33579 2.33579 5 2.75 5H8.5ZM6.73416 18.4667C6.84577 19.62 7.815 20.5 8.97369 20.5H15.0263C16.185 20.5 17.1542 19.62 17.2658 18.4667L18.4239 6.5H5.57608L6.73416 18.4667Z"
+        fill="#F44125"
+      />
+    </svg>
+  );
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const SendMessageIcon = () => {
   return (

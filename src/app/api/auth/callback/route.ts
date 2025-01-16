@@ -2,6 +2,7 @@ import { getSupabaseClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
+  
     const origin = new URL(request.url).origin || process.env.NEXT_PUBLIC_BASE_URL; 
     try {
       const { searchParams } = new URL(request.url);
@@ -9,14 +10,14 @@ export async function GET(request: Request) {
       const next = searchParams.get('next') 
         ? new URL(searchParams.get('next')!, origin).toString() 
         : `${origin}/`;
-  
+        
       if (!code) {
         return NextResponse.redirect(`${origin}/auth/error`);
       }
-  
+      console.log('가나다라마바사아자차카',code)
       const supabase = getSupabaseClient();
       const { data: userData, error } = await supabase.auth.exchangeCodeForSession(code);
-  
+      console.log('abcdefgasdfasdfasdfasdfasdfasd', userData)
       if (error) {
         console.error('Error exchanging code:', error);
         return NextResponse.redirect(`${origin}/auth/error`);
