@@ -20,11 +20,9 @@ interface AddressSearchProps {
   option: string;
 }
 
-const AddressSearch = ( { onAddressSelect, option }: AddressSearchProps
-) => {
+const AddressSearch = ({ onAddressSelect, option }: AddressSearchProps) => {
   const [keyword, setKeyword] = useState(''); // 검색 키워드 상태
   const [searchResults, setSearchResults] = useState<Juso[]>([]); // 검색 결과 상태
-  const [error, setError] = useState<string | null>(null); // 에러 상태
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -35,7 +33,6 @@ const AddressSearch = ( { onAddressSelect, option }: AddressSearchProps
     }
 
     setLoading(true);
-    setError(null);
 
     fetch(
       `https://business.juso.go.kr/addrlink/addrLinkApi.do?confmKey=devU01TX0FVVEgyMDI1MDEwOTE0NDIxNjExNTM5MzE=&currentPage=1&countPerPage=1000&keyword=${keyword}&resultType=json`,
@@ -56,15 +53,13 @@ const AddressSearch = ( { onAddressSelect, option }: AddressSearchProps
           setSearchResults(uniqueResults);
         } else {
           setSearchResults([]);
-          setError('검색 결과가 없습니다.');
         }
       })
       .catch((error) => {
         console.error('Error:', error);
-        setError('검색 중 오류가 발생했습니다.');
       })
       .finally(() => setLoading(false));
-  }, [keyword, setError, setSearchResults]);
+  }, [keyword, setSearchResults]);
 
   return (
     <div className="pl-2 md:p-10">
@@ -80,10 +75,7 @@ const AddressSearch = ( { onAddressSelect, option }: AddressSearchProps
           onChange={(e) => setKeyword(e.target.value)}
           className="w-full rounded-lg border p-3 text-base md:mb-6 md:text-2xl"
         />
-        <button
-          type="submit"
-          className="absolute right-2 cursor-pointer text-xl text-gray-500 md:text-4xl"
-        >
+        <button type="submit" className="absolute right-2 cursor-pointer text-xl text-gray-500 md:text-4xl">
           <span className="sr-only">Search</span>
           <GrSearch />
         </button>
@@ -91,14 +83,6 @@ const AddressSearch = ( { onAddressSelect, option }: AddressSearchProps
 
       {/* 로딩 상태 */}
       {loading && <p>검색 중...</p>}
-
-      {/* 에러 메시지 */}
-      {/* {error && (
-        <div className="my-4 text-red-600">
-          <p>{error}</p>
-          <p>서울시 강남구 형태로 입력해주세요.</p>
-        </div>
-      )} */}
 
       {/* 검색 결과 */}
       <ul>
