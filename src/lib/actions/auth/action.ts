@@ -32,7 +32,6 @@ export const signup = async (formData: FormData) => {
   await supabase.from('users').insert(pubilcUserData);
 
   if (error) {
-    console.log(error);
     redirect('/error');
   }
 
@@ -57,7 +56,8 @@ export const login = async (formData: FormData) => {
     if (error) {
       throw new Error(error.message);
     }
-    
+console.log('세션 데이터:', userData);
+
     return {
         id: userData.user?.id || '',
         email: userData.user?.email || '',
@@ -68,13 +68,13 @@ export const login = async (formData: FormData) => {
 
   //카카오 로그인
   export const kakaoLogin = async (currentUrl: string) => {
-  
     const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'kakao', 
+      provider: 'kakao',
       options: {
-        redirectTo: `${currentUrl}/api/auth/callback`, 
+        redirectTo: `${currentUrl}/api/auth/callback`,
         queryParams: {
-          prompt: 'login', 
+          prompt: 'login',
+          state: `${Date.now()}`, 
         },
       },
     });
@@ -85,14 +85,14 @@ export const login = async (formData: FormData) => {
     }
   
     if (data.url) {
-      redirect(data.url); 
+      redirect(data.url);
     }
   };
+  
 
   
   // 로그아웃
-  // 서버 액션: 로그아웃
-export const logout = async () => {
+export const logout = async (): Promise<string | { error: string }> => {
     try {
       // Supabase 세션 해제
       const { error } = await supabase.auth.signOut();
@@ -107,9 +107,11 @@ export const logout = async () => {
         console.error('Supabase 세션이 아직 남아 있습니다:', sessionData);
         return { error: '로그아웃이 제대로 처리되지 않았습니다.' };
       }
-  
-      console.log('Supabase 로그아웃 성공');
-      return {}; // 성공 시 빈 객체 반환
+      
+      const logoutRedirectUri = process.env.NEXT_PUBLIC_BASE_URL;
+      const result = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&logout_redirect_uri=${logoutRedirectUri}`;
+      return result;
+
     } catch (err) {
       if (err instanceof Error) {
         console.error('로그아웃 처리 중 오류:', err.message);

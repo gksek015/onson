@@ -32,32 +32,29 @@ const ProfileDropdown = () => {
     };
   }, []);
 
-  // 클라이언트: 로그아웃 처리 및 디버깅
+  // 로그아웃, 클라이언트 상태 초기화, 카카오 로그아웃 후 리다이렉트
   const logoutWithUser = async () => {
     try {
-      console.log('로그아웃 시작');
-
-      // 서버 로그아웃 호출
+      // Supabase 로그아웃
       const result = await logout();
-      console.log('로그아웃 결과:', result);
-
-      if (result?.error) {
+      if (typeof result === 'object' && 'error' in result) {
         console.error('Supabase 로그아웃 오류:', result.error);
         return;
       }
 
       // 클라이언트 상태 초기화
-      console.log('클라이언트 상태 초기화');
       useUserStore.getState().clearUser();
 
-      // 카카오 로그아웃 처리
-      console.log('카카오 로그아웃 시작');
-      const logoutRedirectUri = process.env.NEXT_PUBLIC_BASE_URL;
-      setTimeout(() => {
-        window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&logout_redirect_uri=${logoutRedirectUri}`;
-      }, 100); // 타이밍 보장
+      // 카카오 로그아웃
+      window.location.href = result;
     } catch (err) {
-      console.error('로그아웃 처리 중 오류:', err);
+      if (err instanceof Error) {
+        console.error('로그아웃 처리 중 오류:', err.message);
+        return { error: err.message };
+      } else {
+        console.error('알 수 없는 오류 발생:', err);
+        return { error: '알 수 없는 오류가 발생했습니다.' };
+      }
     }
   };
 
