@@ -1,8 +1,8 @@
 'use client';
 
 import ChatBoxModal from '@/components/chatbox/ChatBoxModal';
-import useModal from '@/hooks/ui/useModal';
 import { RightArrowForChatIcon } from '@/components/icons/Icons';
+import useModal from '@/hooks/ui/useModal';
 
 interface PostActionButtonsProps {
   isUserPost: boolean;
