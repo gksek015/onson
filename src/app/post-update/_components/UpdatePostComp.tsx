@@ -14,10 +14,10 @@ const UpdatePostComp = () => {
   }
 
   return isAuthorized ? (
-    <div className="min-h-screen bg-white">
-      <header className="flex items-center justify-between border-b px-4 py-3">
-        <h1 className="text-lg font-bold">수정</h1>
-        <button type="submit" onClick={handleUpdate} className="font-semibold text-blue-500">
+    <div className="min-h-screen items-center">
+      <header className="flex items-center justify-center border-b px-4 py-3 relative">
+        <h1 className="text-lg font-bold text-center">수정</h1>
+        <button type="submit" onClick={handleUpdate} className="absolute right-4 font-semibold text-gray-500">
           수정
         </button>
       </header>

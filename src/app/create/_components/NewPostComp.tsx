@@ -12,15 +12,16 @@ const NewPostComp = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <header className="flex items-center justify-between border-b px-4 py-3">
-        <h1 className="text-lg font-bold">봉사 요청</h1>
+    <div className="min-h-screen items-center">
+      <header className="flex items-center justify-center border-b px-4 py-3 relative">
+        <h1 className="text-lg font-bold text-center">봉사 요청</h1>
         <button
           type="submit"
           onClick={isFormValid() ? handleSubmit : undefined}
-          className={`font-semibold ${
+          className={`absolute right-4 font-semibold ${
             isFormValid() ? 'text-[#4E4E4E]' : 'text-[#B4B4B4]'
-          }`}
+          }
+          `}
           disabled={!isFormValid()}
         >
           등록

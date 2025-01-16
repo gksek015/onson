@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { BottomSheet } from "../BottomSheet";
-import AddressSearch from "../AddressSearch";
+import { BottomSheet } from "@/components/common/BottomSheet";
+import AddressSearch from "@/components/common/AddressSearch";
 import type { FormData } from "@/types/formdata";
 
 interface AddressCompProps {
@@ -33,7 +33,7 @@ const AddressComp = ({formData, setFormData} : AddressCompProps) => {
           readOnly
         placeholder="지역 선택"
           value={formData.address}
-          className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          className="mt-1 block w-full h-12 px-2 rounded-md border border-gray-300 text-base placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500"
           onClick={() => setIsSheetOpen(true)}
         />
 

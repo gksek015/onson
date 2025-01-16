@@ -25,12 +25,14 @@ export const usePostForm = () => {
     return (
       formData.title.trim() !== '' &&
       formData.content.trim() !== '' &&
-      formData.date.trim() !== ''
+      formData.date.trim() !== '' &&
+      formData.address.trim() !== '' &&
+      formData.category.trim() !== ''
     );
   }, [formData]);
 
   useEffect(() => {
-    if (!isLoggedIn()) {
+    if (isLoggedIn()) {
       Swal.fire({
         title: '로그인이 필요합니다',
         text: '글을 작성하시려면 로그인이 필요합니다.',
