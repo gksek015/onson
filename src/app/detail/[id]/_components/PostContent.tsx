@@ -33,28 +33,27 @@ const PostContent = ({
   address,
   isPostClosed
 }: PostContentProps) => {
-
   return (
-    <div className="my-6 pb-20 flex flex-col justify-center gap-4">
+    <div className="my-6 flex flex-col justify-center gap-4 pb-20">
       <div className="mx-4 flex flex-col justify-center gap-2">
         {/* 태그 */}
         <PostTags category={category} startDate={startDate} endDate={endDate} isPostClosed={isPostClosed} />
-        <div className="mt-1 text-xl font-bold">{title}</div>
+        <div className="mt-1 text-[18px] font-semibold">{title}</div>
 
         {/* 주소 */}
         <div className="my-2 flex items-center">
           <AddressMarkIcon />
-          <span className="ml-1">{`${address.si} ${address.gu} ${address.dong}`}</span>
+          <span className="text-[13px] ml-1">{`${address.si} ${address.gu} ${address.dong}`}</span>
         </div>
 
         <div className="text-gray-500">{nickname}</div>
-        <div className="flex items-center justify-between mb-2">
+        <div className="mb-2 flex items-center justify-between">
           <div className="text-gray-600">{createdAtDate(created_at)}</div>
           <BookmarkButton postId={postId} />
         </div>
 
         {/* 버튼 */}
-        <PostActionButtons title={title} nickname={nickname} postOwnerId={postOwnerId}/>
+        <PostActionButtons nickname={nickname} postOwnerId={postOwnerId} />
       </div>
 
       {/* 가로선 */}
