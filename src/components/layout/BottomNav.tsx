@@ -3,11 +3,12 @@
 import useModal from '@/hooks/ui/useModal';
 import { useRouter } from 'next/navigation';
 import ChatBoxModal from '../chatbox/ChatBoxModal';
-import { HomePillIcon, NoteIcon, PencilPlusIcon, UnReadMessageIcon } from '../icons/Icons';
+import { HomePillIcon, MessageStrokeIcon, NoteIcon, PencilPlusIcon } from '../icons/Icons';
 
 const BottomNav = () => {
   const router = useRouter();
   const { isOpen, toggleModal } = useModal();
+
   return (
     <>
       <nav className="fixed bottom-0 flex w-full justify-around border-t bg-white p-4">
@@ -31,8 +32,8 @@ const BottomNav = () => {
 
         {/* 채팅모달을 열기 위한 버튼 */}
         <button type="button" onClick={toggleModal} className="flex flex-col items-center">
-          {/* <MessageStrokeIcon /> */}
-          <UnReadMessageIcon />
+          {/* <UnReadMessageIcon /> */}
+          <MessageStrokeIcon />
           <span className="text-sm font-bold text-black">Chat</span>
         </button>
       </nav>

@@ -1,12 +1,13 @@
-import { RightArrowForChatIcon } from '@/components/icons/Icons';
+import { RightArrowForChatIcon, UnReadMarkIcon } from '@/components/icons/Icons';
 import type { ChatRoom } from '@/types/chatType';
 
 interface ChatListProps {
   chatRooms: (ChatRoom & { otherNickname: string | null })[];
+  unreadMessagesMap: { [chatId: string]: boolean };
   onSelectRoom: (chatId: string, otherNickname: string) => void;
 }
 
-const ChatList = ({ chatRooms, onSelectRoom }: ChatListProps) => {
+const ChatList = ({ chatRooms, unreadMessagesMap, onSelectRoom }: ChatListProps) => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
@@ -22,6 +23,7 @@ const ChatList = ({ chatRooms, onSelectRoom }: ChatListProps) => {
     <div>
       {chatRooms.map((room) => {
         const lastMessage = room.messages?.[room.messages.length - 1];
+        const hasUnreadMessagesMap = unreadMessagesMap[room.id];
 
         return (
           <button
@@ -32,6 +34,7 @@ const ChatList = ({ chatRooms, onSelectRoom }: ChatListProps) => {
             {/* 상단: 닉네임과 날짜+화살표 */}
             <div className="flex w-full items-center justify-between">
               <span className="text-lg font-semibold text-black">{room.otherNickname || '사용자가 없습니다.'}</span>
+              {hasUnreadMessagesMap && <UnReadMarkIcon />}
               <div className="flex-end flex items-center space-x-2 text-right">
                 <p className="text-xs text-gray-500">
                   {lastMessage?.created_at ? formatDate(lastMessage.created_at) : ''}

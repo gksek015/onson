@@ -13,11 +13,12 @@ import ChatMessage from './chatRoom/ChatMessage';
 interface ChatInBoxProps {
   userId: string;
   selectedChatId: string | null;
+  unreadMessagesMap: { [chatId: string]: boolean };
   onEnterChatRoom: (chatId: string, nickname: string) => void;
   onBackToList: () => void;
 }
 
-const ChatInBox = ({ selectedChatId, userId, onEnterChatRoom, onBackToList }: ChatInBoxProps) => {
+const ChatInBox = ({ selectedChatId, userId, unreadMessagesMap, onEnterChatRoom, onBackToList }: ChatInBoxProps) => {
   const [chatRooms, setChatRooms] = useState<(ChatRoom & { otherNickname: string | null })[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -45,7 +46,7 @@ const ChatInBox = ({ selectedChatId, userId, onEnterChatRoom, onBackToList }: Ch
   return selectedChatId ? (
     <ChatMessage selectedChatId={selectedChatId} userId={userId} onBackToList={onBackToList} />
   ) : (
-    <ChatList chatRooms={chatRooms} onSelectRoom={onEnterChatRoom} />
+    <ChatList chatRooms={chatRooms} onSelectRoom={onEnterChatRoom} unreadMessagesMap={unreadMessagesMap} />
   );
 };
 

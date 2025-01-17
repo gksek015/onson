@@ -1,8 +1,9 @@
 'use client';
 
+import { checkUnreadMessages } from '@/lib/chats/checkUnreadMessages';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CloseIcon2 } from '../icons/Icons';
 import AIChatroom from './ai/AIChatroom';
 import ChatInBox from './ChatInbox';
@@ -15,12 +16,29 @@ interface ChatBoxModalProps {
 const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   const [activeTab, setActiveTab] = useState('온손이 AI'); //'실시간채팅'과  '온손이 AI' 두개의 탭 상태 관리
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
+  const [unreadMessagesMap, setUnreadMessagesMap] = useState<{ [chatId: string]: boolean }>({});
   const { user } = useUserStore();
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchUnreadMessages = async () => {
+      if (!user?.id) return;
+      const unreadMap = await checkUnreadMessages(user.id);
+      setUnreadMessagesMap(unreadMap);
+    };
+
+    fetchUnreadMessages();
+  }, [user?.id]);
 
   // 채팅방 입장 처리하는 함수
   const handleEnterChatRoom = (chatId: string) => {
     setSelectedChatId(chatId);
+
+    setUnreadMessagesMap((prev) => {
+      const updated = { ...prev };
+      delete updated[chatId]; // 읽음 처리된 채팅방 제거
+      return updated;
+    });
   };
 
   // 뒤로가기
@@ -79,6 +97,7 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
             userId={user.id}
             onEnterChatRoom={handleEnterChatRoom}
             onBackToList={handleBackToList}
+            unreadMessagesMap={unreadMessagesMap}
           />
         ) : (
           <div className="flex h-full flex-col justify-between text-center">
