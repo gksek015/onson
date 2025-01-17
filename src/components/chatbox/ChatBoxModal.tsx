@@ -18,7 +18,7 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   const { user } = useUserStore();
   const router = useRouter();
 
-  // 채팅방 입장 처리하는 함수수
+  // 채팅방 입장 처리하는 함수
   const handleEnterChatRoom = (chatId: string) => {
     setSelectedChatId(chatId);
   };

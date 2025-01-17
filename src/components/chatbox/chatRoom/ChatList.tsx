@@ -33,8 +33,10 @@ const ChatList = ({ chatRooms, onSelectRoom }: ChatListProps) => {
               <p className="w-60 truncate text-sm text-black">{lastMessage?.content || '메시지가 없습니다.'}</p>
             </div>
             <div className="text-right">
-              <p className="text-xs text-black">{lastMessage?.created_at ? formatDate(lastMessage.created_at) : ''}</p>
-              <span className="text-xl text-black">›</span>
+              <p className="text-xs text-gray-500">
+                {lastMessage?.created_at ? formatDate(lastMessage.created_at) : ''}{' '}
+                <span className="text-xl text-black">›</span>
+              </p>
             </div>
           </button>
         );

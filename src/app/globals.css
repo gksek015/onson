@@ -7,13 +7,6 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   color: var(--foreground);
   background: var(--background);
@@ -25,3 +18,13 @@ body {
     text-wrap: balance;
   }
 }
+
+/* 이미지 페이지 네이션 커스터마이즈드 스타일 */
+.custom-swiper-pagination .swiper-pagination-bullet {
+  @apply bg-gray-900 opacity-50; /* 기본 페이지네이션 색상 */
+}
+
+.custom-swiper-pagination .swiper-pagination-bullet-active {
+  @apply bg-white opacity-100; /* 현재 보여지는 이미지 페이지네이션 스타일 */
+}
+
