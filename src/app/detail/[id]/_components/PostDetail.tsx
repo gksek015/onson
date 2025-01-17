@@ -1,6 +1,6 @@
 'use client';
 
-import useGetPostById from '@/hooks/useGetPostById';
+import {useGetPostById} from '@/hooks/useGetPostById';
 import ImageSwiper from './ImageSwiper';
 import PostContent from './PostContent';
 
