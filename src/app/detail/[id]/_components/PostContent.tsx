@@ -53,7 +53,7 @@ const PostContent = ({
         </div>
 
         {/* 버튼 */}
-        <PostActionButtons nickname={nickname} postOwnerId={postOwnerId} />
+        <PostActionButtons title={title} nickname={nickname} postOwnerId={postOwnerId} />
       </div>
 
       {/* 가로선 */}

@@ -37,8 +37,9 @@ const CategorySelectComp = ({ categories, onSelectCategory, formData }: Category
         type="text"
         id="category"
         name="category"
-        value={formData.category || '봉사 종류 선택'}
-        className="mt-1 block w-full cursor-pointer rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        placeholder='봉사 종류 선택'
+        value={formData.category}
+        className="flex-grow mt-1 block w-full h-12 px-2 rounded-md border border-gray-300 text-base placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500"
         readOnly
         onClick={() => setIsSheetOpen(true)}
       />
