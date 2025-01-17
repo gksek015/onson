@@ -1,9 +1,9 @@
-import { useState, useCallback, useEffect } from 'react';
-import Swal from 'sweetalert2';
-import { useRouter } from 'next/navigation';
 import { insertImageToPost, insertPost, uploadImage } from '@/lib/posts/insertPost';
 import type { FormData } from '@/types/formdata';
 import { useUserStore } from '@/utils/store/userStore';
+import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
 export const usePostForm = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -32,7 +32,7 @@ export const usePostForm = () => {
   }, [formData]);
 
   useEffect(() => {
-    if (isLoggedIn()) {
+    if (!isLoggedIn()) {
       Swal.fire({
         title: '로그인이 필요합니다',
         text: '글을 작성하시려면 로그인이 필요합니다.',
