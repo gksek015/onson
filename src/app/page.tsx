@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <section>
       <Header />
-      <div className='mt-5'>
+      <div className='mt-5 mb-20'>
         <MainSection />
       </div>
       <div>

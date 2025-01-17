@@ -41,7 +41,10 @@ const AddressTags = () => {
     <div className="flex justify-start text-xs">
       {/* tag가 null이거나 falsy하면 렌더링 안하기 */}
       {tag && (
-        <div onClick={openBottomSheet} className="cursor-pointer rounded-lg border p-1.5">
+        <div
+          onClick={openBottomSheet}
+          className="flex cursor-pointer rounded-lg border border-[#e6e6e6] p-1.5 py-1.5 pl-2 pr-1.5"
+        >
           {tag}
           <button
             className="ml-3"

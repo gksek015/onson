@@ -19,19 +19,19 @@ const SearchBar = () => {
     }
   };
   return (
-    <div className="relative w-2/3">
+    <div className='relative w-[271px] flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571] p-[1px]'>
       <input
         type="text"
         value={searchKeyword}
         onChange={(e) => setSearchKeyword(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && handleSearch()} // 엔터 키 동작
         placeholder="하고 싶은 봉사를 찾아보세요"
-        className="w-full cursor-pointer rounded-full border border-red-400 px-4 py-3 text-sm"
+        className="w-full cursor-pointer rounded-full border border-[#FB657E] px-5 py-3.5 text-base flex-1 p-0.5 text-black focus:outline-none"
       />
       <button
         type="button"
         onClick={handleSearch}
-        className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-800"
+        className="absolute left-56 top-1/2 transform -translate-y-1/2 text-[#4b4b4b] "
       >
         <span className="sr-only">Search</span>
         <SearchIcon />
@@ -41,3 +41,4 @@ const SearchBar = () => {
 };
 
 export default SearchBar;
+

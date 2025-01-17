@@ -30,10 +30,10 @@ const Tags = () => {
   };
 
   return (
-    <div className="flex justify-start gap-1 text-xs">
+    <div className="flex justify-start items-center gap-3 text-xs">
       {/* category 태그 */}
       {category && (
-        <div className="flex rounded-lg border p-1.5">
+        <div className="flex rounded-lg border border-[#e6e6e6] py-1.5 pl-2 pr-1.5 ">
           {category}
           <button
             className="ml-3"
@@ -49,7 +49,7 @@ const Tags = () => {
 
       {/* keyword 태그 */}
       {keyword && (
-        <div className="flex rounded-lg border p-1.5">
+        <div className="flex rounded-lg border border-[#e6e6e6] py-1.5 pl-2 pr-1.5 ">
           {keyword}
           <button
             className="ml-3"

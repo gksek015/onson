@@ -11,16 +11,15 @@ const AddressButton = () => {
     setIsSheetOpen(false); // BottomSheet 닫기
   };
 
-
   return (
-    <div className="relative w-full">
+    <div className="relative flex w-full items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571] p-[1px]">
       <input
         readOnly
         placeholder="하고 싶은 봉사를 찾아보세요"
-        className="w-full cursor-pointer rounded-full border border-red-400 px-4 py-3 text-sm"
+        className="w-full flex-1 cursor-pointer rounded-full border border-[#FB657E] p-0.5 px-5 py-3.5 text-base text-black focus:outline-none"
         onClick={() => setIsSheetOpen(true)}
       />
-      <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2">
+      <button type="submit" className="absolute right-5 top-1/2 -translate-y-1/2">
         <span className="sr-only">Search</span>
         <SearchIcon />
       </button>
@@ -31,7 +30,7 @@ const AddressButton = () => {
         onClose={handleSheetClose} // 기본 닫기 동작
       >
         {/* 전달되는 Content 컴포넌트 */}
-        <AddressSearch option={'search'}/>
+        <AddressSearch option={'search'} />
       </BottomSheet>
     </div>
   );

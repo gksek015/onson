@@ -31,7 +31,7 @@ const CategoryButton = ({ categories }: CategorySelectProps) => {
 
   return (
     <div>
-      <button type="button" className="rounded-full border border-red-400 p-2.5" onClick={() => setIsSheetOpen(true)}>
+      <button type="button" className="rounded-full border border-[#FB657E] p-3.5 border-2" onClick={() => setIsSheetOpen(true)}>
         <FilterIcon />
       </button>
       {/* 바텀시트 */}

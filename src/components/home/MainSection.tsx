@@ -2,8 +2,8 @@
 
 import AddressButton from '@/components/home/AddressButton';
 import HeroSection from '@/components/home/HeroSection';
-import VolunteerCard from './VolunteerCard';
 import useGetPost from '@/hooks/useGetPost';
+import VolunteerCard from './VolunteerCard';
 
 const MainSection = () => {
   const { posts, isPending } = useGetPost();
@@ -20,14 +20,13 @@ const MainSection = () => {
         <AddressButton />
       </div>
       <div>
-        <HeroSection />
+        <HeroSection /> 
       </div>
-      <div className="py-4">
-        <h2 className="px-5 text-xl font-semibold">방금 등록된 봉사</h2>
-        <div className="grid grid-cols-1 gap-4 px-5 pb-20 sm:grid-cols-2 lg:grid-cols-4">
-          {recentPosts?.map((post) => <VolunteerCard key={post.id} post={post} />)}
+        <div className='px-5'>
+          <h3 className='text-[#FB657E] text-sm'>New</h3>
+          <h2 className="text-xl font-semibold">방금 등록된 봉사</h2>
         </div>
-      </div>
+          {recentPosts?.map((post) => <VolunteerCard key={post.id} post={post} />)}
     </section>
   );
 };
