@@ -466,15 +466,22 @@ export const TrashIcon = () => {
   );
 };
 
-export const MessageIcon = () => {
+export const SendMessageIcon = () => {
   return (
-    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
-        d="M5 22L6.37943 17.8617C5.18723 16.0984 4.75594 14.0103 5.16576 11.9856C5.57559 9.96094 6.79863 8.13741 8.6075 6.85412C10.4164 5.57082 12.688 4.91508 14.9999 5.00882C17.3119 5.10256 19.5069 5.9394 21.1768 7.36375C22.8467 8.78809 23.8779 10.703 24.0787 12.7525C24.2794 14.8019 23.6361 16.8465 22.2682 18.5059C20.9004 20.1654 18.9011 21.3268 16.6422 21.7744C14.3833 22.2219 12.0183 21.925 9.98718 20.9389L5 22Z"
-        stroke="#8E8E93"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        d="M5.3335 13.334L26.6668 5.33398L18.6668 26.6673L14.6668 17.334L5.3335 13.334Z"
+        stroke="#D0D0D0"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M14.6665 17.334L26.6665 5.33398"
+        stroke="#D0D0D0"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
       />
     </svg>
   );
@@ -490,6 +497,51 @@ export const PencilPlusIcon = () => {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+    </svg>
+  );
+};
+
+export const SendMessageGradientIcon = () => {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M5.3335 13.334L26.6668 5.33398L18.6668 26.6673L14.6668 17.334L5.3335 13.334Z"
+        stroke="url(#paint0_linear_953_1980)"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M14.6665 17.334L26.6665 5.33398"
+        stroke="url(#paint1_linear_953_1980)"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_953_1980"
+          x1="6.8937"
+          y1="10.4622"
+          x2="23.8211"
+          y2="10.8038"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#F99A2C" />
+          <stop offset="0.97" stop-color="#FA5571" />
+        </linearGradient>
+        <linearGradient
+          id="paint1_linear_953_1980"
+          x1="15.5441"
+          y1="8.2186"
+          x2="25.0658"
+          y2="8.41077"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#F99A2C" />
+          <stop offset="0.97" stop-color="#FA5571" />
+        </linearGradient>
+      </defs>
     </svg>
   );
 };

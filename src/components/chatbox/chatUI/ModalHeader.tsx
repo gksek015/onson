@@ -1,4 +1,4 @@
-import { CloseIcon2 } from '@/components/icons/Icons';
+import { CloseIcon } from '@/components/icons/Icons';
 
 interface ModalHeaderProps {
   title: string;
@@ -10,7 +10,7 @@ const ModalHeader = ({ title, onClose }: ModalHeaderProps) => {
     <div className="flex items-center justify-between p-4 text-black">
       <h1 className="text-lg font-bold">{title}</h1>
       <button onClick={onClose} className="right-4 text-xl">
-        <CloseIcon2 />
+        <CloseIcon />
       </button>
     </div>
   );

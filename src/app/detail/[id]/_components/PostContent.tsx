@@ -1,6 +1,6 @@
 'use client';
 
-import { AddressMarkIcon } from '@/components/icons/Icons';
+import { MapPinIcon } from '@/components/icons/Icons';
 import { createdAtDate } from '@/utils/date/createdDate';
 import BookmarkButton from './BookmarkButton';
 import PostActionButtons from './PostActionButtons';
@@ -42,7 +42,7 @@ const PostContent = ({
 
         {/* 주소 */}
         <div className="my-2 flex items-center">
-          <AddressMarkIcon />
+          <MapPinIcon />
           <span className="ml-1">{`${address.si} ${address.gu} ${address.dong}`}</span>
         </div>
 
