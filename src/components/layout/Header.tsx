@@ -4,7 +4,7 @@ import RightSide from './header-right/RightSide';
 
 const Header = () => {
   return (
-    <header className="flex justify-center bg-white p-4 shadow-md">
+    <header className="flex justify-center bg-white p-4">
       <div className="flex w-full max-w-content items-center justify-between">
         {/* 로고부분 */}
         <Link href="/" className="text-xl font-bold text-black">
