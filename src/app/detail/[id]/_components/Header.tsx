@@ -31,13 +31,11 @@ const Header = ({ postPageId }: PostDetailProps) => {
 
   const handleDelete = () => {
     // TODO: delete 기능 구현
-    console.log('게시물 삭제');
     closeSheet();
   };
 
   const handleToggleRecruitment = () => {
     // TODO: 모집중, 완료 기능 구현
-    console.log('모집 상태 변경');
     closeSheet();
   };
 
