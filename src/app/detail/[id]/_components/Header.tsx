@@ -1,19 +1,20 @@
 'use client';
 
 import { BackButtonIcon, MeatballMenuIcon, PencilIcon, TrashBinIcon } from '@/components/icons/Icons';
-import useGetPostById from '@/hooks/useGetPostById';
+import { useGetPostById } from '@/hooks/useGetPostById';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { BottomSheet } from 'react-spring-bottom-sheet-updated';
 import 'react-spring-bottom-sheet-updated/dist/style.css';
+import Swal from 'sweetalert2';
 
 interface PostDetailProps {
   postPageId: string;
 }
 
 const Header = ({ postPageId }: PostDetailProps) => {
-  const { data: post } = useGetPostById(postPageId);
+  const { data: post, deletePostById } = useGetPostById(postPageId);
   const { user } = useUserStore();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const router = useRouter();
@@ -30,8 +31,21 @@ const Header = ({ postPageId }: PostDetailProps) => {
   };
 
   const handleDelete = () => {
-    // TODO: delete 기능 구현
     closeSheet();
+    Swal.fire({
+      title: `게시물 삭제`,
+      text: `정말 삭제하시겠습니까?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: '삭제하기',
+      cancelButtonText: '취소'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deletePostById.mutate(postPageId);
+        router.push('/list');
+      }
+    });
+    return;
   };
 
   const handleToggleRecruitment = () => {
