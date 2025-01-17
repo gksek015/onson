@@ -4,9 +4,9 @@ import { redirect } from 'next/navigation';
 
 import { userLoginSchema } from '@lib/revalidation/userSchema';
 
-import { useUserStore } from '@/utils/store/userStore';
-import { supabase } from '@/utils/supabase/server';
+import { createClient } from '@/utils/supabase/server';
 
+const supabase = createClient(); 
 // 회원가입
 export const signup = async (formData: FormData) => {
 
@@ -32,7 +32,6 @@ export const signup = async (formData: FormData) => {
   await supabase.from('users').insert(pubilcUserData);
 
   if (error) {
-    console.log(error);
     redirect('/error');
   }
 
@@ -57,7 +56,7 @@ export const login = async (formData: FormData) => {
     if (error) {
       throw new Error(error.message);
     }
-    
+
     return {
         id: userData.user?.id || '',
         email: userData.user?.email || '',
@@ -65,12 +64,38 @@ export const login = async (formData: FormData) => {
         profileImage: userData.user?.user_metadata?.profileImage || null,
       };
   };
-
-  // 로그아웃
-export const logout = async () => {
-    await supabase.auth.signOut();
-    useUserStore.getState().clearUser();
   
-    redirect('/');
+  //console.log('세션 데이터:', userData);
+  // 로그아웃
+export const logout = async (): Promise<string | { error: string }> => {
+    try {
+      // Supabase 세션 해제
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error('Supabase 로그아웃 오류:', error);
+        return { error: error.message };
+      }
+  
+      // 로그아웃 후 세션 확인
+      const { data: sessionData } = await supabase.auth.getSession();
+      if (sessionData?.session) {
+        console.error('Supabase 세션이 아직 남아 있습니다:', sessionData);
+        return { error: '로그아웃이 제대로 처리되지 않았습니다.' };
+      }
+      
+      const logoutRedirectUri = process.env.NEXT_PUBLIC_BASE_URL;
+      const result = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&logout_redirect_uri=${logoutRedirectUri}`;
+      return result;
+
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error('로그아웃 처리 중 오류:', err.message);
+        return { error: err.message };
+      } else {
+        console.error('알 수 없는 오류 발생:', err);
+        return { error: '알 수 없는 오류가 발생했습니다.' };
+      }
+    }
   };
+  
   
