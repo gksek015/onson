@@ -16,13 +16,13 @@ const MainSection = () => {
 
   return (
     <section>
-      <div className="mx-4 flex items-center justify-center gap-3">
+      <div className="mx-4 mt-2 mb-4 flex items-center justify-center gap-3">
         <AddressButton />
       </div>
       <div>
         <HeroSection /> 
       </div>
-        <div className='px-5'>
+        <div className='px-5 pt-7'>
           <h3 className='text-[#FB657E] text-sm'>New</h3>
           <h2 className="text-xl font-semibold">방금 등록된 봉사</h2>
         </div>

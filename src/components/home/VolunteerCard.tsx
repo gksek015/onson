@@ -61,7 +61,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
           </div>
           {firstImg && (
             <div className="flex h-24 w-20 items-center ">
-              <Image src={firstImg} alt={post.title} width={100} height={100} className='object-contain w-full h-full'/>
+              <Image src={firstImg} alt={post.title} width={100} height={100} className='object-cover w-full h-full'/>
             </div>
           )}
         </div>

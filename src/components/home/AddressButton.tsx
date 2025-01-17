@@ -12,11 +12,11 @@ const AddressButton = () => {
   };
 
   return (
-    <div className="relative flex w-full items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571] p-[1px]">
+    <div className="relative flex w-full items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571]">
       <input
         readOnly
         placeholder="하고 싶은 봉사를 찾아보세요"
-        className="w-full flex-1 cursor-pointer rounded-full border border-[#FB657E] p-0.5 px-5 py-3.5 text-base text-black focus:outline-none"
+        className="shadow-input w-full flex-1 cursor-pointer rounded-full border border-[#FB657E] p-0.5 px-5 py-3.5 text-base text-black focus:outline-none"
         onClick={() => setIsSheetOpen(true)}
       />
       <button type="submit" className="absolute right-5 top-1/2 -translate-y-1/2">

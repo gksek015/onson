@@ -21,7 +21,7 @@ const config: Config = {
         content: '1440px' //"max-w-content
       },
       boxShadow: {
-        'tags': '0px 0px 4px 0px rgba(0, 0, 0, 0.15)',
+        'input': '0px 4px 14px 0px rgba(0, 0, 0, 0.05)',
       },
       letterSpacing: {
         'custom': '-0.252px', // 커스텀 값 추가

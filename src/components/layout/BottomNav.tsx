@@ -3,14 +3,14 @@
 import useModal from '@/hooks/ui/useModal';
 import { useRouter } from 'next/navigation';
 import ChatBoxModal from '../chatbox/ChatBoxModal';
-import { HomePillIcon, MessageStrokeIcon, NoteIcon, PencilPlusIcon } from '../icons/Icons';
+import { HomePillIcon, MessageStrokeIcon,  NoteStrokeIcon, PencilPlusIcon } from '../icons/Icons';
 
 const BottomNav = () => {
   const router = useRouter();
   const { isOpen, toggleModal } = useModal();
   return (
     <>
-      <nav className="fixed bottom-0 flex w-full justify-around border-t bg-gray-100 p-4">
+      <nav className="fixed bottom-0 flex w-full justify-around bg-gray-100 p-4">
         {/* 홈 버튼 */}
         <button
           type="button"
@@ -37,7 +37,7 @@ const BottomNav = () => {
           onClick={() => router.push('/list')}
           className="flex flex-col items-center hover:text-blue-600"
         >
-          <NoteIcon />
+          <NoteStrokeIcon />
           <span className="text-sm font-bold text-black">봉사 찾기</span>
         </button>
 
