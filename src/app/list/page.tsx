@@ -13,12 +13,12 @@ const ListPage = () => {
       <Header />
       <div className="mb-20 mt-5 flex w-full flex-col items-center justify-center gap-3 py-2">
         <Suspense>
-          <div className='flex flex-col items-start gap-3 self-stretch '>
+          <div className="flex flex-col items-start gap-3 self-stretch">
             <div className="flex w-full items-center justify-center gap-3">
               <SearchBar />
               <CategoryButton categories={categories} />
             </div>
-            <div className="ml-5 flex w-full gap-3">
+            <div className="ml-5 flex gap-3">
               <AddressTags />
               <Tags />
             </div>

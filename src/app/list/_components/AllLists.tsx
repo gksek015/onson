@@ -1,6 +1,7 @@
 'use client';
 
 import VolunteerCard from '@/components/home/VolunteerCard';
+import { WarningIcon } from '@/components/icons/Icons';
 import useGetPostsbyFilter from '@/hooks/useGetPostsbyFilter';
 import { useSearchParams } from 'next/navigation';
 
@@ -28,7 +29,7 @@ const AllLists = () => {
     <div className="w-full">
       {/* 동적 타이틀 */}
       <div className="flex flex-col items-start justify-center gap-1 self-stretch px-5 pb-1 pt-5">
-        {title && <h1 className=" text-xl font-semibold">{title}</h1>}
+        {title && <h1 className="text-xl font-semibold">{title}</h1>}
       </div>
 
       {/* 로딩 중 상태 */}
@@ -38,16 +39,23 @@ const AllLists = () => {
       {isError && <p className="text-red-500">에러발생</p>}
 
       {/* 게시물 리스트 */}
-        {posts && posts.length ? (
-          <ul>
-            {posts.map((post) => (
-              <VolunteerCard key={post.id} post={post} />
-            ))}
-          </ul>
-        ) : (
-          !isPending && <p>해당 게시물이 없습니다.</p>
-        )}
-      </div>
+      {posts && posts.length ? (
+        <ul>
+          {posts.map((post) => (
+            <VolunteerCard key={post.id} post={post} />
+          ))}
+        </ul>
+      ) : (
+        !isPending && (
+          <div className="flex h-full flex-col items-center justify-center pt-40">
+            <div className="mb-4">
+              <WarningIcon />
+            </div>
+            <p className="text-base text-[#C5C5C5]">검색 결과가 없습니다.</p>
+          </div>
+        )
+      )}
+    </div>
   );
 };
 

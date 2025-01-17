@@ -1,5 +1,6 @@
 'use client';
 
+import { CloseIcon } from '@/components/icons/Icons';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -30,11 +31,11 @@ const Tags = () => {
   };
 
   return (
-    <div className="flex justify-start items-center gap-3 text-xs">
+    <div className="flex items-center justify-start gap-3 text-xs">
       {/* category 태그 */}
       {category && (
-        <div className="flex rounded-lg border border-[#e6e6e6] py-1.5 pl-2 pr-1.5 ">
-          {category}
+        <div className="flex rounded-lg border border-[#e6e6e6] py-1.5 pl-2 pr-1.5">
+          <span className="text-sm text-[#656565]">{category}</span>
           <button
             className="ml-3"
             onClick={(e) => {
@@ -42,15 +43,15 @@ const Tags = () => {
               removeCategory();
             }}
           >
-            X
+            <CloseIcon width="14px" height="14px" />
           </button>
         </div>
       )}
 
       {/* keyword 태그 */}
       {keyword && (
-        <div className="flex rounded-lg border border-[#e6e6e6] py-1.5 pl-2 pr-1.5 ">
-          {keyword}
+        <div className="flex rounded-lg border border-[#e6e6e6] py-1.5 pl-2 pr-1.5">
+          <span className="text-sm text-[#656565]">{keyword}</span>
           <button
             className="ml-3"
             onClick={(e) => {
@@ -58,7 +59,7 @@ const Tags = () => {
               removeKeyword();
             }}
           >
-            X
+            <CloseIcon width="14px" height="14px" />
           </button>
         </div>
       )}

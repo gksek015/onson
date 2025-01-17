@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { GrSearch } from 'react-icons/gr';
+import { MapPinIcon, SearchIcon } from '../icons/Icons';
 
 export interface Juso {
   sggNm: string; // 구
@@ -25,15 +25,18 @@ const AddressSearch = ({ onAddressSelect, onSelect, option }: AddressSearchProps
   const [keyword, setKeyword] = useState(''); // 검색 키워드 상태
   const [searchResults, setSearchResults] = useState<Juso[]>([]); // 검색 결과 상태
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     if (!keyword.trim()) {
       setSearchResults([]);
+      setError(null);
       return;
     }
 
     setLoading(true);
+    setError(null);
 
     fetch(
       `https://business.juso.go.kr/addrlink/addrLinkApi.do?confmKey=devU01TX0FVVEgyMDI1MDEwOTE0NDIxNjExNTM5MzE=&currentPage=1&countPerPage=1000&keyword=${keyword}&resultType=json`,
@@ -54,36 +57,50 @@ const AddressSearch = ({ onAddressSelect, onSelect, option }: AddressSearchProps
           setSearchResults(uniqueResults);
         } else {
           setSearchResults([]);
+          setError('검색 결과가 없습니다.');
         }
       })
       .catch((error) => {
         console.error('Error:', error);
+        setError('검색 중 오류가 발생했습니다.');
       })
       .finally(() => setLoading(false));
-  }, [keyword, setSearchResults]);
+  }, [keyword, setError, setSearchResults]);
 
   return (
     <div className="pl-2 md:p-10">
-      <h1 className="mb-6 text-2xl font-semibold md:text-4xl">지역 변경</h1>
-      <hr className="py-3" />
+      <h1 className="mb-6 text-2xl md:text-4xl">위치</h1>
 
-      {/* 검색 입력 필드 */}
+      {/* 검색 인풋창 */}
       <div className="relative flex w-auto items-center gap-2">
         <input
           type="text"
           placeholder="'동' 단위로 입력해주세요.  ex)역삼동"
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
-          className="w-full rounded-lg border p-3 text-base md:mb-6 md:text-2xl"
+          className="shadow-input my-4 w-full flex-1 cursor-pointer rounded-full border border-[#FB657E] p-0.5 px-5 py-3.5 text-base text-black focus:outline-none md:mb-6 md:text-2xl"
         />
-        <button type="submit" className="absolute right-2 cursor-pointer text-xl text-gray-500 md:text-4xl">
+        <button type="submit" className="absolute right-5 top-1/2 -translate-y-1/2 md:text-4xl">
           <span className="sr-only">Search</span>
-          <GrSearch />
+          <SearchIcon />
         </button>
+      </div>
+
+      {/* 현재 위치 */}
+      <div className="flex justify-center gap-1.5 rounded-lg bg-[#FFF5EC] px-3 py-2 text-base text-[#FB657E]">
+        <MapPinIcon color="#FB657E" />
+        <button>현재 내 위치 입력하기</button>
       </div>
 
       {/* 로딩 상태 */}
       {loading && <p>검색 중...</p>}
+
+      {/* 에러 메세지 */}
+      {error && (
+        <div className="flex items-center p-3 pt-14">
+          <p>조건에 맞는 위치가 없습니다</p>
+        </div>
+      )}
 
       {/* 검색 결과 */}
       <ul>
@@ -97,10 +114,11 @@ const AddressSearch = ({ onAddressSelect, onSelect, option }: AddressSearchProps
                 // 부모 콜백 호출 및 router.push
                 router.push(`/list?address=${juso.siNm}_${juso.sggNm}_${juso.emdNm}&addressKeyword=${searchKeyword}`);
                 if (onAddressSelect) {
-                onAddressSelect(`${juso.emdNm}`);
-              }} 
+                  onAddressSelect(`${juso.emdNm}`);
+                }
+              }
               if (option === 'select') {
-                if(onSelect) {
+                if (onSelect) {
                   onSelect(`${juso.siNm} ${juso.sggNm} ${juso.emdNm}`);
                 }
               }

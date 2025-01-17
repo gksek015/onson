@@ -19,7 +19,7 @@ const SearchBar = () => {
     }
   };
   return (
-    <div className='relative w-[271px] flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571] p-[1px]'>
+    <div className='relative w-[271px] flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571] shadow-input'>
       <input
         type="text"
         value={searchKeyword}
