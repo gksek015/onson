@@ -38,12 +38,17 @@ const PostContent = ({
       <div className="mx-4 flex flex-col justify-center gap-2">
         {/* 태그 */}
         <PostTags category={category} startDate={startDate} endDate={endDate} isPostClosed={isPostClosed} />
-        <div className="mt-1 text-xl font-bold">{title}</div>
+        <div className="mt-1 text-[18px] font-semibold">{title}</div>
 
         {/* 주소 */}
         <div className="my-2 flex items-center">
+<<<<<<< HEAD
           <MapPinIcon />
           <span className="ml-1">{`${address.si} ${address.gu} ${address.dong}`}</span>
+=======
+          <AddressMarkIcon />
+          <span className="text-[13px] ml-1">{`${address.si} ${address.gu} ${address.dong}`}</span>
+>>>>>>> 6141e18a3878b386ef693527f7a5e024ac9c91cb
         </div>
 
         <div className="text-gray-500">{nickname}</div>

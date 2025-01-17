@@ -1,7 +1,6 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -10,16 +9,12 @@ import { login } from '@lib/actions/auth/action';
 import Button from '@/components/common/Button';
 import AuthInput from '@app/(auth)/_components/AuthInput';
 
-import { useUserStore } from '@/utils/store/userStore';
 import { supabase } from '@/utils/supabase/client';
 import { userLoginSchema } from '@lib/revalidation/userSchema';
 
 type LoginFormData = z.infer<typeof userLoginSchema>;
 
 const LoginForm = () => {
-  const router = useRouter();
-  const setUser = useUserStore((state) => state.setUser);
-
   const {
     register,
     handleSubmit,
@@ -29,29 +24,23 @@ const LoginForm = () => {
   });
 
   const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
-    try {
-      const formData = new FormData();
-      Object.entries(data).forEach(([key, value]) => {
-        formData.append(key, value);
-      });
-
-      const user = await login(formData);
-      setUser(user);
-
-      router.push('/');
-    } catch (error) {
-      console.error('로그인 실패:', error);
-    }
+    const formData = new FormData();
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    await login(formData);
   };
 
   const kakaoLogin = async () => {
+    const currentUrl: string = window.location.origin;
     await supabase.auth.signInWithOAuth({
       provider: 'kakao',
       options: {
-        redirectTo: `http://localhost:3000/api/auth/callback`
+        redirectTo: `${currentUrl}/api/auth/callback`
       }
     });
   };
+
   return (
     <div className="w-[768px] max-w-full space-y-4">
       <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
