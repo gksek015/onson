@@ -10,23 +10,15 @@ const BottomNav = () => {
   const { isOpen, toggleModal } = useModal();
   return (
     <>
-      <nav className="fixed bottom-0 flex w-full justify-around bg-gray-100 p-4">
+      <nav className="fixed bottom-0 flex w-full justify-around border-t bg-white p-4">
         {/* 홈 버튼 */}
-        <button
-          type="button"
-          onClick={() => router.push('/')}
-          className="flex flex-col items-center hover:text-blue-600"
-        >
+        <button type="button" onClick={() => router.push('/')} className="flex flex-col items-center">
           <HomePillIcon />
           <span className="text-sm font-bold text-black">홈</span>
         </button>
 
         {/* 게시글 작성 버튼 */}
-        <button
-          type="button"
-          onClick={() => router.push('/create')}
-          className="flex flex-col items-center hover:text-blue-600"
-        >
+        <button type="button" onClick={() => router.push('/create')} className="flex flex-col items-center">
           <PencilPlusIcon />
           <span className="text-sm font-bold text-black">봉사 요청</span>
         </button>
@@ -35,15 +27,16 @@ const BottomNav = () => {
         <button
           type="button"
           onClick={() => router.push('/list')}
-          className="flex flex-col items-center hover:text-blue-600"
+          className="flex flex-col items-center"
         >
           <NoteStrokeIcon />
           <span className="text-sm font-bold text-black">봉사 찾기</span>
         </button>
 
         {/* 채팅모달을 열기 위한 버튼 */}
-        <button type="button" onClick={toggleModal} className="flex flex-col items-center hover:text-blue-600">
+        <button type="button" onClick={toggleModal} className="flex flex-col items-center">
           <MessageStrokeIcon />
+          {/* <UnReadMessageIcon /> */}
           <span className="text-sm font-bold text-black">Chat</span>
         </button>
       </nav>

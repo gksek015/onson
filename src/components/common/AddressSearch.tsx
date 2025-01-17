@@ -17,10 +17,11 @@ interface ApiResponse {
 
 interface AddressSearchProps {
   onAddressSelect?: (searchKeyword: string) => void; // 부모로 콜백 전달
+  onSelect?: (selectedAddress: string) => void;
   option: string;
 }
 
-const AddressSearch = ({ onAddressSelect, option }: AddressSearchProps) => {
+const AddressSearch = ({ onAddressSelect, onSelect, option }: AddressSearchProps) => {
   const [keyword, setKeyword] = useState(''); // 검색 키워드 상태
   const [searchResults, setSearchResults] = useState<Juso[]>([]); // 검색 결과 상태
   const [loading, setLoading] = useState(false);
@@ -91,13 +92,16 @@ const AddressSearch = ({ onAddressSelect, option }: AddressSearchProps) => {
             key={index}
             className="m-3 py-1 text-base md:text-2xl"
             onClick={() => {
-              // 검색하는 기능은 'search'로 새글 작성 시 선택하는 기능에서는 'select'로 따로 option줘서 onClick 분리하기
               if (option === 'search') {
                 const searchKeyword = `${juso.emdNm}`;
                 // 부모 콜백 호출 및 router.push
                 router.push(`/list?address=${juso.siNm}_${juso.sggNm}_${juso.emdNm}&addressKeyword=${searchKeyword}`);
                 if (onAddressSelect) {
-                  onAddressSelect(searchKeyword);
+                onAddressSelect(`${juso.emdNm}`);
+              }} 
+              if (option === 'select') {
+                if(onSelect) {
+                  onSelect(`${juso.siNm} ${juso.sggNm} ${juso.emdNm}`);
                 }
               }
             }}

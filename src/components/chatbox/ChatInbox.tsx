@@ -26,8 +26,8 @@ const ChatInBox = ({ selectedChatId, userId, onEnterChatRoom, onBackToList }: Ch
       const rooms = await getChatRoomList(userId);
       const roomsWithNicknames = await Promise.all(
         rooms.map(async (room) => {
-          const otherUserId = room.user1_id === userId ? room.user2_id : room.user1_id;
-          const otherNickname = await getChatUserNickname(room.id, otherUserId);
+          // 상대방 닉네임 가져오기
+          const otherNickname = await getChatUserNickname(room.id, userId); // 여전히 userId 기준으로 처리
           return { ...room, otherNickname };
         })
       );
