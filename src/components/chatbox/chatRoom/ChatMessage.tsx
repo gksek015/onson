@@ -18,7 +18,9 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
 
   // 메세지가 입력될때 마다 스크롤이 내려가도록 동작하는 로직
   useEffect(() => {
-    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (messages.length > 1) {
+      messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
   }, [messages]);
 
   const handleSend = async () => {
