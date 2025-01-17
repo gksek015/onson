@@ -34,8 +34,8 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
     if (Array.isArray(range) && range.length === 2) {
       const [startDate, endDate] = range;
 
-      const formattedStart = dayjs(startDate).format('YY.MM.DD');
-      const formattedEnd = dayjs(endDate).format('YY.MM.DD');
+      const formattedStart = dayjs(startDate).format('YY.MM.DD.');
+      const formattedEnd = dayjs(endDate).format('YY.MM.DD.');
 
       onSelectRange(range as [Date, Date]); // 부모에 선택된 범위 전달
 
@@ -52,18 +52,18 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
   // 날짜 범위를 포맷하여 텍스트로 변환
   const formatRange = (date?: string, end_date?: string): string => {
     if (!date || !end_date) return '';
-    return `${dayjs(date).format('YY.MM.DD')} ~ ${dayjs(end_date).format('YY.MM.DD')}`;
+    return `${dayjs(date).format('YY.MM.DD.')} ~ ${dayjs(end_date).format('YY.MM.DD.')}`;
   };
 
   return (
-    <div className="relative">
+    <div>
       <input
         type="text"
         value={formatRange(formData.date, formData.end_date)}
         placeholder="기간을 선택하세요"
         onClick={handleOpen}
         readOnly
-        className="placeholder-[#868C92] flex-grow w-full mt-3 block h-12 px-2 rounded-[8px] border border-[#A1A6AA] text-base"
+        className="placeholder-[#868C92] w-full h-12 px-2 rounded-[8px] border border-[#A1A6AA] text-base"
       />
 
       {/* 바텀시트 */}
@@ -101,7 +101,7 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
             <button
               type="button"
               onClick={handleClose}
-              className="w-[120px] rounded-[8px] bg-[#9A9A9A] px-4 py-3 font-semibold text-[#FFF] hover:bg-gray-300"
+              className="w-[120px] rounded-[8px] bg-[#FB657E] px-4 py-3 font-semibold text-[#FFF] hover:bg-gray-300"
             >
               선택하기
             </button>

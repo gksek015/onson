@@ -117,11 +117,16 @@ export const useUpdatePost = (postId: string) => {
     }
   };
 
+  const navigateToDetail = () => {
+    router.push(`/detail/${postId}`);
+  };
+
   return {
     formData,
     setFormData,
     isAuthorized,
     loading,
     handleUpdate,
+    navigateToDetail,
   };
 };
