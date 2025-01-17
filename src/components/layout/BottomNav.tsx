@@ -3,7 +3,7 @@
 import useModal from '@/hooks/ui/useModal';
 import { useRouter } from 'next/navigation';
 import ChatBoxModal from '../chatbox/ChatBoxModal';
-import { HomePillIcon, NoteIcon, PencilPlusIcon, UnReadMessageIcon } from '../icons/Icons';
+import { HomePillIcon, MessageStrokeIcon,  NoteStrokeIcon, PencilPlusIcon } from '../icons/Icons';
 
 const BottomNav = () => {
   const router = useRouter();
@@ -24,15 +24,19 @@ const BottomNav = () => {
         </button>
 
         {/* 게시글 리스트 페이지 이동 버튼 */}
-        <button type="button" onClick={() => router.push('/list')} className="flex flex-col items-center">
-          <NoteIcon />
+        <button
+          type="button"
+          onClick={() => router.push('/list')}
+          className="flex flex-col items-center"
+        >
+          <NoteStrokeIcon />
           <span className="text-sm font-bold text-black">봉사 찾기</span>
         </button>
 
         {/* 채팅모달을 열기 위한 버튼 */}
         <button type="button" onClick={toggleModal} className="flex flex-col items-center">
-          {/* <MessageStrokeIcon /> */}
-          <UnReadMessageIcon />
+          <MessageStrokeIcon />
+          {/* <UnReadMessageIcon /> */}
           <span className="text-sm font-bold text-black">Chat</span>
         </button>
       </nav>

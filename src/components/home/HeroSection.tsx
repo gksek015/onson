@@ -1,18 +1,12 @@
 import Image from 'next/image';
-import onson from '@/assets/onson.jpg';
+import banner from '@/assets/banner.png';
 
 const HeroSection = () => {
   return (
-    <div className="flex items-end justify-evenly my-6 py-9 bg-[#f7f7f7]">
       <div>
-        <Image src={onson} alt="" className="w-32" />
+        <Image src={banner} alt="hero section image"  />
       </div>
-      <div>
-        <h1 className="text-3xl md:text-4xl">반가워요!</h1>
-        <h2>온손이와 함께</h2>
-        <h2>봉사를 시작해볼까요?</h2>
-      </div>
-    </div>
+     
   );
 };
 

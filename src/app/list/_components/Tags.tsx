@@ -1,65 +1,68 @@
 'use client';
 
-import AddressSearch from '@/components/common/AddressSearch';
-import { BottomSheet } from '@/components/common/BottomSheet';
-import { useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { CloseIcon } from '@/components/icons/Icons';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const Tags = () => {
   const searchParams = useSearchParams();
-  const [tag, setTag] = useState(searchParams.get('addressKeyword'));
-  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const router = useRouter();
+  const [category, setCategory] = useState(searchParams.get('category'));
+  const [keyword, setKeyword] = useState(searchParams.get('searchedKeyword'));
 
-  // 태그 지우기
+  // URL 파라미터 값이 바뀌면 상태와 동기화
+  useEffect(() => {
+    setCategory(searchParams.get('category'));
+    setKeyword(searchParams.get('searchedKeyword'));
+  }, [searchParams]); // searchParams가 변경될 때마다 실행
+
+  // 'category' 파라미터 제거
+  const removeCategory = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete('category');
+    router.push(`?${params.toString()}`);
+  };
+
+  // 'keyword'파라미터 제거
   const removeKeyword = () => {
-    setTag(null);
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete('searchedKeyword');
+    router.push(`?${params.toString()}`);
   };
-
-  // 바텀시트 닫기
-  const handleSheetClose = () => {
-    setIsSheetOpen(false);
-  };
-
-  // 바텀시트 열기
-  const openBottomSheet = () => {
-    setIsSheetOpen(true);
-  };
-
-  const handleAddressSelect = (searchKeyword: string) => {
-    setTag(searchKeyword);
-    handleSheetClose();
-  };
-
-  // useGetPost를 invalidateQuery 사용해서 전체 리스트를 보여주도록 코드 짜고, 닫기 버튼 눌렀을 때 필터링 된게 초기화 되게 하기
 
   return (
-    <div className="w-4/5">
-      <div className="flex justify-start text-xs">
-        {/* tag가 null이거나 falsy하면 렌더링 안하기 */}
-        {tag && (
-          <div onClick={openBottomSheet} className="cursor-pointer rounded-lg border p-1.5">
-            {tag}
-            <button
-              className="ml-3"
-              onClick={(e) => {
-                e.stopPropagation();
-                removeKeyword();
-              }}
-            >
-              X
-            </button>
-          </div>
-        )}
+    <div className="flex items-center justify-start gap-3 text-xs">
+      {/* category 태그 */}
+      {category && (
+        <div className="flex rounded-lg border border-[#e6e6e6] py-1.5 pl-2 pr-1.5">
+          <span className="text-sm text-[#656565]">{category}</span>
+          <button
+            className="ml-3"
+            onClick={(e) => {
+              e.stopPropagation();
+              removeCategory();
+            }}
+          >
+            <CloseIcon width="14px" height="14px" />
+          </button>
+        </div>
+      )}
 
-        {/* BottomSheet */}
-        <BottomSheet
-          isOpen={isSheetOpen} // 바텀시트 열기 조건
-          onClose={handleSheetClose} // 바텀시트 닫기 동작
-        >
-          {/* AddressSearch를 바텀시트에 렌더링 */}
-          <AddressSearch onAddressSelect={handleAddressSelect} option={'search'}/>
-        </BottomSheet>
-      </div>
+      {/* keyword 태그 */}
+      {keyword && (
+        <div className="flex rounded-lg border border-[#e6e6e6] py-1.5 pl-2 pr-1.5">
+          <span className="text-sm text-[#656565]">{keyword}</span>
+          <button
+            className="ml-3"
+            onClick={(e) => {
+              e.stopPropagation();
+              removeKeyword();
+            }}
+          >
+            <CloseIcon width="14px" height="14px" />
+          </button>
+        </div>
+      )}
     </div>
   );
 };

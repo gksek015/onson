@@ -1,8 +1,10 @@
 'use client';
 
 import type { PostType } from '@/types/PostType';
+import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
+import { MapPinIcon } from '../icons/Icons';
 
 interface VolunteerCardProps {
   post: PostType;
@@ -14,34 +16,63 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
     firstImg = post.images[0].img_url;
   }
 
+  const formattedStart = dayjs(post.date).format('YY.MM.DD.');
+  const formattedEnd = dayjs(post.end_date).format('YY.MM.DD.');
+
   return (
-    <Link href={`/detail/${post.id}`}>
-      <div className="flex items-center pt-3">
-        <div className="mx-auto max-w-content rounded-lg border">
-          <div className="flex flex-col gap-12 md:flex-row">
-            <div className="p-5">
-              <div className="mb-2 flex items-center gap-2">
-                <span className="rounded-full bg-gray-400 px-3 py-1 text-xs text-white">{post.category}</span>
-                <span className="rounded-full bg-gray-400 px-3 py-1 text-xs text-white">{post.date}</span>
-              </div>
-              <h3 className="mb-1 text-lg font-semibold">
-                [ {post.si} {post.gu} {post.dong} ]
-              </h3>
-              <h3 className="mb-1 text-lg font-semibold">{post.title}</h3>
-              <div className="flex items-center text-sm text-gray-600">
-                <span className="mr-4">{post.users.nickname}</span>
-                <span>{post.created_at.split('T')[0]}</span>
-              </div>
-              <div className="mt-6 flex w-64 flex-col items-center md:w-1/2">
-                {firstImg && (
-                  <Image src={firstImg} alt={post.title} width={800} height={500} className="object-cover" />
-                )}
-              </div>
+    <div className="flex w-full flex-row items-start gap-3.5 self-stretch border-b border-[#e7e7e7] px-5 py-8">
+      <Link href={`/detail/${post.id}`} className="w-full">
+        {/* 태그 */}
+        <div className="mb-2 flex w-full flex-wrap items-center gap-2 text-sm font-normal">
+          {post.completed ? (
+            <span className="flex items-center justify-center gap-2 rounded-full border bg-[#808080] px-2.5 py-0.5 text-sm text-white">
+              모집 완료
+            </span>
+          ) : (
+            <span className="hidden"></span>
+          )}
+          <span className="flex items-center justify-center gap-2 rounded-full border border-[#FF9214] bg-white px-2.5 py-0.5 text-sm text-[#FF9214]">
+            {post.category}
+          </span>
+          <span className="flex items-center justify-center gap-2 rounded-full border border-[#FF9214] bg-white px-2.5 py-0.5 text-sm text-[#FF9214]">
+            {`${formattedStart}~${formattedEnd}`}
+          </span>
+        </div>
+
+        <div className="flex w-full flex-1 items-start justify-between gap-2">
+          <div className="flex flex-1 flex-col items-start gap-2">
+            {/* 제목 */}
+            <div className="tracking-custom text-lg font-medium leading-7 text-black">{post.title}</div>
+            {/* 주소 */}
+            <div className="flex items-center gap-2 self-stretch">
+              <MapPinIcon />
+              <span className="text-sm text-[#4d4d4d]">
+                {post.si} {post.gu} {post.dong}
+              </span>
+            </div>
+            {/* 작성자 */}
+            <div className="flex items-start gap-3 self-stretch text-sm text-[#7e7e7e]">
+              <span>{post.users.nickname}</span>
+              <span>{post.created_at.split('T')[0]}</span>
             </div>
           </div>
+
+          {/* 이미지 */}
+          {firstImg && (
+            <div className="relative flex h-24 w-20 items-center">
+              <Image src={firstImg} alt={post.title} width={100} height={100} className="h-full w-full object-cover" />
+              {post.completed && (
+                <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
+                  <div className="inline-flex rounded-md bg-white bg-opacity-20 px-2.5 py-1">
+                    <span className="text-xs font-medium text-white">모집마감</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 };
 

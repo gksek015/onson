@@ -3,7 +3,7 @@
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { CloseIcon2 } from '../icons/Icons';
+import { CloseIcon} from '../icons/Icons';
 import AIChatroom from './ai/AIChatroom';
 import ChatInBox from './ChatInbox';
 import ChatHeader from './chatUI/ChatHeader';
@@ -54,7 +54,7 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
           </div>
           {/* 닫기 버튼 */}
           <button onClick={onClose} className="right-4 text-xl">
-            <CloseIcon2 />
+            <CloseIcon />
           </button>
         </div>
       )}

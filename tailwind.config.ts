@@ -19,6 +19,12 @@ const config: Config = {
       },
       maxWidth: {
         content: '1440px' //"max-w-content
+      },
+      boxShadow: {
+        'input': '0px 4px 14px 0px rgba(0, 0, 0, 0.05)',
+      },
+      letterSpacing: {
+        'custom': '-0.252px', // 커스텀 값 추가
       }
     }
   },
