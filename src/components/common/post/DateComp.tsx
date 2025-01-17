@@ -34,8 +34,8 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
     if (Array.isArray(range) && range.length === 2) {
       const [startDate, endDate] = range;
 
-      const formattedStart = dayjs(startDate).format('YYYY-MM-DD');
-      const formattedEnd = dayjs(endDate).format('YYYY-MM-DD');
+      const formattedStart = dayjs(startDate).format('YY.MM.DD');
+      const formattedEnd = dayjs(endDate).format('YY.MM.DD');
 
       onSelectRange(range as [Date, Date]); // 부모에 선택된 범위 전달
 
@@ -44,7 +44,6 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
       formData.end_date = formattedEnd;
 
       setSelectedRange(range as [Date, Date]);
-      setIsSheetOpen(false);
     } else {
       setSelectedRange(null);
     }
@@ -53,7 +52,7 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
   // 날짜 범위를 포맷하여 텍스트로 변환
   const formatRange = (date?: string, end_date?: string): string => {
     if (!date || !end_date) return '';
-    return `${dayjs(date).format('YYYY-MM-DD')} ~ ${dayjs(end_date).format('YYYY-MM-DD')}`;
+    return `${dayjs(date).format('YY.MM.DD')} ~ ${dayjs(end_date).format('YY.MM.DD')}`;
   };
 
   return (
@@ -64,14 +63,16 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
         placeholder="기간을 선택하세요"
         onClick={handleOpen}
         readOnly
-        className="flex-grow w-full mt-1 block h-12 px-2 rounded-md border border-gray-300 text-base placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500"
+        className="placeholder-[#868C92] flex-grow w-full mt-3 block h-12 px-2 rounded-[8px] border border-[#A1A6AA] text-base"
       />
 
       {/* 바텀시트 */}
       <BottomSheet isOpen={isSheetOpen} onClose={handleClose}>
-        <div className="p-4">
-          <h3 className="mb-4 text-center text-lg font-medium">봉사 기간을 선택해 주세요</h3>
-          <div className="flex justify-center">
+        <div>
+        <div className="p-5">
+          <h3 className="mb-14 text-left text-2xl font-semibold text-[#000]">봉사 날짜를 <br/>선택해 주세요</h3>
+          <p className="mb-3 text-base font-semibold text-[#222227]">날짜 선택</p>
+          <div className="flex justify-center border-t border-[#BEBEBE] mb-20">
             <Calendar
               selectRange
               onChange={(value) => handleRangeSelect(value as Date | Date[])}
@@ -82,23 +83,25 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
               className="custom-calendar w-full"
             />
           </div>
-          <div className="mt-4 text-center">
+          </div>
+          
+          <div className="justify-between flex items-center px-5 py-3 border-t border-gray-200 rounded-t-md shadow-2xl">
+            <div className="flex flex-col">
+            <p className="text-xs font-normal text-[#333]">봉사 날짜</p>
           {selectedRange && (
-          <div>
-            <p>봉사 날짜</p>
-            <p>
-              {`${dayjs(selectedRange[0]).format('YYYY년 MM월 DD일')} ~ ${
+            <p className="text-base font-semibold text-[#333]">
+              {`${dayjs(selectedRange[0]).format('YY.MM.DD.')} ~ ${
                 selectedRange[1]
-                  ? dayjs(selectedRange[1]).format('YYYY년 MM월 DD일')
+                  ? dayjs(selectedRange[1]).format('YY.MM.DD.')
                   : ''
               }`}
             </p>
-          </div>
         )}
+        </div>
             <button
               type="button"
               onClick={handleClose}
-              className="rounded-md bg-gray-200 px-4 py-2 font-semibold text-gray-600 hover:bg-gray-300"
+              className="w-[120px] rounded-[8px] bg-[#9A9A9A] px-4 py-3 font-semibold text-[#FFF] hover:bg-gray-300"
             >
               선택하기
             </button>

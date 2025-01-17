@@ -39,29 +39,30 @@ const CategorySelectComp = ({ categories, onSelectCategory, formData }: Category
         name="category"
         placeholder='봉사 종류 선택'
         value={formData.category}
-        className="flex-grow mt-1 block w-full h-12 px-2 rounded-md border border-gray-300 text-base placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500"
+        className="placeholder-[#868C92] flex-grow mt-3 block w-full h-12 px-2 rounded-[8px] border border-[#A1A6AA] text-base focus:border-indigo-500 focus:ring-indigo-500"
         readOnly
         onClick={() => setIsSheetOpen(true)}
       />
 
       {/* 바텀시트 */}
       <BottomSheet isOpen={isSheetOpen} onClose={() => setIsSheetOpen(false)}>
-        <div className="p-4">
-          <h2 className="mb-4 text-sm font-medium">봉사 종류 선택</h2>
-          <ul className="space-y-2">
+        <div className="p-5">
+          <h2 className="mb-10 text-2xl font-semibold">봉사 종류</h2>
+          <p className="mb-3 text-base font-semibold text-[#222227]">종류 선택</p>
+          <ul className="space-y-4 mt-2 border-t border-[#BEBEBE]">
             {categories?.map((category) => (
               <li
                 key={category}
-                className="flex cursor-pointer items-center justify-between rounded-md p-2 hover:bg-gray-200"
+                className="flex cursor-pointer items-center justify-between p-3 mt-4"
                 onClick={() => handleCheckboxChange(category)}
               >
-                <span className="text-sm text-gray-700">{category}</span>
+                <span className="text-base text-[#242628] font-medium">{category}</span>
                 <input
-                  type="checkbox"
+                  type="radio"
                   id={category}
                   checked={selectedCategory.includes(category)}
                   onChange={(e) => {e.stopPropagation()}}
-                  className="cursor-pointer rounded border-gray-300 focus:ring-indigo-500"
+                  className="cursor-pointer h-4 w-4 rounded border-gray-300 checked:bg-[#FB657E] focus:ring-[#FB657E]"
                 />
               </li>
             ))}
@@ -69,7 +70,7 @@ const CategorySelectComp = ({ categories, onSelectCategory, formData }: Category
           <button
             type="button"
             onClick={handleApply}
-            className="mt-4 w-full rounded-md bg-gray-400 px-4 py-2 text-white hover:bg-indigo-600"
+            className="mt-4 w-full rounded-md bg-[#B3B3B3] px-4 py-3 text-lg text-white hover:bg-gray-600"
           >
             적용하기
           </button>

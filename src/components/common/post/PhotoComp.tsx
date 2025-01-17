@@ -61,11 +61,11 @@ const PhotoComp = ({onImageSelect, onRemoveImage, formData}: PhotoCompProps) => 
   
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center space-x-4">
+    <div className="space-y-4 border-t border-[#BEBEBE]">
+      <div className="flex items-start mt-2 gap-3">
         <label
           htmlFor="photo-upload"
-          className={`w-20 h-20 bg-gray-100 rounded flex items-center justify-center border border-gray-300 cursor-pointer ${
+          className={`w-28 h-28 bg-[#F4F5F5] rounded-[8px] flex items-center justify-center border cursor-pointer ${
             formData.images.length >= 5 ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >
@@ -83,31 +83,32 @@ const PhotoComp = ({onImageSelect, onRemoveImage, formData}: PhotoCompProps) => 
         />
       </div>
 
-      {error && <p className="text-red-500 text-sm">{error}</p>}
 
       {/* 선택한 파일 미리보기 */}
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-3 gap-3">
         {previewUrls.map((imgUrl, index) => (
           <div
-            key={index}
-            className="relative w-20 h-20 border border-gray-300 rounded overflow-hidden"
+          key={index}
+          className="relative w-28 h-28 border rounded-[8px] overflow-hidden"
           >
             <Image
               width={100}
               height={100}
               src={imgUrl} alt={`img-${index}`}
               className="w-full h-full object-cover"
-            />
+              />
             <button
               type="button"
-              className="absolute top-1 right-1 bg-black bg-opacity-50 text-white text-xs p-1 rounded-full"
+              className="absolute top-1 right-1 bg-black bg-opacity-50 text-white text-xs p-1 rounded-full border-white"
               onClick={() => handleRemoveFile(index)}
-            >
+              >
               ✕
             </button>
           </div>
         ))}
       </div>
+      
+        {error && <p className="text-red-500 text-sm">{error}</p>}
     </div>
   );
 };
