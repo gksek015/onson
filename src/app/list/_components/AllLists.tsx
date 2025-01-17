@@ -12,18 +12,22 @@ const AllLists = () => {
 
   const { data: posts, isPending, isError } = useGetPostsbyFilter(address, category, searchedKeyword);
 
-  // const addressList = address?.split('_');
-  // const dong = addressList ? addressList[2] : '';
+  // h1 타이틀 문구 결정
+  let title = '';
+  if (!isPending && posts?.length === 0) {
+    title = ''; // 결과가 없으면 title을 비움
+  } else if (searchedKeyword) {
+    title = `${searchedKeyword}에 해당된 검색 결과입니다.`;
+  } else if (address || category) {
+    title = `필터링 된 검색 결과입니다.`;
+  } else {
+    title = `봉사 전체`;
+  }
 
   return (
     <div className="p-4">
-      {/* {address ? (
-        <h1 className="mb-4 text-lg font-bold">{`${dong} 봉사 활동`}</h1>
-      ) : (
-        <h1 className="mb-4 text-lg font-bold">봉사 전체</h1>
-      )} */}
-
-      <h1 className="mb-4 text-lg font-bold">봉사 전체</h1>
+      {/* 동적 타이틀 */}
+      {title && <h1 className="mb-4 text-lg font-bold">{title}</h1>}
 
       {/* 로딩 중 상태 */}
       {isPending && <p>로딩 중...</p>}
