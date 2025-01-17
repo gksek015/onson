@@ -1,15 +1,44 @@
-import { PostType } from "@/types/PostType";
-import { useQuery } from "@tanstack/react-query";
+import { deletePost } from '@/lib/posts/deletePostbyID';
 import { getPost } from "@/lib/posts/updatePost";
+import { PostType } from "@/types/PostType";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-const useGetPostById = (id: string) => {
+export const useGetPostById = (postId: string) => {
+  const queryClient = useQueryClient();
+
+  // 포스트 가져오기
   const { data, isPending, isError } = useQuery<PostType | null>({
-    queryKey: ["post", id],
-    queryFn: () => getPost(id),
-    enabled: !!id, // id가 존재할 때만 쿼리 실행
+    queryKey: ['post', postId],
+    queryFn: () => getPost(postId),
+    enabled: !!postId, // id가 존재할 때만 실행
   });
 
-  return { data, isPending, isError };
-};
 
-export default useGetPostById;
+  const deletePostById = useMutation({
+        mutationFn: (postId: string) => deletePost(postId),
+        onMutate: async (postId) => {
+          await queryClient.cancelQueries({
+            queryKey: ["post", postId],
+          })
+
+          const previousPost = queryClient.getQueryData<PostType>(["post", postId])
+
+        queryClient.setQueryData<PostType | null>(['post', postId], null);
+
+        return { previousPost };
+        },
+        onError: (context : {previousPost : PostType}) => {
+          queryClient.setQueryData( ["post", postId], context.previousPost)
+        },
+        onSettled: (postId) => {
+          queryClient.invalidateQueries({
+            queryKey:  ["post", postId],
+          })
+        },
+  })
+    return { data, isPending, isError, deletePostById };
+}
+
+
+
+
