@@ -57,7 +57,7 @@ const Tags = () => {
           onClose={handleSheetClose} // 바텀시트 닫기 동작
         >
           {/* AddressSearch를 바텀시트에 렌더링 */}
-          <AddressSearch onAddressSelect={handleAddressSelect} />
+          <AddressSearch onAddressSelect={handleAddressSelect} option={'search'}/>
         </BottomSheet>
       </div>
     </div>

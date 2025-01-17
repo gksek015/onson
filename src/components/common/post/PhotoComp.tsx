@@ -93,8 +93,8 @@ const PhotoComp = ({onImageSelect, onRemoveImage, formData}: PhotoCompProps) => 
             className="relative w-20 h-20 border border-gray-300 rounded overflow-hidden"
           >
             <Image
-              width={80}
-              height={80}
+              width={100}
+              height={100}
               src={imgUrl} alt={`img-${index}`}
               className="w-full h-full object-cover"
             />
