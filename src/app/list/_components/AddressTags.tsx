@@ -2,6 +2,7 @@
 
 import AddressSearch from '@/components/common/AddressSearch';
 import { BottomSheet } from '@/components/common/BottomSheet';
+import { CloseIcon } from '@/components/icons/Icons';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
@@ -43,9 +44,9 @@ const AddressTags = () => {
       {tag && (
         <div
           onClick={openBottomSheet}
-          className="flex cursor-pointer rounded-lg border border-[#e6e6e6] p-1.5 py-1.5 pl-2 pr-1.5"
+          className="flex cursor-pointer rounded-lg border border-[#e6e6e6] py-1.5 pl-2 pr-1.5"
         >
-          {tag}
+          <span className="text-sm text-[#656565]">{tag}</span>
           <button
             className="ml-3"
             onClick={(e) => {
@@ -53,7 +54,7 @@ const AddressTags = () => {
               removeAddress();
             }}
           >
-            X
+            <CloseIcon width="14px" height="14px" />
           </button>
         </div>
       )}
