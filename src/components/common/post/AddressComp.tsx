@@ -33,7 +33,7 @@ const AddressComp = ({formData, setFormData} : AddressCompProps) => {
           readOnly
         placeholder="지역 선택"
           value={formData.address}
-          className="placeholder-[#868C92] mt-3 block w-full h-12 px-2 rounded-[8px] border border-[#A1A6AA] text-base focus:border-indigo-500 focus:ring-indigo-500"
+          className="placeholder-[#868C92] mt-3 block w-full h-12 px-2 rounded-[8px] border border-[#A1A6AA] text-base"
           onClick={() => setIsSheetOpen(true)}
         />
 

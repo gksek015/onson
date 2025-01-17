@@ -53,10 +53,19 @@
   z-index: 2;
 }
 
+.custom-calendar .react-calendar__tile--active:enabled:hover{
+  background-color: #fb657e;
+}
+
+.custom-calendar .react-calendar__tile--hasActive:enabled:hover{
+  background-color: #fb657e;
+}
+
 /* 연결된 범위의 배경 확장 */
 .custom-calendar
   .react-calendar__tile--range:not(.react-calendar__tile--rangeStart):not(.react-calendar__tile--rangeEnd) {
-  border-radius: 50%; /* 직사각형 */
+  border-radius: 50%;
+  background-color: #fff5ec;
 }
 
 .custom-calendar .react-calendar__tile--rangeStart:not(.react-calendar__tile--rangeEnd)::after,
@@ -109,5 +118,4 @@
 
 .custom-calendar .react-calendar__month-view__days__day--weekend {
   color: inherit; /* 기본 텍스트 색상으로 재설정 */
-  background-color: transparent; /* 배경색 제거 */
 }

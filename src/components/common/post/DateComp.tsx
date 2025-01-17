@@ -70,7 +70,7 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
       <BottomSheet isOpen={isSheetOpen} onClose={handleClose}>
         <div>
         <div className="p-5">
-          <h3 className="mb-14 text-left text-2xl font-semibold text-[#000]">봉사 날짜를 <br/>선택해 주세요</h3>
+          <h3 className="mt-12 mb-14 text-left text-2xl font-semibold text-[#000]">봉사 날짜를 <br/>선택해 주세요</h3>
           <p className="mb-3 text-base font-semibold text-[#222227]">날짜 선택</p>
           <div className="flex justify-center border-t border-[#BEBEBE] mb-20">
             <Calendar
@@ -85,7 +85,7 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
           </div>
           </div>
           
-          <div className="justify-between flex items-center px-5 py-3 border-t border-gray-200 rounded-t-md shadow-2xl">
+          <div className="justify-between flex items-center px-5 py-3 border-t border-gray-200 rounded-t-md">
             <div className="flex flex-col">
             <p className="text-xs font-normal text-[#333]">봉사 날짜</p>
           {selectedRange && (
@@ -101,7 +101,7 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
             <button
               type="button"
               onClick={handleClose}
-              className="w-[120px] rounded-[8px] bg-[#FB657E] px-4 py-3 font-semibold text-[#FFF] hover:bg-gray-300"
+              className="w-28 rounded-[8px] bg-primary-3 px-4 py-3 font-semibold text-[#FFF] hover:bg-gray-300"
             >
               선택하기
             </button>

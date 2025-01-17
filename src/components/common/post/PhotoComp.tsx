@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 
 interface PhotoCompProps {
   onImageSelect: (images: File[]) => void;
@@ -18,7 +18,7 @@ const PhotoComp = ({ onImageSelect, onRemoveImage, formData }: PhotoCompProps) =
 
   useEffect(() => {
     const initialPreviews = formData.images.map((image) =>
-      "img_url" in image ? image.img_url : URL.createObjectURL(image)
+      'img_url' in image ? image.img_url : URL.createObjectURL(image)
     );
     setPreviewUrls(initialPreviews);
   }, [formData.images]);
@@ -28,7 +28,7 @@ const PhotoComp = ({ onImageSelect, onRemoveImage, formData }: PhotoCompProps) =
       const newFiles = Array.from(event.target.files);
 
       if (formData.images.length + newFiles.length > 5) {
-        setError("이미지는 최대 5장까지만 업로드할 수 있습니다.");
+        setError('이미지는 최대 5장까지만 업로드할 수 있습니다.');
         return;
       }
 
@@ -38,7 +38,7 @@ const PhotoComp = ({ onImageSelect, onRemoveImage, formData }: PhotoCompProps) =
       setPreviewUrls((prev) => [...prev, ...newPreviews]);
 
       if (fileInputRef.current) {
-        fileInputRef.current.value = "";
+        fileInputRef.current.value = '';
       }
     }
   };
@@ -46,7 +46,7 @@ const PhotoComp = ({ onImageSelect, onRemoveImage, formData }: PhotoCompProps) =
   const handleRemoveFile = (index: number) => {
     const removedFile = formData.images[index];
 
-    if ("img_url" in removedFile) {
+    if ('img_url' in removedFile) {
       onRemoveImage(removedFile.img_url);
     } else if (removedFile instanceof File) {
       onRemoveImage(removedFile);
@@ -57,12 +57,12 @@ const PhotoComp = ({ onImageSelect, onRemoveImage, formData }: PhotoCompProps) =
 
   return (
     <div className="mt-7 border-t border-[#BEBEBE] px-7">
-      <div className="flex flex-wrap gap-3 mt-2">
+      <div className="mt-2 flex flex-wrap gap-3">
         {/* 업로드 버튼 */}
         <label
           htmlFor="photo-upload"
-          className={`w-24 h-24 bg-[#F4F5F5] rounded-[8px] flex items-center justify-center border cursor-pointer ${
-            formData.images.length >= 5 ? "opacity-50 cursor-not-allowed" : ""
+          className={`flex h-24 w-24 cursor-pointer items-center justify-center rounded-[8px] border bg-[#F4F5F5] ${
+            formData.images.length >= 5 ? 'cursor-not-allowed opacity-50' : ''
           }`}
         >
           📷
@@ -72,7 +72,7 @@ const PhotoComp = ({ onImageSelect, onRemoveImage, formData }: PhotoCompProps) =
           type="file"
           multiple
           accept="image/*"
-          className="hidden"
+          className=""
           onChange={handleFileChange}
           disabled={formData.images.length >= 5}
           ref={fileInputRef}
@@ -80,20 +80,11 @@ const PhotoComp = ({ onImageSelect, onRemoveImage, formData }: PhotoCompProps) =
 
         {/* 이미지 미리보기 */}
         {previewUrls.map((imgUrl, index) => (
-          <div
-            key={index}
-            className="relative w-24 h-24 border rounded-[8px] overflow-hidden"
-          >
-            <Image
-              width={100}
-              height={100}
-              src={imgUrl}
-              alt={`img-${index}`}
-              className="w-full h-full object-cover"
-            />
+          <div key={index} className="relative h-24 w-24 overflow-hidden rounded-[8px] border">
+            <Image width={100} height={100} src={imgUrl} alt={`img-${index}`} className="h-full w-full object-cover" />
             <button
               type="button"
-              className="absolute top-1 right-1 bg-black bg-opacity-50 text-white text-xs p-1 rounded-full border-white"
+              className="absolute right-1 top-1 rounded-full border-white bg-black bg-opacity-50 p-1 text-xs text-white"
               onClick={() => handleRemoveFile(index)}
             >
               ✕
@@ -102,7 +93,7 @@ const PhotoComp = ({ onImageSelect, onRemoveImage, formData }: PhotoCompProps) =
         ))}
       </div>
 
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+      {error && <p className="text-sm text-red-500">{error}</p>}
     </div>
   );
 };

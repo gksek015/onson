@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import PostForm from '@/components/common/post/PostForm';
 import { categories } from '@/data/categories';
 import { useUpdatePost } from '@/hooks/useUpdatePost';
@@ -21,7 +21,7 @@ const UpdatePostComp = () => {
         <BackButtonIcon/>
         </button>
         <h1 className="text-lg font-bold text-center">수정</h1>
-        <button type="submit" onClick={handleUpdate} className="absolute right-4 font-semibold text-gray-500">
+        <button type="submit" onClick={handleUpdate} className="absolute right-4 font-semibold text-[#424242]">
           수정
         </button>
       </header>

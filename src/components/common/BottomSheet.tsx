@@ -29,13 +29,12 @@ export const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => 
           }
         )}
       >
-        <div className="flex justify-end p-4">
-          {/* 닫기 버튼 */}
-          {/* <button type='button'  onClick={onClose}>
-            <CloseIcon/>
-          </button> */}
-        </div>
-        <div className="overflow-y-auto max-h-[calc(100vh-60px)] md:max-h-full">{children}</div>
+        {/* <div className="flex justify-end p-4">
+          <button type='button'  onClick={onClose}>
+            x
+          </button>
+        </div> */}
+        <div className="overflow-y-auto max-h-full md:max-h-full">{children}</div>
       </div>
     </>
   );

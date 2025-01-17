@@ -76,7 +76,7 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
               name="title"
               value={formData.title}
               placeholder="ex) 어르신 보조, 드론의 재능기부, 환경 정리 등"
-              className="mt-3 block h-12 w-full rounded-[8px] border border-[#A1A6AA] px-2 text-base placeholder-[#868C92] focus:border-indigo-500 focus:ring-indigo-500"
+              className="mt-3 block h-12 w-full rounded-[8px] border border-[#A1A6AA] px-2 text-base placeholder-[#868C92]"
               onChange={handleInputChange}
             />
           </div>
