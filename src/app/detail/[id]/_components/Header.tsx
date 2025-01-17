@@ -50,7 +50,6 @@ const Header = ({ postPageId }: PostDetailProps) => {
 
   const handleToggleRecruitment = () => {
     // TODO: 모집중, 완료 기능 구현
-    console.log('모집 상태 변경');
     closeSheet();
   };
 

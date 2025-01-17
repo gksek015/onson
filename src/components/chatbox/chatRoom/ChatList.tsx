@@ -1,3 +1,4 @@
+import { RightArrowForChatIcon } from '@/components/icons/Icons';
 import type { ChatRoom } from '@/types/chatType';
 
 interface ChatListProps {
@@ -25,16 +26,23 @@ const ChatList = ({ chatRooms, onSelectRoom }: ChatListProps) => {
         return (
           <button
             key={room.id}
-            className="mb-2 flex w-full items-center justify-between border-2 p-2 text-left"
-            onClick={() => onSelectRoom(room.id, room.otherNickname || '사용자가 없습니다.')} // 닉네임 전달
+            className="mb-2 flex w-full flex-col border-b p-2 text-left"
+            onClick={() => onSelectRoom(room.id, room.otherNickname || '사용자가 없습니다.')}
           >
-            <div>
-              <p className="text-lg font-semibold text-black">{room.otherNickname || '사용자가 없습니다.'}</p>
-              <p className="w-60 truncate text-sm text-black">{lastMessage?.content || '메시지가 없습니다.'}</p>
+            {/* 상단: 닉네임과 날짜+화살표 */}
+            <div className="flex w-full items-center justify-between">
+              <span className="text-lg font-semibold text-black">{room.otherNickname || '사용자가 없습니다.'}</span>
+              <div className="flex-end flex items-center space-x-2 text-right">
+                <p className="text-xs text-gray-500">
+                  {lastMessage?.created_at ? formatDate(lastMessage.created_at) : ''}
+                </p>
+                <RightArrowForChatIcon />
+              </div>
             </div>
-            <div className="text-right">
-              <p className="text-xs text-black">{lastMessage?.created_at ? formatDate(lastMessage.created_at) : ''}</p>
-              <span className="text-xl text-black">›</span>
+
+            {/* 메시지 영역 */}
+            <div className="mt-2">
+              <p className="truncate text-sm text-black">{lastMessage?.content || '메시지가 없습니다.'}</p>
             </div>
           </button>
         );
