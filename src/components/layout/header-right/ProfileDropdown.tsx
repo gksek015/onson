@@ -42,6 +42,12 @@ const ProfileDropdown = () => {
         return;
       }
 
+      const projectId = process.env.NEXT_PUBLIC_SUPABASE_URL?.split('.')[0].replace('https://', '');
+      if (projectId) {
+        document.cookie = `sb-${projectId}-auth-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        document.cookie = `sb-${projectId}-auth-token-code-verifier=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+      }
+
       // 클라이언트 상태 초기화
       useUserStore.getState().clearUser();
 

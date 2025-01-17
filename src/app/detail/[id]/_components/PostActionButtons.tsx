@@ -6,12 +6,11 @@ import useModal from '@/hooks/ui/useModal';
 import { useUserStore } from '@/utils/store/userStore';
 
 interface PostActionButtonsProps {
-  title: string;
   nickname: string;
   postOwnerId: string;
 }
 
-const PostActionButtons = ({ title, nickname, postOwnerId }: PostActionButtonsProps) => {
+const PostActionButtons = ({ nickname, postOwnerId }: PostActionButtonsProps) => {
   const { isOpen, toggleModal } = useModal();
   const { user } = useUserStore();
 

@@ -1,38 +1,28 @@
-import { getSupabaseClient } from '@/utils/supabase/server';
-import { NextResponse } from 'next/server';
+import { createClient } from '@/utils/supabase/server'
+import { NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
-  
-    const origin = new URL(request.url).origin || process.env.NEXT_PUBLIC_BASE_URL; 
-    try {
-      const { searchParams } = new URL(request.url);
-      const code = searchParams.get('code');
-      const next = searchParams.get('next') 
-        ? new URL(searchParams.get('next')!, origin).toString() 
-        : `${origin}/`;
-        
-      if (!code) {
-        return NextResponse.redirect(`${origin}/auth/error`);
+  const { searchParams, origin } = new URL(request.url)
+  const code = searchParams.get('code')
+  const next = searchParams.get('next') ?? '/'
+
+  if (code) {
+    
+    const supabase = createClient()
+    const { error } = await supabase.auth.exchangeCodeForSession(code)
+    
+    if (!error) {
+      const forwardedHost = request.headers.get('x-forwarded-host') 
+      const isLocalEnv = 'true'
+      if (isLocalEnv) {
+        return NextResponse.redirect(`${origin}${next}`)
+      } else if (forwardedHost) {
+        return NextResponse.redirect(`https://${forwardedHost}${next}`)
+      } else {
+        return NextResponse.redirect(`${origin}${next}`)
       }
-      console.log('가나다라마바사아자차카',code)
-      const supabase = getSupabaseClient();
-      const { data: userData, error } = await supabase.auth.exchangeCodeForSession(code);
-      console.log('abcdefgasdfasdfasdfasdfasdfasd', userData)
-      if (error) {
-        console.error('Error exchanging code:', error);
-        return NextResponse.redirect(`${origin}/auth/error`);
-      }
-  
-      await supabase.from('users').insert({
-        id: userData.user?.id,
-        email: userData.user?.email,
-        nickname: userData.user?.user_metadata.name || 'Unknown',
-      });
-  
-      return NextResponse.redirect(next);
-    } catch (err) {
-      console.error('Unexpected error:', err);
-      return NextResponse.redirect(process.env.NEXT_PUBLIC_BASE_URL || `${origin}/auth/error`); 
     }
   }
-  
+
+  return NextResponse.redirect(`${origin}/auth/auth-code-error`)
+}

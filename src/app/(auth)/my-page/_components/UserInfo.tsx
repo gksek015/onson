@@ -22,8 +22,6 @@ const UserInfo = () => {
     checkSession();
   }, [clearUser]);
 
-  console.log(isLoggedIn);
-
   if (!isLoggedIn) {
     return <p>로그인되지 않았습니다. 로그인 후 이용해주세요.</p>;
   }

@@ -4,9 +4,9 @@ import { redirect } from 'next/navigation';
 
 import { userLoginSchema } from '@lib/revalidation/userSchema';
 
-import { getSupabaseClient } from '@/utils/supabase/server';
+import { createClient } from '@/utils/supabase/server';
 
-const supabase = getSupabaseClient(); 
+const supabase = createClient(); 
 // 회원가입
 export const signup = async (formData: FormData) => {
 
@@ -56,7 +56,6 @@ export const login = async (formData: FormData) => {
     if (error) {
       throw new Error(error.message);
     }
-console.log('세션 데이터:', userData);
 
     return {
         id: userData.user?.id || '',
@@ -65,32 +64,8 @@ console.log('세션 데이터:', userData);
         profileImage: userData.user?.user_metadata?.profileImage || null,
       };
   };
-
-  //카카오 로그인
-  export const kakaoLogin = async (currentUrl: string) => {
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'kakao',
-      options: {
-        redirectTo: `${currentUrl}/api/auth/callback`,
-        queryParams: {
-          prompt: 'login',
-          //state: `${Date.now()}`, 
-        },
-      },
-    });
   
-    if (error) {
-      console.error('카카오 로그인 오류:', error);
-      return { error: error.message };
-    }
-  
-    if (data.url) {
-      redirect(data.url);
-    }
-  };
-  
-
-  
+  //console.log('세션 데이터:', userData);
   // 로그아웃
 export const logout = async (): Promise<string | { error: string }> => {
     try {
