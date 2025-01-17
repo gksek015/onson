@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import { CloseIcon } from '../icons/Icons';
 
 interface BottomSheetProps {
   isOpen: boolean;
@@ -13,7 +12,7 @@ export const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => 
     <>
       {/* 배경 오버레이 */}
       <div
-        className={clsx('fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity duration-300', {
+        className={clsx('fixed inset-0 z-40 bg-black bg-opacity-10 transition-opacity duration-300', {
           'opacity-100': isOpen,
           'pointer-events-none opacity-0': !isOpen
         })}
@@ -23,20 +22,19 @@ export const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => 
       {/* 바텀시트 */}
       <div
         className={clsx(
-          'fixed left-0 top-0 z-50 h-full w-full transform bg-white shadow-lg transition-transform duration-300',
+          'fixed left-0 top-0 z-50 h-full w-full transform bg-white shadow-lg transition-transform duration-300 rounded-t-2xl',
           {
             'translate-y-0': isOpen,
             'translate-y-full': !isOpen
           }
         )}
       >
-        <div className="flex justify-end p-4">
-          {/* 닫기 버튼 */}
-          <button type='button' className="text-gray-500 hover:text-gray-700 text-xl" onClick={onClose}>
-            <CloseIcon/>
+        {/* <div className="flex justify-end p-4">
+          <button type='button'  onClick={onClose}>
+            x
           </button>
-        </div>
-        <div className="p-6">{children}</div>
+        </div> */}
+        <div className="overflow-y-auto max-h-full md:max-h-full">{children}</div>
       </div>
     </>
   );

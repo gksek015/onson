@@ -32,7 +32,7 @@ export const usePostForm = () => {
   }, [formData]);
 
   useEffect(() => {
-    if (isLoggedIn()) {
+    if (!isLoggedIn()) {
       Swal.fire({
         title: '로그인이 필요합니다',
         text: '글을 작성하시려면 로그인이 필요합니다.',
@@ -68,6 +68,16 @@ export const usePostForm = () => {
     }
 
     try {
+      Swal.fire({
+        title: '등록 중입니다...',
+        text: '잠시만 기다려주세요.',
+        icon: 'info',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+
       const bucketName = 'images_bucket';
 
       // 게시물 삽입
