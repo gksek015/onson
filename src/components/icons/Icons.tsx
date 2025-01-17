@@ -70,6 +70,17 @@ export const CloseIcon = () => {
   );
 };
 
+export const CloseIcon2 = () => {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M4.39705 4.55379L4.46967 4.46967C4.73594 4.2034 5.1526 4.1792 5.44621 4.39705L5.53033 4.46967L12 10.939L18.4697 4.46967C18.7626 4.17678 19.2374 4.17678 19.5303 4.46967C19.8232 4.76256 19.8232 5.23744 19.5303 5.53033L13.061 12L19.5303 18.4697C19.7966 18.7359 19.8208 19.1526 19.6029 19.4462L19.5303 19.5303C19.2641 19.7966 18.8474 19.8208 18.5538 19.6029L18.4697 19.5303L12 13.061L5.53033 19.5303C5.23744 19.8232 4.76256 19.8232 4.46967 19.5303C4.17678 19.2374 4.17678 18.7626 4.46967 18.4697L10.939 12L4.46967 5.53033C4.2034 5.26406 4.1792 4.8474 4.39705 4.55379Z"
+        fill="#242628"
+      />
+    </svg>
+  );
+};
+
 export const HomeStrokeIcon = () => {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -154,6 +165,72 @@ export const MessagePillIcon = () => {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+    </svg>
+  );
+};
+
+export const SendMessageIcon = () => {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M5.3335 13.334L26.6668 5.33398L18.6668 26.6673L14.6668 17.334L5.3335 13.334Z"
+        stroke="#D0D0D0"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14.6665 17.334L26.6665 5.33398"
+        stroke="#D0D0D0"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const SendMessageGradientIcon = () => {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M5.3335 13.334L26.6668 5.33398L18.6668 26.6673L14.6668 17.334L5.3335 13.334Z"
+        stroke="url(#paint0_linear_953_1980)"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14.6665 17.334L26.6665 5.33398"
+        stroke="url(#paint1_linear_953_1980)"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_953_1980"
+          x1="6.8937"
+          y1="10.4622"
+          x2="23.8211"
+          y2="10.8038"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#F99A2C" />
+          <stop offset="0.97" stopColor="#FA5571" />
+        </linearGradient>
+        <linearGradient
+          id="paint1_linear_953_1980"
+          x1="15.5441"
+          y1="8.2186"
+          x2="25.0658"
+          y2="8.41077"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#F99A2C" />
+          <stop offset="0.97" stopColor="#FA5571" />
+        </linearGradient>
+      </defs>
     </svg>
   );
 };
@@ -281,9 +358,9 @@ export const ArrowRightIcon = () => {
 
 export const BackButtonIcon = () => {
   return (
-    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
-        d="M26.5303 14.2197C26.8232 14.5126 26.8232 14.9874 26.5303 15.2803L19.8107 22L26.5303 28.7197C26.8232 29.0126 26.8232 29.4874 26.5303 29.7803C26.2374 30.0732 25.7626 30.0732 25.4697 29.7803L18.2197 22.5303C17.9268 22.2374 17.9268 21.7626 18.2197 21.4697L25.4697 14.2197C25.7626 13.9268 26.2374 13.9268 26.5303 14.2197Z"
+        d="M16.5303 4.21967C16.8232 4.51256 16.8232 4.98744 16.5303 5.28033L9.81066 12L16.5303 18.7197C16.8232 19.0126 16.8232 19.4874 16.5303 19.7803C16.2374 20.0732 15.7626 20.0732 15.4697 19.7803L8.21967 12.5303C7.92678 12.2374 7.92678 11.7626 8.21967 11.4697L15.4697 4.21967C15.7626 3.92678 16.2374 3.92678 16.5303 4.21967Z"
         fill="#242628"
       />
     </svg>
@@ -368,27 +445,6 @@ export const TrashBinIcon = () => {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export const SendMessageIcon = () => {
-  return (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M5.3335 13.334L26.6668 5.33398L18.6668 26.6673L14.6668 17.334L5.3335 13.334Z"
-        stroke="#D0D0D0"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M14.6665 17.334L26.6665 5.33398"
-        stroke="#D0D0D0"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-};
-
 export const MyProfileIcon = () => {
   return (
     <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -401,38 +457,25 @@ export const MyProfileIcon = () => {
   );
 };
 
-export const FlutingButton = () => {
+export const UnReadMessageIcon = () => {
   return (
-    <svg width="125" height="125" viewBox="0 0 125 125" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g id="&#237;&#155;&#132;&#235;&#179;&#180;">
-        <rect width="125" height="125" rx="22" fill="white" />
-        <g id="Group 1707482308">
-          <path
-            id="Union"
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M35 27C28.0964 27 22.5 32.5964 22.5 39.5V84C22.5 94.4934 31.0066 103 41.5 103H47.5H72.5H78.5C81.2093 103 83.7861 102.433 86.1183 101.411C88.5382 100.486 90.807 99.0483 92.7574 97.098L105.839 84.0165C110.72 79.1349 110.72 71.2204 105.839 66.3388C103.525 64.0252 100.53 62.8082 97.5 62.6876V39.5C97.5 32.5964 91.9036 27 85 27C78.0964 27 72.5 32.5964 72.5 39.5C72.5 32.5964 66.9036 27 60 27C53.0964 27 47.5 32.5964 47.5 39.5C47.5 32.5964 41.9036 27 35 27Z"
-            fill="#FB657E"
-          />
-          <ellipse id="Ellipse 89" opacity="0.7" cx="39" cy="74.25" rx="10" ry="7.25" fill="#EC0B31" />
-          <ellipse id="Ellipse 90" opacity="0.7" cx="81.5" cy="74.25" rx="10" ry="7.25" fill="#EC0B31" />
-          <g id="Group 1707482307">
-            <g id="Group 1707482305">
-              <ellipse id="Ellipse 81" cx="52.5" cy="66" rx="6.5" ry="10" fill="black" />
-              <ellipse id="Ellipse 84" cx="50" cy="63.25" rx="3.5" ry="4.25" fill="white" />
-            </g>
-            <g id="Group 1707482306">
-              <ellipse id="Ellipse 82" cx="68.5" cy="66" rx="6.5" ry="10" fill="black" />
-              <ellipse id="Ellipse 85" cx="66" cy="63.25" rx="3.5" ry="4.25" fill="white" />
-            </g>
-          </g>
-          <path
-            id="Vector 494"
-            d="M57.0303 76.4697C56.7374 76.1768 56.2626 76.1768 55.9697 76.4697C55.6768 76.7626 55.6768 77.2374 55.9697 77.5303L57.0303 76.4697ZM55.9697 77.5303L56.1841 77.7448L57.2448 76.6841L57.0303 76.4697L55.9697 77.5303ZM64.3159 77.7448L64.5303 77.5303L63.4697 76.4697L63.2552 76.6841L64.3159 77.7448ZM56.1841 77.7448C58.4297 79.9903 62.0703 79.9903 64.3159 77.7448L63.2552 76.6841C61.5955 78.3439 58.9045 78.3439 57.2448 76.6841L56.1841 77.7448Z"
-            fill="black"
-          />
-        </g>
-      </g>
+    <svg xmlns="http://www.w3.org/2000/svg" width="31" height="28" viewBox="0 0 31 28" fill="none">
+      <path
+        d="M5.875 22L7.25443 17.8617C6.06223 16.0984 5.63094 14.0103 6.04076 11.9856C6.45059 9.96094 7.67363 8.13741 9.4825 6.85412C11.2914 5.57082 13.563 4.91508 15.8749 5.00882C18.1869 5.10256 20.3819 5.9394 22.0518 7.36375C23.7217 8.78809 24.7529 10.703 24.9537 12.7525C25.1544 14.8019 24.5111 16.8465 23.1432 18.5059C21.7754 20.1654 19.7761 21.3268 17.5172 21.7744C15.2583 22.2219 12.8933 21.925 10.8622 20.9389L5.875 22Z"
+        stroke="#8E8E93"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="26.75" cy="4" r="3.5" fill="#E4290C" stroke="white" />
+    </svg>
+  );
+};
+
+export const UnReadMarkIcon = () => {
+  return (
+    <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="6" cy="6.5" r="5.5" fill="#FB657E" stroke="white" />
     </svg>
   );
 };
