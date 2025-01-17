@@ -2,6 +2,7 @@
 
 import { MyProfileIcon } from '@/components/icons/Icons';
 import { logout } from '@/lib/actions/auth/action';
+import { useUserStore } from '@/utils/store/userStore';
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
@@ -31,8 +32,36 @@ const ProfileDropdown = () => {
     };
   }, []);
 
+  // 로그아웃, 클라이언트 상태 초기화, 카카오 로그아웃 후 리다이렉트
   const logoutWithUser = async () => {
-    await logout();
+    try {
+      // Supabase 로그아웃
+      const result = await logout();
+      if (typeof result === 'object' && 'error' in result) {
+        console.error('Supabase 로그아웃 오류:', result.error);
+        return;
+      }
+
+      const projectId = process.env.NEXT_PUBLIC_SUPABASE_URL?.split('.')[0].replace('https://', '');
+      if (projectId) {
+        document.cookie = `sb-${projectId}-auth-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        document.cookie = `sb-${projectId}-auth-token-code-verifier=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+      }
+
+      // 클라이언트 상태 초기화
+      useUserStore.getState().clearUser();
+
+      // 카카오 로그아웃
+      window.location.href = result;
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error('로그아웃 처리 중 오류:', err.message);
+        return { error: err.message };
+      } else {
+        console.error('알 수 없는 오류 발생:', err);
+        return { error: '알 수 없는 오류가 발생했습니다.' };
+      }
+    }
   };
 
   return (

@@ -33,7 +33,6 @@ const PostContent = ({
   address,
   isPostClosed
 }: PostContentProps) => {
-
   return (
     <div className="my-6 flex flex-col justify-center gap-4 pb-20">
       <div className="mx-4 flex flex-col justify-center gap-2">
@@ -54,7 +53,7 @@ const PostContent = ({
         </div>
 
         {/* 버튼 */}
-        <PostActionButtons title={title} nickname={nickname} postOwnerId={postOwnerId}/>
+        <PostActionButtons nickname={nickname} postOwnerId={postOwnerId} />
       </div>
 
       {/* 가로선 */}
