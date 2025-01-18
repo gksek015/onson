@@ -280,7 +280,7 @@ export const MyProfileIcon = () => {
 export const RoundCloseIcon = () => {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" fill="black" fill-opacity="0.6" />
+      <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" fill="black" fillOpacity="0.6" />
       <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="white" />
       <path d="M8 8L16 16" stroke="white" strokeLinecap="round" />
       <path d="M16 8L8 16" stroke="white" strokeLinecap="round" />
