@@ -1,6 +1,7 @@
 'use client';
 
 import { checkUnreadMessages } from '@/lib/chats/checkUnreadMessages';
+import { getMarkMessageAsRead } from '@/lib/chats/getMarkMessageAsRead';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -31,14 +32,30 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   }, [user?.id]);
 
   // 채팅방 입장 처리하는 함수
-  const handleEnterChatRoom = (chatId: string) => {
+  const handleEnterChatRoom = async (chatId: string) => {
     setSelectedChatId(chatId);
 
-    setUnreadMessagesMap((prev) => {
-      const updated = { ...prev };
-      delete updated[chatId]; // 읽음 처리된 채팅방 제거
-      return updated;
-    });
+    const isMarkedAsRead = await getMarkMessageAsRead(chatId, user?.id || '');
+
+    if (isMarkedAsRead) {
+      setUnreadMessagesMap((prev) => {
+        const updated = { ...prev };
+        delete updated[chatId]; // 읽음 처리된 채팅방 제거
+        return updated;
+      });
+    }
+  };
+
+  const handleClose = async () => {
+    if (selectedChatId && user?.id) {
+      await getMarkMessageAsRead(selectedChatId, user.id); // 모달 닫힐 때 읽음 처리
+      setUnreadMessagesMap((prev) => {
+        const updated = { ...prev };
+        delete updated[selectedChatId]; // 읽음 처리된 채팅방 제거
+        return updated;
+      });
+    }
+    onClose(); // 부모 컴포넌트에서 닫기 처리
   };
 
   // 뒤로가기
@@ -71,7 +88,7 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
             </button>
           </div>
           {/* 닫기 버튼 */}
-          <button onClick={onClose} className="right-4 text-xl">
+          <button onClick={handleClose} className="right-4 text-xl">
             <CloseIcon2 />
           </button>
         </div>
@@ -83,7 +100,7 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
           chatId={selectedChatId}
           currentUserId={user?.id || ''}
           onBack={handleBackToList}
-          onClose={onClose}
+          onClose={handleClose}
         />
       )}
 
