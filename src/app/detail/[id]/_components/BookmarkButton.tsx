@@ -24,7 +24,7 @@ const BookmarkButton = ({ postId }: BookmarkButtonProps) => {
         text: '북마크 기능을 사용하려면 로그인이 필요합니다.',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: '로그인하러 가기',
+        confirmButtonText: '로그인하기',
         cancelButtonText: '취소'
       }).then((result) => {
         if (result.isConfirmed) {

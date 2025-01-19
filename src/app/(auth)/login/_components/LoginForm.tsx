@@ -53,11 +53,9 @@ const LoginForm = () => {
           {...register('password')}
           errorMessage={errors.password?.message}
         />
-        <Button className="w-full rounded-sm bg-[#4B4B4B] p-3 text-white" type="submit" label="로그인" />
+        <Button className="btn-gray" type="submit" label="로그인" />
         <div className="mt-4 flex justify-center">
-          <Button type="button" onClick={kakaoLogin}>
-            카카오 소셜로그인 - 노란색 배경
-          </Button>
+          <Button className="btn-yellow" type="button" onClick={kakaoLogin} label="카카오 소셜로그인" />
         </div>
       </form>
     </div>

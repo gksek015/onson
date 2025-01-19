@@ -41,20 +41,23 @@ const ProfileDropdown = () => {
         return { error: error.message };
       }
 
-      // 로그아웃 후 세션 확인
-      const { data: sessionData } = await supabase.auth.getSession();
-      if (sessionData?.session) {
-        console.error('Supabase 세션이 아직 남아 있습니다:', sessionData);
-        return { error: '로그아웃이 제대로 처리되지 않았습니다.' };
-      }
-
-      const logoutRedirectUri = process.env.NEXT_PUBLIC_BASE_URL;
-      const result = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&logout_redirect_uri=${logoutRedirectUri}`;
-
       // 클라이언트 상태 초기화
       useUserStore.getState().clearUser();
 
-      // 카카오 로그아웃
+      // 소셜 로그인 여부 확인
+      const isSocialLogin = useUserStore.getState().isSocialLogin;
+      const logoutRedirectUri = process.env.NEXT_PUBLIC_BASE_URL;
+
+      let result;
+      if (isSocialLogin) {
+        // 소셜 로그인인 경우 카카오 로그아웃 URL 생성
+        result = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&logout_redirect_uri=${logoutRedirectUri}`;
+      } else {
+        // 일반 로그인인 경우 현재 도메인으로 리다이렉션
+        result = window.location.origin;
+      }
+
+      // 리다이렉션 수행
       window.location.href = result;
     } catch (err) {
       if (err instanceof Error) {
