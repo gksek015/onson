@@ -1,6 +1,7 @@
 'use client';
 
-import AddressSearch from '@/components/common/AddressSearch';
+// import AddressSearch from '@/components/common/AddressSearch';
+import AddressTest from '@/components/common/AddressTest';
 import { BottomSheet } from '@/components/common/BottomSheet';
 import { CloseIcon } from '@/components/icons/Icons';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -65,7 +66,8 @@ const AddressTags = () => {
         onClose={handleSheetClose} // 바텀시트 닫기 동작
       >
         {/* AddressSearch를 바텀시트에 렌더링 */}
-        <AddressSearch option={'search'} onAddressSelect={handleAddressSelect} />
+        {/* <AddressSearch option={'search'} onAddressSelect={handleAddressSelect} /> */}
+        <AddressTest option={'search'} onAddressSelect={handleAddressSelect} />
       </BottomSheet>
     </div>
   );

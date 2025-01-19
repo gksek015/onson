@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
-import AddressSearch from '../common/AddressSearch';
+// import AddressSearch from '../common/AddressSearch';
+import AddressTest from '../common/AddressTest';
 import { BottomSheet } from '../common/BottomSheet';
 import { SearchIcon } from '../icons/Icons';
 
@@ -16,7 +17,7 @@ const AddressButton = () => {
       <input
         readOnly
         placeholder="하고 싶은 봉사를 찾아보세요"
-        className="shadow-input w-full flex-1 cursor-pointer rounded-full border border-[#FB657E] p-0.5 px-5 py-3.5 text-base text-black focus:outline-none"
+        className="w-full flex-1 cursor-pointer rounded-full border border-[#FB657E] p-0.5 px-5 py-3.5 text-base text-black shadow-input focus:outline-none"
         onClick={() => setIsSheetOpen(true)}
       />
       <button type="submit" className="absolute right-5 top-1/2 -translate-y-1/2">
@@ -30,7 +31,8 @@ const AddressButton = () => {
         onClose={handleSheetClose} // 기본 닫기 동작
       >
         {/* 전달되는 Content 컴포넌트 */}
-        <AddressSearch option={'search'} />
+        {/* <AddressSearch option={'search'} /> */}
+        <AddressTest option={'search'} />
       </BottomSheet>
     </div>
   );

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { BottomSheet } from "@/components/common/BottomSheet";
-import AddressSearch from "@/components/common/AddressSearch";
+// import AddressSearch from "@/components/common/AddressSearch";
 import type { FormData } from "@/types/formdata";
+import AddressTest from "../AddressTest";
 
 interface AddressCompProps {
     setFormData: React.Dispatch<React.SetStateAction<FormData>>;
@@ -42,7 +43,13 @@ const AddressComp = ({formData, setFormData} : AddressCompProps) => {
         onClose={handleSheetClose} // 기본 닫기 동작
       >
         {/* 전달되는 Content 컴포넌트 */}
-        <AddressSearch 
+        {/* <AddressSearch 
+        option={'select'} 
+        onSelect={(selectedAddress) => {
+            handleAddressSelect(selectedAddress); // 선택된 주소를 처리
+          }}
+        /> */}
+        <AddressTest 
         option={'select'} 
         onSelect={(selectedAddress) => {
             handleAddressSelect(selectedAddress); // 선택된 주소를 처리
