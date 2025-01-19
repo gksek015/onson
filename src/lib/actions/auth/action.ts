@@ -23,7 +23,15 @@ export const signup = async (formData: FormData) => {
     console.log('회원가입 요청 데이터:', data);
   
     const { data: userData, error } = await supabase.auth.signUp(data);
-  
+
+    const pubilcUserData = {
+        id: userData.user?.id,
+        email: userData.user?.email,
+        nickname: formData.get('nickname') as string
+      };
+    
+      await supabase.from('users').insert(pubilcUserData);
+
     if (error) {
       console.error('회원가입 오류:', error.message);
       redirect('/error');
@@ -51,7 +59,6 @@ export const login = async (formData: FormData) => {
   
     const { email, password } = result.data;
     const { error } = await supabase.auth.signInWithPassword({ email, password });
-  
     if (error) {
       throw new Error(error.message);
     }
