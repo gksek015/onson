@@ -126,3 +126,38 @@ export const deleteImageFromPost = async (postId: string, imageUrl: string): Pro
     throw error;
   }
 };
+
+// completed(모집완료 여부) 업데이트 함수(토글처럼 사용)
+export const updateCompleted = async (postId: string): Promise<boolean> => {
+  const supabase = createClient();
+
+  try {
+    const { data, error: fetchError } = await supabase
+      .from("posts") 
+      .select("completed")
+      .eq("id", postId)
+      .single();
+
+    if (fetchError || !data) {
+      console.error("completed 값 가져오기 실패:", fetchError);
+      return false;
+    }
+
+    // 가져온 completed 값과 반대로
+    const newCompleted = !data.completed;
+
+    const { error: updateError } = await supabase
+      .from("posts")
+      .update({ completed: newCompleted })
+      .eq("id", postId);
+
+    if (updateError) {
+      console.error("completed 값 업데이트 실패:", updateError);
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error("completed 값 토글 중 에러 발생:", error);
+    return false;
+  }
+};

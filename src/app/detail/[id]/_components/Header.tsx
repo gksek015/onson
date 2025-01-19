@@ -1,6 +1,6 @@
 'use client';
 
-import { BackButtonIcon, MeatballMenuIcon, PencilIcon, TrashBinIcon } from '@/components/icons/Icons';
+import { BackButtonIcon, MeatballMenuIcon, PencilIcon, RecruitmentIcon, TrashBinIcon } from '@/components/icons/Icons';
 import { useGetPostById } from '@/hooks/useGetPostById';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
@@ -14,7 +14,7 @@ interface PostDetailProps {
 }
 
 const Header = ({ postPageId }: PostDetailProps) => {
-  const { data: post, deletePostById } = useGetPostById(postPageId);
+  const { data: post, deletePostById, updateCompletedById } = useGetPostById(postPageId);
   const { user } = useUserStore();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const router = useRouter();
@@ -49,7 +49,7 @@ const Header = ({ postPageId }: PostDetailProps) => {
   };
 
   const handleToggleRecruitment = () => {
-    // TODO: 모집중, 완료 기능 구현
+    updateCompletedById.mutate(postPageId);
     closeSheet();
   };
 
@@ -74,16 +74,17 @@ const Header = ({ postPageId }: PostDetailProps) => {
         defaultSnap={({ maxHeight }) => maxHeight * 0.3} // 기본 열림 위치 설정
       >
         <div className="p-4">
+          <button onClick={handleToggleRecruitment} className="flex w-full items-center gap-2 px-4 py-2 text-left">
+            <RecruitmentIcon />
+            {post?.completed ? '모집 마감 해제' : '모집 마감'}
+          </button>
           <button onClick={handleEdit} className="flex w-full items-center gap-2 px-4 py-2 text-left">
             <PencilIcon />
             게시물 수정하기
           </button>
-          <button onClick={handleDelete} className="flex w-full items-center gap-3 px-4 py-2 text-left text-red-500">
+          <button onClick={handleDelete} className="flex w-full items-center gap-2 px-4 py-2 text-left text-red-500">
             <TrashBinIcon />
             게시물 삭제하기
-          </button>
-          <button onClick={handleToggleRecruitment} className="flex w-full items-center gap-2 px-4 py-2 text-left">
-            모집 마감하기
           </button>
         </div>
       </BottomSheet>

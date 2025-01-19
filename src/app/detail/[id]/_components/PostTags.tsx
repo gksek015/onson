@@ -1,6 +1,6 @@
 'use client';
 
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 
 interface PostTagsProps {
   category: string;
@@ -10,11 +10,9 @@ interface PostTagsProps {
 }
 
 const PostTags = ({ category, startDate, endDate, isPostClosed }: PostTagsProps) => {
+  const formattedStart = dayjs(startDate).format('YY.MM.DD.');
+  const formattedEnd = dayjs(endDate).format('YY.MM.DD.');
 
-    const formattedStart = dayjs(startDate).format('YY.MM.DD.');
-    const formattedEnd = dayjs(endDate).format('YY.MM.DD.');
-  
-  
   return (
     <div className="flex flex-wrap items-center gap-[6px] text-[13px] font-normal text-gray-500">
       {/* 모집중/ 마감 태그 */}
@@ -28,7 +26,7 @@ const PostTags = ({ category, startDate, endDate, isPostClosed }: PostTagsProps)
       </span>
 
       {/* 카테고리 태그 */}
-      <span className="rounded-full border-[1px] border-secondary-1 px-3 py-1 text-secondary-1">{category}</span>
+      <span className="border-secondary-1 text-secondary-1 rounded-full border-[1px] px-3 py-1">{category}</span>
     </div>
   );
 };

@@ -2,6 +2,7 @@
 
 import { useUserStore } from '@/utils/store/userStore';
 import { supabase } from '@/utils/supabase/client';
+import Link from 'next/link';
 import { useEffect } from 'react';
 
 const UserInfo = () => {
@@ -32,6 +33,9 @@ const UserInfo = () => {
 
   return (
     <div>
+      <Link href="/my-page/bookmarks">
+        <a className="text-blue-500 underline">내 북마크 보기</a>
+      </Link>
       <h1>사용자 정보</h1>
       <p>아이디: {user.id}</p>
       <p>이메일: {user.email}</p>

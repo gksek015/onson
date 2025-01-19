@@ -46,6 +46,12 @@ export const updateSession = async (request: NextRequest) => {
       return NextResponse.redirect(request.nextUrl.origin);
     }
 
+    // 로그인한 유저정보 리스폰스헤더에 추가
+    if (user) {
+        const encodedUserData = Buffer.from(JSON.stringify(user), 'utf-8').toString('base64');
+        response.headers.set('x-user-data', encodedUserData);
+      }
+  
     return response;
   } catch (e) {
     console.error('Middleware error:', e);

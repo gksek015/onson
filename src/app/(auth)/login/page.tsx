@@ -16,7 +16,7 @@ const LoginPage = () => {
       <h1 className="mb-8 text-3xl font-bold">로그인</h1>
       <LoginForm />
       <div className="flex flex-col items-center space-y-2 text-sm">
-        <Link className="m-3" href="">
+        <Link className="m-3" href="reset-password">
           비밀번호 찾기
         </Link>
         <Link className="m-3" href="sign-up">
