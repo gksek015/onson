@@ -5,13 +5,11 @@ import type { ChatRoom } from '@/types/chatType';
 
 interface ChatListProps {
   chatRooms: (ChatRoom & { otherNickname: string | null })[];
-  unreadMessagesMap: { [chatId: string]: boolean };
   onSelectRoom: (chatId: string, otherNickname: string) => void;
+  unreadMessagesMap: { [chatId: string]: boolean };
 }
 
-const ChatList = ({ chatRooms, unreadMessagesMap, onSelectRoom }: ChatListProps) => {
-  // const [rooms, setRooms] = useState(chatRooms); // UI 업데이트를 위한 로컬 상태
-
+const ChatList = ({ chatRooms, onSelectRoom, unreadMessagesMap }: ChatListProps) => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
@@ -22,33 +20,6 @@ const ChatList = ({ chatRooms, unreadMessagesMap, onSelectRoom }: ChatListProps)
     };
     return date.toLocaleDateString('ko-KR', options); // 한국어 형식으로 변환
   };
-
-  // const handleDeleteRoom = async (chatId: string) => {
-  //   const result = await Swal.fire({
-  //     title: '채팅방 삭제',
-  //     text: '이 채팅방을 삭제하시겠습니까?',
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonText: '삭제',
-  //     cancelButtonText: '취소'
-  //   });
-
-  //   if (result.isConfirmed) {
-  //     try {
-  //       await supabase.from('chats').delete().eq('id', chatId);
-  //       Swal.fire('삭제 완료!', '채팅방이 삭제되었습니다.', 'success');
-
-  //       setRooms((prevRooms) => prevRooms.filter((room) => room.id !== chatId));
-  //     } catch (error) {
-  //       console.error('Error deleting chat room:', error);
-  //       Swal.fire('오류!', '채팅방 삭제 중 문제가 발생했습니다.', 'error');
-  //     }
-  //   }
-  // };
-
-  // const longPressOptions = {
-  //   threshold: 1500 // 롱프레스 시간 (1.5초)
-  // };
 
   return (
     <div>

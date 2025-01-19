@@ -1,13 +1,18 @@
 'use client';
 
 import useModal from '@/hooks/ui/useModal';
+import { useUnreadMessage } from '@/hooks/useUnreadMessage';
+import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
 import ChatBoxModal from '../chatbox/ChatBoxModal';
-import { HomePillIcon, MessageStrokeIcon, NoteIcon, PencilPlusIcon } from '../icons/Icons';
+import { HomePillIcon, MessageStrokeIcon, NoteIcon, PencilPlusIcon, UnReadMessageIcon } from '../icons/Icons';
 
 const BottomNav = () => {
   const router = useRouter();
   const { isOpen, toggleModal } = useModal();
+  const { user } = useUserStore();
+  const { unreadMessages, isPending } = useUnreadMessage(user?.id || '');
+  const hasUnreadMessages = !isPending && unreadMessages && Object.values(unreadMessages).some((val) => val);
 
   return (
     <>
@@ -32,8 +37,7 @@ const BottomNav = () => {
 
         {/* 채팅모달을 열기 위한 버튼 */}
         <button type="button" onClick={toggleModal} className="flex flex-col items-center">
-          {/* <UnReadMessageIcon /> */}
-          <MessageStrokeIcon />
+          {hasUnreadMessages ? <UnReadMessageIcon /> : <MessageStrokeIcon />}
           <span className="text-sm font-bold text-black">Chat</span>
         </button>
       </nav>

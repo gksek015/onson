@@ -1,10 +1,10 @@
 'use client';
 
-import { checkUnreadMessages } from '@/lib/chats/checkUnreadMessages';
+import { useUnreadMessage } from '@/hooks/useUnreadMessage';
 import { getMarkMessageAsRead } from '@/lib/chats/getMarkMessageAsRead';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CloseIcon2 } from '../icons/Icons';
 import AIChatroom from './ai/AIChatroom';
 import ChatInBox from './ChatInbox';
@@ -17,43 +17,21 @@ interface ChatBoxModalProps {
 const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   const [activeTab, setActiveTab] = useState('온손이 AI'); //'실시간채팅'과  '온손이 AI' 두개의 탭 상태 관리
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
-  const [unreadMessagesMap, setUnreadMessagesMap] = useState<{ [chatId: string]: boolean }>({});
   const { user } = useUserStore();
+  const { refetch } = useUnreadMessage(user?.id || '');
   const router = useRouter();
-
-  useEffect(() => {
-    const fetchUnreadMessages = async () => {
-      if (!user?.id) return;
-      const unreadMap = await checkUnreadMessages(user.id);
-      setUnreadMessagesMap(unreadMap);
-    };
-
-    fetchUnreadMessages();
-  }, [user?.id]);
 
   // 채팅방 입장 처리하는 함수
   const handleEnterChatRoom = async (chatId: string) => {
     setSelectedChatId(chatId);
-
-    const isMarkedAsRead = await getMarkMessageAsRead(chatId, user?.id || '');
-
-    if (isMarkedAsRead) {
-      setUnreadMessagesMap((prev) => {
-        const updated = { ...prev };
-        delete updated[chatId]; // 읽음 처리된 채팅방 제거
-        return updated;
-      });
-    }
+    await getMarkMessageAsRead(chatId, user?.id || '');
+    refetch();
   };
 
   const handleClose = async () => {
     if (selectedChatId && user?.id) {
       await getMarkMessageAsRead(selectedChatId, user.id); // 모달 닫힐 때 읽음 처리
-      setUnreadMessagesMap((prev) => {
-        const updated = { ...prev };
-        delete updated[selectedChatId]; // 읽음 처리된 채팅방 제거
-        return updated;
-      });
+      refetch();
     }
     onClose(); // 부모 컴포넌트에서 닫기 처리
   };
@@ -61,6 +39,7 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   // 뒤로가기
   const handleBackToList = () => {
     setSelectedChatId(null);
+    refetch();
   };
 
   return (
@@ -111,10 +90,9 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
         ) : user ? (
           <ChatInBox
             selectedChatId={selectedChatId}
-            userId={user.id}
+            userId={user?.id || ''}
             onEnterChatRoom={handleEnterChatRoom}
             onBackToList={handleBackToList}
-            unreadMessagesMap={unreadMessagesMap}
           />
         ) : (
           <div className="flex h-full flex-col justify-between text-center">
