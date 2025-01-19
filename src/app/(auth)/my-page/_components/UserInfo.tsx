@@ -33,9 +33,7 @@ const UserInfo = () => {
 
   return (
     <div>
-      <Link href="/my-page/bookmarks">
-        <a className="text-blue-500 underline">내 북마크 보기</a>
-      </Link>
+      <Link href="/my-page/bookmarks">내 북마크 보기</Link>
       <h1>사용자 정보</h1>
       <p>아이디: {user.id}</p>
       <p>이메일: {user.email}</p>
