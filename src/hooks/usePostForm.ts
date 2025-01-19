@@ -32,7 +32,7 @@ export const usePostForm = () => {
   }, [formData]);
 
   useEffect(() => {
-    if (isLoggedIn()) {
+    if (!isLoggedIn()) {
       Swal.fire({
         title: '로그인이 필요합니다',
         text: '글을 작성하시려면 로그인이 필요합니다.',
