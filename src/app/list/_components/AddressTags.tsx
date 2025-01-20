@@ -2,7 +2,7 @@
 
 import AddressSearch from '@/components/common/AddressSearch';
 import { BottomSheet } from '@/components/common/BottomSheet';
-import { CloseIcon } from '@/components/icons/Icons';
+import { CloseIcon, MapPinIcon } from '@/components/icons/Icons';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
@@ -36,16 +36,15 @@ const AddressTags = () => {
     handleSheetClose();
   };
 
-  // useGetPost를 invalidateQuery 사용해서 전체 리스트를 보여주도록 코드 짜고, 닫기 버튼 눌렀을 때 필터링 된게 초기화 되게 하기
-
   return (
     <div className="flex justify-start text-xs">
       {/* tag가 null이거나 falsy하면 렌더링 안하기 */}
       {tag && (
         <div
           onClick={openBottomSheet}
-          className="flex cursor-pointer rounded-lg border border-[#e6e6e6] py-1.5 pl-2 pr-1.5"
+          className="flex cursor-pointer rounded-lg border  border-[#e6e6e6] py-1.5 pl-2 pr-1.5"
         >
+          <MapPinIcon />
           <span className="text-sm text-[#656565]">{tag}</span>
           <button
             className="ml-3"

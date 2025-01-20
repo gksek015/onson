@@ -2,11 +2,11 @@
 
 import AddressButton from '@/components/home/AddressButton';
 import HeroSection from '@/components/home/HeroSection';
-import useGetPost from '@/hooks/useGetPost';
+import useGetPostsbyFilter from '@/hooks/useGetPostsbyFilter';
 import VolunteerCard from './VolunteerCard';
 
 const MainSection = () => {
-  const { posts, isPending } = useGetPost();
+  const { data: posts, isPending } = useGetPostsbyFilter();
 
   if (isPending) {
     return <div>Loading...</div>;

@@ -1,7 +1,7 @@
-import AddressSearch from '@/components/common/AddressSearch';
 import { BottomSheet } from '@/components/common/BottomSheet';
 import type { FormData } from '@/types/formdata';
 import { useState } from 'react';
+import AddressSearch from '../AddressSearch';
 
 interface AddressCompProps {
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
@@ -12,13 +12,13 @@ const AddressComp = ({ formData, setFormData }: AddressCompProps) => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const handleSheetClose = () => {
-    setIsSheetOpen(false);
+    setIsSheetOpen(false); // BottomSheet 닫기
   };
 
   const handleAddressSelect = (selectedAddress: string) => {
     // 선택된 주소를 formData와 input에 반영
     setFormData((prev) => ({ ...prev, address: selectedAddress }));
-    handleSheetClose();
+    handleSheetClose(); // BottomSheet 닫기
   };
 
   return (
