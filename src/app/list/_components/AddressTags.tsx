@@ -1,7 +1,6 @@
 'use client';
 
-// import AddressSearch from '@/components/common/AddressSearch';
-import AddressTest from '@/components/common/AddressTest';
+import AddressSearch from '@/components/common/AddressSearch';
 import { BottomSheet } from '@/components/common/BottomSheet';
 import { CloseIcon } from '@/components/icons/Icons';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -37,8 +36,6 @@ const AddressTags = () => {
     handleSheetClose();
   };
 
-  // useGetPost를 invalidateQuery 사용해서 전체 리스트를 보여주도록 코드 짜고, 닫기 버튼 눌렀을 때 필터링 된게 초기화 되게 하기
-
   return (
     <div className="flex justify-start text-xs">
       {/* tag가 null이거나 falsy하면 렌더링 안하기 */}
@@ -66,8 +63,7 @@ const AddressTags = () => {
         onClose={handleSheetClose} // 바텀시트 닫기 동작
       >
         {/* AddressSearch를 바텀시트에 렌더링 */}
-        {/* <AddressSearch option={'search'} onAddressSelect={handleAddressSelect} /> */}
-        <AddressTest option={'search'} onAddressSelect={handleAddressSelect} />
+        <AddressSearch option={'search'} onAddressSelect={handleAddressSelect} />
       </BottomSheet>
     </div>
   );

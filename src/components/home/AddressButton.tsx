@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
-// import AddressSearch from '../common/AddressSearch';
-import AddressTest from '../common/AddressTest';
+import AddressSearch from '../common/AddressSearch';
 import { BottomSheet } from '../common/BottomSheet';
 import { SearchIcon } from '../icons/Icons';
 
@@ -31,8 +30,7 @@ const AddressButton = () => {
         onClose={handleSheetClose} // 기본 닫기 동작
       >
         {/* 전달되는 Content 컴포넌트 */}
-        {/* <AddressSearch option={'search'} /> */}
-        <AddressTest option={'search'} />
+        <AddressSearch option={'search'} />
       </BottomSheet>
     </div>
   );
