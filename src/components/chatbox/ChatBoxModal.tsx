@@ -3,7 +3,8 @@
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { CloseIcon} from '../icons/Icons';
+import { CloseIcon } from '../icons/Icons';
+// import AIChatbot from './ai/AIChatbot';
 import AIChatroom from './ai/AIChatroom';
 import ChatInBox from './ChatInbox';
 import ChatHeader from './chatUI/ChatHeader';
