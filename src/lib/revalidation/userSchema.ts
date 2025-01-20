@@ -27,3 +27,7 @@ export const userSignUpSchema = z
   
     password: z.string().nonempty('비밀번호를 입력해주세요.')
   });
+
+  export const nicknameSchema = z.object({
+    nickname: z.string().min(1, '닉네임을 입력해주세요.')
+  });

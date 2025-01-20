@@ -1,14 +1,18 @@
 'use client';
 
-import VolunteerCard from '@/components/home/VolunteerCard';
+import VolunteerCardNoImg from '@/components/home/VolunteerCardNoImg';
 import useGetPost from '@/hooks/useGetPost';
 import { useUserStore } from '@/utils/store/userStore';
 
-const MyPosts = () => {
-  const { user } = useUserStore();
+const QuickMyPosts = () => {
+  const user = useUserStore((state) => state.user);
 
   // userId를 직접 전달
-  const { posts, isPending, isError } = useGetPost(user?.id);
+  const { posts, isPending, isError } = useGetPost(user?.id, 3);
+
+  if (!user) {
+    return <p>사용자 정보가 없습니다.</p>;
+  }
 
   if (isPending) {
     return <p>내가 쓴 글을 불러오는 중입니다...</p>;
@@ -21,16 +25,15 @@ const MyPosts = () => {
   if (!posts || posts.length === 0) {
     return <p>내가 쓴 글이 없습니다.</p>;
   }
-
   return (
-    <div className="mx-auto w-full max-w-2xl space-y-4">
-      <div className="space-y-4">
+    <div className="w-full space-y-4 border-b border-t border-[#e7e7e7]">
+      <div className="flex flex-row gap-4 overflow-x-auto">
         {posts.map((post) => (
-          <VolunteerCard key={post.id} post={post} />
+          <VolunteerCardNoImg key={post.id} post={post} />
         ))}
       </div>
     </div>
   );
 };
 
-export default MyPosts;
+export default QuickMyPosts;

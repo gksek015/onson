@@ -111,3 +111,58 @@ export const checkSupabaseSession = async () => {
     throw new Error('Supabase 세션 확인 중 오류 발생.');
   }
 };
+
+export const updateNickname = async (formData: FormData) => {
+  try {
+    const supabase = createClient();
+
+    // 닉네임 데이터 가져오기
+    const nickname = formData.get('nickname') as string;
+
+    if (!nickname || nickname.trim().length === 0) {
+      throw new Error('닉네임을 입력해주세요.');
+    }
+
+    // 현재 로그인한 사용자 가져오기
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (userError) {
+      console.error('사용자 가져오기 오류:', userError.message);
+      throw new Error('사용자 정보를 가져오는 중 오류가 발생했습니다.');
+    }
+
+    if (!user) {
+      throw new Error('로그인이 필요합니다.');
+    }
+
+    // 닉네임 업데이트
+    const { error: updateError } = await supabase.auth.updateUser({
+      data: { nickname },
+    });
+
+    if (updateError) {
+      console.error('닉네임 업데이트 오류:', updateError.message);
+      throw new Error('닉네임 업데이트에 실패했습니다.');
+    }
+
+    // 추가로 사용자 테이블에 업데이트가 필요한 경우
+    const { error: userTableError } = await supabase
+      .from('users')
+      .update({ nickname })
+      .eq('id', user.id);
+
+    if (userTableError) {
+      console.error('사용자 테이블 업데이트 오류:', userTableError.message);
+      throw new Error('닉네임 업데이트 중 오류가 발생했습니다.');
+    }
+
+    // 성공 시 리디렉션 또는 성공 메시지 반환
+    console.log('닉네임 업데이트 성공');
+  } catch (err) {
+    console.error('닉네임 수정 중 오류 발생:', err);
+    throw new Error(err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다.');
+  }
+};
