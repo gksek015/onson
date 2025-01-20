@@ -19,6 +19,7 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
   const { user } = useUserStore();
   const router = useRouter();
+  const [isChatbotVisible, setIsChatbotVisible] = useState(false); // Chatbot 활성화 상태
 
   // 채팅방 입장 처리하는 함수
   const handleEnterChatRoom = async (chatId: string) => {
@@ -38,6 +39,9 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
     setSelectedChatId(null);
   };
 
+  const handleChatbotToggle = (isVisible: boolean) => {
+    setIsChatbotVisible(isVisible); // Chatbot 상태 업데이트
+  };
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-white">
       {/* 상단 탭바와 닫기 버튼 */}
@@ -82,7 +86,7 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
       {/* 컨텐츠 영역 */}
       <div className="flex-1 overflow-auto style={{ paddingBottom: selectedChatId ? '0px' : '80px' }}">
         {activeTab === '온손이 AI' ? (
-          <AIChatroom />
+          <AIChatroom onChatbotToggle={handleChatbotToggle} />
         ) : user ? (
           <ChatInBox
             selectedChatId={selectedChatId}
@@ -113,7 +117,7 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
         )}
       </div>
 
-      {!selectedChatId && <BottomNav />}
+      {!selectedChatId && !isChatbotVisible && <BottomNav />}
     </div>
   );
 };
