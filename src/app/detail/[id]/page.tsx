@@ -1,7 +1,19 @@
-const page = () => {
-  return (
-    <div>page</div>
-  )
+import Header from './_components/Header';
+import PostDetail from './_components/PostDetail';
+
+// 상세페이지
+interface PostDetailProps {
+  params: { id: string };
 }
 
-export default page
+const PostDetailPage = ({ params }: PostDetailProps) => {
+  const { id } = params; // URL에서 id 가져오기
+  return (
+    <div className="w-full">
+      <Header postPageId={id} />
+      <PostDetail postPageId={id} />
+    </div>
+  );
+};
+
+export default PostDetailPage;
