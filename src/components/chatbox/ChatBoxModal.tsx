@@ -1,11 +1,11 @@
 'use client';
 
-import { useUnreadMessage } from '@/hooks/useUnreadMessage';
 import { getMarkMessageAsRead } from '@/lib/chats/getMarkMessageAsRead';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { CloseIcon2 } from '../icons/Icons';
+import BottomNav from '../layout/BottomNav';
 import AIChatroom from './ai/AIChatroom';
 import ChatInBox from './ChatInbox';
 import ChatHeader from './chatUI/ChatHeader';
@@ -18,20 +18,17 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   const [activeTab, setActiveTab] = useState('온손이 AI'); //'실시간채팅'과  '온손이 AI' 두개의 탭 상태 관리
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
   const { user } = useUserStore();
-  const { refetch } = useUnreadMessage(user?.id || '');
   const router = useRouter();
 
   // 채팅방 입장 처리하는 함수
   const handleEnterChatRoom = async (chatId: string) => {
     setSelectedChatId(chatId);
     await getMarkMessageAsRead(chatId, user?.id || '');
-    refetch();
   };
 
   const handleClose = async () => {
     if (selectedChatId && user?.id) {
       await getMarkMessageAsRead(selectedChatId, user.id); // 모달 닫힐 때 읽음 처리
-      refetch();
     }
     onClose(); // 부모 컴포넌트에서 닫기 처리
   };
@@ -39,7 +36,6 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   // 뒤로가기
   const handleBackToList = () => {
     setSelectedChatId(null);
-    refetch();
   };
 
   return (
@@ -84,7 +80,7 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
       )}
 
       {/* 컨텐츠 영역 */}
-      <div className="flex-1 overflow-auto">
+      <div className="flex-1 overflow-auto style={{ paddingBottom: selectedChatId ? '0px' : '80px' }}">
         {activeTab === '온손이 AI' ? (
           <AIChatroom />
         ) : user ? (
@@ -104,7 +100,7 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
             {/* 하단 버튼 */}
             <div className="p-4">
               <button
-                className="mx-auto w-full max-w-xs rounded bg-[#4B4B4B] py-3 text-center text-white"
+                className="mx-auto mb-20 w-full max-w-xs rounded bg-[#4B4B4B] py-3 text-center text-white"
                 onClick={() => {
                   router.push('/login');
                   onClose();
@@ -116,6 +112,8 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
           </div>
         )}
       </div>
+
+      {!selectedChatId && <BottomNav />}
     </div>
   );
 };

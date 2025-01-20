@@ -1,9 +1,10 @@
 'use client';
 
 import useModal from '@/hooks/ui/useModal';
-import { useUnreadMessage } from '@/hooks/useUnreadMessage';
 import { useUserStore } from '@/utils/store/userStore';
+import { useUnreadMessageStore } from '@/utils/store/useUnreadMessageStore';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import ChatBoxModal from '../chatbox/ChatBoxModal';
 import { HomePillIcon, MessageStrokeIcon, NoteIcon, PencilPlusIcon, UnReadMessageIcon } from '../icons/Icons';
 
@@ -11,8 +12,17 @@ const BottomNav = () => {
   const router = useRouter();
   const { isOpen, toggleModal } = useModal();
   const { user } = useUserStore();
-  const { unreadMessages, isPending } = useUnreadMessage(user?.id || '');
-  const hasUnreadMessages = !isPending && unreadMessages && Object.values(unreadMessages).some((val) => val);
+  const { unreadMessages, subscribeToRealtimeMessages, refetch } = useUnreadMessageStore();
+
+  // 실시간 메시지 구독
+  useEffect(() => {
+    if (user?.id) {
+      refetch(user.id); // 초기 데이터 로드
+      subscribeToRealtimeMessages(user.id); // 실시간 동기화
+    }
+  }, [user?.id, refetch, subscribeToRealtimeMessages]);
+
+  const hasUnreadMessages = Object.values(unreadMessages).some((val) => val);
 
   return (
     <>

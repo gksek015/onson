@@ -21,17 +21,21 @@ const ChatList = ({ chatRooms, onSelectRoom, unreadMessagesMap }: ChatListProps)
     return date.toLocaleDateString('ko-KR', options); // 한국어 형식으로 변환
   };
 
+  const sortedRooms = chatRooms.sort((a, b) => {
+    const aLastMessage = a.messages?.[a.messages.length - 1]?.created_at || '';
+    const bLastMessage = b.messages?.[b.messages.length - 1]?.created_at || '';
+    return new Date(bLastMessage).getTime() - new Date(aLastMessage).getTime();
+  });
+
   return (
     <div>
-      {chatRooms.map((room) => {
+      {sortedRooms.map((room) => {
         const lastMessage = room.messages?.[room.messages.length - 1];
         const hasUnreadMessagesMap = unreadMessagesMap[room.id];
 
-        // const bindLongPress = useLongPress(() => handleDeleteRoom(room.id), longPressOptions);
         return (
           <button
             key={room.id}
-            // {...bindLongPress}
             className="mb-2 flex w-full flex-col border-b p-2 text-left"
             onClick={() => onSelectRoom(room.id, room.otherNickname || '사용자가 없습니다.')}
           >
