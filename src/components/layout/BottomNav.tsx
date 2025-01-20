@@ -29,7 +29,7 @@ const BottomNav = () => {
       refetch(user.id); // 초기 데이터 로드
       subscribeToRealtimeMessages(user.id); // 실시간 동기화
     }
-  }, [user?.id]);
+  }, [user?.id, refetch, subscribeToRealtimeMessages]);
 
   const hasUnreadMessages = Object.values(unreadMessages).some((val) => val);
 
