@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import banner from '@/assets/banner.png';
+import banner from '@/assets/Banner-3.png';
 
 const HeroSection = () => {
   return (
