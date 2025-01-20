@@ -58,6 +58,8 @@ export const useUpdatePost = (postId: string) => {
           Swal.fire({
             title: '수정 권한이 없습니다.',
             icon: 'warning',
+          }).then(() => {
+            router.push(`/detail/${postId}`);
           });
           setIsAuthorized(false);
           return;

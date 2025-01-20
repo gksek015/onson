@@ -42,9 +42,12 @@ export const usePostForm = () => {
         showCancelButton: true,
         confirmButtonText: '로그인하러 가기',
         cancelButtonText: '취소',
+
       }).then((result) => {
         if (result.isConfirmed) {
           router.push('/login');
+        } else if (result.isDismissed) {
+          router.push('/');
         }
       });
     } else {
