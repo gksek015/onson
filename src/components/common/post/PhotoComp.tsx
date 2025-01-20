@@ -1,5 +1,6 @@
 'use client';
 
+import { CameraIcon, RoundCloseIcon } from '@/components/icons/Icons';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
@@ -65,14 +66,14 @@ const PhotoComp = ({ onImageSelect, onRemoveImage, formData }: PhotoCompProps) =
             formData.images.length >= 5 ? 'cursor-not-allowed opacity-50' : ''
           }`}
         >
-          📷
+          <CameraIcon/>
         </label>
         <input
           id="photo-upload"
           type="file"
           multiple
           accept="image/*"
-          className=""
+          className="hidden"
           onChange={handleFileChange}
           disabled={formData.images.length >= 5}
           ref={fileInputRef}
@@ -84,10 +85,10 @@ const PhotoComp = ({ onImageSelect, onRemoveImage, formData }: PhotoCompProps) =
             <Image width={100} height={100} src={imgUrl} alt={`img-${index}`} className="h-full w-full object-cover" />
             <button
               type="button"
-              className="absolute right-1 top-1 rounded-full border-white bg-black bg-opacity-50 p-1 text-xs text-white"
+              className="absolute right-1 top-1"
               onClick={() => handleRemoveFile(index)}
             >
-              ✕
+              <RoundCloseIcon/>
             </button>
           </div>
         ))}
