@@ -1,13 +1,29 @@
 'use client';
 
 import useModal from '@/hooks/ui/useModal';
+import { useUserStore } from '@/utils/store/userStore';
+import { useUnreadMessageStore } from '@/utils/store/useUnreadMessageStore';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import ChatBoxModal from '../chatbox/ChatBoxModal';
-import { HomePillIcon, MessageStrokeIcon,  NoteStrokeIcon, PencilPlusIcon } from '../icons/Icons';
+import { HomePillIcon, MessageCircleIcon, MessageStrokeIcon, NoteStrokeIcon, PencilPlusIcon } from '../icons/Icons';
 
 const BottomNav = () => {
   const router = useRouter();
   const { isOpen, toggleModal } = useModal();
+  const { user } = useUserStore();
+  const { unreadMessages, subscribeToRealtimeMessages, refetch } = useUnreadMessageStore();
+
+  // 실시간 메시지 구독
+  useEffect(() => {
+    if (user?.id) {
+      refetch(user.id); // 초기 데이터 로드
+      subscribeToRealtimeMessages(user.id); // 실시간 동기화
+    }
+  }, [user?.id, refetch, subscribeToRealtimeMessages]);
+
+  const hasUnreadMessages = Object.values(unreadMessages).some((val) => val);
+
   return (
     <>
       <nav className="fixed bottom-0 flex w-full justify-around border-t bg-white p-4">
@@ -24,19 +40,14 @@ const BottomNav = () => {
         </button>
 
         {/* 게시글 리스트 페이지 이동 버튼 */}
-        <button
-          type="button"
-          onClick={() => router.push('/list')}
-          className="flex flex-col items-center"
-        >
+        <button type="button" onClick={() => router.push('/list')} className="flex flex-col items-center">
           <NoteStrokeIcon />
           <span className="text-sm font-bold text-black">봉사 찾기</span>
         </button>
 
         {/* 채팅모달을 열기 위한 버튼 */}
         <button type="button" onClick={toggleModal} className="flex flex-col items-center">
-          <MessageStrokeIcon />
-          {/* <UnReadMessageIcon /> */}
+          {hasUnreadMessages ? <MessageCircleIcon /> : <MessageStrokeIcon />}
           <span className="text-sm font-bold text-black">Chat</span>
         </button>
       </nav>
