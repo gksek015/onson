@@ -18,9 +18,8 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
 
   // 메세지가 입력될때 마다 스크롤이 내려가도록 동작하는 로직
   useEffect(() => {
-    if (messages.length > 1) {
-      messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (messages.length <= 3) return;
+    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
   const handleSend = async () => {
@@ -43,7 +42,7 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
 
   return (
     <div className="flex h-screen flex-col bg-[#F2F2F2] p-4">
-      <div className="mb-[14px] flex-1 overflow-y-auto">
+      <div className="mb-[14px] flex-1">
         {messages.map((msg, idx) => (
           <div key={idx} className={`mb-2 ${msg.user_id === userId ? 'text-right' : 'text-left'}`}>
             <span
