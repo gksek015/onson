@@ -1,42 +1,33 @@
 'use client';
 
-import VolunteerCardNoImg from '@/components/home/VolunteerCardNoImg';
-import useGetPost from '@/hooks/useGetPost';
-import { useUserStore } from '@/utils/store/userStore';
+import MyProfile from '@/app/(auth)/my-page/_components/MyProfile';
+import QuickMyBookmarks from '@/app/(auth)/my-page/_components/QuickMyBookmarks';
+import QuickMyPosts from '@/app/(auth)/my-page/_components/QuickMyPosts';
+import { RightArrowForChatIcon } from '@/components/icons/Icons';
+import logoutWithUser from '@/lib/auth/clientAuth';
 import Link from 'next/link';
 
 const UserInfo = () => {
-  const user = useUserStore((state) => state.user);
-
-  // userId를 직접 전달
-  const { posts, isPending, isError } = useGetPost(user?.id || '');
-
-  if (!user) {
-    return <p>사용자 정보가 없습니다.</p>;
-  }
-
-  if (isPending) {
-    return <p>내가 쓴 글을 불러오는 중입니다...</p>;
-  }
-
-  if (isError) {
-    return <p>내가 쓴 글 데이터를 불러오는 중 오류가 발생했습니다.</p>;
-  }
-
-  if (!posts || posts.length === 0) {
-    return <p>내가 쓴 글이 없습니다.</p>;
-  }
-
   return (
     <div>
-      <Link href="/my-page/bookmarks">내 북마크 보기</Link>
-      <Link href="/my-page/my-posts">나의 봉사요청 보기</Link>
-      <div className="w-full space-y-4 border-b border-t border-[#e7e7e7]">
-        <div className="flex flex-row gap-4 overflow-x-auto">
-          {posts.map((post) => (
-            <VolunteerCardNoImg key={post.id} post={post} />
-          ))}
-        </div>
+      <Link href="/my-page/my-profile">
+        <MyProfile />
+      </Link>
+      <Link className="flex w-full items-center justify-between px-4 py-6 focus:outline-none" href="/my-page/bookmarks">
+        <span className="font-bold">관심있는 봉사</span>
+        <RightArrowForChatIcon />
+      </Link>
+      <QuickMyBookmarks />
+      <Link className="flex w-full items-center justify-between px-4 py-6 focus:outline-none" href="/my-page/my-posts">
+        <span className="font-bold">나의 봉사요청</span>
+        <RightArrowForChatIcon />
+      </Link>
+      <QuickMyPosts />
+      <div
+        className="flex w-full items-center justify-center px-4 py-6 text-[#E4290C] focus:outline-none"
+        onClick={logoutWithUser}
+      >
+        로그아웃
       </div>
     </div>
   );
