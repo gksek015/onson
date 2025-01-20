@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --primary-1: #E94500;
-  --primary-2: #F99A2C;
-  --primary-3: #FB657E;
-  --secondary-1: #FF9214;
-  --secondary-2: #FFF5EC;
+  --primary-1: #e94500;
+  --primary-2: #f99a2c;
+  --primary-3: #fb657e;
+  --secondary-1: #ff9214;
+  --secondary-2: #fff5ec;
 
   --background: #ffffff;
   --foreground: #171717;
@@ -23,7 +23,7 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-    /* 텍스트 색상 */
+  /* 텍스트 색상 */
   .text-primary-1 {
     color: var(--primary-1);
   }
@@ -75,7 +75,6 @@ body {
   }
 }
 
-
 /* 이미지 페이지 네이션 커스터마이즈드 스타일 */
 .custom-swiper-pagination .swiper-pagination-bullet {
   @apply bg-gray-900 opacity-50; /* 기본 페이지네이션 색상 */
@@ -85,3 +84,19 @@ body {
   @apply bg-white opacity-100; /* 현재 보여지는 이미지 페이지네이션 스타일 */
 }
 
+/* 버튼 스타일 */
+.btn-gray {
+  @apply w-full rounded-sm bg-[#4B4B4B] p-3 text-white;
+}
+
+.btn-yellow {
+  @apply w-full rounded-sm bg-[#FAE100] p-3 text-white;
+}
+
+.Toastify__toast-theme--dark {
+  opacity: 0.8;
+}
+
+.Toastify__toast {
+  width: unset;
+}

@@ -1,12 +1,15 @@
-import { RightArrowForChatIcon } from '@/components/icons/Icons';
+'use client';
+
+import { RightArrowForChatIcon, UnReadMarkIcon } from '@/components/icons/Icons';
 import type { ChatRoom } from '@/types/chatType';
 
 interface ChatListProps {
   chatRooms: (ChatRoom & { otherNickname: string | null })[];
   onSelectRoom: (chatId: string, otherNickname: string) => void;
+  unreadMessagesMap: { [chatId: string]: boolean };
 }
 
-const ChatList = ({ chatRooms, onSelectRoom }: ChatListProps) => {
+const ChatList = ({ chatRooms, onSelectRoom, unreadMessagesMap }: ChatListProps) => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
@@ -18,10 +21,17 @@ const ChatList = ({ chatRooms, onSelectRoom }: ChatListProps) => {
     return date.toLocaleDateString('ko-KR', options); // 한국어 형식으로 변환
   };
 
+  const sortedRooms = chatRooms.sort((a, b) => {
+    const aLastMessage = a.messages?.[a.messages.length - 1]?.created_at || '';
+    const bLastMessage = b.messages?.[b.messages.length - 1]?.created_at || '';
+    return new Date(bLastMessage).getTime() - new Date(aLastMessage).getTime();
+  });
+
   return (
     <div>
-      {chatRooms.map((room) => {
+      {sortedRooms.map((room) => {
         const lastMessage = room.messages?.[room.messages.length - 1];
+        const hasUnreadMessagesMap = unreadMessagesMap[room.id];
 
         return (
           <button
@@ -32,6 +42,7 @@ const ChatList = ({ chatRooms, onSelectRoom }: ChatListProps) => {
             {/* 상단: 닉네임과 날짜+화살표 */}
             <div className="flex w-full items-center justify-between">
               <span className="text-lg font-semibold text-black">{room.otherNickname || '사용자가 없습니다.'}</span>
+              {hasUnreadMessagesMap && <UnReadMarkIcon />}
               <div className="flex-end flex items-center space-x-2 text-right">
                 <p className="text-xs text-gray-500">
                   {lastMessage?.created_at ? formatDate(lastMessage.created_at) : ''}

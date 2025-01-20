@@ -28,9 +28,7 @@ const NewPostComp = () => {
         </button>
       </header>
 
-      <main>
         <PostForm categories={categories} setFormData={setFormData} formData={formData} />
-      </main>
     </div>
   );
 };

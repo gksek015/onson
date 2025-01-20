@@ -1,8 +1,7 @@
 'use client';
 
 import { MyProfileIcon } from '@/components/icons/Icons';
-import { useUserStore } from '@/utils/store/userStore';
-import { supabase } from '@/utils/supabase/client';
+import logoutWithUser from '@/lib/auth/clientAuth';
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
@@ -31,41 +30,6 @@ const ProfileDropdown = () => {
       document.removeEventListener('click', handleOutsideClick);
     };
   }, []);
-
-  // 로그아웃, 클라이언트 상태 초기화, 카카오 로그아웃 후 리다이렉트
-  const logoutWithUser = async () => {
-    try {
-      const { error } = await supabase.auth.signOut();
-      if (error) {
-        console.error('Supabase 로그아웃 오류:', error);
-        return { error: error.message };
-      }
-
-      // 로그아웃 후 세션 확인
-      const { data: sessionData } = await supabase.auth.getSession();
-      if (sessionData?.session) {
-        console.error('Supabase 세션이 아직 남아 있습니다:', sessionData);
-        return { error: '로그아웃이 제대로 처리되지 않았습니다.' };
-      }
-
-      const logoutRedirectUri = process.env.NEXT_PUBLIC_BASE_URL;
-      const result = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&logout_redirect_uri=${logoutRedirectUri}`;
-
-      // 클라이언트 상태 초기화
-      useUserStore.getState().clearUser();
-
-      // 카카오 로그아웃
-      window.location.href = result;
-    } catch (err) {
-      if (err instanceof Error) {
-        console.error('로그아웃 처리 중 오류:', err.message);
-        return { error: err.message };
-      } else {
-        console.error('알 수 없는 오류 발생:', err);
-        return { error: '알 수 없는 오류가 발생했습니다.' };
-      }
-    }
-  };
 
   return (
     <div className="relative" ref={dropdownRef}>

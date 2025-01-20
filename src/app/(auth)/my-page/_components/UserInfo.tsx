@@ -1,41 +1,34 @@
 'use client';
 
-import { useUserStore } from '@/utils/store/userStore';
-import { supabase } from '@/utils/supabase/client';
-import { useEffect } from 'react';
+import MyProfile from '@/app/(auth)/my-page/_components/MyProfile';
+import QuickMyBookmarks from '@/app/(auth)/my-page/_components/QuickMyBookmarks';
+import QuickMyPosts from '@/app/(auth)/my-page/_components/QuickMyPosts';
+import { RightArrowForChatIcon } from '@/components/icons/Icons';
+import logoutWithUser from '@/lib/auth/clientAuth';
+import Link from 'next/link';
 
 const UserInfo = () => {
-  const user = useUserStore((state) => state.user);
-  const isLoggedIn = useUserStore((state) => state.isLoggedIn());
-  const clearUser = useUserStore((state) => state.clearUser);
-
-  // Supabase 세션 확인 및 상태 동기화
-  useEffect(() => {
-    const checkSession = async () => {
-      const { data } = await supabase.auth.getSession();
-      if (!data.session) {
-        // 세션이 없으면 상태 초기화
-        clearUser();
-      }
-    };
-
-    checkSession();
-  }, [clearUser]);
-
-  if (!isLoggedIn) {
-    return <p>로그인되지 않았습니다. 로그인 후 이용해주세요.</p>;
-  }
-
-  if (!user) {
-    return <p>사용자 정보가 없습니다.</p>;
-  }
-
   return (
     <div>
-      <h1>사용자 정보</h1>
-      <p>아이디: {user.id}</p>
-      <p>이메일: {user.email}</p>
-      <p>닉네임: {user.nickname}</p>
+      <Link href="/my-page/my-profile">
+        <MyProfile />
+      </Link>
+      <Link className="flex w-full items-center justify-between px-4 py-6 focus:outline-none" href="/my-page/bookmarks">
+        <span className="font-bold">관심있는 봉사</span>
+        <RightArrowForChatIcon />
+      </Link>
+      <QuickMyBookmarks />
+      <Link className="flex w-full items-center justify-between px-4 py-6 focus:outline-none" href="/my-page/my-posts">
+        <span className="font-bold">나의 봉사요청</span>
+        <RightArrowForChatIcon />
+      </Link>
+      <QuickMyPosts />
+      <div
+        className="flex w-full items-center justify-center px-4 py-6 text-[#E4290C] focus:outline-none"
+        onClick={logoutWithUser}
+      >
+        로그아웃
+      </div>
     </div>
   );
 };

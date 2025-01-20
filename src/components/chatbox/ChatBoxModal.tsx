@@ -1,10 +1,11 @@
 'use client';
 
+import { getMarkMessageAsRead } from '@/lib/chats/getMarkMessageAsRead';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { CloseIcon } from '../icons/Icons';
-// import AIChatbot from './ai/AIChatbot';
+import BottomNav from '../layout/BottomNav';
 import AIChatroom from './ai/AIChatroom';
 import ChatInBox from './ChatInbox';
 import ChatHeader from './chatUI/ChatHeader';
@@ -20,8 +21,16 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   const router = useRouter();
 
   // 채팅방 입장 처리하는 함수
-  const handleEnterChatRoom = (chatId: string) => {
+  const handleEnterChatRoom = async (chatId: string) => {
     setSelectedChatId(chatId);
+    await getMarkMessageAsRead(chatId, user?.id || '');
+  };
+
+  const handleClose = async () => {
+    if (selectedChatId && user?.id) {
+      await getMarkMessageAsRead(selectedChatId, user.id); // 모달 닫힐 때 읽음 처리
+    }
+    onClose(); // 부모 컴포넌트에서 닫기 처리
   };
 
   // 뒤로가기
@@ -66,18 +75,18 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
           chatId={selectedChatId}
           currentUserId={user?.id || ''}
           onBack={handleBackToList}
-          onClose={onClose}
+          onClose={handleClose}
         />
       )}
 
       {/* 컨텐츠 영역 */}
-      <div className="flex-1 overflow-auto">
+      <div className="flex-1 overflow-auto style={{ paddingBottom: selectedChatId ? '0px' : '80px' }}">
         {activeTab === '온손이 AI' ? (
           <AIChatroom />
         ) : user ? (
           <ChatInBox
             selectedChatId={selectedChatId}
-            userId={user.id}
+            userId={user?.id || ''}
             onEnterChatRoom={handleEnterChatRoom}
             onBackToList={handleBackToList}
           />
@@ -91,18 +100,20 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
             {/* 하단 버튼 */}
             <div className="p-4">
               <button
-                className="mx-auto w-full max-w-xs rounded bg-[#4B4B4B] py-3 text-center text-white"
+                className="mx-auto mb-20 w-full max-w-xs rounded bg-[#fb657e] py-3 text-center text-white"
                 onClick={() => {
                   router.push('/login');
                   onClose();
                 }}
               >
-                로그인으로 이동
+                로그인
               </button>
             </div>
           </div>
         )}
       </div>
+
+      {!selectedChatId && <BottomNav />}
     </div>
   );
 };
