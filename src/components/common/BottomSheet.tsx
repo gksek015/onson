@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { CloseIcon } from '../icons/Icons';
 
 interface BottomSheetProps {
   isOpen: boolean;
@@ -29,11 +30,11 @@ export const BottomSheet = ({ isOpen, onClose, children }: BottomSheetProps) => 
           }
         )}
       >
-        {/* <div className="flex justify-end p-4">
+        <div className="flex justify-end p-4">
           <button type='button'  onClick={onClose}>
-            x
+            <CloseIcon/>
           </button>
-        </div> */}
+        </div>
         <div className="overflow-y-auto max-h-full md:max-h-full">{children}</div>
       </div>
     </>

@@ -63,45 +63,46 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
         placeholder="기간을 선택하세요"
         onClick={handleOpen}
         readOnly
-        className="placeholder-[#868C92] w-full h-12 px-2 rounded-[8px] border border-[#A1A6AA] text-base"
+        className="h-12 w-full rounded-[8px] border border-[#A1A6AA] px-2 text-base placeholder-[#868C92]"
       />
 
       {/* 바텀시트 */}
       <BottomSheet isOpen={isSheetOpen} onClose={handleClose}>
         <div>
-        <div className="p-5">
-          <h3 className="mt-12 mb-14 text-left text-2xl font-semibold text-[#000]">봉사 날짜를 <br/>선택해 주세요</h3>
-          <p className="mb-3 text-base font-semibold text-[#222227]">날짜 선택</p>
-          <div className="flex justify-center border-t border-[#BEBEBE] mb-20">
-            <Calendar
-              selectRange
-              onChange={(value) => handleRangeSelect(value as Date | Date[])}
-              value={selectedRange}
-              locale="ko-KR"
-              formatDay={(locale, date) => `${dayjs(date).date()}`}
-              calendarType="hebrew"
-              className="custom-calendar w-full"
-            />
+          <div className="p-5">
+            <h3 className="mb-14 text-left text-2xl font-semibold text-[#000]">
+              봉사 날짜를 <br />
+              선택해 주세요
+            </h3>
+            <p className="mb-3 text-base font-semibold text-[#222227]">날짜 선택</p>
+            <div className="mb-20 flex justify-center border-t border-[#BEBEBE]">
+              <Calendar
+                selectRange
+                onChange={(value) => handleRangeSelect(value as Date | Date[])}
+                value={selectedRange}
+                locale="ko-KR"
+                formatDay={(locale, date) => `${dayjs(date).date()}`}
+                calendarType="hebrew"
+                className="custom-calendar w-full"
+              />
+            </div>
           </div>
-          </div>
-          
-          <div className="justify-between flex items-center px-5 py-3 border-t border-gray-200 rounded-t-md">
+
+          <div className="flex items-center justify-between rounded-t-md border-t border-gray-200 px-5 py-3">
             <div className="flex flex-col">
-            <p className="text-xs font-normal text-[#333]">봉사 날짜</p>
-          {selectedRange && (
-            <p className="text-base font-semibold text-[#333]">
-              {`${dayjs(selectedRange[0]).format('YY.MM.DD.')} ~ ${
-                selectedRange[1]
-                  ? dayjs(selectedRange[1]).format('YY.MM.DD.')
-                  : ''
-              }`}
-            </p>
-        )}
-        </div>
+              <p className="text-xs font-normal text-[#333]">봉사 날짜</p>
+              {selectedRange && (
+                <p className="text-base font-semibold text-[#333]">
+                  {`${dayjs(selectedRange[0]).format('YY.MM.DD.')} ~ ${
+                    selectedRange[1] ? dayjs(selectedRange[1]).format('YY.MM.DD.') : ''
+                  }`}
+                </p>
+              )}
+            </div>
             <button
               type="button"
               onClick={handleClose}
-              className="w-28 rounded-[8px] bg-primary-3 px-4 py-3 font-semibold text-[#FFF] hover:bg-gray-300"
+              className="bg-primary-3 w-28 rounded-[8px] px-4 py-3 font-semibold text-[#FFF] hover:bg-gray-300"
             >
               선택하기
             </button>

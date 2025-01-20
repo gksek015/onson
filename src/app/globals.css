@@ -92,3 +92,11 @@ body {
 .btn-yellow {
   @apply w-full rounded-sm bg-[#FAE100] p-3 text-white;
 }
+
+.Toastify__toast-theme--dark {
+  opacity: 0.8;
+}
+
+.Toastify__toast {
+  width: unset;
+}

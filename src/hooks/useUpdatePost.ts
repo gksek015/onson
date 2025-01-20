@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Swal from 'sweetalert2';
 import { getCurrentUserId, getPost, updatePostById } from '@/lib/posts/updatePost';
 import type { FormData } from '@/types/formdata';
+import { useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
 export const useUpdatePost = (postId: string) => {
   const [formData, setFormData] = useState<FormData>({
@@ -18,6 +19,7 @@ export const useUpdatePost = (postId: string) => {
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export const useUpdatePost = (postId: string) => {
         if (!currentUserId) {
           Swal.fire({
             title: '로그인이 필요합니다',
-            text: '글을 작성하시려면 로그인이 필요합니다.',
+            text: '글을 수정하시려면 로그인이 필요합니다.',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: '로그인하러 가기',
@@ -56,6 +58,8 @@ export const useUpdatePost = (postId: string) => {
           Swal.fire({
             title: '수정 권한이 없습니다.',
             icon: 'warning',
+          }).then(() => {
+            router.push(`/detail/${postId}`);
           });
           setIsAuthorized(false);
           return;
@@ -102,6 +106,10 @@ export const useUpdatePost = (postId: string) => {
         });
         return;
       }
+
+    // React Query 캐시 무효화와 전체 데이터 재요청
+    await queryClient.invalidateQueries({queryKey: ['post', postId]});
+    await queryClient.invalidateQueries({ queryKey: ['posts'] }); // 전체 목록 데이터 무효화    
 
       Swal.fire({
         title: '게시글이 수정되었습니다.',

@@ -13,10 +13,32 @@ interface ChatMessageProps {
 
 const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
   const [input, setInput] = useState('');
+  const [showNotice, setShowNotice] = useState(true); // 공지사항 표시 여부
   const messages = useRealTimeMessages(selectedChatId);
   const messageEndRef = useRef<HTMLDivElement>(null);
 
-  // 메세지가 입력될때 마다 스크롤이 내려가도록 동작하는 로직
+  // 스크롤 이벤트 핸들러
+  const handleScroll = () => {
+    const chatContainer = document.getElementById('chat-container');
+    if (chatContainer) {
+      setShowNotice(chatContainer.scrollTop === 0); // 스크롤이 최상단이면 공지사항 표시
+    }
+  };
+
+  // 컴포넌트가 마운트된 후 스크롤 이벤트 추가
+  useEffect(() => {
+    const chatContainer = document.getElementById('chat-container');
+    if (chatContainer) {
+      chatContainer.addEventListener('scroll', handleScroll);
+    }
+    return () => {
+      if (chatContainer) {
+        chatContainer.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
+
+  // 메시지가 입력될 때 스크롤을 자동으로 내려주는 로직
   useEffect(() => {
     if (messages.length <= 3) return;
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -35,14 +57,23 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
     setInput('');
   };
 
-  // 인풋창에 엔터키를 입력해도 메세지가 전송되도록 해주는 이벤트트
+  // 인풋창에 엔터키를 입력해도 메시지가 전송되도록 하는 이벤트
   const handleKeyEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') handleSend();
   };
 
   return (
     <div className="flex h-screen flex-col bg-[#F2F2F2] p-4">
-      <div className="mb-[14px] flex-1">
+      {/* 공지사항 영역 */}
+
+      {showNotice && (
+        <div className="sticky top-0 z-50 mb-2 rounded bg-white p-2 text-center text-sm font-light text-[#656565]">
+          이제부터 봉사는 쉽고 빠르게, 온손과 함께하세요
+        </div>
+      )}
+
+      {/* 채팅 메시지 영역 */}
+      <div id="chat-container" className="flex-1 overflow-auto">
         {messages.map((msg, idx) => (
           <div key={idx} className={`mb-2 ${msg.user_id === userId ? 'text-right' : 'text-left'}`}>
             <span

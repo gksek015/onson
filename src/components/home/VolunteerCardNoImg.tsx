@@ -2,7 +2,6 @@
 
 import type { PostType } from '@/types/PostType';
 import dayjs from 'dayjs';
-import Image from 'next/image';
 import Link from 'next/link';
 import { MapPinIcon } from '../icons/Icons';
 
@@ -10,23 +9,18 @@ interface VolunteerCardProps {
   post: PostType;
 }
 
-const VolunteerCard = ({ post }: VolunteerCardProps) => {
-  let firstImg = null;
-  if (post.images && post.images.length > 0) {
-    firstImg = post.images[0].img_url;
-  }
-
+const VolunteerCardNoImg = ({ post }: VolunteerCardProps) => {
   const formattedStart = dayjs(post.date).format('YY.MM.DD.');
   const formattedEnd = dayjs(post.end_date).format('YY.MM.DD.');
 
   return (
-    <div className="flex w-full flex-row items-start gap-3.5 self-stretch border-b border-[#e7e7e7] px-5 py-8">
+    <div className="flex min-w-[300px] max-w-[500px] flex-col items-start gap-3.5 self-stretch border-r border-[#e7e7e7] px-5 py-8">
       <Link href={`/detail/${post.id}`} className="w-full">
         {/* 태그 */}
         <div className="mb-2 flex w-full flex-wrap items-center gap-2 text-sm font-normal">
           {post.completed ? (
             <span className="flex items-center justify-center gap-2 rounded-full border bg-[#808080] px-2.5 py-0.5 text-sm text-white">
-              모집 마감
+              모집 완료
             </span>
           ) : (
             <span className="hidden"></span>
@@ -56,24 +50,10 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
               <span>{post.created_at.split('T')[0]}</span>
             </div>
           </div>
-
-          {/* 이미지 */}
-          {firstImg && (
-            <div className="relative flex h-24 w-20 items-center">
-              <Image src={firstImg} alt={post.title} width={100} height={100} className="h-full w-full object-cover" />
-              {post.completed && (
-                <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
-                  <div className="inline-flex rounded-md bg-white bg-opacity-20 px-2.5 py-1">
-                    <span className="text-xs font-medium text-white">모집마감</span>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
         </div>
       </Link>
     </div>
   );
 };
 
-export default VolunteerCard;
+export default VolunteerCardNoImg;

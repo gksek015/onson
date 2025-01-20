@@ -16,7 +16,7 @@ const AddressButton = () => {
       <input
         readOnly
         placeholder="하고 싶은 봉사를 찾아보세요"
-        className="shadow-input w-full flex-1 cursor-pointer rounded-full border border-[#FB657E] p-0.5 px-5 py-3.5 text-base text-black focus:outline-none"
+        className="w-full flex-1 cursor-pointer rounded-full border border-[#FB657E] p-0.5 px-5 py-3.5 text-base text-black shadow-input focus:outline-none"
         onClick={() => setIsSheetOpen(true)}
       />
       <button type="submit" className="absolute right-5 top-1/2 -translate-y-1/2">
