@@ -294,7 +294,7 @@ export const MyProfileIcon = () => {
 export const RoundCloseIcon = () => {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" fill="black" fill-opacity="0.6" />
+      <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" fill="black" fillOpacity="0.6" />
       <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="white" />
       <path d="M8 8L16 16" stroke="white" strokeLinecap="round" />
       <path d="M16 8L8 16" stroke="white" strokeLinecap="round" />
@@ -396,8 +396,8 @@ export const SendColorIcon = () => {
           y2="10.8038"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#F99A2C" />
-          <stop offset="0.97" stop-color="#FA5571" />
+          <stop stopColor="#F99A2C" />
+          <stop offset="0.97" stopColor="#FA5571" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_972_990"
@@ -407,8 +407,8 @@ export const SendColorIcon = () => {
           y2="8.41077"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#F99A2C" />
-          <stop offset="0.97" stop-color="#FA5571" />
+          <stop stopColor="#F99A2C" />
+          <stop offset="0.97" stopColor="#FA5571" />
         </linearGradient>
       </defs>
     </svg>
@@ -540,8 +540,8 @@ export const SendMessageGradientIcon = () => {
           y2="10.8038"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#F99A2C" />
-          <stop offset="0.97" stop-color="#FA5571" />
+          <stop stopColor="#F99A2C" />
+          <stop offset="0.97" stopColor="#FA5571" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_953_1980"
@@ -551,8 +551,8 @@ export const SendMessageGradientIcon = () => {
           y2="8.41077"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#F99A2C" />
-          <stop offset="0.97" stop-color="#FA5571" />
+          <stop stopColor="#F99A2C" />
+          <stop offset="0.97" stopColor="#FA5571" />
         </linearGradient>
       </defs>
     </svg>
@@ -566,6 +566,14 @@ export const WarningIcon = () => {
         d="M11.0002 0.670013C11.9552 0.670013 12.8452 1.13701 13.3902 1.91701L13.4952 2.07701L21.6092 15.625C21.8558 16.0521 21.9899 16.5348 21.9991 17.0278C22.0083 17.5209 21.8922 18.0082 21.6617 18.4442C21.4311 18.8802 21.0938 19.2505 20.6811 19.5205C20.2684 19.7905 19.794 19.9514 19.3022 19.988L19.1072 19.996H2.88219C2.38989 19.9905 1.90702 19.8603 1.47866 19.6176C1.05029 19.375 0.690393 19.0277 0.432555 18.6083C0.174717 18.1889 0.0273465 17.711 0.00419944 17.2192C-0.0189476 16.7274 0.0828832 16.2378 0.300187 15.796L0.399187 15.611L8.50919 2.07301C8.76885 1.64483 9.13448 1.29078 9.5708 1.04503C10.0071 0.799283 10.4994 0.670124 11.0002 0.670013ZM11.0102 14L10.8832 14.007C10.6401 14.0359 10.4161 14.153 10.2536 14.336C10.0911 14.519 10.0013 14.7553 10.0013 15C10.0013 15.2448 10.0911 15.481 10.2536 15.664C10.4161 15.8471 10.6401 15.9641 10.8832 15.993L11.0002 16L11.1272 15.993C11.3702 15.9641 11.5942 15.8471 11.7568 15.664C11.9193 15.481 12.0091 15.2448 12.0091 15C12.0091 14.7553 11.9193 14.519 11.7568 14.336C11.5942 14.153 11.3702 14.0359 11.1272 14.007L11.0102 14ZM11.0002 7.00001C10.7553 7.00005 10.5188 7.08997 10.3358 7.25273C10.1528 7.41549 10.0358 7.63976 10.0072 7.88301L10.0002 8.00001V12L10.0072 12.117C10.0361 12.3601 10.1531 12.5841 10.3362 12.7466C10.5192 12.9091 10.7554 12.9989 11.0002 12.9989C11.2449 12.9989 11.4812 12.9091 11.6642 12.7466C11.8472 12.5841 11.9643 12.3601 11.9932 12.117L12.0002 12V8.00001L11.9932 7.88301C11.9645 7.63976 11.8476 7.41549 11.6646 7.25273C11.4815 7.08997 11.2451 7.00005 11.0002 7.00001Z"
         fill="#CDCDCD"
       />
+    </svg>
+  );
+};
+
+export const UnReadMarkIcon = () => {
+  return (
+    <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="6" cy="6.5" r="5.5" fill="#FB657E" stroke="white" />
     </svg>
   );
 };

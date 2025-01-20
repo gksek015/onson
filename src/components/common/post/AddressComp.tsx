@@ -39,7 +39,7 @@ const AddressComp = ({ formData, setFormData }: AddressCompProps) => {
 
       <BottomSheet
         isOpen={isSheetOpen}
-        onClose={handleSheetClose} // 기본 닫기 동작
+        onClose={handleSheetClose}
       >
         {/* 전달되는 Content 컴포넌트 */}
         <AddressSearch

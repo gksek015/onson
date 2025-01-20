@@ -31,7 +31,6 @@ const MyBookmarks = () => {
 
   return (
     <div className="mx-auto w-full max-w-2xl space-y-4">
-      <h1 className="text-2xl font-bold">내 북마크</h1>
       <div className="space-y-4">
         {bookmarkedPosts.map((post) => (
           <VolunteerCard key={post.id} post={post} />

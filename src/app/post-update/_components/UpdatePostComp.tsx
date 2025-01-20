@@ -26,9 +26,7 @@ const UpdatePostComp = () => {
         </button>
       </header>
 
-      <main>
         <PostForm categories={categories} setFormData={setFormData} formData={formData} />
-      </main>
     </div>
   ) : (
     <p>수정 권한이 없습니다.</p>

@@ -38,7 +38,23 @@ export const useRealTimeMessages = (chatId: string) => {
         const newMessage = payload.new as Message
         setMessages((prevMessages) => [...prevMessages, newMessage])
       }
-    ).subscribe();
+    ).on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'messages',
+        },
+        (payload) => {
+          const updatedMessage = payload.new as Message;
+          setMessages((prevMessages) =>
+            prevMessages.map((msg) =>
+              msg.id === updatedMessage.id ? updatedMessage : msg
+            )
+          );
+        }
+      )
+      .subscribe();
 
     return () => {
       supabase.removeChannel(messageSubscription);

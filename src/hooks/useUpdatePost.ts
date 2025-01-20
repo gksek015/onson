@@ -30,7 +30,7 @@ export const useUpdatePost = (postId: string) => {
         if (!currentUserId) {
           Swal.fire({
             title: '로그인이 필요합니다',
-            text: '글을 작성하시려면 로그인이 필요합니다.',
+            text: '글을 수정하시려면 로그인이 필요합니다.',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: '로그인하러 가기',
