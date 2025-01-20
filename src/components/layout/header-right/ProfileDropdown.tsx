@@ -41,9 +41,6 @@ const ProfileDropdown = () => {
         return { error: error.message };
       }
 
-      // 서버로 로그아웃 요청 보내기
-      await fetch('/api/logout', { method: 'POST', credentials: 'include' });
-
       // 클라이언트 상태 초기화
       useUserStore.getState().clearUser();
 
