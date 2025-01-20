@@ -100,13 +100,13 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
             {/* 하단 버튼 */}
             <div className="p-4">
               <button
-                className="mx-auto mb-20 w-full max-w-xs rounded bg-[#4B4B4B] py-3 text-center text-white"
+                className="mx-auto mb-20 w-full max-w-xs rounded bg-[#fb657e] py-3 text-center text-white"
                 onClick={() => {
                   router.push('/login');
                   onClose();
                 }}
               >
-                로그인으로 이동
+                로그인
               </button>
             </div>
           </div>
