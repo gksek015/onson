@@ -30,9 +30,6 @@ const CategorySelectComp = ({ categories, onSelectCategory, formData }: Category
 
   return (
     <div>
-      {/* <label htmlFor="category" className="block text-sm font-medium text-gray-700">
-        봉사 종류
-      </label> */}
       <input
         type="text"
         id="category"
@@ -47,7 +44,7 @@ const CategorySelectComp = ({ categories, onSelectCategory, formData }: Category
       {/* 바텀시트 */}
       <BottomSheet isOpen={isSheetOpen} onClose={() => setIsSheetOpen(false)}>
         <div className="p-5">
-          <h2 className="mb-10 mt-12 text-2xl font-semibold">봉사 종류</h2>
+          <h2 className="mb-10 text-2xl font-semibold">봉사 종류</h2>
           <p className="mb-3 text-base font-semibold text-[#222227]">종류 선택</p>
           <ul className="mt-2 space-y-4 border-t border-[#BEBEBE]">
             {categories?.map((category) => (

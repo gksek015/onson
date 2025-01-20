@@ -7,4 +7,4 @@ export interface FormData {
     end_date: string;
     images: (File | { img_url: string })[];
     deletedImages: string[];
-  }
+}

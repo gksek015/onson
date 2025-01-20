@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Swal from 'sweetalert2';
 import { getCurrentUserId, getPost, updatePostById } from '@/lib/posts/updatePost';
 import type { FormData } from '@/types/formdata';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
 export const useUpdatePost = (postId: string) => {
   const [formData, setFormData] = useState<FormData>({
@@ -28,7 +28,7 @@ export const useUpdatePost = (postId: string) => {
         if (!currentUserId) {
           Swal.fire({
             title: '로그인이 필요합니다',
-            text: '글을 작성하시려면 로그인이 필요합니다.',
+            text: '글을 수정하시려면 로그인이 필요합니다.',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: '로그인하러 가기',
