@@ -44,8 +44,12 @@ const Header = ({ postPageId }: PostDetailProps) => {
       cancelButtonText: '취소'
     }).then((result) => {
       if (result.isConfirmed) {
-        deletePostById.mutate(postPageId);
-        router.push('/list');
+        deletePostById.mutate(postPageId, {
+          onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['posts'] });
+            router.push('/list');
+          }
+        });
       }
     });
     return;
@@ -56,7 +60,7 @@ const Header = ({ postPageId }: PostDetailProps) => {
       onSuccess: () => {
         // 모집 마감 업데이트 성공 시 관련 데이터 무효화
         queryClient.invalidateQueries({ queryKey: ['posts'] }); // 게시물 리스트 쿼리 무효화
-      },
+      }
     });
     closeSheet();
   };
