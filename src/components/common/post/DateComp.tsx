@@ -70,7 +70,7 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
       <BottomSheet isOpen={isSheetOpen} onClose={handleClose}>
         <div>
           <div className="p-5">
-            <h3 className="mb-14 mt-12 text-left text-2xl font-semibold text-[#000]">
+            <h3 className="mb-14 text-left text-2xl font-semibold text-[#000]">
               봉사 날짜를 <br />
               선택해 주세요
             </h3>

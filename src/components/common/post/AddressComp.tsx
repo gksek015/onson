@@ -12,13 +12,13 @@ const AddressComp = ({ formData, setFormData }: AddressCompProps) => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const handleSheetClose = () => {
-    setIsSheetOpen(false); // BottomSheet 닫기
+    setIsSheetOpen(false);
   };
 
   const handleAddressSelect = (selectedAddress: string) => {
     // 선택된 주소를 formData와 input에 반영
     setFormData((prev) => ({ ...prev, address: selectedAddress }));
-    handleSheetClose(); // BottomSheet 닫기
+    handleSheetClose();
   };
 
   return (
@@ -39,7 +39,7 @@ const AddressComp = ({ formData, setFormData }: AddressCompProps) => {
 
       <BottomSheet
         isOpen={isSheetOpen}
-        onClose={handleSheetClose} // 기본 닫기 동작
+        onClose={handleSheetClose}
       >
         {/* 전달되는 Content 컴포넌트 */}
         <AddressSearch
