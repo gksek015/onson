@@ -1,6 +1,6 @@
 'use client';
 
-import { BackButtonIcon, CloseIcon2 } from '@/components/icons/Icons';
+import { BackButtonIcon, CloseIcon } from '@/components/icons/Icons';
 import { getChatUserNickname } from '@/lib/chats/getChatNickname';
 import { useEffect, useState } from 'react';
 
@@ -30,7 +30,7 @@ const ChatHeader = ({ chatId, currentUserId, onClose, onBack }: ChatHeaderProps)
       </button>
       <h1 className="left-0 right-0 text-center text-xl font-bold">{nickname || '로딩중..'}</h1>
       <button onClick={onClose} className="right-4 text-xl">
-        <CloseIcon2 />
+        <CloseIcon />
       </button>
     </div>
   );

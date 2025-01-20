@@ -4,7 +4,7 @@ import { getMarkMessageAsRead } from '@/lib/chats/getMarkMessageAsRead';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { CloseIcon2 } from '../icons/Icons';
+import { CloseIcon } from '../icons/Icons';
 import BottomNav from '../layout/BottomNav';
 import AIChatroom from './ai/AIChatroom';
 import ChatInBox from './ChatInbox';
@@ -63,8 +63,8 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
             </button>
           </div>
           {/* 닫기 버튼 */}
-          <button onClick={handleClose} className="right-4 text-xl">
-            <CloseIcon2 />
+          <button onClick={onClose} className="right-4 text-xl">
+            <CloseIcon />
           </button>
         </div>
       )}

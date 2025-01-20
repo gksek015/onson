@@ -10,12 +10,12 @@ import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 
 interface PostActionButtonsProps {
-  title: string;
   nickname: string;
   postOwnerId: string;
+  title: string;
 }
 
-const PostActionButtons = ({ title, nickname, postOwnerId }: PostActionButtonsProps) => {
+const PostActionButtons = ({title, nickname, postOwnerId }: PostActionButtonsProps) => {
   const { isOpen, toggleModal } = useModal();
   const { user } = useUserStore();
   const router = useRouter();

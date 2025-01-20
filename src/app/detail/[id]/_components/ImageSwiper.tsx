@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowLeftIcon, ArrowRightIcon } from '@/components/icons/Icons';
+import { ArrowRightIcon, BackIcon } from '@/components/icons/Icons';
 import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -48,7 +48,7 @@ const ImageSwiper = ({ images, isPostClosed }: ImageSwiperProps) => {
 
       {/* 커스텀 Navigation 버튼 */}
       <div className="custom-swiper-button-prev absolute left-4 top-1/2 z-10 -translate-y-1/2 p-1">
-        <ArrowLeftIcon />
+        <BackIcon />
       </div>
       <div className="custom-swiper-button-next absolute right-4 top-1/2 z-10 -translate-y-1/2 p-1">
         <ArrowRightIcon />

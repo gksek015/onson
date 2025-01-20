@@ -1,6 +1,6 @@
 'use client';
 
-import { AddressMarkIcon } from '@/components/icons/Icons';
+import { MapPinIcon } from '@/components/icons/Icons';
 import { createdAtDate } from '@/utils/date/createdDate';
 import BookmarkButton from './BookmarkButton';
 import PostActionButtons from './PostActionButtons';
@@ -38,11 +38,11 @@ const PostContent = ({
       <div className="mx-4 flex flex-col justify-center gap-2">
         {/* 태그 */}
         <PostTags category={category} startDate={startDate} endDate={endDate} isPostClosed={isPostClosed} />
-        <div className="mt-1 text-xl font-bold">{title}</div>
+        <div className="mt-1 text-[18px] font-semibold">{title}</div>
 
         {/* 주소 */}
         <div className="my-2 flex items-center">
-          <AddressMarkIcon />
+          <MapPinIcon />
           <span className="ml-1">{`${address.si} ${address.gu} ${address.dong}`}</span>
         </div>
 

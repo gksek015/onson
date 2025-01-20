@@ -1,8 +1,8 @@
 'use client';
 
 import { MyProfileIcon } from '@/components/icons/Icons';
-import { logout } from '@/lib/actions/auth/action';
 import { useUserStore } from '@/utils/store/userStore';
+import { supabase } from '@/utils/supabase/client';
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
@@ -35,23 +35,29 @@ const ProfileDropdown = () => {
   // 로그아웃, 클라이언트 상태 초기화, 카카오 로그아웃 후 리다이렉트
   const logoutWithUser = async () => {
     try {
-      // Supabase 로그아웃
-      const result = await logout();
-      if (typeof result === 'object' && 'error' in result) {
-        console.error('Supabase 로그아웃 오류:', result.error);
-        return;
-      }
-
-      const projectId = process.env.NEXT_PUBLIC_SUPABASE_URL?.split('.')[0].replace('https://', '');
-      if (projectId) {
-        document.cookie = `sb-${projectId}-auth-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-        document.cookie = `sb-${projectId}-auth-token-code-verifier=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error('Supabase 로그아웃 오류:', error);
+        return { error: error.message };
       }
 
       // 클라이언트 상태 초기화
       useUserStore.getState().clearUser();
 
-      // 카카오 로그아웃
+      // 소셜 로그인 여부 확인
+      const isSocialLogin = useUserStore.getState().isSocialLogin;
+      const logoutRedirectUri = process.env.NEXT_PUBLIC_BASE_URL;
+
+      let result;
+      if (isSocialLogin) {
+        // 소셜 로그인인 경우 카카오 로그아웃 URL 생성
+        result = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&logout_redirect_uri=${logoutRedirectUri}`;
+      } else {
+        // 일반 로그인인 경우 현재 도메인으로 리다이렉션
+        result = window.location.origin;
+      }
+
+      // 리다이렉션 수행
       window.location.href = result;
     } catch (err) {
       if (err instanceof Error) {
