@@ -1,5 +1,6 @@
 import BottomNav from '@/components/layout/BottomNav';
 import type { Metadata } from 'next';
+import { ToastContainer } from 'react-toastify';
 import './globals.css';
 import QueryProvider from './QueryProvider';
 
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body>
         <div>
           <QueryProvider>
+            <ToastContainer />
             <main className="flex-1">{children}</main>
           </QueryProvider>
           <div className="block sm:hidden">
