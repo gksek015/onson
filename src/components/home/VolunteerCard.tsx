@@ -26,7 +26,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
         <div className="mb-2 flex w-full flex-wrap items-center gap-2 text-sm font-normal">
           {post.completed ? (
             <span className="flex items-center justify-center gap-2 rounded-full border bg-[#808080] px-2.5 py-0.5 text-sm text-white">
-              모집 완료
+              모집 마감
             </span>
           ) : (
             <span className="hidden"></span>

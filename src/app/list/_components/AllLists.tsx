@@ -4,6 +4,8 @@ import VolunteerCard from '@/components/home/VolunteerCard';
 import { WarningIcon } from '@/components/icons/Icons';
 import useGetPostsbyFilter from '@/hooks/useGetPostsbyFilter';
 import { useSearchParams } from 'next/navigation';
+import { useEffect, useRef } from 'react';
+import { toast } from 'react-toastify';
 
 const AllLists = () => {
   const searchParams = useSearchParams();
@@ -24,6 +26,26 @@ const AllLists = () => {
   } else {
     title = `봉사 전체`;
   }
+
+  // 이전에 메시지가 표시되었는지 여부를 추적하기 위한 useRef 사용
+  const hasShownToastRef = useRef(false);
+
+  useEffect(() => {
+    // 주소가 있고, 이전에 토스트 메시지를 표시한 적이 없는 경우에만 메시지를 표시
+    if (address && !hasShownToastRef.current) {
+      toast('위치태그를 누르면 지역을 다시 설정할 수 있어요', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'dark',
+        closeButton: false
+      });
+      hasShownToastRef.current = true; // 토스트가 표시되었음을 기록
+    }
+  }, [address]);
 
   return (
     <div className="w-full">

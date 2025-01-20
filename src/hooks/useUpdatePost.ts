@@ -1,5 +1,6 @@
 import { getCurrentUserId, getPost, updatePostById } from '@/lib/posts/updatePost';
 import type { FormData } from '@/types/formdata';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
@@ -18,6 +19,7 @@ export const useUpdatePost = (postId: string) => {
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   useEffect(() => {
@@ -104,6 +106,10 @@ export const useUpdatePost = (postId: string) => {
         });
         return;
       }
+
+    // React Query 캐시 무효화와 전체 데이터 재요청
+    await queryClient.invalidateQueries({queryKey: ['post', postId]});
+    await queryClient.invalidateQueries({ queryKey: ['posts'] }); // 전체 목록 데이터 무효화    
 
       Swal.fire({
         title: '게시글이 수정되었습니다.',

@@ -1,6 +1,7 @@
 import { insertImageToPost, insertPost, uploadImage } from '@/lib/posts/insertPost';
 import type { FormData } from '@/types/formdata';
 import { useUserStore } from '@/utils/store/userStore';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
@@ -20,6 +21,7 @@ export const usePostForm = () => {
 
   const { user, isLoggedIn } = useUserStore();
   const router = useRouter();
+  const queryClient = useQueryClient(); // React Query의 queryClient 가져오기
 
   const isFormValid = useCallback((): boolean => {
     return (
@@ -103,6 +105,11 @@ export const usePostForm = () => {
         await insertImageToPost(post.id, imageUrl);
       }
 
+       // 게시글 등록 성공 후 React Query의 캐시 무효화
+       queryClient.invalidateQueries({
+        queryKey: ['posts', { address: null, category: null, searchedKeyword: null }], // queryKey와 같아야 함
+      });
+
       Swal.fire({
         title: '봉사 요청이 성공적으로 등록되었습니다!',
         icon: 'success',
@@ -116,7 +123,7 @@ export const usePostForm = () => {
         icon: 'warning',
       });
     }
-  }, [formData, isFormValid, user, router]);
+  }, [formData, isFormValid, user, router, queryClient]);
 
   return {
     formData,

@@ -3,6 +3,7 @@
 import { BackButtonIcon, MeatballMenuIcon, PencilIcon, RecruitmentIcon, TrashBinIcon } from '@/components/icons/Icons';
 import { useGetPostById } from '@/hooks/useGetPostById';
 import { useUserStore } from '@/utils/store/userStore';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { BottomSheet } from 'react-spring-bottom-sheet-updated';
@@ -18,6 +19,8 @@ const Header = ({ postPageId }: PostDetailProps) => {
   const { user } = useUserStore();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const router = useRouter();
+
+  const queryClient = useQueryClient();
 
   const handleBack = () => {
     router.push('/list');
@@ -41,15 +44,24 @@ const Header = ({ postPageId }: PostDetailProps) => {
       cancelButtonText: '취소'
     }).then((result) => {
       if (result.isConfirmed) {
-        deletePostById.mutate(postPageId);
-        router.push('/list');
+        deletePostById.mutate(postPageId, {
+          onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['posts'] });
+            router.push('/list');
+          }
+        });
       }
     });
     return;
   };
 
   const handleToggleRecruitment = () => {
-    updateCompletedById.mutate(postPageId);
+    updateCompletedById.mutate(postPageId, {
+      onSuccess: () => {
+        // 모집 마감 업데이트 성공 시 관련 데이터 무효화
+        queryClient.invalidateQueries({ queryKey: ['posts'] }); // 게시물 리스트 쿼리 무효화
+      }
+    });
     closeSheet();
   };
 
