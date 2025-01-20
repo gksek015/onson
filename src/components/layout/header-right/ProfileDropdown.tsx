@@ -44,20 +44,10 @@ const ProfileDropdown = () => {
       // 클라이언트 상태 초기화
       useUserStore.getState().clearUser();
 
-      // 소셜 로그인 여부 확인
-      const isSocialLogin = useUserStore.getState().isSocialLogin;
       const logoutRedirectUri = process.env.NEXT_PUBLIC_BASE_URL;
+      const result = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&logout_redirect_uri=${logoutRedirectUri}`;
 
-      let result;
-      if (isSocialLogin) {
-        // 소셜 로그인인 경우 카카오 로그아웃 URL 생성
-        result = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&logout_redirect_uri=${logoutRedirectUri}`;
-      } else {
-        // 일반 로그인인 경우 현재 도메인으로 리다이렉션
-        result = window.location.origin;
-      }
-
-      // 리다이렉션 수행
+      // 카카오 로그아웃
       window.location.href = result;
     } catch (err) {
       if (err instanceof Error) {
