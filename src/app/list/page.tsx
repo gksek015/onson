@@ -18,7 +18,7 @@ const ListPage = () => {
   return (
     <div>
       <Header />
-      <div className="mx-auto mb-20 mt-5 flex max-w-content flex-col items-center justify-center gap-3 py-2">
+      <div className="mx-auto mb-20 flex max-w-content flex-col items-center justify-center pt-2">
         <Suspense>
           <div className="flex flex-col items-start gap-3 self-stretch">
             <div className="flex w-full items-center justify-center gap-3 px-5">
