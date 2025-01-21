@@ -4,7 +4,7 @@ import useModal from '@/hooks/ui/useModal';
 import { useUserStore } from '@/utils/store/userStore';
 import { useUnreadMessageStore } from '@/utils/store/useUnreadMessageStore';
 import { usePathname } from 'next/navigation';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import ChatBoxModal from '../chatbox/ChatBoxModal';
 import {
   HomePillIcon,
@@ -34,12 +34,12 @@ const BottomNav = () => {
   const hasUnreadMessages = Object.values(unreadMessages).some((val) => val);
 
   // 채팅 아이콘 메모이제이션
-  const getChatIcon = useMemo(() => {
+  const getChatIcon = () => {
     if (isOpen) {
       return hasUnreadMessages ? <MessageCircleIcon /> : <MessagePillIcon />;
     }
     return hasUnreadMessages ? <MessageCircleIcon /> : <MessageStrokeIcon />;
-  }, [isOpen, hasUnreadMessages]);
+  };
 
   // 네비게이션 핸들러
   const handleNavClick = (path: string) => {
@@ -61,18 +61,18 @@ const BottomNav = () => {
         {/* 게시글 작성 버튼 */}
         <button type="button" onClick={() => handleNavClick('/create')} className="flex flex-col items-center">
           <PencilPlusIcon />
-          <span className="text-sm font-bold text-black">봉사 요청</span>
+          <span className="text-sm font-bold text-black">봉사요청</span>
         </button>
 
         {/* 게시글 리스트 버튼 */}
         <button type="button" onClick={() => handleNavClick('/list')} className="flex flex-col items-center">
           {pathname === '/list' ? <NotePillIcon /> : <NoteStrokeIcon />}
-          <span className="text-sm font-bold text-black">봉사 찾기</span>
+          <span className="text-sm font-bold text-black">봉사찾기</span>
         </button>
 
         {/* 채팅 모달 열기 버튼 */}
         <button type="button" onClick={toggleModal} className="flex flex-col items-center">
-          {getChatIcon}
+          {getChatIcon()}
           <span className="text-sm font-bold text-black">Chat</span>
         </button>
       </nav>

@@ -36,24 +36,26 @@ const ChatList = ({ chatRooms, onSelectRoom, unreadMessagesMap }: ChatListProps)
         return (
           <button
             key={room.id}
-            className="mb-2 flex w-full flex-col border-b p-2 text-left"
+            className="mb-2 mt-2 flex w-full flex-col px-5 py-3 text-left"
             onClick={() => onSelectRoom(room.id, room.otherNickname || '사용자가 없습니다.')}
           >
             {/* 상단: 닉네임과 날짜+화살표 */}
             <div className="flex w-full items-center justify-between">
-              <span className="text-lg font-semibold text-black">{room.otherNickname || '사용자가 없습니다.'}</span>
+              <span className="text-lg font-medium text-black">{room.otherNickname || '사용자가 없습니다.'}</span>
               {hasUnreadMessagesMap && <UnReadMarkIcon />}
               <div className="flex-end flex items-center space-x-2 text-right">
-                <p className="text-xs text-gray-500">
+                <span className="text-xs text-[#]">
                   {lastMessage?.created_at ? formatDate(lastMessage.created_at) : ''}
-                </p>
+                </span>
                 <RightArrowForChatIcon />
               </div>
             </div>
 
             {/* 메시지 영역 */}
-            <div className="mt-2">
-              <p className="truncate text-sm text-black">{lastMessage?.content || '메시지가 없습니다.'}</p>
+            <div className="mt-[6px]">
+              <span className="truncate text-base font-normal text-black">
+                {lastMessage?.content || '메시지가 없습니다.'}
+              </span>
             </div>
           </button>
         );

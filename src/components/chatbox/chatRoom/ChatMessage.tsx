@@ -73,7 +73,7 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
       )}
 
       {/* 채팅 메시지 영역 */}
-      <div id="chat-container" className="flex-1 overflow-auto">
+      <div id="chat-container" className="flex-1">
         {messages.map((msg, idx) => (
           <div key={idx} className={`mb-2 ${msg.user_id === userId ? 'text-right' : 'text-left'}`}>
             <span
@@ -96,7 +96,7 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
           <div className="flex w-full items-center rounded-full bg-white p-1">
             <input
               type="text"
-              className="indent-4 flex-1 rounded-full text-black focus:outline-none"
+              className="flex-1 rounded-full indent-4 text-black focus:outline-none"
               placeholder="메시지를 입력하세요..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
