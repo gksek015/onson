@@ -1,17 +1,24 @@
 import AddressTags from '@/app/list/_components/AddressTags';
 import CategoryButton from '@/app/list/_components/CategoryButton';
 import Tags from '@/app/list/_components/Tags';
+import BottomNav from '@/components/layout/BottomNav';
 import Header from '@/components/layout/Header';
 import { categories } from '@/data/categories';
+import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import AllLists from './_components/AllLists';
 import SearchBar from './_components/SearchBar';
+
+export const metadata: Metadata = {
+  title: 'ON:SON',
+  description: 'ON:SON에서 모집 중인 봉사활동 게시글입니다. 내가 원하는 봉사활동을 검색해 보세요'
+};
 
 const ListPage = () => {
   return (
     <div>
       <Header />
-      <div className="mx-auto max-w-content mb-20 mt-5 flex flex-col items-center justify-center gap-3 py-2">
+      <div className="mx-auto mb-20 mt-5 flex max-w-content flex-col items-center justify-center gap-3 py-2">
         <Suspense>
           <div className="flex flex-col items-start gap-3 self-stretch">
             <div className="flex w-full items-center justify-center gap-3 px-5">
@@ -25,6 +32,9 @@ const ListPage = () => {
           </div>
           <AllLists />
         </Suspense>
+      </div>
+      <div className="block sm:hidden">
+        <BottomNav />
       </div>
     </div>
   );

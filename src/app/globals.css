@@ -85,12 +85,12 @@ body {
 }
 
 /* 버튼 스타일 */
-.btn-gray {
-  @apply w-full rounded-sm bg-[#4B4B4B] p-3 text-white;
+.btn-primary-3 {
+  @apply w-full rounded-lg bg-[#FB657E] p-3 text-white;
 }
 
 .btn-yellow {
-  @apply w-full rounded-sm bg-[#FAE100] p-3 text-white;
+  @apply w-full rounded-lg bg-[#FAE100] p-3 text-[#443528];
 }
 
 .Toastify__toast-theme--dark {

@@ -53,7 +53,7 @@ const LoginForm = () => {
           {...register('password')}
           errorMessage={errors.password?.message}
         />
-        <Button className="btn-gray" type="submit" label="로그인" />
+        <Button className="btn-primary-3" type="submit" label="로그인" />
         <div className="mt-4 flex justify-center">
           <Button className="btn-yellow" type="button" onClick={kakaoLogin} label="카카오 소셜로그인" />
         </div>
