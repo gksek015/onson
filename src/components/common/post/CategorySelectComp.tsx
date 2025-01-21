@@ -36,7 +36,7 @@ const CategorySelectComp = ({ categories, onSelectCategory, formData }: Category
         name="category"
         placeholder="봉사 종류 선택"
         value={formData.category}
-        className="mt-3 block h-12 w-full flex-grow rounded-[8px] border border-[#A1A6AA] px-2 text-base placeholder-[#868C92]"
+        className="tracking-[-0.4px] mt-3 block h-12 w-full flex-grow rounded-[8px] border border-[#A1A6AA] px-2 text-base placeholder-[#868C92]"
         readOnly
         onClick={() => setIsSheetOpen(true)}
       />
@@ -46,7 +46,7 @@ const CategorySelectComp = ({ categories, onSelectCategory, formData }: Category
         <div className="p-5">
           <h2 className="mb-10 text-2xl font-semibold">봉사 종류</h2>
           <p className="mb-3 text-base font-semibold text-[#222227]">종류 선택</p>
-          <ul className="mt-2 space-y-4 border-t border-[#BEBEBE]">
+          <ul className="space-y-4 border-t border-[#BEBEBE]">
             {categories?.map((category) => (
               <li
                 key={category}
@@ -54,7 +54,7 @@ const CategorySelectComp = ({ categories, onSelectCategory, formData }: Category
                 onClick={() => handleCheckboxChange(category)}
               >
                 <span className="text-base font-medium text-[#242628]">{category}</span>
-                <div className="relative flex items-center justify-center">
+                <div className="flex items-center justify-center">
                   <input
                     type="radio"
                     id={category}

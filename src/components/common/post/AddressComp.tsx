@@ -23,7 +23,7 @@ const AddressComp = ({ formData, setFormData }: AddressCompProps) => {
 
   return (
     <div>
-      <label htmlFor="address" className="block text-base font-semibold">
+      <label htmlFor="address" className="tracking-[-0.5px] block text-base font-semibold">
         위치
       </label>
       <input
@@ -33,7 +33,7 @@ const AddressComp = ({ formData, setFormData }: AddressCompProps) => {
         readOnly
         placeholder="지역 선택"
         value={formData.address}
-        className="mt-3 block h-12 w-full rounded-[8px] border border-[#A1A6AA] px-2 text-base placeholder-[#868C92]"
+        className="tracking-[-0.4px] mt-3 block h-12 w-full rounded-[8px] border border-[#A1A6AA] px-2 text-base placeholder-[#868C92]"
         onClick={() => setIsSheetOpen(true)}
       />
 

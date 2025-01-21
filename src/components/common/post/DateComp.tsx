@@ -63,7 +63,7 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
         placeholder="기간을 선택하세요"
         onClick={handleOpen}
         readOnly
-        className="h-12 w-full rounded-[8px] border border-[#A1A6AA] px-2 text-base placeholder-[#868C92]"
+        className="tracking-[-0.4px] h-12 w-full rounded-[8px] border border-[#A1A6AA] px-2 text-base placeholder-[#868C92]"
       />
 
       {/* 바텀시트 */}
