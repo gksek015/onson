@@ -61,7 +61,7 @@ const SignUpForm = () => {
           {...register('confirmPassword')}
           errorMessage={errors.confirmPassword?.message}
         />
-        <Button className="w-full rounded-sm bg-[#4B4B4B] p-3 text-white" type="submit" label="회원가입" />
+        <Button className="w-full rounded-sm btn-primary-3" type="submit" label="회원가입" />
       </form>
     </div>
   );
