@@ -16,7 +16,7 @@ const NewPostComp = () => {
 
   return (
     <div className="min-h-screen items-center">
-      <header className="relative flex items-center justify-center border-b px-4 py-3">
+      <header className="flex items-center justify-center border-b px-4 py-3">
         <button onClick={() => router.back()} 
           className='absolute left-4'>
           <BackIcon />
