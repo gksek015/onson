@@ -110,11 +110,11 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
       {error && <p className="text-red-500">{error}</p>}
 
       {/* 주소 검색 || 현위치 검색 결과 */}
-      <ul>
+      <ul className='p-3'>
         {searchResults.map((juso, index) => (
           <li
             key={index}
-            className="m-3 py-1 text-base md:text-2xl"
+            className="py-2.5 text-base md:text-2xl"
             onClick={() => {
               // 검색하는 기능은 'search' / 새글 작성 시 선택하는 기능에서는 'select'로 따로 option줘서 onClick 분리하기
               const addressList = juso.split(' ');
