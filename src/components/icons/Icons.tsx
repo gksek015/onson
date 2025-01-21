@@ -576,3 +576,74 @@ export const UnReadMarkIcon = () => {
     </svg>
   );
 };
+
+export const CircleArrowRightIcon = () => {
+  return (
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g filter="url(#filter0_b_673_1838)">
+        <rect width="30" height="30" rx="15" fill="black" fillOpacity="0.5" />
+        <path
+          d="M18.8037 15L13.1453 8.89462C13.0987 8.84542 13.0619 8.78701 13.037 8.72276C13.012 8.65852 12.9995 8.58971 13 8.52034C13.0006 8.45096 13.0142 8.38239 13.0402 8.31859C13.0661 8.25479 13.1039 8.19703 13.1512 8.14864C13.1986 8.10026 13.2546 8.06222 13.3161 8.03672C13.3775 8.01122 13.4432 7.99877 13.5092 8.0001C13.5753 8.00142 13.6405 8.01648 13.701 8.04442C13.7614 8.07235 13.816 8.1126 13.8616 8.16284L19.8584 14.6341C19.9492 14.7321 20 14.8633 20 15C20 15.1367 19.9492 15.2679 19.8584 15.3659L13.8616 21.8372C13.816 21.8874 13.7614 21.9276 13.701 21.9556C13.6405 21.9835 13.5753 21.9986 13.5092 21.9999C13.4432 22.0012 13.3775 21.9888 13.3161 21.9633C13.2546 21.9378 13.1986 21.8997 13.1512 21.8514C13.1039 21.803 13.0661 21.7452 13.0402 21.6814C13.0142 21.6176 13.0006 21.549 13 21.4797C12.9995 21.4103 13.012 21.3415 13.037 21.2772C13.0619 21.213 13.0987 21.1546 13.1453 21.1054L18.8037 15Z"
+          fill="#F4F5F5"
+        />
+        <path d="M13.5 8.5L19.5 15L13.5 21.5" stroke="#F4F5F5" strokeWidth="2" strokeLinecap="round" />
+      </g>
+      <defs>
+        <filter
+          id="filter0_b_673_1838"
+          x="-3.63636"
+          y="-3.63636"
+          width="37.2727"
+          height="37.2727"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feGaussianBlur in="BackgroundImageFix" stdDeviation="1.81818" />
+          <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_673_1838" />
+          <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_673_1838" result="shape" />
+        </filter>
+      </defs>
+    </svg>
+  );
+};
+
+export const CircleArrowLeftIcon = () => {
+  return (
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g filter="url(#filter0_b_673_1834)">
+        <rect
+          x="30"
+          y="30"
+          width="30"
+          height="30"
+          rx="15"
+          transform="rotate(-180 30 30)"
+          fill="black"
+          fillOpacity="0.5"
+        />
+        <path
+          d="M11.1963 15L16.8547 21.1054C16.9013 21.1546 16.9381 21.213 16.963 21.2772C16.988 21.3415 17.0005 21.4103 17 21.4797C16.9994 21.549 16.9858 21.6176 16.9598 21.6814C16.9339 21.7452 16.8961 21.803 16.8488 21.8514C16.8014 21.8997 16.7454 21.9378 16.6839 21.9633C16.6225 21.9888 16.5568 22.0012 16.4908 21.9999C16.4247 21.9986 16.3595 21.9835 16.299 21.9556C16.2386 21.9276 16.184 21.8874 16.1384 21.8372L10.1416 15.3659C10.0508 15.2679 10 15.1367 10 15C10 14.8633 10.0508 14.7321 10.1416 14.6341L16.1384 8.16284C16.184 8.1126 16.2386 8.07235 16.299 8.04442C16.3595 8.01648 16.4247 8.00142 16.4908 8.0001C16.5568 7.99877 16.6225 8.01122 16.6839 8.03672C16.7454 8.06222 16.8014 8.10026 16.8488 8.14864C16.8961 8.19702 16.9339 8.25479 16.9598 8.31859C16.9858 8.38239 16.9994 8.45096 17 8.52034C17.0005 8.58972 16.988 8.65851 16.963 8.72276C16.9381 8.78701 16.9013 8.84542 16.8547 8.89462L11.1963 15Z"
+          fill="#F4F5F5"
+        />
+        <path d="M16.5 21.5L10.5 15L16.5 8.5" stroke="#F4F5F5" strokeWidth="2" strokeLinecap="round" />
+      </g>
+      <defs>
+        <filter
+          id="filter0_b_673_1834"
+          x="-3.63636"
+          y="-3.63636"
+          width="37.2727"
+          height="37.2727"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feGaussianBlur in="BackgroundImageFix" stdDeviation="1.81818" />
+          <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_673_1834" />
+          <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_673_1834" result="shape" />
+        </filter>
+      </defs>
+    </svg>
+  );
+};
