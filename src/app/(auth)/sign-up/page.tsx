@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 
 import Link from 'next/link';
 
-import { BackIcon } from '@/components/icons/Icons';
 import SignUpForm from '@app/(auth)/sign-up/_components/SignUpForm';
+import SetPageTitle from '../_components/SetPageTitle';
 
 export const metadata: Metadata = {
   title: 'ON:SON 회원가입',
@@ -14,12 +14,7 @@ const SignUpPage = () => {
   return (
     <>
       <div className="flex min-h-screen flex-col items-center justify-center p-4">
-        <div className="relative mb-10 flex w-full items-center justify-center">
-          <Link href="/" className="absolute left-3">
-            <BackIcon />
-          </Link>
-          <h1 className="text-3xl font-bold">회원가입</h1>
-        </div>
+        <SetPageTitle title="회원가입" />
         <SignUpForm />
         <div className="my-5 flex flex-col items-center space-y-2 text-sm">
           <Link href="/login">이미 계정이 있으신가요?</Link>

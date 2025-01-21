@@ -86,13 +86,16 @@ body {
 
 /* 버튼 스타일 */
 .btn-primary-3 {
-  @apply w-full rounded-lg bg-[#FB657E] p-3 text-white;
+  @apply w-full rounded-[8px] bg-[#FB657E] p-3 text-white;
 }
 
 .btn-yellow {
-  @apply w-full rounded-lg bg-[#FAE100] p-3 text-[#443528];
+  @apply w-full rounded-[8px] bg-[#FAE100] p-3 text-[#443528];
 }
 
+.common_input {
+  @apply flex h-[56px] w-full flex-shrink-0 items-center gap-[10px] self-stretch rounded-[8px] border border-[#A1A6AA] px-[12px] py-[10px] text-base placeholder-[#868C92];
+}
 .Toastify__toast-theme--dark {
   opacity: 0.8;
 }

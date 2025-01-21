@@ -11,9 +11,11 @@ const Header = () => {
   const title = usePageTitleStore((state) => state.title);
 
   const handleBack = () => {
-    if (pathname.startsWith('/my-page/') && pathname !== '/my-page') {
-      router.push('/my-page');
-    } else if (pathname === '/my-page') {
+    const segments = pathname.split('/').filter(Boolean);
+    if (segments.length > 1) {
+      const parentPath = '/' + segments.slice(0, -1).join('/');
+      router.push(parentPath);
+    } else {
       router.push('/');
     }
   };

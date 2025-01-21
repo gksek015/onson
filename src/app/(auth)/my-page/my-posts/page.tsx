@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
+import SetPageTitle from '@/app/(auth)/_components/SetPageTitle';
 import MyPosts from '@/app/(auth)/my-page/_components/MyPosts';
-import SetPageTitle from '@/app/(auth)/my-page/_components/SetPageTitle';
 
 export const metadata: Metadata = {
   title: '나의 봉사요청 페이지',

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import SetPageTitle from '@/app/(auth)/my-page/_components/SetPageTitle';
+import SetPageTitle from '@/app/(auth)/_components/SetPageTitle';
 import UserInfo from '@app/(auth)/my-page/_components/UserInfo';
 
 export const metadata: Metadata = {

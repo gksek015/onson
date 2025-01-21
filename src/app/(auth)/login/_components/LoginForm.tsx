@@ -42,20 +42,33 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="w-[768px] max-w-full space-y-4">
+    <div className="h-[calc(100vh-60px)] overflow-y-auto pb-20">
       <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-        <p>아이디</p>
-        <AuthInput type="email" placeholder="email" {...register('email')} errorMessage={errors.email?.message} />
-        <p>비밀번호</p>
-        <AuthInput
-          type="password"
-          placeholder="비밀번호를 입력하세요"
-          {...register('password')}
-          errorMessage={errors.password?.message}
-        />
-        <Button className="btn-primary-3" type="submit" label="로그인" />
-        <div className="mt-4 flex justify-center">
-          <Button className="btn-yellow" type="button" onClick={kakaoLogin} label="카카오 소셜로그인" />
+        <div className="mt-7 space-y-7 px-5">
+          <label htmlFor="title" className="block text-base font-semibold">
+            아이디
+          </label>
+          <AuthInput
+            type="email"
+            id="title"
+            placeholder="email"
+            {...register('email')}
+            errorMessage={errors.email?.message}
+          />
+          <label htmlFor="password" className="block text-base font-semibold">
+            비밀번호
+          </label>
+          <AuthInput
+            type="password"
+            id="password"
+            placeholder="비밀번호를 입력하세요"
+            {...register('password')}
+            errorMessage={errors.password?.message}
+          />
+          <Button className="btn-primary-3" type="submit" label="로그인" />
+          <div className="mt-4 flex justify-center">
+            <Button className="btn-yellow" type="button" onClick={kakaoLogin} label="카카오 소셜로그인" />
+          </div>
         </div>
       </form>
     </div>
