@@ -40,7 +40,7 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
 
   // 메시지가 입력될 때 스크롤을 자동으로 내려주는 로직
   useEffect(() => {
-    if (messages.length <= 3) return;
+    if (messages.length <= 5) return;
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
@@ -66,18 +66,20 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
     <div className="flex h-screen flex-col bg-[#F2F2F2] p-4">
       {/* 공지사항 영역 */}
 
-      {showNotice && (
-        <div className="sticky top-0 z-50 mb-2 rounded bg-white p-2 text-center text-sm font-light text-[#656565]">
-          이제부터 봉사는 쉽고 빠르게, 온손과 함께하세요
-        </div>
-      )}
+      <div className="bg-[#F2F2F2]">
+        {showNotice && (
+          <div className="sticky top-4 z-10 mb-2 rounded-lg bg-white p-2 text-center text-sm font-light text-[#656565]">
+            이제부터 봉사는 쉽고 빠르게, 온손과 함께하세요
+          </div>
+        )}
+      </div>
 
       {/* 채팅 메시지 영역 */}
       <div id="chat-container" className="flex-1">
         {messages.map((msg, idx) => (
           <div key={idx} className={`mb-2 ${msg.user_id === userId ? 'text-right' : 'text-left'}`}>
             <span
-              className={`inline-block p-2 leading-6 ${
+              className={`inline-block px-[18px] py-2 leading-6 ${
                 msg.user_id === userId
                   ? 'rounded-l-lg rounded-tr-lg bg-[#FB657E] text-white'
                   : 'rounded-b-lg rounded-tr-lg bg-white text-black'
@@ -91,12 +93,12 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
       </div>
 
       {/* Input Box */}
-      <footer className="sticky bottom-2">
+      <footer className="sticky bottom-2 mt-2">
         <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571] p-[2px]">
-          <div className="flex w-full items-center rounded-full bg-white p-1">
+          <div className="flex w-full items-center rounded-full bg-white">
             <input
               type="text"
-              className="flex-1 rounded-full indent-4 text-black focus:outline-none"
+              className="flex-1 rounded-full indent-4 text-base text-black focus:outline-none"
               placeholder="메시지를 입력하세요..."
               value={input}
               onChange={(e) => setInput(e.target.value)}

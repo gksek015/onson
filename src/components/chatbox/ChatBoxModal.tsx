@@ -43,14 +43,14 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   };
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-white">
-      {/* 상단 탭바와 닫기 버튼 */}
+      {/* 상단 탭바 */}
       {!selectedChatId && (
-        <div className="flex items-center justify-between border-b py-2">
+        <div className="flex items-center justify-between border-b">
           {/* 탭바 */}
-          <div className="flex flex-1 justify-center gap-12 py-[11px]">
+          <div className="flex flex-1 justify-center gap-12">
             <button
               onClick={() => setActiveTab('온손 AI')}
-              className={`inline-block text-center ${
+              className={`inline-block py-[15px] text-center ${
                 activeTab === '온손 AI' ? 'border-b-2 border-black font-bold text-black' : 'text-gray-500'
               }`}
             >
@@ -58,17 +58,13 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
             </button>
             <button
               onClick={() => setActiveTab('실시간 채팅')}
-              className={`inline-block text-center ${
+              className={`inline-block py-[15px] text-center ${
                 activeTab === '실시간 채팅' ? 'border-b-2 border-black font-bold text-[#595959]' : 'text-gray-500'
               }`}
             >
               실시간 채팅
             </button>
           </div>
-          {/* 닫기 버튼
-          <button onClick={onClose} className="right-4 text-xl">
-            <CloseIcon />
-          </button> */}
         </div>
       )}
 
