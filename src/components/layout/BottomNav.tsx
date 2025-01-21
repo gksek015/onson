@@ -53,27 +53,39 @@ const BottomNav = () => {
     <>
       <nav className="fixed bottom-0 flex w-full justify-around border-t bg-white p-4">
         {/* 홈 버튼 */}
-        <button type="button" onClick={() => handleNavClick('/')} className="flex flex-col items-center">
+        <button
+          type="button"
+          onClick={() => handleNavClick('/')}
+          className="flex flex-col items-center justify-center gap-1"
+        >
           {pathname === '/' ? <HomePillIcon /> : <HomeStrokeIcon />}
-          <span className="text-sm font-bold text-black">홈</span>
+          <span className="text-sm font-medium leading-[16.4px] text-black">홈</span>
         </button>
 
         {/* 게시글 작성 버튼 */}
-        <button type="button" onClick={() => handleNavClick('/create')} className="flex flex-col items-center">
+        <button
+          type="button"
+          onClick={() => handleNavClick('/create')}
+          className="flex flex-col items-center justify-center gap-1"
+        >
           <PencilPlusIcon />
-          <span className="text-sm font-bold text-black">봉사요청</span>
+          <span className="text-sm font-medium leading-[16.4px] text-black">봉사요청</span>
         </button>
 
         {/* 게시글 리스트 버튼 */}
-        <button type="button" onClick={() => handleNavClick('/list')} className="flex flex-col items-center">
+        <button
+          type="button"
+          onClick={() => handleNavClick('/list')}
+          className="flex flex-col items-center justify-center gap-1"
+        >
           {pathname === '/list' ? <NotePillIcon /> : <NoteStrokeIcon />}
-          <span className="text-sm font-bold text-black">봉사찾기</span>
+          <span className="text-sm font-medium leading-[16.4px] text-black">봉사찾기</span>
         </button>
 
         {/* 채팅 모달 열기 버튼 */}
-        <button type="button" onClick={toggleModal} className="flex flex-col items-center">
+        <button type="button" onClick={toggleModal} className="flex flex-col items-center justify-center gap-1">
           {getChatIcon()}
-          <span className="text-sm font-bold text-black">Chat</span>
+          <span className="text-sm font-medium leading-[16.4px] text-black">Chat</span>
         </button>
       </nav>
 
