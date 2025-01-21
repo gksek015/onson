@@ -59,7 +59,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
 
           {/* 이미지 */}
           {firstImg && (
-            <div className="relative flex h-24 w-20 items-center">
+            <div className="relative flex h-20 w-20 items-center self-end">
               <Image src={firstImg} alt={post.title} width={100} height={100} className="h-full w-full object-cover" />
               {post.completed && (
                 <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50">

@@ -16,7 +16,20 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Pretendard', sans-serif;
+}
+
+/* 자간 */
+.letter-spacing-main-title {
+  letter-spacing: -0.252px
+}
+
+.letter-spacing-detail-content {
+  letter-spacing: -0.4px;
+}
+
+.letter-spacing-detail-title {
+  letter-spacing: -0.5px;
 }
 
 @layer utilities {
