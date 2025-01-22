@@ -72,7 +72,7 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
   };
 
   return (
-    <div className="p-5 md:p-10">
+    <div className="flex-grow overflow-y-auto flex h-full flex-col p-5 md:p-10">
       <h1 className="mb-6 text-2xl md:text-4xl font-semibold tracking-[-0.55px] leading-7">위치</h1>
 
       {/* 검색 입력 필드 */}

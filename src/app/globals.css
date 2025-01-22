@@ -84,15 +84,6 @@ body {
   @apply bg-white opacity-100; /* 현재 보여지는 이미지 페이지네이션 스타일 */
 }
 
-/* 버튼 스타일 */
-.btn-primary-3 {
-  @apply w-full rounded-lg bg-[#FB657E] p-3 text-white;
-}
-
-.btn-yellow {
-  @apply w-full rounded-lg bg-[#FAE100] p-3 text-[#443528];
-}
-
 .Toastify__toast-theme--dark {
   opacity: 0.6;
 }
@@ -105,4 +96,68 @@ body {
   font-size: 14px;
   padding: 10px;
   font-weight: 100;
+}
+
+/* Auth 영역 */
+.auth_page_wrapper {
+  @apply min-h-screen pb-[30px];
+}
+
+.common_input {
+  @apply mt-[12px] flex h-[56px] w-full flex-shrink-0 items-center gap-[10px] self-stretch rounded-[8px] border border-[#A1A6AA] px-[12px] py-[10px] text-base placeholder-[#868C92];
+}
+
+.common_input_err_massege {
+  @apply mt-[8px] py-[2.5px] pl-[10px] text-[14px] text-red-500;
+}
+
+.login_wrapper {
+  @apply px-[20px] pt-[12px];
+}
+
+.sign_up_wrapper {
+  @apply px-[20px] pt-[18px];
+}
+
+.my_profile_wrapper {
+  @apply px-[20px] pt-[20px];
+}
+
+.my_profile_titlebtn_wrapper {
+  @apply flex w-full items-center justify-between border-b border-[#F1F1F1] px-[20px] py-[28px] font-semibold focus:outline-none;
+}
+
+.my_profile_blank {
+  @apply h-[12px] bg-[#F4F5F5];
+}
+.my_profile_no_contents {
+  @apply p-[20px] text-[#868c92];
+}
+
+.info_message_wrapper {
+  @apply pb-[18px] text-[18px] font-semibold leading-[24px] tracking-[-0.45px] text-[#3C4043];
+}
+
+.input_title_label {
+  @apply block self-stretch py-[1.75px] text-[18px] font-semibold leading-[24px] tracking-[-0.4px] text-[#3C4043];
+}
+
+.btn-pink {
+  @apply flex h-[56px] w-full items-center justify-center self-stretch rounded-[8px] bg-[#FB657E] p-3 px-[12px] py-[10px] text-[18px] font-semibold leading-[24px] tracking-[-0.4px] text-white;
+}
+
+.btn-kakao {
+  @apply flex h-[56px] w-full items-center justify-center self-stretch rounded-[8px] bg-[#5F4A38] p-3 px-[12px] py-[10px] text-[18px] font-semibold leading-[24px] tracking-[-0.4px] text-white;
+}
+
+.auth_bottom_text_wrapper {
+  @apply flex flex-col items-center;
+}
+
+.auth_bottom_text_small {
+  @apply text-center text-[12px] font-medium not-italic leading-[16px] tracking-[-0.3px] text-[#4D4D4D];
+}
+
+.auth_bottom_text_normall {
+  @apply text-center text-[14px] font-medium not-italic leading-[19px] tracking-[-0.3px] text-[#4D4D4D];
 }

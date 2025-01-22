@@ -10,6 +10,7 @@ import AuthInput from '@app/(auth)/_components/AuthInput';
 
 import { signup } from '@lib/actions/auth/action';
 import { userSignUpSchema } from '@lib/revalidation/userSchema';
+import Swal from 'sweetalert2';
 
 type SignUpFormData = z.infer<typeof userSignUpSchema>;
 
@@ -28,40 +29,59 @@ const SignUpForm = () => {
       formData.append(key, value);
     });
     await signup(formData);
+
+    await Swal.fire({
+      title: '가입을 환영합니다.',
+      text: '온손과 함께 따뜻한 손길을 나눠보세요.',
+      icon: 'success',
+      confirmButtonText: '확인'
+    });
   };
 
   return (
-    <div className="w-[768px] max-w-full space-y-4">
-      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-        <p>아이디</p>
+    <div className="sign_up_wrapper">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="title" className="input_title_label">
+          아이디
+        </label>
         <AuthInput
           type="email"
+          id="title"
           placeholder="이메일 형식으로 입력해주세요"
           {...register('email')}
           errorMessage={errors.email?.message}
         />
-        <p>닉네임</p>
+        <label htmlFor="nickname" className="input_title_label mt-[12px]">
+          닉네임
+        </label>
         <AuthInput
           type="text"
+          id="nickname"
           placeholder="닉네임을 입력해주세요"
           {...register('nickname')}
           errorMessage={errors.nickname?.message}
         />
-        <p>비밀번호</p>
+        <label htmlFor="password" className="input_title_label mt-[12px]">
+          비밀번호
+        </label>
         <AuthInput
           type="password"
+          id="password"
           placeholder="비밀번호를 입력해주세요"
           {...register('password')}
           errorMessage={errors.password?.message}
         />
-        <p>비밀번호 확인</p>
+        <label htmlFor="password_confirm" className="input_title_label mt-[12px]">
+          비밀번호 확인
+        </label>
         <AuthInput
           type="password"
+          id="password_confirm"
           placeholder="비밀번호를 다시 입력해주세요"
           {...register('confirmPassword')}
           errorMessage={errors.confirmPassword?.message}
         />
-        <Button className="w-full rounded-sm btn-primary-3" type="submit" label="회원가입" />
+        <Button className="btn-pink mt-[45px]" type="submit" label="회원가입" />
       </form>
     </div>
   );

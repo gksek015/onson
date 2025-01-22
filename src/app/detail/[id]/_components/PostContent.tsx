@@ -38,7 +38,7 @@ const PostContent = ({
       <div className="mx-4 flex flex-col justify-center gap-2">
         {/* 태그 */}
         <PostTags category={category} startDate={startDate} endDate={endDate} isPostClosed={isPostClosed} />
-        <div className="mt-1 text-[18px] font-semibold">{title}</div>
+        <div className="mt-1 text-lg tracking-[-0.5px] font-semibold">{title}</div>
 
         {/* 주소 */}
         <div className="my-2 flex items-center">
@@ -58,7 +58,7 @@ const PostContent = ({
 
       {/* 가로선 */}
       <hr className="mt-4 border-gray-300" />
-      <div className="mx-4">{content}</div>
+      <div className="mx-4 leading-6">{content}</div>
     </div>
   );
 };
