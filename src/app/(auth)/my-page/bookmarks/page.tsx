@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
+import SetPageTitle from '@/app/(auth)/_components/SetPageTitle';
 import MyBookmarks from '@/app/(auth)/my-page/_components/MyBookmarks';
-import SetPageTitle from '@/app/(auth)/my-page/_components/SetPageTitle';
 
 export const metadata: Metadata = {
   title: 'ON:SON 마이페이지',

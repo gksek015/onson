@@ -2,6 +2,7 @@
 
 import { BottomSheet } from '@/components/common/BottomSheet';
 import { FilterIcon } from '@/components/icons/Icons';
+import { useBottomSheetStore } from '@/utils/store/useBottomSheetStore';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
@@ -10,7 +11,7 @@ interface CategorySelectProps {
 }
 
 const CategoryButton = ({ categories }: CategorySelectProps) => {
-  const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
+        const { open, close } = useBottomSheetStore();
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -26,17 +27,17 @@ const CategoryButton = ({ categories }: CategorySelectProps) => {
 
       router.push(`/list?${currentParams.toString()}`);
     }
-    setIsSheetOpen(false);
+    close();
   };
 
   return (
     <div>
-      <button type="button" className="rounded-full border border-[#FB657E] p-3.5" onClick={() => setIsSheetOpen(true)}>
+      <button type="button" className="rounded-full border border-[#FB657E] p-3.5" onClick={() => open('sheetE')}>
         <FilterIcon />
       </button>
       {/* 바텀시트 */}
-      <BottomSheet isOpen={isSheetOpen} onClose={() => setIsSheetOpen(false)}>
-        <div className="p-5">
+      <BottomSheet id='sheetE'>
+        <div className="flex-grow overflow-y-auto flex h-full flex-col p-5">
           <h2 className="mb-10 text-2xl font-semibold">봉사 종류</h2>
           <p className="mb-3 text-base font-semibold text-[#222227]">종류 선택</p>
           <ul className="mt-2 space-y-4 border-t border-[#BEBEBE]">

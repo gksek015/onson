@@ -16,9 +16,8 @@ const NewPostComp = () => {
 
   return (
     <div className="min-h-screen items-center">
-      <header className="flex items-center justify-center border-b px-4 py-3">
-        <button onClick={() => router.back()} 
-          className='absolute left-4'>
+      <header className="relative flex items-center justify-center border-b px-4 py-3">
+        <button onClick={() => router.back()} className="absolute left-4">
           <BackIcon />
         </button>
         <h1 className="text-center text-xl font-bold tracking-[-0.5px]">봉사요청</h1>

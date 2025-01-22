@@ -23,15 +23,13 @@ const QuickMyPosts = () => {
   }
 
   if (!posts || posts.length === 0) {
-    return <p>내가 쓴 글이 없습니다.</p>;
+    return <p className="my_profile_no_contents">내가 쓴 글이 없습니다.</p>;
   }
   return (
-    <div className="w-full space-y-4 border-b border-t border-[#e7e7e7]">
-      <div className="flex flex-row gap-4 overflow-x-auto">
-        {posts.map((post) => (
-          <VolunteerCardNoImg key={post.id} post={post} />
-        ))}
-      </div>
+    <div className="flex w-full flex-row overflow-x-auto">
+      {posts.map((post) => (
+        <VolunteerCardNoImg key={post.id} post={post} />
+      ))}
     </div>
   );
 };

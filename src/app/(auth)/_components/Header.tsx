@@ -11,16 +11,18 @@ const Header = () => {
   const title = usePageTitleStore((state) => state.title);
 
   const handleBack = () => {
-    if (pathname.startsWith('/my-page/') && pathname !== '/my-page') {
-      router.push('/my-page');
-    } else if (pathname === '/my-page') {
+    const segments = pathname.split('/').filter(Boolean);
+    if (segments.length > 1) {
+      const parentPath = '/' + segments.slice(0, -1).join('/');
+      router.push(parentPath);
+    } else {
       router.push('/');
     }
   };
 
   return (
-    <div className="relative border-b px-2 py-4">
-      <button className="absolute left-0 top-1/2 -translate-y-1/2" onClick={handleBack}>
+    <div className="relative flex h-[60px] items-center justify-center leading-[60px]">
+      <button className="absolute left-0 top-1/2 -translate-y-1/2 pl-[18px]" onClick={handleBack}>
         <BackButtonIcon />
       </button>
 

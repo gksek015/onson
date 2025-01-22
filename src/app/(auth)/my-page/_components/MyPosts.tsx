@@ -23,13 +23,11 @@ const MyPosts = () => {
   }
 
   return (
-    <div className="mx-auto w-full max-w-2xl space-y-4">
-      <div className="space-y-4">
-        {posts.map((post) => (
-          <VolunteerCard key={post.id} post={post} />
-        ))}
-      </div>
-    </div>
+    <>
+      {posts.map((post) => (
+        <VolunteerCard key={post.id} post={post} />
+      ))}
+    </>
   );
 };
 
