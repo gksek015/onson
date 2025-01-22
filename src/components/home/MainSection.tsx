@@ -23,7 +23,7 @@ const MainSection = () => {
       <div>
         <HeroSection />
       </div>
-      <div className="px-5 pt-7">
+      <div className="px-5 pt-7 tracking-[-0.4px]">
         <h2 className="text-sm text-[#FB657E]">New</h2>
         <h1 className="text-xl font-semibold">방금 등록된 봉사</h1>
       </div>

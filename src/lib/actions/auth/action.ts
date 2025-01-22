@@ -6,7 +6,9 @@ import { userLoginSchema } from '@lib/revalidation/userSchema';
 
 import { createClient } from '@/utils/supabase/server';
 
-import type { AuthError, Session } from '@supabase/supabase-js';
+import type { AuthError } from '@supabase/supabase-js';
+
+import { User } from '@supabase/supabase-js';
 
 const supabase = createClient(); 
 // 회원가입
@@ -70,34 +72,29 @@ export const login = async (formData: FormData) => {
   
   
 
+
 export const checkSupabaseSession = async () => {
   try {
     const supabase = createClient();
 
-    // 현재 세션 정보 가져오기
-    const {
-      data,
-      error,
-    }: {
-      data: { session: Session | null };
-      error: AuthError | null;
-    } = await supabase.auth.getSession();
+    const { data, error }: { data: { user: User | null }; error: AuthError | null } =
+      await supabase.auth.getUser();
 
     if (error) {
-      console.error('Supabase 세션 확인 오류:', error.message);
-      throw new Error('Supabase 세션 확인에 실패했습니다.');
+      console.error('Supabase 사용자 정보 확인 오류:', error.message);
+      throw new Error('Supabase 사용자 정보 확인에 실패했습니다.');
     }
 
-    const session = data.session;
+    const user = data.user;
 
-    if (session?.user) {
+    if (user) {
       return {
         isLoggedIn: true,
         user: {
-          id: session.user.id,
-          email: session.user.email,
-          nickname: session.user.user_metadata?.nickname || 'Unknown',
-          profileImage: session.user.user_metadata?.profileImage || null,
+          id: user.id,
+          email: user.email || 'Unknown', // 기본값 할당
+          nickname: user.user_metadata?.nickname || 'Unknown',
+          profileImage: user.user_metadata?.profileImage || null,
         },
       };
     } else {
@@ -111,6 +108,8 @@ export const checkSupabaseSession = async () => {
     throw new Error('Supabase 세션 확인 중 오류 발생.');
   }
 };
+
+  
 
 export const updateNickname = async (formData: FormData) => {
   try {
