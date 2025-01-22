@@ -1,5 +1,6 @@
 import { BottomSheet } from '@/components/common/BottomSheet';
 import type { FormData } from '@/types/formdata';
+import { useBottomSheetStore } from '@/utils/store/useBottomSheetStore';
 import { useEffect, useState } from 'react';
 
 interface CategorySelectProps {
@@ -9,8 +10,9 @@ interface CategorySelectProps {
 }
 
 const CategorySelectComp = ({ categories, onSelectCategory, formData }: CategorySelectProps) => {
-  const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+
+    const { open, close } = useBottomSheetStore();
 
   // 초기값 설정: formData.category를 selectedCategory에 세팅
   useEffect(() => {
@@ -25,7 +27,7 @@ const CategorySelectComp = ({ categories, onSelectCategory, formData }: Category
 
   const handleApply = () => {
     onSelectCategory(selectedCategory);
-    setIsSheetOpen(false);
+    close();
   };
 
   return (
@@ -36,17 +38,17 @@ const CategorySelectComp = ({ categories, onSelectCategory, formData }: Category
         name="category"
         placeholder="봉사 종류 선택"
         value={formData.category}
-        className="mt-3 block h-12 w-full flex-grow rounded-[8px] border border-[#A1A6AA] px-2 text-base placeholder-[#868C92]"
+        className="tracking-[-0.4px] mt-3 block h-12 w-full flex-grow rounded-[8px] border border-[#A1A6AA] px-3 py-[10px] text-base placeholder-[#868C92]"
         readOnly
-        onClick={() => setIsSheetOpen(true)}
+        onClick={() => open('sheetB')}
       />
 
       {/* 바텀시트 */}
-      <BottomSheet isOpen={isSheetOpen} onClose={() => setIsSheetOpen(false)}>
-        <div className="p-5">
+      <BottomSheet id='sheetB'>
+        <div className="flex-grow overflow-y-auto flex h-full flex-col p-5">
           <h2 className="mb-10 text-2xl font-semibold">봉사 종류</h2>
           <p className="mb-3 text-base font-semibold text-[#222227]">종류 선택</p>
-          <ul className="mt-2 space-y-4 border-t border-[#BEBEBE]">
+          <ul className="space-y-4 border-t border-[#BEBEBE]">
             {categories?.map((category) => (
               <li
                 key={category}

@@ -63,11 +63,11 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
   };
 
   return (
-    <div className="h-[calc(100vh-60px)] overflow-y-auto pb-20">
+    <div className='h-[calc(100vh-60px)]'>
       <form onSubmit={handleSubmit}>
         <div className="mt-7 space-y-7 px-5">
           <div>
-            <label htmlFor="title" className="block text-base font-semibold">
+            <label htmlFor="title" className="tracking-[-0.5px] block text-lg font-semibold">
               제목
             </label>
             <input
@@ -75,8 +75,8 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
               id="title"
               name="title"
               value={formData.title}
-              placeholder="ex) 어르신 보조, 드론의 재능기부, 환경 정리 등"
-              className="mt-3 block h-12 w-full rounded-[8px] border border-[#A1A6AA] px-2 text-base placeholder-[#868C92]"
+              placeholder="ex) 어르신 보조, 드로잉 재능기부, 환경 정리 등"
+              className="tracking-[-0.4px] mt-3 block h-12 w-full rounded-[8px] border border-[#A1A6AA] px-3 py-[10px] text-base placeholder-[#868C92]"
               onChange={handleInputChange}
             />
           </div>
@@ -84,7 +84,7 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
           <AddressComp formData={formData} setFormData={setFormData} />
 
           <div>
-            <label htmlFor="tag" className="block text-base font-semibold">
+            <label htmlFor="tag" className="tracking-[-0.5px] block text-lg font-semibold">
               태그
             </label>
             <div className="space-y-4">
@@ -95,10 +95,10 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
 
           <div>
             <div className="flex items-center">
-              <label htmlFor="content" className="block text-base font-semibold">
+              <label htmlFor="content" className="tracking-[-0.5px] block text-lg font-semibold">
                 본문
               </label>
-              <span className="ml-3 text-xs font-normal text-[#868C92]">*500자 이내</span>
+              <span className="ml-3 text-sm font-normal text-[#868C92]">*500자 이내</span>
             </div>
             <textarea
               id="content"
@@ -108,7 +108,7 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
     ex) 봉사 시 강도가 높아 무거운 물건을 드는데 자신 있는 분을 찾습니다.`}
               rows={4}
               maxLength={500}
-              className="mt-3 block w-full whitespace-pre-line rounded-[8px] border border-[#A1A6AA] px-2 py-2 text-base placeholder-[#868C92] shadow-sm"
+              className="mt-3 block w-full whitespace-pre-line rounded-[8px] border border-[#A1A6AA] px-3 py-[10px] text-base placeholder-[#868C92] shadow-sm leading-6"
               onChange={handleInputChange}
             />
           </div>
