@@ -15,18 +15,6 @@ const AllLists = () => {
 
   const { data: posts, isPending, isError } = useGetPostsbyFilter(address, category, searchedKeyword);
 
-  // h1 타이틀 문구 결정
-  let title = '';
-  if (!isPending && posts?.length === 0) {
-    title = ''; // 결과가 없으면 title을 비움
-  } else if (searchedKeyword) {
-    title = `${searchedKeyword}에 해당된 검색 결과입니다`;
-  } else if (address || category) {
-    title = `필터링 된 검색 결과입니다`;
-  } else {
-    title = `봉사 전체`;
-  }
-
   // 이전에 메시지가 표시되었는지 여부를 추적하기 위한 useRef 사용
   const hasShownToastRef = useRef(false);
 
@@ -51,7 +39,13 @@ const AllLists = () => {
     <div className="w-full">
       {/* 동적 타이틀 */}
       <div className="flex flex-col items-start justify-center gap-1 self-stretch px-5 pb-1 pt-5">
-        {title && <h1 className="text-xl font-semibold">{title}</h1>}
+        {searchedKeyword ? (
+          <h1 className="text-xl font-semibold">{`${searchedKeyword}에 해당된 검색 결과입니다`}</h1>
+        ) : address || category ? (
+          <h1 className="text-xl font-semibold">필터링 된 검색 결과입니다</h1>
+        ) : (
+          <h1 className="text-xl font-semibold">봉사 전체</h1>
+        )}
       </div>
 
       {/* 로딩 중 상태 */}
