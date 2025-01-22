@@ -90,11 +90,10 @@ export const HomePillIcon = () => {
 
 export const MessageStrokeIcon = () => {
   return (
-    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
       <path
         d="M5 22L6.37943 17.8617C5.18723 16.0984 4.75594 14.0103 5.16576 11.9856C5.57559 9.96094 6.79863 8.13741 8.6075 6.85412C10.4164 5.57082 12.688 4.91508 14.9999 5.00882C17.3119 5.10256 19.5069 5.9394 21.1768 7.36375C22.8467 8.78809 23.8779 10.703 24.0787 12.7525C24.2794 14.8019 23.6361 16.8465 22.2682 18.5059C20.9004 20.1654 18.9011 21.3268 16.6422 21.7744C14.3833 22.2219 12.0183 21.925 9.98718 20.9389L5 22Z"
-        fill="#D9D9D9"
-        stroke="black"
+        stroke="#8E8E93"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
