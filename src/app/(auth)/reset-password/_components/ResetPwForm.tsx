@@ -35,19 +35,30 @@ const ResetPwForm = () => {
   };
 
   return (
-    <div className="w-[768px] max-w-full space-y-4">
-      <div className="space-y-4">
-        <p>아이디</p>
-        <AuthInput
-          type="email"
-          placeholder="이메일 형식으로 입력해주세요"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          errorMessage={error}
-        />
-        <Button className="btn-gray" onClick={handlePasswordReset} type="submit" label="비밀번호 재설정 링크 보내기" />
-      </div>
-      {message && <p className="text-green-500">{message}</p>}
+    <div className="sign_up_wrapper">
+      <p className="info_message_wrapper">
+        가입 시 입력한 비밀번호를 잊으셨나요?
+        <br />
+        비밀번호를 재설정할 수 있습니다
+      </p>
+      <label htmlFor="title" className="input_title_label">
+        아이디
+      </label>
+      <AuthInput
+        type="email"
+        id="title"
+        placeholder="이메일 형식으로 입력해주세요"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        errorMessage={error}
+      />
+      <Button
+        className="btn-pink mt-[28px]"
+        onClick={handlePasswordReset}
+        type="submit"
+        label="비밀번호 재설정 링크 보내기"
+      />
+      {message && <p className="">{message}</p>}
     </div>
   );
 };
