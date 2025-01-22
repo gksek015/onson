@@ -1,5 +1,6 @@
 'use client';
 
+import { Loading } from '@/components/common/Loading';
 import PostForm from '@/components/common/post/PostForm';
 import { BackIcon } from '@/components/icons/Icons';
 import { categories } from '@/data/categories';
@@ -11,7 +12,9 @@ const NewPostComp = () => {
   const router = useRouter();
 
   if (isLoading) {
-    return <div>로딩 중...</div>;
+    return (
+      <Loading/>
+    );
   }
 
   return (

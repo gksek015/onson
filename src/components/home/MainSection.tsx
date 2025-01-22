@@ -4,12 +4,13 @@ import AddressButton from '@/components/home/AddressButton';
 import HeroSection from '@/components/home/HeroSection';
 import useGetPostsbyFilter from '@/hooks/useGetPostsbyFilter';
 import VolunteerCard from './VolunteerCard';
+import { Loading } from '@/components/common/Loading';
 
 const MainSection = () => {
   const { data: posts, isPending } = useGetPostsbyFilter();
 
   if (isPending) {
-    return <div>Loading...</div>;
+    return <Loading/>;
   }
 
   const recentPosts = posts?.slice(0, 8);
