@@ -67,14 +67,14 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
 
       {/* 바텀시트 */}
       <BottomSheet id='sheetC'>
-        <div>
-          <div className="p-5">
+        <div className="flex h-full flex-col">
+          <div className="flex-grow overflow-y-auto px-5 pb-[90px]">
             <h3 className="mb-14 text-left text-2xl font-semibold text-[#000]">
               봉사 날짜를 <br />
               선택해 주세요
             </h3>
             <p className="mb-3 text-base font-semibold text-[#222227]">날짜 선택</p>
-            <div className="mb-16 flex justify-center border-t border-[#BEBEBE]">
+            <div className="flex justify-center border-t border-[#BEBEBE]">
               <Calendar
                 selectRange
                 onChange={(value) => handleRangeSelect(value as Date | Date[])}
@@ -87,7 +87,7 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
             </div>
           </div>
 
-          <div className="flex items-center justify-between rounded-t-md border-t border-gray-200 px-5 py-3">
+          <div className="bg-white fixed bottom-0 left-0 w-full flex items-center justify-between rounded-t-md border-t border-gray-200 px-5 py-3">
             <div className="flex flex-col">
               <p className="text-xs font-normal text-[#333]">봉사 날짜</p>
               {selectedRange && (

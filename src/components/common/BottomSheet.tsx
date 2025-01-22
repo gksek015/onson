@@ -1,17 +1,29 @@
 import clsx from 'clsx';
+import { useEffect } from 'react';
 import { useBottomSheetStore } from '@/utils/store/useBottomSheetStore';
 import { CloseIcon } from '../icons/Icons';
 
 interface BottomSheetProps {
-  id: string; // 바텀시트의 고유 ID
+  id: string;
   children: React.ReactNode;
 }
 
 export const BottomSheet = ({ id, children }: BottomSheetProps) => {
   const { activeId, close } = useBottomSheetStore();
 
-  // 현재 바텀시트가 활성 상태인지 확인
   const isOpen = activeId === id;
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('overflow-hidden'); // 스크롤 방지
+    } else {
+      document.body.classList.remove('overflow-hidden'); // 스크롤 허용
+    }
+
+    return () => {
+      document.body.classList.remove('overflow-hidden'); // 컴포넌트 언마운트 시 스크롤 복원
+    };
+  }, [isOpen]);
 
   return (
     <>
@@ -27,7 +39,7 @@ export const BottomSheet = ({ id, children }: BottomSheetProps) => {
       {/* 바텀시트 */}
       <div
         className={clsx(
-          'fixed left-0 top-0 z-50 h-full w-full transform bg-white shadow-lg transition-transform duration-300 rounded-t-2xl',
+          'fixed inset-x-0 bottom-0 z-50 h-full w-full transform bg-white rounded-t-2xl shadow-lg transition-transform duration-300 flex flex-col',
           {
             'translate-y-0': isOpen, // 열림 상태
             'translate-y-full': !isOpen, // 닫힘 상태
@@ -39,7 +51,7 @@ export const BottomSheet = ({ id, children }: BottomSheetProps) => {
             <CloseIcon />
           </button>
         </div>
-        <div className="overflow-y-auto max-h-full md:max-h-full">{children}</div>
+        {children}
       </div>
     </>
   );

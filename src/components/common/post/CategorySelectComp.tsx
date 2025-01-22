@@ -45,7 +45,7 @@ const CategorySelectComp = ({ categories, onSelectCategory, formData }: Category
 
       {/* 바텀시트 */}
       <BottomSheet id='sheetB'>
-        <div className="p-5">
+        <div className="flex-grow overflow-y-auto flex h-full flex-col p-5">
           <h2 className="mb-10 text-2xl font-semibold">봉사 종류</h2>
           <p className="mb-3 text-base font-semibold text-[#222227]">종류 선택</p>
           <ul className="space-y-4 border-t border-[#BEBEBE]">
@@ -56,7 +56,7 @@ const CategorySelectComp = ({ categories, onSelectCategory, formData }: Category
                 onClick={() => handleCheckboxChange(category)}
               >
                 <span className="text-base font-medium text-[#242628]">{category}</span>
-                <div className="flex items-center justify-center">
+                <div className="relative flex items-center justify-center">
                   <input
                     type="radio"
                     id={category}
