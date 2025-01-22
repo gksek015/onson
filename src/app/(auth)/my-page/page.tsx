@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import SetPageTitle from '@/app/(auth)/my-page/_components/SetPageTitle';
+import SetPageTitle from '@/app/(auth)/_components/SetPageTitle';
 import UserInfo from '@app/(auth)/my-page/_components/UserInfo';
 
 export const metadata: Metadata = {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const MyPage = () => {
   return (
-    <div>
+    <div className="auth_page_wrapper">
       <SetPageTitle title="마이 페이지" />
       <UserInfo />
     </div>

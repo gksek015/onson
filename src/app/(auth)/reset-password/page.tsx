@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
+import SetPageTitle from '@app/(auth)/_components/SetPageTitle';
 import ResetPwForm from '@app/(auth)/reset-password/_components/ResetPwForm';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'ON:SON 비밀번호 재설정',
@@ -10,9 +10,8 @@ export const metadata: Metadata = {
 
 const ResetPwPage = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-4">
-      <Link href="/">뒤로</Link>
-      <h1 className="mb-8 text-3xl font-bold">비밀번호 재설정</h1>
+    <div className="auth_page_wrapper">
+      <SetPageTitle title="비밀번호 재설정" />
       <ResetPwForm />
     </div>
   );
