@@ -19,19 +19,6 @@ body {
   font-family: 'Pretendard', sans-serif;
 }
 
-/* 자간 */
-.letter-spacing-main-title {
-  letter-spacing: -0.252px
-}
-
-.letter-spacing-detail-content {
-  letter-spacing: -0.4px;
-}
-
-.letter-spacing-detail-title {
-  letter-spacing: -0.5px;
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -107,9 +94,15 @@ body {
 }
 
 .Toastify__toast-theme--dark {
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 .Toastify__toast {
   width: unset;
+  border-radius: 15px;
+  min-height: unset;
+  margin-top: 55px;
+  font-size: 14px;
+  padding: 10px;
+  font-weight: 100;
 }

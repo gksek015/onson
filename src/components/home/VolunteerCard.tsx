@@ -38,11 +38,11 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
             {`${formattedStart}~${formattedEnd}`}
           </span>
         </div>
-
+ 
         <div className="flex w-full flex-1 items-start justify-between gap-2">
           <div className="flex flex-1 flex-col items-start gap-2">
             {/* 제목 */}
-            <div className="tracking-custom text-lg font-medium leading-7 text-black">{post.title}</div>
+            <div className="tracking-custom text-lg font-medium leading-7 text-black ">{post.title}</div>
             {/* 주소 */}
             <div className="flex items-center gap-2 self-stretch">
               <MapPinIcon />
@@ -51,7 +51,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
               </span>
             </div>
             {/* 작성자 */}
-            <div className="flex items-start gap-3 self-stretch text-sm text-[#7e7e7e]">
+            <div className="flex leading-4 items-start gap-3 self-stretch text-sm text-[#7e7e7e]">
               <span>{post.users.nickname}</span>
               <span>{post.created_at.split('T')[0]}</span>
             </div>
