@@ -1,7 +1,10 @@
 'use client';
 
 import { RightArrowForChatIcon, UnReadMarkIcon } from '@/components/icons/Icons';
+import { deleteChatRoom } from '@/lib/chats/deleteChatRoom';
 import type { ChatRoom } from '@/types/chatType';
+import { useState } from 'react';
+import Swal from 'sweetalert2';
 
 interface ChatListProps {
   chatRooms: (ChatRoom & { otherNickname: string | null })[];
@@ -10,6 +13,8 @@ interface ChatListProps {
 }
 
 const ChatList = ({ chatRooms, onSelectRoom, unreadMessagesMap }: ChatListProps) => {
+  const [deletingRoomId, setDeletingRoomId] = useState<string | null>(null);
+
   const formatDate = (created_at: string | null) => {
     if (!created_at) return '날짜 없음'; // 예외 처리
 
@@ -29,6 +34,27 @@ const ChatList = ({ chatRooms, onSelectRoom, unreadMessagesMap }: ChatListProps)
     return new Date(bLastMessage).getTime() - new Date(aLastMessage).getTime();
   });
 
+  const handleDeleteRoom = async (chatId: string) => {
+    Swal.fire({
+      title: '정말 삭제하시겠습니까?',
+      text: '이 작업은 되돌릴 수 없습니다.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '삭제',
+      cancelButtonText: '취소'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deleteChatRoom(chatId);
+          Swal.fire('삭제됨!', '채팅방이 삭제되었습니다.', 'success');
+          window.location.reload(); // 간단히 새로고침
+        } catch (error) {
+          Swal.fire('오류!', '채팅방 삭제 중 문제가 발생했습니다.', 'error');
+        }
+      }
+    });
+  };
+
   return (
     <>
       {sortedRooms.map((room) => {
@@ -40,6 +66,7 @@ const ChatList = ({ chatRooms, onSelectRoom, unreadMessagesMap }: ChatListProps)
             key={room.id}
             className="mb-2 mt-2 flex w-full flex-col px-5 py-3 text-left"
             onClick={() => onSelectRoom(room.id, room.otherNickname || '사용자가 없습니다.')}
+            // {...(() => setDeletingRoomId(room.id), { delay: 2000 })}
           >
             {/* 상단: 닉네임과 날짜+화살표 */}
             <div className="flex w-full items-center justify-between">
