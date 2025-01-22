@@ -9,8 +9,10 @@ import { updateNickname } from '@lib/actions/auth/action';
 import Button from '@/components/common/Button';
 import AuthInput from '@app/(auth)/_components/AuthInput';
 
+import { CameraIcon } from '@/components/icons/Icons';
 import { useUserStore } from '@/utils/store/userStore';
 import { nicknameSchema } from '@lib/revalidation/userSchema';
+import Swal from 'sweetalert2';
 
 // 닉네임 유효성 검사 스키마
 type NicknameFormData = z.infer<typeof nicknameSchema>;
@@ -40,32 +42,47 @@ const ProfileUpdate = () => {
       if (user) {
         setUser({ ...user, nickname: data.nickname });
       }
-      alert('닉네임이 변경되었습니다.');
+      await Swal.fire({
+        title: '닉네임 변경 완료',
+        text: '닉네임이 변경되었습니다.',
+        icon: 'success',
+        confirmButtonText: '확인'
+      });
     } catch (err) {
       // 에러 메시지 처리
       console.error('닉네임 업데이트 중 오류:', err);
-      alert('닉네임 업데이트 중 문제가 발생했습니다.');
+      await Swal.fire({
+        title: '오류',
+        text: '닉네임 업데이트 중 문제가 발생했습니다.',
+        icon: 'error',
+        confirmButtonText: '확인'
+      });
     }
   };
 
   return (
-    <div className="flex flex-col px-4 py-6">
-      <div className="mb-4 flex items-center">
-        <div className="h-[52px] w-[52px] rounded-full border-[2px] border-[#ECEDEE]"></div>
-        <div className="ml-4">
-          <span className="text-lg font-bold">{user?.nickname || '사용자 이름'}</span>
+    <div className="my_profile_wrapper">
+      <div className="flex items-center">
+        <div className="flex h-[52px] w-[52px] items-center justify-center rounded-full border-[2px] border-[#ECEDEE]">
+          <CameraIcon color="#D1D4D6" width="26" height="26" />
+        </div>
+        <div className="ml-[8px]">
+          <span className="input_title_label">{user?.nickname || '사용자 이름'}</span>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <p>닉네임 수정</p>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="nickname" className="input_title_label mt-[24px]">
+          닉네임 수정
+        </label>
         <AuthInput
           type="text"
+          id="nickname"
           placeholder="닉네임을 입력하세요"
           {...register('nickname')}
           errorMessage={errors.nickname?.message}
         />
-        <Button type="submit" className="btn-gray w-full" label="저장" />
+        <Button type="submit" className="btn-pink mt-[28px]" label="저장" />
       </form>
     </div>
   );

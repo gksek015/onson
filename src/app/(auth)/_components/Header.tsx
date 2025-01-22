@@ -21,8 +21,8 @@ const Header = () => {
   };
 
   return (
-    <div className="relative border-b px-2 py-4">
-      <button className="absolute left-0 top-1/2 -translate-y-1/2" onClick={handleBack}>
+    <div className="relative flex h-[60px] items-center justify-center leading-[60px]">
+      <button className="absolute left-0 top-1/2 -translate-y-1/2 pl-[18px]" onClick={handleBack}>
         <BackButtonIcon />
       </button>
 

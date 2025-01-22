@@ -8,10 +8,10 @@ const AuthInput = React.forwardRef<HTMLInputElement, InputProps>((props, ref) =>
   const { type, placeholder, errorMessage, ...rest } = props;
 
   return (
-    <div className="relative">
+    <>
       <input className={'common_input'} placeholder={placeholder} type={type} ref={ref} {...rest} />
-      {errorMessage && <p className="text-xs text-red-500">{errorMessage}</p>}
-    </div>
+      {errorMessage && <p className="common_input_err_massege">{errorMessage}</p>}
+    </>
   );
 });
 

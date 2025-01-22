@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const MyPage = () => {
   return (
-    <div>
+    <div className="auth_page_wrapper">
       <SetPageTitle title="마이 페이지" />
       <UserInfo />
     </div>

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const page = () => {
   return (
-    <div>
+    <div className="auth_page_wrapper">
       <SetPageTitle title="프로필 수정" />
       <ProfileUpdate />
     </div>

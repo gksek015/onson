@@ -42,36 +42,34 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="h-[calc(100vh-60px)] overflow-y-auto pb-20">
-      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-        <div className="mt-7 space-y-7 px-5">
-          <label htmlFor="title" className="block text-base font-semibold">
+    <>
+      <div className="login_wrapper">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <label htmlFor="title" className="input_title_label">
             아이디
           </label>
           <AuthInput
             type="email"
             id="title"
-            placeholder="email"
+            placeholder="email를 입력해주세요"
             {...register('email')}
             errorMessage={errors.email?.message}
           />
-          <label htmlFor="password" className="block text-base font-semibold">
+          <label htmlFor="password" className="input_title_label mt-[12px]">
             비밀번호
           </label>
           <AuthInput
             type="password"
             id="password"
-            placeholder="비밀번호를 입력하세요"
+            placeholder="비밀번호를 입력해주세요"
             {...register('password')}
             errorMessage={errors.password?.message}
           />
-          <Button className="btn-primary-3" type="submit" label="로그인" />
-          <div className="mt-4 flex justify-center">
-            <Button className="btn-yellow" type="button" onClick={kakaoLogin} label="카카오 소셜로그인" />
-          </div>
-        </div>
-      </form>
-    </div>
+          <Button className="btn-pink mt-[28px]" type="submit" label="로그인" />
+          <Button className="btn-kakao mt-[10px]" type="button" onClick={kakaoLogin} label="카카오 소셜로그인" />
+        </form>
+      </div>
+    </>
   );
 };
 
