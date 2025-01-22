@@ -1,5 +1,6 @@
 'use client';
 
+import { Loading } from '@/components/common/Loading';
 import VolunteerCard from '@/components/home/VolunteerCard';
 import { WarningIcon } from '@/components/icons/Icons';
 import useGetPostsbyFilter from '@/hooks/useGetPostsbyFilter';
@@ -55,7 +56,7 @@ const AllLists = () => {
       </div>
 
       {/* 로딩 중 상태 */}
-      {isPending && <p>로딩 중...</p>}
+      {isPending && <Loading/>}
 
       {/* 에러 메시지 */}
       {isError && <p className="text-red-500">에러발생</p>}
