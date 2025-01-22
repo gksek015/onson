@@ -1,6 +1,6 @@
 /* 캘린더 전체 스타일 */
 .custom-calendar {
-  margin: 0 auto;
+  margin-bottom: 20px;
   background: white;
   border: none;
 }
@@ -41,7 +41,7 @@
   color: white;
   border-radius: 50%; /* 동그라미 */
   position: relative;
-  z-index: 2;
+  z-index: 0;
 }
 
 /* 끝 날짜 스타일 */
@@ -50,7 +50,7 @@
   color: white;
   border-radius: 50%; /* 동그라미 */
   position: relative;
-  z-index: 2;
+  z-index: 0;
 }
 
 .custom-calendar .react-calendar__tile--active:enabled:hover{
