@@ -11,6 +11,7 @@ import AuthInput from '@app/(auth)/_components/AuthInput';
 
 import { supabase } from '@/utils/supabase/client';
 import { userLoginSchema } from '@lib/revalidation/userSchema';
+import Swal from 'sweetalert2';
 
 type LoginFormData = z.infer<typeof userLoginSchema>;
 
@@ -24,11 +25,43 @@ const LoginForm = () => {
   });
 
   const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-    await login(formData);
+    try {
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+
+      const result = await login(formData);
+
+      if (result.success) {
+        // 성공 알림
+        await Swal.fire({
+          title: '로그인 성공',
+          text: result.message,
+          icon: 'success',
+          confirmButtonText: '확인'
+        });
+
+        // 리다이렉트
+        window.location.href = '/';
+      } else {
+        // 실패 알림
+        await Swal.fire({
+          title: '로그인 실패',
+          text: result.message,
+          icon: 'error',
+          confirmButtonText: '확인'
+        });
+      }
+    } catch (err) {
+      console.error('로그인 중 오류 발생:', err);
+      await Swal.fire({
+        title: '오류',
+        text: '예상치 못한 문제가 발생했습니다.',
+        icon: 'error',
+        confirmButtonText: '확인'
+      });
+    }
   };
 
   const kakaoLogin = async () => {

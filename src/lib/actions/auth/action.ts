@@ -50,26 +50,38 @@ export const signup = async (formData: FormData) => {
 
 // 로그인
 export const login = async (formData: FormData) => {
-    const supabase = createClient();
-  
-    const result = userLoginSchema.safeParse({
-      email: formData.get('email') as string,
-      password: formData.get('password') as string
-    });
-  
-    if (!result.success) {
-      throw new Error(JSON.stringify(result.error.flatten().fieldErrors));
-    }
-  
-    const { email, password } = result.data;
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) {
-      throw new Error(error.message);
-    }
-  
-    redirect('/');
+  const supabase = createClient();
+
+  const result = userLoginSchema.safeParse({
+    email: formData.get('email') as string,
+    password: formData.get('password') as string,
+  });
+
+  if (!result.success) {
+    return {
+      success: false,
+      message: '유효하지 않은 입력입니다.',
+    };
+  }
+
+  const { email, password } = result.data;
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+  if (error) {
+    return {
+      success: false,
+      message: error.message.includes('Invalid login credentials')
+        ? '이메일 또는 비밀번호가 올바르지 않습니다.'
+        : '로그인 중 문제가 발생했습니다.',
+    };
+  }
+
+  return {
+    success: true,
+    message: '로그인 성공!',
   };
-  
+};
+
   
 
 
@@ -86,7 +98,7 @@ export const checkSupabaseSession = async () => {
     }
 
     const user = data.user;
-    
+
     if (user) {
       return {
         isLoggedIn: true,
