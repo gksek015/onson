@@ -43,6 +43,10 @@ const ChatInBox = ({ selectedChatId, userId, onEnterChatRoom, onBackToList }: Ch
     refetch(userId); // 상태 갱신
   };
 
+  const handleDeleteRoom = (chatId: string) => {
+    setChatRooms((prevRooms) => prevRooms.filter((room) => room.id !== chatId));
+  };
+
   if (isError) return <p>Error loading chat rooms</p>;
   if (!chatRooms.length) return <p className="text-black">No chats available.</p>;
 
@@ -50,7 +54,12 @@ const ChatInBox = ({ selectedChatId, userId, onEnterChatRoom, onBackToList }: Ch
     <ChatMessage selectedChatId={selectedChatId} userId={userId} onBackToList={onBackToList} />
   ) : (
     <div className="pb-20">
-      <ChatList chatRooms={chatRooms} onSelectRoom={handleSelectRoom} unreadMessagesMap={unreadMessages || {}} />
+      <ChatList
+        chatRooms={chatRooms}
+        onDeleteRoom={handleDeleteRoom}
+        onSelectRoom={handleSelectRoom}
+        unreadMessagesMap={unreadMessages || {}}
+      />
     </div>
   );
 };
