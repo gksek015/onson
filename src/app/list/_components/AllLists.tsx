@@ -34,8 +34,11 @@ const AllLists = () => {
     initialPageParam: 0
   });
 
+  console.log('filteredPosts', filteredPosts);
+  console.log('posts', posts);
+
   const { ref } = useInView({
-    threshold: 0,
+    threshold: 1,
     onChange: (inView) => {
       if (inView && hasNextPage && !isFetchingNextPage) {
         fetchNextPage();
@@ -100,7 +103,7 @@ const AllLists = () => {
       )}
 
       {/* 아무 결과가 없을 때 */}
-      {(!address || !category || !searchedKeyword || !posts) && (
+      {filteredPosts?.length === 0 && (
         <div className="flex h-full flex-col items-center justify-center pt-40">
           <div className="mb-4">
             <WarningIcon />
