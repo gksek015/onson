@@ -28,8 +28,9 @@ const SignUpForm = () => {
     Object.entries(data).forEach(([key, value]) => {
       formData.append(key, value);
     });
-    await signup(formData);
 
+    const abc = await signup(formData);
+    console.log('abc------------------------------>', abc);
     await Swal.fire({
       title: '가입을 환영합니다.',
       text: '온손과 함께 따뜻한 손길을 나눠보세요.',
