@@ -66,7 +66,7 @@ const Header = ({ postPageId }: PostDetailProps) => {
   };
 
   return (
-    <div className="flex items-center justify-between border-b px-2 py-2">
+    <div className="flex items-center justify-between border-b px-2 py-2 h-12">
       <button onClick={handleBack}>
         <BackButtonIcon />
       </button>

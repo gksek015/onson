@@ -21,12 +21,12 @@ const PostTags = ({ category, startDate, endDate, isPostClosed }: PostTagsProps)
       </span>
 
       {/* 날짜(기간) 태그 */}
-      <span className="rounded-full bg-secondary-2 px-3 py-1 text-secondary-1">
+      <span className="rounded-full bg-secondary-2 px-3 py-1 text-secondary-1 font-medium">
         {formattedStart} ~ {formattedEnd}
       </span>
 
       {/* 카테고리 태그 */}
-      <span className="bg-secondary-2 text-secondary-1 rounded-full px-3 py-1">{category}</span>
+      <span className="bg-secondary-2 text-secondary-1 rounded-full px-3 py-1 font-medium">{category}</span>
     </div>
   );
 };
