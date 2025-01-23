@@ -1,6 +1,5 @@
 'use server';
 
-import { redirect } from 'next/navigation';
 
 import { userLoginSchema } from '@lib/revalidation/userSchema';
 
@@ -38,13 +37,14 @@ export const signup = async (formData: FormData) => {
 
     if (error) {
       console.error('회원가입 오류:', error.message);
-      redirect('/error');
+      // redirect('/error');
+      return error?.message;
     }
   
     console.log('회원가입 성공:', userData);
   
     // 트리거가 삽입을 처리하므로 추가 삽입 호출 제거
-    redirect('/login');
+    // redirect('/login');
   };
   
 
