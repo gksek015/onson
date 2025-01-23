@@ -25,6 +25,8 @@ const config: Config = {
       },
       letterSpacing: {
         'custom': '-0.252px', // 커스텀 값 추가
+        'title' : '-0.5px',
+        'content' : '-0.4px'
       }
     }
   },

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './customCalendar.css';
+import { useBottomSheetStore } from '@/utils/store/useBottomSheetStore';
 
 interface DateCompProps {
   onSelectRange: (range: [Date, Date]) => void;
@@ -14,7 +15,7 @@ interface DateCompProps {
 }
 
 const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
-  const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
+    const { open, close } = useBottomSheetStore();
   const [selectedRange, setSelectedRange] = useState<[Date, Date] | null>(null);
 
   // formData 값을 기반으로 selectedRange 초기화
@@ -27,8 +28,6 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
     }
   }, [formData.date, formData.end_date]);
 
-  const handleOpen = () => setIsSheetOpen(true);
-  const handleClose = () => setIsSheetOpen(false);
 
   const handleRangeSelect = (range: Date | Date[]) => {
     if (Array.isArray(range) && range.length === 2) {
@@ -61,21 +60,21 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
         type="text"
         value={formatRange(formData.date, formData.end_date)}
         placeholder="기간을 선택하세요"
-        onClick={handleOpen}
+        onClick={() => open('sheetC')}
         readOnly
-        className="h-12 w-full rounded-[8px] border border-[#A1A6AA] px-2 text-base placeholder-[#868C92]"
+        className="tracking-[-0.4px] h-12 w-full rounded-[8px] border border-[#A1A6AA] px-3 py-[10px] text-base placeholder-[#868C92]"
       />
 
       {/* 바텀시트 */}
-      <BottomSheet isOpen={isSheetOpen} onClose={handleClose}>
-        <div>
-          <div className="p-5">
+      <BottomSheet id='sheetC'>
+        <div className="flex h-full flex-col">
+          <div className="flex-grow overflow-y-auto px-5 pb-[90px]">
             <h3 className="mb-14 text-left text-2xl font-semibold text-[#000]">
               봉사 날짜를 <br />
               선택해 주세요
             </h3>
             <p className="mb-3 text-base font-semibold text-[#222227]">날짜 선택</p>
-            <div className="mb-20 flex justify-center border-t border-[#BEBEBE]">
+            <div className="flex justify-center border-t border-[#BEBEBE]">
               <Calendar
                 selectRange
                 onChange={(value) => handleRangeSelect(value as Date | Date[])}
@@ -88,7 +87,7 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
             </div>
           </div>
 
-          <div className="flex items-center justify-between rounded-t-md border-t border-gray-200 px-5 py-3">
+          <div className="bg-white fixed bottom-0 left-0 w-full flex items-center justify-between rounded-t-md border-t border-gray-200 px-5 py-3">
             <div className="flex flex-col">
               <p className="text-xs font-normal text-[#333]">봉사 날짜</p>
               {selectedRange && (
@@ -101,7 +100,7 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
             </div>
             <button
               type="button"
-              onClick={handleClose}
+              onClick={close}
               className="bg-primary-3 w-28 rounded-[8px] px-4 py-3 font-semibold text-[#FFF] hover:bg-gray-300"
             >
               선택하기

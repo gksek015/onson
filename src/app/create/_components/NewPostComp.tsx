@@ -1,5 +1,6 @@
 'use client';
 
+import { Loading } from '@/components/common/Loading';
 import PostForm from '@/components/common/post/PostForm';
 import { BackIcon } from '@/components/icons/Icons';
 import { categories } from '@/data/categories';
@@ -11,7 +12,9 @@ const NewPostComp = () => {
   const router = useRouter();
 
   if (isLoading) {
-    return <div>로딩 중...</div>;
+    return (
+      <Loading/>
+    );
   }
 
   return (
@@ -20,11 +23,11 @@ const NewPostComp = () => {
         <button onClick={() => router.back()} className="absolute left-4">
           <BackIcon />
         </button>
-        <h1 className="text-center text-lg font-bold">봉사 요청</h1>
+        <h1 className="text-center text-xl font-bold tracking-[-0.5px]">봉사요청</h1>
         <button
           type="submit"
           onClick={isFormValid() ? handleSubmit : undefined}
-          className={`absolute right-4 font-semibold ${isFormValid() ? 'text-[#4E4E4E]' : 'text-[#B4B4B4]'} `}
+          className={`absolute right-4 text-xl font-medium ${isFormValid() ? 'text-[#4E4E4E]' : 'text-[#B4B4B4]'} `}
           disabled={!isFormValid()}
         >
           등록

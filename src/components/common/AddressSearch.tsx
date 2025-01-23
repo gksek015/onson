@@ -72,8 +72,8 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
   };
 
   return (
-    <div className="p-5 md:p-10">
-      <h1 className="mb-6 text-2xl md:text-4xl">위치</h1>
+    <div className="flex-grow overflow-y-auto flex h-full flex-col p-5 md:p-10">
+      <h1 className="mb-6 text-2xl md:text-4xl font-semibold tracking-[-0.55px] leading-7">위치</h1>
 
       {/* 검색 입력 필드 */}
       <div className="relative flex w-auto items-center gap-2">
@@ -95,8 +95,8 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
         </button>
       </div>
 
-      {/* 현재 위치 */}
-      <div className="flex justify-center gap-1.5 rounded-lg bg-[#FFF5EC] px-3 py-2 text-base text-[#FB657E]">
+      {/* 현재 내 위치 */}
+      <div className="flex justify-center gap-1.5 rounded-lg font-semibold tracking-content bg-[#FFF5EC] px-3 py-2 text-base text-[#FB657E]">
         <MapPinIcon color="#FB657E" />
         <button onClick={handleGetCurrentLocation} disabled={geoLoading}>
           {geoLoading ? '불러오는 중...' : '현재 내 위치 입력하기'}
@@ -110,11 +110,11 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
       {error && <p className="text-red-500">{error}</p>}
 
       {/* 주소 검색 || 현위치 검색 결과 */}
-      <ul className='p-3'>
+      <ul className='flex flex-col gap-2 px-3 py-5 overflow-y-scroll text-[#3C4043]'>
         {searchResults.map((juso, index) => (
           <li
             key={index}
-            className="py-2.5 text-base md:text-2xl"
+            className="py-2.5 text-base font-semibold cursor-pointer tracking-content md:text-2xl"
             onClick={() => {
               // 검색하는 기능은 'search' / 새글 작성 시 선택하는 기능에서는 'select'로 따로 option줘서 onClick 분리하기
               const addressList = juso.split(' ');
