@@ -3,6 +3,7 @@
 import {useGetPostById} from '@/hooks/useGetPostById';
 import ImageSwiper from './ImageSwiper';
 import PostContent from './PostContent';
+import { Loading } from '@/components/common/Loading';
 
 interface PostDetailProps {
   postPageId: string;
@@ -12,7 +13,10 @@ const PostDetail = ({ postPageId }: PostDetailProps) => {
   const { data: post, isPending, isError } = useGetPostById(postPageId);
 
   // TODO: 로딩중 스피너로 변경하기
-  if (isPending) return <div>로딩중...</div>;
+  if (isPending) 
+    return (
+  <Loading/>
+);
   if (isError || !post) return <div>에러 발생</div>;
 
   return (

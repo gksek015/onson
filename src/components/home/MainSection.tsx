@@ -13,7 +13,7 @@ const MainSection = () => {
     return <Loading/>;
   }
 
-  const recentPosts = posts?.slice(0, 8);
+  const recentPosts = posts?.slice(0, 9);
 
   return (
     <>
