@@ -5,13 +5,16 @@ import PostForm from '@/components/common/post/PostForm';
 import { categories } from '@/data/categories';
 import { useUpdatePost } from '@/hooks/useUpdatePost';
 import { BackButtonIcon } from '@/components/icons/Icons';
+import { Loading } from '@/components/common/Loading';
 
 const UpdatePostComp = () => {
   const { id: postId } = useParams();
   const { formData, setFormData, isAuthorized, loading, handleUpdate, navigateToDetail } = useUpdatePost(postId as string);
 
   if (loading) {
-    return <p>로딩 중...</p>;
+    return (
+    <Loading/>
+  );
   }
 
   return isAuthorized ? (
