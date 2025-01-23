@@ -34,9 +34,6 @@ const AllLists = () => {
     initialPageParam: 0
   });
 
-  console.log('filteredPosts', filteredPosts);
-  console.log('posts', posts);
-
   const { ref } = useInView({
     threshold: 1,
     onChange: (inView) => {
