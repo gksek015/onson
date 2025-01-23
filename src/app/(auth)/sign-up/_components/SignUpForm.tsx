@@ -10,11 +10,13 @@ import AuthInput from '@app/(auth)/_components/AuthInput';
 
 import { signup } from '@lib/actions/auth/action';
 import { userSignUpSchema } from '@lib/revalidation/userSchema';
+import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 
 type SignUpFormData = z.infer<typeof userSignUpSchema>;
 
 const SignUpForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -29,14 +31,20 @@ const SignUpForm = () => {
       formData.append(key, value);
     });
 
-    const abc = await signup(formData);
-    console.log('abc------------------------------>', abc);
+    const bugtest = await signup(formData);
+    console.log('bugtest------------------------------>', bugtest);
+
     await Swal.fire({
       title: '가입을 환영합니다.',
       text: '온손과 함께 따뜻한 손길을 나눠보세요.',
       icon: 'success',
       confirmButtonText: '확인'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        router.push('/login');
+      }
     });
+    return;
   };
 
   return (
