@@ -59,7 +59,7 @@ const ChatList = ({ chatRooms, onSelectRoom, onDeleteRoom, unreadMessagesMap }: 
     }
   };
 
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>, roomId: string) => {
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     e.stopPropagation(); // 이벤트 전파 중단
     touchStartXRef.current = e.touches[0].clientX; // 터치 시작 위치 저장
   };
@@ -94,7 +94,7 @@ const ChatList = ({ chatRooms, onSelectRoom, onDeleteRoom, unreadMessagesMap }: 
           <div
             key={room.id}
             className="relative mb-2 mt-2 flex w-full flex-col"
-            onTouchStart={(e) => handleTouchStart(e, room.id)}
+            onTouchStart={(e) => handleTouchStart(e)}
             onTouchMove={(e) => handleTouchMove(e, room.id)}
             onTouchEnd={(e) => e.stopPropagation()} // 터치 종료 이벤트
           >
