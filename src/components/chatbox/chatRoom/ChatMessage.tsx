@@ -79,7 +79,7 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
         {messages.map((msg, idx) => (
           <div key={idx} className={`mb-2 ${msg.user_id === userId ? 'text-right' : 'text-left'}`}>
             <span
-              className={`inline-block px-[18px] py-2 leading-6 ${
+              className={`inline-block max-w-[80%] break-words px-[18px] py-2 leading-6 ${
                 msg.user_id === userId
                   ? 'rounded-l-lg rounded-tr-lg bg-[#FB657E] text-white'
                   : 'rounded-b-lg rounded-tr-lg bg-white text-black'
