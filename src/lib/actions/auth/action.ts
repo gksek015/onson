@@ -86,7 +86,7 @@ export const checkSupabaseSession = async () => {
     }
 
     const user = data.user;
-
+    
     if (user) {
       return {
         isLoggedIn: true,
@@ -111,12 +111,13 @@ export const checkSupabaseSession = async () => {
 
   
 
-export const updateNickname = async (formData: FormData) => {
+export const updateNicknameAndImage = async (formData: FormData) => {
   try {
     const supabase = createClient();
 
-    // 닉네임 데이터 가져오기
+    // 닉네임과 이미지 데이터 가져오기
     const nickname = formData.get('nickname') as string;
+    const image = formData.get('profileImage') as File | null;
 
     if (!nickname || nickname.trim().length === 0) {
       throw new Error('닉네임을 입력해주세요.');
@@ -137,9 +138,40 @@ export const updateNickname = async (formData: FormData) => {
       throw new Error('로그인이 필요합니다.');
     }
 
+    let profileImageUrl = user.user_metadata?.profileImage || null;
+
+    // 이미지 업로드 처리
+    if (image) {
+      const bucketName = 'users_bucket';
+
+      // 고유한 파일 이름 생성
+      const filename = `${user.id}-${Date.now()}.${image.name.split('.').pop()}`;
+
+      // Supabase 스토리지에 이미지 업로드
+      const { error: uploadError } = await supabase.storage
+        .from(bucketName)
+        .upload(filename, image);
+
+      if (uploadError) {
+        console.error('이미지 업로드 오류:', uploadError.message);
+        throw new Error('이미지 업로드 중 오류가 발생했습니다.');
+      }
+
+      // 업로드된 이미지의 퍼블릭 URL 가져오기
+      const { data: publicUrlData } = supabase.storage
+        .from(bucketName)
+        .getPublicUrl(filename);
+
+      if (!publicUrlData) {
+        throw new Error('업로드된 이미지의 URL을 가져올 수 없습니다.');
+      }
+
+      profileImageUrl = publicUrlData.publicUrl;
+    }
+
     // 닉네임 업데이트
     const { error: updateError } = await supabase.auth.updateUser({
-      data: { nickname },
+      data: { nickname, profileImage: profileImageUrl },
     });
 
     if (updateError) {
@@ -147,21 +179,21 @@ export const updateNickname = async (formData: FormData) => {
       throw new Error('닉네임 업데이트에 실패했습니다.');
     }
 
-    // 추가로 사용자 테이블에 업데이트가 필요한 경우
+    // 사용자 테이블 업데이트
     const { error: userTableError } = await supabase
       .from('users')
-      .update({ nickname })
+      .update({ nickname, profile_img_url: profileImageUrl })
       .eq('id', user.id);
 
     if (userTableError) {
       console.error('사용자 테이블 업데이트 오류:', userTableError.message);
-      throw new Error('닉네임 업데이트 중 오류가 발생했습니다.');
+      throw new Error('닉네임 및 이미지 업데이트 중 오류가 발생했습니다.');
     }
 
-    // 성공 시 리디렉션 또는 성공 메시지 반환
-    console.log('닉네임 업데이트 성공');
+    return { nickname, profileImageUrl };
   } catch (err) {
-    console.error('닉네임 수정 중 오류 발생:', err);
+    console.error('닉네임 및 이미지 수정 중 오류 발생:', err);
     throw new Error(err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다.');
   }
 };
+
