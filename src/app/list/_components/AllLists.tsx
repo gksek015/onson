@@ -100,22 +100,12 @@ const AllLists = () => {
       )}
 
       {/* 아무 결과가 없을 때 */}
-      {!address || !category || !searchedKeyword || !posts ? (
+      {(!address || !category || !searchedKeyword || !posts) && (
         <div className="flex h-full flex-col items-center justify-center pt-40">
           <div className="mb-4">
             <WarningIcon />
           </div>
           <p className="text-base text-[#C5C5C5]">검색 결과가 없습니다.</p>
-        </div>
-      ) : (
-        <div className="flex flex-col items-start justify-center gap-1 self-stretch px-5 pb-1 pt-5">
-          {searchedKeyword ? (
-            <h1 className="text-xl font-semibold">{`${searchedKeyword}에 해당된 검색 결과입니다`}</h1>
-          ) : address || category ? (
-            <h1 className="text-xl font-semibold">필터링 된 검색 결과입니다</h1>
-          ) : (
-            <h1 className="text-xl font-semibold">봉사 전체</h1>
-          )}
         </div>
       )}
     </div>
