@@ -9,15 +9,16 @@ const HeroSection = () => {
   const { isOpen, openModal, closeModal } = useModal();
 
   return (
-    <div>
+    <>
       <Image
         src={banner}
         alt="hero section image"
         onClick={openModal}
+        priority
       />
 
       {isOpen && <ChatBoxModal onClose={closeModal} />}
-    </div>
+    </>
   );
 };
 

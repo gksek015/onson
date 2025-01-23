@@ -4,6 +4,7 @@ import { getCurrentPosition } from '@/lib/location/getCurrentPosition';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { MapPinIcon, SearchIcon } from '../icons/Icons';
+import { Loading } from './Loading';
 
 interface AddressSearchProps {
   onAddressSelect?: (searchKeyword: string) => void; // 부모로 콜백 전달
@@ -72,8 +73,8 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
   };
 
   return (
-    <div className="p-5 md:p-10">
-      <h1 className="mb-6 text-2xl md:text-4xl">위치</h1>
+    <div className="flex h-full flex-grow flex-col overflow-y-auto p-5 md:p-10">
+      <h1 className="mb-6 text-2xl font-semibold leading-7 tracking-[-0.55px] md:text-4xl">위치</h1>
 
       {/* 검색 입력 필드 */}
       <div className="relative flex w-auto items-center gap-2">
@@ -95,8 +96,8 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
         </button>
       </div>
 
-      {/* 현재 위치 */}
-      <div className="flex justify-center gap-1.5 rounded-lg bg-[#FFF5EC] px-3 py-2 text-base text-[#FB657E]">
+      {/* 현재 내 위치 */}
+      <div className="flex justify-center gap-1.5 rounded-lg bg-[#FFF5EC] px-3 py-2 text-base font-semibold tracking-content text-[#FB657E]">
         <MapPinIcon color="#FB657E" />
         <button onClick={handleGetCurrentLocation} disabled={geoLoading}>
           {geoLoading ? '불러오는 중...' : '현재 내 위치 입력하기'}
@@ -104,17 +105,17 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
       </div>
 
       {/* 로딩 상태 */}
-      {loading && <p>검색 중...</p>}
+      {loading && <Loading />}
 
       {/* 에러 메시지 */}
       {error && <p className="text-red-500">{error}</p>}
 
       {/* 주소 검색 || 현위치 검색 결과 */}
-      <ul>
+      <ul className="flex flex-col gap-2 overflow-y-scroll px-3 py-5 text-[#3C4043]">
         {searchResults.map((juso, index) => (
           <li
             key={index}
-            className="m-3 py-1 text-base md:text-2xl"
+            className="cursor-pointer py-2.5 text-base font-semibold tracking-content md:text-2xl"
             onClick={() => {
               // 검색하는 기능은 'search' / 새글 작성 시 선택하는 기능에서는 'select'로 따로 option줘서 onClick 분리하기
               const addressList = juso.split(' ');

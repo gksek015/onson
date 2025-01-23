@@ -30,13 +30,11 @@ const MyBookmarks = () => {
   }
 
   return (
-    <div className="mx-auto w-full max-w-2xl space-y-4">
-      <div className="space-y-4">
-        {bookmarkedPosts.map((post) => (
-          <VolunteerCard key={post.id} post={post} />
-        ))}
-      </div>
-    </div>
+    <>
+      {bookmarkedPosts.map((post) => (
+        <VolunteerCard key={post.id} post={post} />
+      ))}
+    </>
   );
 };
 

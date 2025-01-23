@@ -5,13 +5,16 @@ import PostForm from '@/components/common/post/PostForm';
 import { categories } from '@/data/categories';
 import { useUpdatePost } from '@/hooks/useUpdatePost';
 import { BackButtonIcon } from '@/components/icons/Icons';
+import { Loading } from '@/components/common/Loading';
 
 const UpdatePostComp = () => {
   const { id: postId } = useParams();
   const { formData, setFormData, isAuthorized, loading, handleUpdate, navigateToDetail } = useUpdatePost(postId as string);
 
   if (loading) {
-    return <p>로딩 중...</p>;
+    return (
+    <Loading/>
+  );
   }
 
   return isAuthorized ? (
@@ -20,8 +23,8 @@ const UpdatePostComp = () => {
         <button type='button' onClick={navigateToDetail} className='absolute left-4'>
         <BackButtonIcon/>
         </button>
-        <h1 className="text-lg font-bold text-center">수정</h1>
-        <button type="submit" onClick={handleUpdate} className="absolute right-4 font-semibold text-[#424242]">
+        <h1 className="text-xl font-bold text-center tracking-[-0.5px]">수정</h1>
+        <button type="submit" onClick={handleUpdate} className=" text-xl font-medium absolute right-4 text-[#424242]">
           수정
         </button>
       </header>

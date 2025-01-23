@@ -19,7 +19,7 @@ const QuickMyBookmarks = () => {
   }
 
   if (!bookmarks || bookmarks.length === 0) {
-    return <p>북마크된 게시물이 없습니다.</p>;
+    return <p className="my_profile_no_contents">북마크된 게시물이 없습니다.</p>;
   }
 
   // 북마크된 게시물 필터링
@@ -28,16 +28,14 @@ const QuickMyBookmarks = () => {
     ?.slice(0, 3); // 최신 3개의 북마크된 게시물
 
   if (!bookmarkedPosts || bookmarkedPosts.length === 0) {
-    return <p>북마크된 게시물이 없습니다.</p>;
+    return <p className="my_profile_no_contents">북마크된 게시물이 없습니다.</p>;
   }
 
   return (
-    <div className="w-full space-y-4 border-b-[12px] border-t border-[#F4F5F5] border-t-[#E7E7E7]">
-      <div className="flex flex-row gap-4 overflow-x-auto">
-        {bookmarkedPosts.map((post) => (
-          <VolunteerCardNoImg key={post.id} post={post} />
-        ))}
-      </div>
+    <div className="flex w-full flex-row gap-4 overflow-x-auto">
+      {bookmarkedPosts.map((post) => (
+        <VolunteerCardNoImg key={post.id} post={post} />
+      ))}
     </div>
   );
 };
