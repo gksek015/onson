@@ -26,25 +26,45 @@ const SignUpForm = () => {
   });
 
   const onSubmit: SubmitHandler<SignUpFormData> = async (data) => {
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
+    try {
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
 
-    const bugtest = await signup(formData);
-    console.log('bugtest------------------------------>', bugtest);
+      const signupResult = await signup(formData); // signup 함수 호출
 
-    await Swal.fire({
-      title: '가입을 환영합니다.',
-      text: '온손과 함께 따뜻한 손길을 나눠보세요.',
-      icon: 'success',
-      confirmButtonText: '확인'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        router.push('/login');
+      if (signupResult?.error) {
+        // 에러가 있으면 스윗알럿 호출
+        await Swal.fire({
+          title: '회원가입 실패',
+          text: '이미 사용중인 아이디입니다.',
+          icon: 'error',
+          confirmButtonText: '확인'
+        });
+        return;
       }
-    });
-    return;
+
+      // 성공 메시지
+      await Swal.fire({
+        title: '가입을 환영합니다.',
+        text: '온손과 함께 따뜻한 손길을 나눠보세요.',
+        icon: 'success',
+        confirmButtonText: '확인'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          router.push('/login');
+        }
+      });
+    } catch (err) {
+      console.error('회원가입 처리 중 오류:', err);
+      await Swal.fire({
+        title: '오류',
+        text: '알 수 없는 문제가 발생했습니다. 다시 시도해주세요.',
+        icon: 'error',
+        confirmButtonText: '확인'
+      });
+    }
   };
 
   return (

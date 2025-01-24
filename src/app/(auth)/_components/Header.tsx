@@ -2,21 +2,26 @@
 
 import { BackButtonIcon } from '@/components/icons/Icons';
 import { usePageTitleStore } from '@/utils/store/pageTitleStore';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import 'react-spring-bottom-sheet-updated/dist/style.css';
 
 const Header = () => {
   const router = useRouter();
-  const pathname = usePathname();
+  // const pathname = usePathname();
   const title = usePageTitleStore((state) => state.title);
 
   const handleBack = () => {
-    const segments = pathname.split('/').filter(Boolean);
-    if (segments.length > 1) {
-      const parentPath = '/' + segments.slice(0, -1).join('/');
-      router.push(parentPath);
+    // const segments = pathname.split('/').filter(Boolean);
+    // if (segments.length > 1) {
+    //   const parentPath = '/' + segments.slice(0, -1).join('/');
+    //   router.push(parentPath);
+    // } else {
+    //   router.push('/');
+    // }
+    if (window.history.length > 1) {
+      router.back(); // 이전 페이지로 이동
     } else {
-      router.push('/');
+      router.push('/'); // 이전 페이지가 없으면 홈으로 이동
     }
   };
 
