@@ -60,13 +60,14 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
   // 인풋창에 엔터키를 입력해도 메시지가 전송되도록 하는 이벤트
   const handleKeyEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.nativeEvent.isComposing) return;
+
     if (e.key === 'Enter') {
       handleSend();
     }
   };
 
   return (
-    <div className="flex h-screen flex-col bg-[#F2F2F2] p-4">
+    <div className="flex min-h-screen flex-col bg-[#F2F2F2] p-4">
       {/* 공지사항 영역 */}
 
       <div className="bg-[#F2F2F2]">
