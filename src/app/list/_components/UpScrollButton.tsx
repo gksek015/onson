@@ -37,7 +37,7 @@ const UpScrollButton = () => {
       {isVisible && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-24 z-50 rounded-full bg-white p-1 text-neutral-800 shadow-md"
+          className="fixed bottom-24 z-50 rounded-full bg-white py-2 px-3 text-neutral-800 shadow-md"
         >
           ↑
         </button>
