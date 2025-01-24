@@ -8,6 +8,7 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import AllLists from './_components/AllLists';
 import SearchBar from './_components/SearchBar';
+import UpScrollButton from './_components/UpScrollButton';
 
 export const metadata: Metadata = {
   title: 'ON:SON',
@@ -36,6 +37,7 @@ const ListPage = () => {
       <div className="block sm:hidden">
         <BottomNav />
       </div>
+      <UpScrollButton />
     </div>
   );
 };
