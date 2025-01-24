@@ -63,11 +63,8 @@ const AIChatbot = () => {
   };
 
   const handleKeyEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // IME 활성 상태를 확인하기 위한 변수
-    const isComposing = e.nativeEvent.isComposing;
-
     // IME 입력이 완료되지 않은 경우 메시지를 보내지 않음
-    if (isComposing) return;
+    if (e.nativeEvent.isComposing) return;
     if (e.key === 'Enter') {
       handleSendMessage();
     }
