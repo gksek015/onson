@@ -15,7 +15,7 @@ const VolunteerCardNoImg = ({ post }: VolunteerCardProps) => {
 
   return (
     <div className="flex min-w-[300px] flex-col items-start self-stretch border-r border-[#e7e7e7] px-[20px] py-[32px]">
-      <Link href={`/detail/${post.id}`} className="w-full">
+      <Link href={`/detail/${post.id}/?from=list`} className="w-full">
         {/* 태그 */}
         <div className="mb-[8px] flex w-full flex-wrap items-center gap-[8px] text-sm font-normal">
           {post.completed ? (

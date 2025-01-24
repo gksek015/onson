@@ -12,9 +12,7 @@ const NewPostComp = () => {
   const router = useRouter();
 
   if (isLoading) {
-    return (
-      <Loading/>
-    );
+    return <Loading />;
   }
 
   return (
