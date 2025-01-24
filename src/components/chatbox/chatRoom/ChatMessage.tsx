@@ -59,11 +59,8 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
 
   // 인풋창에 엔터키를 입력해도 메시지가 전송되도록 하는 이벤트
   const handleKeyEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // IME 활성 상태를 확인하기 위한 변수
-    const isComposing = e.nativeEvent.isComposing;
+    if (e.nativeEvent.isComposing) return;
 
-    // IME 입력이 완료되지 않은 경우 메시지를 보내지 않음
-    if (isComposing) return;
     if (e.key === 'Enter') {
       handleSend();
     }
