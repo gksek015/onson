@@ -12,8 +12,11 @@ const ChatBoxButton = () => {
 
   return (
     <>
-      <button onClick={toggleModal} className="z-100 fixed bottom-24 right-5 flex items-center justify-center">
-        <Image src={onson} alt="onson icon" width={80} height={80} priority/>
+      <button
+        onClick={toggleModal}
+        className="z-100 fixed bottom-24 right-5 flex items-center justify-center rounded-full shadow-lg"
+      >
+        <Image src={onson} alt="onson icon" width={80} height={80} priority />
       </button>
       {isOpen && <ChatBoxModal onClose={toggleModal}></ChatBoxModal>}
     </>
