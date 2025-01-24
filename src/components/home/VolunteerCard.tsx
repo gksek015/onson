@@ -21,7 +21,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
 
   return (
     <div className="flex w-full flex-row items-start gap-3.5 self-stretch border-b border-[#e7e7e7] px-5 py-8">
-      <Link href={`/detail/${post.id}`} className="w-full">
+      <Link href={`/detail/${post.id}/?from=list`} className="w-full">
         {/* 태그 */}
         <div className="mb-[8px] flex w-full flex-wrap items-center gap-[8px] text-sm font-normal">
           {post.completed ? (
@@ -38,11 +38,11 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
             {`${formattedStart}~${formattedEnd}`}
           </span>
         </div>
- 
+
         <div className="flex w-full flex-1 items-start justify-between gap-2">
           <div className="flex flex-1 flex-col items-start gap-[8px]">
             {/* 제목 */}
-            <div className="tracking-custom text-lg font-medium leading-7 text-black ">{post.title}</div>
+            <div className="tracking-custom text-lg font-medium leading-7 text-black">{post.title}</div>
             {/* 주소 */}
             <div className="flex items-center gap-[8px] self-stretch">
               <MapPinIcon />
@@ -51,7 +51,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
               </span>
             </div>
             {/* 작성자 */}
-            <div className="flex leading-4 items-start gap-3 self-stretch text-sm text-[#7e7e7e]">
+            <div className="flex items-start gap-3 self-stretch text-sm leading-4 text-[#7e7e7e]">
               <span>{post.users.nickname}</span>
               <span>{post.created_at.split('T')[0]}</span>
             </div>
