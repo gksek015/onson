@@ -23,7 +23,7 @@ const Header = ({ postPageId }: PostDetailProps) => {
   const queryClient = useQueryClient();
 
   const handleBack = () => {
-    router.push('/list');
+    router.back();
   };
 
   const openSheet = () => setIsSheetOpen(true);
@@ -46,6 +46,8 @@ const Header = ({ postPageId }: PostDetailProps) => {
       if (result.isConfirmed) {
         deletePostById.mutate(postPageId, {
           onSuccess: () => {
+            // 삭제 후 관련 데이터를 무효화
+            queryClient.invalidateQueries({ queryKey: ['infinitePosts'] });
             queryClient.invalidateQueries({ queryKey: ['posts'] });
             router.push('/list');
           }
@@ -66,7 +68,7 @@ const Header = ({ postPageId }: PostDetailProps) => {
   };
 
   return (
-    <div className="flex items-center justify-between border-b px-2 py-2 h-12">
+    <div className="flex h-12 items-center justify-between border-b px-2 py-2">
       <button onClick={handleBack}>
         <BackButtonIcon />
       </button>

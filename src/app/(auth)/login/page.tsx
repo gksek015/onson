@@ -16,9 +16,9 @@ const LoginPage = () => {
       <SetPageTitle title="로그인" />
       <LoginForm />
       <div className="auth_bottom_text_wrapper">
-        <Link className="auth_bottom_text_small mt-[36px]" href="reset-password">
+        {/* <Link className="auth_bottom_text_small mt-[36px]" href="reset-password">
           비밀번호 찾기
-        </Link>
+        </Link> */}
         <Link className="auth_bottom_text_normall mt-[24px]" href="sign-up">
           아직 가입하지 않으셨나요?
         </Link>
