@@ -28,7 +28,7 @@ const AddressTags = () => {
     params.delete('addressKeyword');
     params.delete('address');
     router.push(`?${params.toString()}`);
-    setTag('전체');
+    setTag('전 지역');
   };
 
   const handleAddressSelect = (searchKeyword: string) => {
@@ -47,12 +47,12 @@ const AddressTags = () => {
           <MapPinIcon />
           <span className="text-sm text-[#656565]">{tag}</span>
 
-          {tag !== '전체' && ( // 태그가 '전체'가 아닐 때만 닫기 버튼 보여줌
+          {tag !== '전 지역' && ( // 태그가 '전 지역'가 아닐 때만 닫기 버튼 보여줌
             <button
               className="ml-3"
               onClick={(e) => {
                 e.stopPropagation(); // 이벤트 전파 중단
-                resetToAll(); // 태그를 '전체'로 변경
+                resetToAll(); // 태그를 '전 지역'로 변경
               }}
             >
               <CloseIcon width="14px" height="14px" />
