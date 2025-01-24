@@ -29,28 +29,22 @@ export const useRealTimeMessages = (chatId: string) => {
 
     // 채널에서 테이터베이스에 입력된 값을 RealTime을 이용해 구독하는 로직
     const messageSubscription = supabase
-      .channel('realtime:messages')
-      .on('postgres_changes', {
-        event: 'INSERT', 
-        schema: 'public',
-        table: 'messages'
-      }, (payload) => {
-        const newMessage = payload.new as Message
-        setMessages((prevMessages) => [...prevMessages, newMessage])
-      }
-    ).on(
+      .channel(`realtime:messages:${chatId}`)
+      .on(
         'postgres_changes',
-        {
-          event: 'UPDATE',
-          schema: 'public',
-          table: 'messages',
-        },
+        { event: 'INSERT', schema: 'public', table: 'messages', filter: `chat_id=eq.${chatId}` },
+        (payload) => {
+          const newMessage = payload.new as Message;
+          setMessages((prev) => [...prev, newMessage]);
+        }
+      )
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'messages', filter: `chat_id=eq.${chatId}` },
         (payload) => {
           const updatedMessage = payload.new as Message;
-          setMessages((prevMessages) =>
-            prevMessages.map((msg) =>
-              msg.id === updatedMessage.id ? updatedMessage : msg
-            )
+          setMessages((prev) =>
+            prev.map((msg) => (msg.id === updatedMessage.id ? updatedMessage : msg))
           );
         }
       )

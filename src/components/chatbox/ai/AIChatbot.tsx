@@ -1,8 +1,8 @@
 'use client';
 
-import Spinner from './Spinner';
 import { SendMessageGradientIcon, SendMessageIcon } from '@/components/icons/Icons';
 import { useEffect, useRef, useState } from 'react';
+import Spinner from './Spinner';
 
 const AIChatbot = () => {
   const [messages, setMessages] = useState<{ role: string; text: string }[]>([]);
@@ -59,6 +59,17 @@ const AIChatbot = () => {
       setMessages((prev) => [...prev, { role: 'assistant', text: '오류가 발생했습니다. 다시 시도해주세요.' }]);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleKeyEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // IME 활성 상태를 확인하기 위한 변수
+    const isComposing = e.nativeEvent.isComposing;
+
+    // IME 입력이 완료되지 않은 경우 메시지를 보내지 않음
+    if (isComposing) return;
+    if (e.key === 'Enter') {
+      handleSendMessage();
     }
   };
 
@@ -131,6 +142,7 @@ const AIChatbot = () => {
               placeholder="메시지를 입력하세요..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyEnter}
             />
             <button className="flex items-center justify-center p-2" onClick={handleSendMessage}>
               {input.trim() ? <SendMessageGradientIcon /> : <SendMessageIcon />}
