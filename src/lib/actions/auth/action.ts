@@ -12,6 +12,7 @@ import { User } from '@supabase/supabase-js';
 const supabase = createClient(); 
 // 회원가입
 export const signup = async (formData: FormData) => {
+  try {
     const data = {
       email: formData.get('email') as string,
       password: formData.get('password') as string,
@@ -22,30 +23,40 @@ export const signup = async (formData: FormData) => {
         },
       },
     };
-  
-    console.log('회원가입 요청 데이터:', data);
-  
-    const { data: userData, error } = await supabase.auth.signUp(data);
 
-    const pubilcUserData = {
-        id: userData.user?.id,
-        email: userData.user?.email,
-        nickname: formData.get('nickname') as string
-      };
-    
-      await supabase.from('users').insert(pubilcUserData);
+    console.log('회원가입 요청 데이터:', data);
+
+    // Supabase 회원가입 요청
+    const { data: userData, error } = await supabase.auth.signUp(data);
 
     if (error) {
       console.error('회원가입 오류:', error.message);
-      // redirect('/error');
-      return error?.message;
+      return { error: error.message }; // 에러 메시지 반환
     }
-  
+
+    // 사용자 정보를 public users 테이블에 삽입
+    const pubilcUserData = {
+      id: userData.user?.id,
+      email: userData.user?.email,
+      nickname: formData.get('nickname') as string,
+    };
+
+    const { error: insertError } = await supabase.from('users').insert(pubilcUserData);
+
+    if (insertError) {
+      console.error('유저 정보 삽입 오류:', insertError.message);
+      return { error: insertError.message };
+    }
+
     console.log('회원가입 성공:', userData);
-  
-    // 트리거가 삽입을 처리하므로 추가 삽입 호출 제거
-    // redirect('/login');
-  };
+
+    return { success: true }; // 성공 반환
+  } catch (err) {
+    console.error('회원가입 중 알 수 없는 오류:', err);
+    return { error: '회원가입 중 알 수 없는 오류가 발생했습니다.' };
+  }
+};
+
   
 
 // 로그인
