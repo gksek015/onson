@@ -23,7 +23,16 @@ const Header = ({ postPageId }: PostDetailProps) => {
   const queryClient = useQueryClient();
 
   const handleBack = () => {
-    router.back();
+    const queryParams = new URLSearchParams(window.location.search);
+    const from = queryParams.get('from'); // 쿼리 파라미터에서 'from' 가져오기
+
+    if (from === 'list') {
+      // 리스트에서 왔을 경우 단순히 뒤로가기
+      router.back();
+    } else {
+      // 그 외의 경우 리스트 페이지로 이동
+      router.push('/list');
+    }
   };
 
   const openSheet = () => setIsSheetOpen(true);
@@ -61,6 +70,7 @@ const Header = ({ postPageId }: PostDetailProps) => {
     updateCompletedById.mutate(postPageId, {
       onSuccess: () => {
         // 모집 마감 업데이트 성공 시 관련 데이터 무효화
+        queryClient.invalidateQueries({ queryKey: ['infinitePosts'] });
         queryClient.invalidateQueries({ queryKey: ['posts'] }); // 게시물 리스트 쿼리 무효화
       }
     });
