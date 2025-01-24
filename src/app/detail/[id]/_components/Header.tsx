@@ -70,6 +70,7 @@ const Header = ({ postPageId }: PostDetailProps) => {
     updateCompletedById.mutate(postPageId, {
       onSuccess: () => {
         // 모집 마감 업데이트 성공 시 관련 데이터 무효화
+        queryClient.invalidateQueries({ queryKey: ['infinitePosts'] });
         queryClient.invalidateQueries({ queryKey: ['posts'] }); // 게시물 리스트 쿼리 무효화
       }
     });
