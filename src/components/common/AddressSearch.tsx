@@ -71,6 +71,17 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
     }
   };
 
+    // 입력창 변경 시 처리 함수
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      setKeyword(value);
+  
+      if (value.trim() === '') {
+        // 검색어가 비어있으면 결과를 초기화
+        setSearchResults([]);
+      }
+    };
+
   return (
     <div className="flex h-full flex-grow flex-col overflow-y-auto p-5 md:p-10">
       <h1 className="mb-6 text-2xl font-semibold leading-7 tracking-[-0.55px] md:text-4xl">위치</h1>
@@ -79,10 +90,10 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
       <div className="relative flex w-auto items-center gap-2">
         <input
           type="text"
-          placeholder="'동' 단위로 입력해주세요.  ex)역삼동"
+          placeholder="원하는 지역이나 동네를 검색해주세요"
           value={keyword}
           onKeyUp={(e) => e.key === 'Enter' && handleSearch()} // 엔터 키 동작
-          onChange={(e) => setKeyword(e.target.value)}
+          onChange={handleInputChange}
           className="my-4 w-full flex-1 cursor-pointer rounded-full border border-[#FB657E] p-0.5 px-5 py-3.5 text-base text-black shadow-input focus:outline-none md:mb-6 md:text-2xl"
         />
         <button
@@ -124,7 +135,7 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
               }
               if (option === 'select') {
                 if (onSelect) {
-                  onSelect(`${addressList[0]} ${addressList[1]} ${addressList[2]}`);
+                  onSelect(juso);
                 }
               }
             }}
@@ -138,3 +149,4 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
 };
 
 export default AddressSearch;
+
