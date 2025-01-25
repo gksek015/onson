@@ -1,4 +1,5 @@
 export const categories: string[] = [
+  '긴급 봉사',
   '일상지원봉사',
   '교육 및 멘토링',
   '정서적 지원봉사',

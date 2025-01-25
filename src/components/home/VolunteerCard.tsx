@@ -31,7 +31,9 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
           ) : (
             <span className="hidden"></span>
           )}
-          <span className="flex items-center justify-center gap-2 rounded-full bg-[#FFF5EC] px-2.5 py-0.5 text-sm text-[#FF9214]">
+          <span
+            className={`flex items-center justify-center gap-2 rounded-full px-2.5 py-0.5 text-sm ${post.category === '긴급 봉사' ? 'bg-[#FF4D4D] text-white' : 'bg-[#FFF5EC] text-[#FF9214]'}`}
+          >
             {post.category}
           </span>
           <span className="flex items-center justify-center gap-2 rounded-full bg-[#FFF5EC] px-2.5 py-0.5 text-sm text-[#FF9214]">
@@ -42,7 +44,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
         <div className="flex w-full flex-1 items-start justify-between gap-2">
           <div className="flex flex-1 flex-col items-start gap-[8px]">
             {/* 제목 */}
-            <div className="tracking-custom text-lg font-medium leading-7 text-black">{post.title}</div>
+            <div className="text-lg font-medium leading-7 tracking-custom text-black">{post.title}</div>
             {/* 주소 */}
             <div className="flex items-center gap-[8px] self-stretch">
               <MapPinIcon />
