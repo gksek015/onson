@@ -1,10 +1,11 @@
 'use client';
+
+import { JSON_DATA } from '@/app/constants/restructured_administrative_data';
 import { getAddressFromCoordinates } from '@/lib/location/getAddressFromCoordinates';
 import { getCurrentPosition } from '@/lib/location/getCurrentPosition';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { MapPinIcon, SearchIcon } from '../icons/Icons';
-import { Loading } from './Loading';
 
 interface AddressSearchProps {
   onAddressSelect?: (searchKeyword: string) => void; // 부모로 콜백 전달
@@ -15,40 +16,63 @@ interface AddressSearchProps {
 const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps) => {
   const [keyword, setKeyword] = useState(''); // 검색 키워드 상태
   const [searchResults, setSearchResults] = useState<string[]>([]); // 검색 결과 상태
-  const [loading, setLoading] = useState(false);
   const [geoLoading, setGeoLoading] = useState(false); // 현 위치 로딩 상태
   const [error, setError] = useState(''); // 에러 상태
   const router = useRouter();
 
   const apiKey = process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY;
 
-  // 주소 검색 기능
-  const handleSearch = async () => {
-    if (!keyword.trim()) return;
+  const handleSearch = () => {
+    const searchKeyword = keyword.trim();
 
-    const url = `https://dapi.kakao.com/v2/local/search/address.json?query=${keyword}`;
+    if (!searchKeyword) {
+      setError('검색어를 입력해주세요.');
+      setSearchResults([]); // 빈 검색어일 경우 결과를 초기화
+      return;
+    }
 
-    try {
-      setLoading(true);
-      const res = await fetch(url, {
-        headers: {
-          Authorization: `KakaoAK ${apiKey}`
+    const searchTokens = searchKeyword.split(' '); // 띄어쓰기로 검색어 분리
+    const results: string[] = [];
+
+    // JSON_DATA에서 검색
+    JSON_DATA.forEach((city) => {
+      const cityName = city.siNm; // ex) 서울특별시
+
+      city.gu.forEach((gu) => {
+        const guName = gu.guNm; // ex) 강남구
+
+        // 구 단위로 검색어와 매칭 확인
+        const guFullAddress = `${cityName} ${guName}`;
+        const isGuMatching = searchTokens.every(
+          (token) => cityName.includes(token) || guName.toString().includes(token)
+        );
+
+        if (isGuMatching) {
+          // "서울특별시 강남구"와 같은 구 단위 결과 추가
+          results.push(guFullAddress);
         }
+
+        // 동 단위로 검색어와 매칭 확인
+        gu.dong.forEach((dongName) => {
+          const fullAddress = `${guFullAddress} ${dongName}`; // "서울특별시 강남구 역삼동" 형식 생성
+          const isDongMatching = searchTokens.every(
+            (token) => cityName.includes(token) || guName.toString().includes(token) || dongName.includes(token)
+          );
+
+          if (isDongMatching) {
+            results.push(fullAddress);
+          }
+        });
       });
+    });
 
-      const data = await res.json();
-
-      if (data.documents.length > 0) {
-        const results = data.documents.map((doc: { address_name: string }) => doc.address_name);
-        setSearchResults(results);
-      } else {
-        setSearchResults(['조건에 맞는 위치가 없습니다']);
-      }
-    } catch (error) {
-      console.error('주소 검색 실패:', error);
-      setSearchResults(['검색 중 오류가 발생했습니다.']);
-    } finally {
-      setLoading(false);
+    // 결과 업데이트
+    if (results.length > 0) {
+      setSearchResults(results);
+      setError('');
+    } else {
+      setSearchResults([]);
+      setError('검색 결과가 없습니다.');
     }
   };
 
@@ -63,7 +87,6 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
 
       setSearchResults([address]); // 검색 결과 리스트에 현위치 추가
       setKeyword(address); // 검색 키워드 동기화
-
     } catch (error) {
       console.error('현재 위치를 가져올 수 없습니다:', error);
       setError('현재 위치를 가져올 수 없습니다.');
@@ -82,7 +105,7 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
           type="text"
           placeholder="'동' 단위로 입력해주세요.  ex)역삼동"
           value={keyword}
-          onKeyDown={(e) => e.key === 'Enter' && handleSearch()} // 엔터 키 동작
+          onKeyUp={(e) => e.key === 'Enter' && handleSearch()} // 엔터 키 동작
           onChange={(e) => setKeyword(e.target.value)}
           className="my-4 w-full flex-1 cursor-pointer rounded-full border border-[#FB657E] p-0.5 px-5 py-3.5 text-base text-black shadow-input focus:outline-none md:mb-6 md:text-2xl"
         />
@@ -104,9 +127,6 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
         </button>
       </div>
 
-      {/* 로딩 상태 */}
-      {loading && <Loading />}
-
       {/* 에러 메시지 */}
       {error && <p className="text-red-500">{error}</p>}
 
@@ -119,12 +139,17 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
             onClick={() => {
               // 검색하는 기능은 'search' / 새글 작성 시 선택하는 기능에서는 'select'로 따로 option줘서 onClick 분리하기
               const addressList = juso.split(' ');
-              const searchKeyword = `${addressList[2]}`;
+              const searchKeyword = addressList.length > 2 ? addressList[2] : addressList[1];
+
               if (option === 'search') {
                 // 부모 콜백 호출 및 router.push
-                router.push(
-                  `/list?address=${addressList[0]}_${addressList[1]}_${addressList[2]}&addressKeyword=${searchKeyword}`
-                );
+                const queryAddress =
+                  addressList.length > 2
+                    ? `${addressList[0]}_${addressList[1]}_${addressList[2]}`
+                    : `${addressList[0]}_${addressList[1]}`;
+
+                router.push(`/list?address=${queryAddress}&addressKeyword=${searchKeyword}`);
+
                 if (onAddressSelect) {
                   onAddressSelect(searchKeyword);
                 }
