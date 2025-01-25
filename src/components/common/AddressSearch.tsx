@@ -1,11 +1,9 @@
 'use client';
 
 import { JSON_DATA } from '@/app/constants/restructured_administrative_data';
-import { getAddressFromCoordinates } from '@/lib/location/getAddressFromCoordinates';
-import { getCurrentPosition } from '@/lib/location/getCurrentPosition';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { MapPinIcon, SearchIcon } from '../icons/Icons';
+import { SearchIcon } from '../icons/Icons';
 
 interface AddressSearchProps {
   onAddressSelect?: (searchKeyword: string) => void; // 부모로 콜백 전달
@@ -16,11 +14,8 @@ interface AddressSearchProps {
 const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps) => {
   const [keyword, setKeyword] = useState(''); // 검색 키워드 상태
   const [searchResults, setSearchResults] = useState<string[]>([]); // 검색 결과 상태
-  const [geoLoading, setGeoLoading] = useState(false); // 현 위치 로딩 상태
   const [error, setError] = useState(''); // 에러 상태
   const router = useRouter();
-
-  const apiKey = process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY;
 
   const handleSearch = () => {
     const searchKeyword = keyword.trim();
@@ -76,25 +71,6 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
     }
   };
 
-  // 현재 위치 가져오기
-  const handleGetCurrentLocation = async () => {
-    try {
-      setGeoLoading(true);
-      setError('');
-
-      const position = await getCurrentPosition();
-      const address = await getAddressFromCoordinates(position.lat, position.lng, apiKey!);
-
-      setSearchResults([address]); // 검색 결과 리스트에 현위치 추가
-      setKeyword(address); // 검색 키워드 동기화
-    } catch (error) {
-      console.error('현재 위치를 가져올 수 없습니다:', error);
-      setError('현재 위치를 가져올 수 없습니다.');
-    } finally {
-      setGeoLoading(false);
-    }
-  };
-
   return (
     <div className="flex h-full flex-grow flex-col overflow-y-auto p-5 md:p-10">
       <h1 className="mb-6 text-2xl font-semibold leading-7 tracking-[-0.55px] md:text-4xl">위치</h1>
@@ -116,14 +92,6 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
         >
           <span className="sr-only">Search</span>
           <SearchIcon />{' '}
-        </button>
-      </div>
-
-      {/* 현재 내 위치 */}
-      <div className="flex justify-center gap-1.5 rounded-lg bg-[#FFF5EC] px-3 py-2 text-base font-semibold tracking-content text-[#FB657E]">
-        <MapPinIcon color="#FB657E" />
-        <button onClick={handleGetCurrentLocation} disabled={geoLoading}>
-          {geoLoading ? '불러오는 중...' : '현재 내 위치 입력하기'}
         </button>
       </div>
 
