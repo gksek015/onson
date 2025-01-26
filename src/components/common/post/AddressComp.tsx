@@ -19,9 +19,12 @@ const AddressComp = ({ formData, setFormData }: AddressCompProps) => {
 
   return (
     <div>
+      <div className="flex items-center">
       <label htmlFor="address" className="tracking-[-0.5px] block text-lg font-semibold">
         위치
       </label>
+      <span className="px-2 text-sm font-medium text-[#868C92]">* 필수</span>
+      </div>
       <input
         type="text"
         id="address"

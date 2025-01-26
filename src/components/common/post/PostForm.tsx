@@ -63,13 +63,16 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
   };
 
   return (
-    <div className='h-[calc(100vh-60px)]'>
+    <div className='h-[calc(100vh-60px)] mt-20'>
       <form onSubmit={handleSubmit}>
         <div className="mt-7 space-y-7 px-5">
           <div>
+            <div className="flex items-center">
             <label htmlFor="title" className="tracking-[-0.5px] block text-lg font-semibold">
               제목
             </label>
+            <span className="px-2 text-sm font-medium text-[#868C92]">* 필수</span>
+            </div>
             <input
               type="text"
               id="title"
@@ -84,9 +87,12 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
           <AddressComp formData={formData} setFormData={setFormData} />
 
           <div>
+            <div className="flex items-center">
             <label htmlFor="tag" className="tracking-[-0.5px] block text-lg font-semibold">
               태그
             </label>
+            <span className="px-2 text-sm font-medium text-[#868C92]">* 필수</span>
+            </div>
             <div className="space-y-4">
               <CategorySelectComp formData={formData} categories={categories} onSelectCategory={handleCategorySelect} />
               <DateComp onSelectRange={handleDateSelect} formData={formData} />

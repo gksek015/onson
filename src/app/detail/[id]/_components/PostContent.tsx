@@ -58,7 +58,7 @@ const PostContent = ({
 
       {/* 가로선 */}
       <hr className="mt-4 border-gray-300" />
-      <div className="mx-5 mt-5 leading-6">{content}</div>
+      <div className="mx-5 mt-5 leading-6 whitespace-pre-line">{content}</div>
     </div>
   );
 };

@@ -17,7 +17,7 @@ const NewPostComp = () => {
 
   return (
     <div className="min-h-screen items-center">
-      <header className="relative flex items-center justify-center border-b px-4 py-3">
+      <header className="fixed top-0 left-0 z-10 flex w-full items-center justify-center border-b bg-white px-4 py-3">
         <button onClick={() => router.back()} className="absolute left-4">
           <BackIcon />
         </button>
@@ -25,7 +25,7 @@ const NewPostComp = () => {
         <button
           type="submit"
           onClick={isFormValid() ? handleSubmit : undefined}
-          className={`absolute right-4 text-xl font-medium ${isFormValid() ? 'text-[#4E4E4E]' : 'text-[#B4B4B4]'} `}
+          className={`absolute right-4 text-xl font-medium ${isFormValid() ? 'text-[var(--primary-3)]' : 'text-[#B4B4B4]'} `}
           disabled={!isFormValid()}
         >
           등록
