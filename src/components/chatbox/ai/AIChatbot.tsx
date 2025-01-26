@@ -4,8 +4,6 @@ import { SendMessageGradientIcon, SendMessageIcon } from '@/components/icons/Ico
 import { useEffect, useRef, useState } from 'react';
 import Spinner from './Spinner';
 
-interface AIChatbotProps {}
-
 const AIChatbot = () => {
   const [messages, setMessages] = useState<{ role: string; text: string }[]>([]);
   const [loading, setLoading] = useState<boolean>(false);

@@ -14,11 +14,6 @@ const AIChatroom = ({ onChatbotToggle }: AIChatroomProps) => {
     onChatbotToggle(newState);
   };
 
-  const handleChatBotBack = () => {
-    setShowChatbot(false);
-    onChatbotToggle(false);
-  };
-
   return <>{showChatbot ? <AIChatbot /> : <AIInitial onChatStart={handleChatbotToggle} />}</>;
 };
 
