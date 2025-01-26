@@ -18,6 +18,7 @@ const AllLists = () => {
   const category = searchParams.get('category') || undefined;
   const searchedKeyword = searchParams.get('searchedKeyword') || undefined;
   const [isOnlyOpen, setIsOnlyOpen] = useState(false);   // 체크박스 상태 (모집 중인 게시글만 보기)
+
   const { data: filteredPosts } = useGetPostsbyFilter(address, category, searchedKeyword);
 
   const {
@@ -71,10 +72,10 @@ const AllLists = () => {
   };
 
   // 필터링된 게시물을 가져옴 (주소, 카테고리, 검색어가 있을 때와 없을 때를 나눔)
-  const filteredData =
-    address || category || searchedKeyword
-      ? filterByStatus(filteredPosts || [])
-      : posts?.pages.flatMap((page) => filterByStatus(page?.post || [])) || [];
+  const filteredData = 
+  address || category || searchedKeyword
+    ? filterByStatus((filteredPosts || []) as PostType[]) 
+    : (posts?.pages.flatMap((page) => filterByStatus((page?.post || []) as PostType[])) || []);
 
   return (
     <div className="w-full">

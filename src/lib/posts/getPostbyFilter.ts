@@ -8,7 +8,9 @@ interface GetPostsParams {
 }
 
 export const getPostbyFilter = async ({address, category,searchedkeyword}: GetPostsParams): Promise<PostType[]> => {
-  let query = supabase.from('posts').select(`*, images(img_url), users(nickname)`);
+  let query = supabase
+  .from('posts')
+  .select(`*, images(img_url), users(nickname, profile_img_url)`);
 
    // address 처리
 
@@ -50,5 +52,5 @@ export const getPostbyFilter = async ({address, category,searchedkeyword}: GetPo
     throw new Error('게시물 데이터를 가져오는 데 실패했습니다.');
   }
 
-  return data || [];
+  return data as PostType[];
 };

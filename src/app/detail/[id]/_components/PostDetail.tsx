@@ -11,6 +11,7 @@ interface PostDetailProps {
 
 const PostDetail = ({ postPageId }: PostDetailProps) => {
   const { data: post, isPending, isError } = useGetPostById(postPageId);
+  console.log('post', post)
 
   // TODO: 로딩중 스피너로 변경하기
   if (isPending) 
@@ -35,6 +36,7 @@ const PostDetail = ({ postPageId }: PostDetailProps) => {
         endDate={post.end_date}
         address={{ si: post.si, gu: post.gu, dong: post.dong }}
         isPostClosed={post.completed}
+        profileImgUrl = {post.users.profile_img_url}
       />
     </div>
   );

@@ -9,7 +9,7 @@ export const getPost = async (postId: string): Promise<PostType | null> => {
   const supabase = createClient();
   const { data, error } = await supabase
     .from('posts')
-    .select(`*, users(nickname), images(img_url)`)
+    .select(`*, users(nickname, profile_img_url), images(img_url)`)
     .eq('id', postId)
     .single();
 
