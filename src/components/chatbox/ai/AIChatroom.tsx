@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import useChatbotStore from '@/utils/store/useChatBotStore';
 import AIChatbot from './AIChatbot';
 import AIInitial from './AIInitial';
 interface AIChatroomProps {
@@ -6,12 +6,17 @@ interface AIChatroomProps {
 }
 
 const AIChatroom = ({ onChatbotToggle }: AIChatroomProps) => {
-  const [showChatbot, setShowChatbot] = useState(false);
+  const { showChatbot, setShowChatbot } = useChatbotStore();
 
   const handleChatbotToggle = () => {
     const newState = !showChatbot;
     setShowChatbot(newState);
-    onChatbotToggle(newState); // 부모 컴포넌트에 상태 전달
+    onChatbotToggle(newState);
+  };
+
+  const handleChatBotBack = () => {
+    setShowChatbot(false);
+    onChatbotToggle(false);
   };
 
   return <>{showChatbot ? <AIChatbot /> : <AIInitial onChatStart={handleChatbotToggle} />}</>;

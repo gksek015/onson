@@ -4,6 +4,8 @@ import { SendMessageGradientIcon, SendMessageIcon } from '@/components/icons/Ico
 import { useEffect, useRef, useState } from 'react';
 import Spinner from './Spinner';
 
+interface AIChatbotProps {}
+
 const AIChatbot = () => {
   const [messages, setMessages] = useState<{ role: string; text: string }[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -19,7 +21,8 @@ const AIChatbot = () => {
   const options = [
     '온손 웹사이트가 궁금해요!',
     '봉사 요청을 어떻게 하는지 궁금해요!',
-    '봉사를 어떻게 검색하는지 궁금해요!'
+    '봉사를 어떻게 검색하는지 궁금해요!',
+    '사용자와 채팅은 어떻게 해야하는지 궁금해요!'
   ];
 
   // 옵션 클릭 시 처리
@@ -73,7 +76,7 @@ const AIChatbot = () => {
   return (
     <div className="flex h-screen flex-col bg-[#F2F2F2] p-4">
       {/* 채팅창 */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1">
         <div className="mx-auto mt-2 w-full max-w-md">
           {/* 상단 안내 문구 */}
           <div className="mb-2 rounded-lg bg-white p-2 text-center text-sm font-light">

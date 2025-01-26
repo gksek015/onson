@@ -1,6 +1,7 @@
 'use client';
 
 import { getMarkMessageAsRead } from '@/lib/chats/getMarkMessageAsRead';
+import useChatbotStore from '@/utils/store/useChatBotStore';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -8,6 +9,7 @@ import BottomNav from '../layout/BottomNav';
 import AIChatroom from './ai/AIChatroom';
 import ChatInBox from './ChatInbox';
 import ChatHeader from './chatUI/ChatHeader';
+import ModalHeader from './chatUI/ModalHeader';
 
 interface ChatBoxModalProps {
   onClose: () => void;
@@ -16,9 +18,9 @@ interface ChatBoxModalProps {
 const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   const [activeTab, setActiveTab] = useState('온손 AI'); //'실시간채팅'과  '온손 AI' 두개의 탭 상태 관리
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
+  const { isChatbotVisible, showChatbot, setIsChatbotVisible, setShowChatbot } = useChatbotStore();
   const { user } = useUserStore();
   const router = useRouter();
-  const [isChatbotVisible, setIsChatbotVisible] = useState(false); // Chatbot 활성화 상태
 
   // 채팅방 입장 처리하는 함수
   const handleEnterChatRoom = async (chatId: string) => {
@@ -26,25 +28,39 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
     await getMarkMessageAsRead(chatId, user?.id || '');
   };
 
+  // 모달을 닫기위해 사용한 함수
   const handleClose = async () => {
     if (selectedChatId && user?.id) {
       await getMarkMessageAsRead(selectedChatId, user.id); // 모달 닫힐 때 읽음 처리
     }
-    onClose(); // 부모 컴포넌트에서 닫기 처리
+    setIsChatbotVisible(false);
+    setShowChatbot(false);
+    onClose();
   };
 
   // 뒤로가기
   const handleBackToList = () => {
-    setSelectedChatId(null);
+    if (showChatbot) {
+      // AI 대화 화면 -> AI 초기 화면으로 복귀
+      setShowChatbot(false);
+    } else if (isChatbotVisible) {
+      // AI 초기 화면 -> 탭바로 복귀
+      setIsChatbotVisible(false);
+    } else if (selectedChatId) {
+      // 채팅방 -> 채팅 리스트로 복귀
+      setSelectedChatId(null);
+    }
   };
 
   const handleChatbotToggle = (isVisible: boolean) => {
-    setIsChatbotVisible(isVisible); // Chatbot 상태 업데트
+    setShowChatbot(isVisible);
+    setIsChatbotVisible(true);
   };
+
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-white">
       {/* 상단 탭바 */}
-      {!selectedChatId && (
+      {!selectedChatId && (!isChatbotVisible || !showChatbot) && (
         <div className="flex items-center justify-between border-b">
           {/* 탭바 */}
           <div className="flex flex-1 justify-center gap-12">
@@ -66,6 +82,11 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
             </button>
           </div>
         </div>
+      )}
+
+      {/* 모달쪽 헤더 */}
+      {isChatbotVisible && showChatbot && (
+        <ModalHeader title="AI Chat" onClose={handleClose} onBack={handleBackToList} />
       )}
 
       {/* 채팅방 헤더 */}
@@ -112,7 +133,7 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
         )}
       </div>
 
-      {!selectedChatId && !isChatbotVisible && <BottomNav />}
+      {!selectedChatId && (!isChatbotVisible || !showChatbot) && <BottomNav />}
     </div>
   );
 };
