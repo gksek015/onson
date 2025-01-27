@@ -32,7 +32,9 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
             <span className="hidden"></span>
           )}
           <span
-            className={`flex items-center justify-center gap-2 rounded-full px-2.5 py-0.5 text-sm ${post.category === '긴급 봉사' ? 'bg-[#FF4D4D] text-white' : 'bg-[#FFF5EC] text-[#FF9214]'}`}
+            className={
+              'flex items-center justify-center gap-2 rounded-full bg-[#FFF5EC] px-2.5 py-0.5 text-sm text-[#FF9214]'
+            }
           >
             {post.category}
           </span>
