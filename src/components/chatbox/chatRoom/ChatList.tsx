@@ -3,7 +3,7 @@
 import { RightArrowForChatIcon, UnReadMarkIcon } from '@/components/icons/Icons';
 import { deleteChatRoom } from '@/lib/chats/deleteChatRoom';
 import type { ChatRoom } from '@/types/chatType';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 
 import Swal from 'sweetalert2';
 
@@ -15,7 +15,7 @@ interface ChatListProps {
 }
 
 const ChatList = ({ chatRooms, onSelectRoom, onDeleteRoom, unreadMessagesMap }: ChatListProps) => {
-  const [slidStates, setSlidStates] = useState<{ [key: string]: boolean }>({});
+  const slidRoomIdRef = useRef<string | null>(null); // 현재 슬라이드된 방 ID
   const touchStartXRef = useRef<number | null>(null);
 
   const formatDate = (created_at: string | null) => {
@@ -60,27 +60,27 @@ const ChatList = ({ chatRooms, onSelectRoom, onDeleteRoom, unreadMessagesMap }: 
   };
 
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    e.stopPropagation(); // 이벤트 전파 중단
+    e.stopPropagation();
     touchStartXRef.current = e.touches[0].clientX; // 터치 시작 위치 저장
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>, roomId: string) => {
-    e.stopPropagation(); // 이벤트 전파 중단
+    e.stopPropagation();
 
-    const touchEndX = e.changedTouches[0].clientX;
-
+    const touchEndX = e.changedTouches[0].clientX; // 터치 끝 좌표
     if (touchStartXRef.current !== null) {
-      const deltaX = touchStartXRef.current - touchEndX;
+      const deltaX = touchStartXRef.current - touchEndX; // 좌표 차이 계산
 
-      if (deltaX < -50) {
-        // 슬라이드 활성화
-        setSlidStates((prev) => ({ ...prev, [roomId]: true }));
-      } else if (deltaX > 50) {
-        // 슬라이드 비활성화
-        setSlidStates((prev) => ({ ...prev, [roomId]: false }));
+      if (deltaX > 50) {
+        // 오른쪽에서 왼쪽으로 슬라이드
+        slidRoomIdRef.current = roomId; // 현재 슬라이드된 방의 ID 업데이트
+      } else if (deltaX < -50 && slidRoomIdRef.current === roomId) {
+        // 왼쪽에서 오른쪽으로 슬라이드 해제
+        slidRoomIdRef.current = null;
       }
     }
-    touchStartXRef.current = null;
+
+    // touchStartXRef.current = null;
   };
 
   return (
@@ -88,7 +88,7 @@ const ChatList = ({ chatRooms, onSelectRoom, onDeleteRoom, unreadMessagesMap }: 
       {sortedRooms.map((room) => {
         const lastMessage = room.messages?.[room.messages.length - 1];
         const hasUnreadMessagesMap = unreadMessagesMap[room.id];
-        const isSlid = slidStates[room.id];
+        const isSlid = slidRoomIdRef.current === room.id;
 
         return (
           <div
