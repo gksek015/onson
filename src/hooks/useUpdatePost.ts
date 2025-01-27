@@ -109,8 +109,9 @@ export const useUpdatePost = (postId: string) => {
 
     // React Query 캐시 무효화와 전체 데이터 재요청
     await queryClient.invalidateQueries({queryKey: ['post', postId]});
-    await queryClient.invalidateQueries({ queryKey: ['posts'] }); // 전체 목록 데이터 무효화    
-
+    await queryClient.invalidateQueries({ queryKey: ['posts'] }); 
+    await queryClient.invalidateQueries({ queryKey: ['infinitePosts'] });
+ 
       Swal.fire({
         title: '게시글이 수정되었습니다.',
         icon: 'success',
