@@ -15,7 +15,7 @@ export const userSignUpSchema = z
 
     confirmPassword: z.string(),
 
-    nickname: z.string().min(1, '사용자 이름은 최소 1자 이상이어야 합니다')
+    nickname: z.string().min(1, '닉네임은 최소 1자 이상에서 10자 이하여야 합니다')
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: '비밀번호가 일치하지 않습니다',
