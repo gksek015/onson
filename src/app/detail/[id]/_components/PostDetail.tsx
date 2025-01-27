@@ -17,7 +17,9 @@ const PostDetail = ({ postPageId }: PostDetailProps) => {
     return (
   <Loading/>
 );
-  if (isError || !post) return <div>에러 발생</div>;
+  if (isError || !post) return (
+    <Loading/>
+  );
 
   return (
     <div className="mx-auto max-w-2xl">
