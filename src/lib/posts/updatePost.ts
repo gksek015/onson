@@ -42,7 +42,7 @@ export const updatePostById = async (
 ): Promise<boolean> => {
   const supabase = createClient();
   try {
-    const [si, gu, dong ='전체'] = updatedData.address ? updatedData.address.split(' ') : [];
+    const [si, gu, dong =''] = updatedData.address ? updatedData.address.split(' ') : [];
 
     // 1. `posts` 테이블 업데이트
     const { error: postError } = await supabase
