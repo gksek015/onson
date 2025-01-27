@@ -136,7 +136,7 @@ const AIChatbot = () => {
           <div className="flex w-full items-center rounded-full bg-white p-1">
             <input
               type="text"
-              className="flex-1 rounded-full indent-4 text-black focus:outline-none"
+              className="flex-1 indent-4 text-black focus:outline-none"
               placeholder="메시지를 입력하세요..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
