@@ -24,7 +24,6 @@ interface PostContentProps {
 const PostContent = ({
   title,
   nickname,
-  created_at,
   content,
   postId,
   postOwnerId,
@@ -64,7 +63,6 @@ const PostContent = ({
               <MyProfileIcon width="28" height="28" />
             )}
             <div className="text-gray-500">{nickname}</div>
-          <div className="text-gray-600">{created_at}</div>
           </div>
           <BookmarkButton postId={postId} />
         </div>

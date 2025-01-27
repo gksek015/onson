@@ -11,7 +11,6 @@ interface PostDetailProps {
 
 const PostDetail = ({ postPageId }: PostDetailProps) => {
   const { data: post, isPending, isError } = useGetPostById(postPageId);
-  console.log('post', post)
 
   // TODO: 로딩중 스피너로 변경하기
   if (isPending) 
