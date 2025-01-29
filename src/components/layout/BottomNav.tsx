@@ -29,17 +29,27 @@ const BottomNav = () => {
       refetch(user.id); // 초기 데이터 로드
       subscribeToRealtimeMessages(user.id); // 실시간 동기화
     }
-  }, [user?.id, refetch, subscribeToRealtimeMessages]);
+  }, [user?.id]);
 
   const hasUnreadMessages = Object.values(unreadMessages).some((val) => val);
 
   // 채팅 아이콘 메모이제이션
-  const getChatIcon = () => {
-    if (isOpen) {
-      return hasUnreadMessages ? <MessageCircleIcon /> : <MessagePillIcon />;
-    }
-    return hasUnreadMessages ? <MessageCircleIcon /> : <MessageStrokeIcon />;
-  };
+  const getChatIcon = () =>
+    isOpen ? (
+      hasUnreadMessages ? (
+        <MessageCircleIcon />
+      ) : (
+        <MessagePillIcon />
+      )
+    ) : hasUnreadMessages ? (
+      <MessageCircleIcon />
+    ) : (
+      <MessageStrokeIcon />
+    );
+
+  const getHomeIcon = () => (isOpen ? <HomeStrokeIcon /> : pathname === '/' ? <HomePillIcon /> : <HomeStrokeIcon />);
+  const getNoteIcon = () =>
+    isOpen ? <NoteStrokeIcon /> : pathname === '/list' ? <NotePillIcon /> : <NoteStrokeIcon />;
 
   // 네비게이션 핸들러
   const handleNavClick = (path: string) => {
@@ -51,14 +61,14 @@ const BottomNav = () => {
 
   return (
     <>
-      <nav className="fixed bottom-0 flex w-full justify-around border-t bg-white p-4">
+      <nav className="z-70 fixed bottom-0 flex w-full justify-around border-t bg-white p-4">
         {/* 홈 버튼 */}
         <button
           type="button"
           onClick={() => handleNavClick('/')}
           className="flex flex-col items-center justify-center gap-1"
         >
-          {pathname === '/' ? <HomePillIcon /> : <HomeStrokeIcon />}
+          {getHomeIcon()}
           <span className="text-sm font-medium leading-[16.4px] text-black">홈</span>
         </button>
 
@@ -78,7 +88,7 @@ const BottomNav = () => {
           onClick={() => handleNavClick('/list')}
           className="flex flex-col items-center justify-center gap-1"
         >
-          {pathname === '/list' ? <NotePillIcon /> : <NoteStrokeIcon />}
+          {getNoteIcon()}
           <span className="text-sm font-medium leading-[16.4px] text-black">봉사찾기</span>
         </button>
 

@@ -5,7 +5,6 @@ import useChatbotStore from '@/utils/store/useChatBotStore';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import BottomNav from '../layout/BottomNav';
 import AIChatroom from './ai/AIChatroom';
 import ChatInBox from './ChatInbox';
 import ChatHeader from './chatUI/ChatHeader';
@@ -65,7 +64,9 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-white">
+    <div
+      className={`fixed inset-0 z-50 flex flex-col bg-white ${!selectedChatId && !showChatbot ? 'mb-[81.41px]' : ''}`}
+    >
       {/* 상단 탭바 */}
       {!selectedChatId && (!isChatbotVisible || !showChatbot) && (
         <div className="flex items-center justify-between border-b">
@@ -107,7 +108,7 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
       )}
 
       {/* 컨텐츠 영역 */}
-      <div className="flex-1 overflow-auto style={{ paddingBottom: selectedChatId ? '0px' : '80px' }}">
+      <div className="flex-1 overflow-y-auto">
         {selectedChatId ? ( // selectedChatId가 있으면 메시지 화면 렌더링
           <ChatInBox
             selectedChatId={selectedChatId}
@@ -150,8 +151,6 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
           <AIChatroom onChatbotToggle={handleChatbotToggle} />
         )}
       </div>
-
-      {!selectedChatId && (!isChatbotVisible || !showChatbot) && <BottomNav />}
     </div>
   );
 };
