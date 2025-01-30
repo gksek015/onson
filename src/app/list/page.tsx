@@ -19,14 +19,14 @@ const ListPage = () => {
   return (
     <div>
       <Header />
-      <div className="mx-auto mb-20 flex max-w-content flex-col items-center justify-center pt-2">
+      <div className="mx-auto mb-20 flex max-w-content flex-col pt-2">
         <Suspense>
-          <div className="flex flex-col items-start gap-3 self-stretch">
-            <div className="flex w-full items-center justify-center gap-3 px-5">
+          <div className="mx-auto flex w-full flex-col items-start gap-3 self-stretch px-5 md:w-[760px]">
+            <div className="flex w-full gap-3">
               <SearchBar />
               <CategoryButton categories={categories} />
             </div>
-            <div className="ml-5 flex gap-3">
+            <div className="flex gap-3">
               <AddressTags />
               <Tags />
             </div>
