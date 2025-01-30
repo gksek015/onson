@@ -6,6 +6,7 @@ import { useGNBStore } from '@/utils/store/useGNBStore';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { CloseIcon } from '../icons/Icons';
 import AIChatroom from './ai/AIChatroom';
 import ChatInBox from './ChatInbox';
 import ChatHeader from './chatUI/ChatHeader';
@@ -19,9 +20,11 @@ interface ChatBoxModalProps {
 const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
   const [activeTab, setActiveTab] = useState('온손 AI'); //'실시간채팅'과  '온손 AI' 두개의 탭 상태 관리
   const [selectedChatId, setSelectedChatId] = useState<string | null>(initialChatId || null);
+
   const { user } = useUserStore();
-  const { isChatbotVisible, showChatbot, setIsChatbotVisible, setShowChatbot } = useChatbotStore();
   const { setActiveTab: setGNBActiveTab, setIsGNBVisible } = useGNBStore();
+  const { isChatbotVisible, showChatbot, setIsChatbotVisible, setShowChatbot } = useChatbotStore();
+
   const router = useRouter();
 
   useEffect(() => {
@@ -70,8 +73,12 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex flex-col bg-white ${!selectedChatId && !showChatbot ? 'mb-[81.41px]' : ''}`}
+      className={`fixed inset-0 z-50 flex flex-col bg-white ${!selectedChatId && !showChatbot ? 'mb-[81.41px]' : ''} desktop:bottom-5 desktop:right-5 desktop:h-[650px] desktop:w-[396px] desktop:rounded-[20px] desktop:border desktop:border-gray-200 desktop:shadow-lg`}
     >
+      <button onClick={handleClose} className="absolute right-4 top-4 hidden p-2 transition desktop:block">
+        <CloseIcon />
+      </button>
+
       {/* 상단 탭바 */}
       {!selectedChatId && (!isChatbotVisible || !showChatbot) && (
         <div className="flex items-center justify-between border-b">
