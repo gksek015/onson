@@ -17,7 +17,7 @@ const AllLists = () => {
   const address = searchParams.get('address') || undefined;
   const category = searchParams.get('category') || undefined;
   const searchedKeyword = searchParams.get('searchedKeyword') || undefined;
-  const [isOnlyOpen, setIsOnlyOpen] = useState(false);   // 체크박스 상태 (모집 중인 게시글만 보기)
+  const [isOnlyOpen, setIsOnlyOpen] = useState(false); // 체크박스 상태 (모집 중인 게시글만 보기)
 
   const { data: filteredPosts } = useGetPostsbyFilter(address, category, searchedKeyword);
 
@@ -37,7 +37,7 @@ const AllLists = () => {
   });
 
   const { ref } = useInView({
-    threshold: 1,
+    threshold: 0,
     onChange: (inView) => {
       if (inView && hasNextPage && !isFetchingNextPage) {
         fetchNextPage();
@@ -72,14 +72,14 @@ const AllLists = () => {
   };
 
   // 필터링된 게시물을 가져옴 (주소, 카테고리, 검색어가 있을 때와 없을 때를 나눔)
-  const filteredData = 
-  address || category || searchedKeyword
-    ? filterByStatus((filteredPosts || []) as PostType[]) 
-    : (posts?.pages.flatMap((page) => filterByStatus((page?.post || []) as PostType[])) || []);
+  const filteredData =
+    address || category || searchedKeyword
+      ? filterByStatus((filteredPosts || []) as PostType[])
+      : posts?.pages.flatMap((page) => filterByStatus((page?.post || []) as PostType[])) || [];
 
   return (
-    <div className="w-full">
-      <div className="flex flex-col items-start justify-center gap-1 self-stretch px-5 pb-1 pt-5">
+    <div className="mx-auto w-full md:w-[1125px]">
+      <div className="flex flex-col items-start justify-center gap-1 self-stretch px-5 pb-1 pt-5 md:pt-10">
         {searchedKeyword ? (
           <h1 className="text-xl font-semibold">{`${searchedKeyword}에 해당된 검색 결과입니다`}</h1>
         ) : address || category ? (
@@ -89,7 +89,7 @@ const AllLists = () => {
         )}
       </div>
 
-      <div className="flex items-center px-5 py-2">
+      <div className="flex items-center px-5 py-2 md:pb-6">
         <label htmlFor="filter-recruiting" className="flex items-center gap-2 text-sm">
           <input
             id="filter-recruiting"
@@ -106,7 +106,7 @@ const AllLists = () => {
 
       {isError && <p className="text-red-500">에러발생</p>}
 
-      <ul>
+      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {filteredData.map((post) => (
           <VolunteerCard key={post.id} post={post} />
         ))}
