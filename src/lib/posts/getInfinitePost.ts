@@ -19,7 +19,7 @@ export const getInfinitePost = async ({ pageParam = 0 }: Param) => {
     .from('posts')
     .select(`*, images(img_url), users(nickname, profile_img_url)`)
     .order('created_at', { ascending: false })
-    .range(pageParam * 8, (pageParam + 1) * 8 - 1)
+    .range(pageParam * 9, (pageParam + 1) * 9 - 1)
     if (error) {
       console.error(error.message)
     }
@@ -29,7 +29,7 @@ export const getInfinitePost = async ({ pageParam = 0 }: Param) => {
     
     
     const totalPage = post.length || 0
-    const nextCursor = totalPage === 8 ? pageParam + 1 : undefined
+    const nextCursor = totalPage === 9 ? pageParam + 1 : undefined
     const prevCursor = pageParam > 0 ? pageParam - 1 : undefined
     return {
       post,
