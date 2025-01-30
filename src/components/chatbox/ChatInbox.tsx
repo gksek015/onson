@@ -23,6 +23,7 @@ const ChatInBox = ({ selectedChatId, userId, onEnterChatRoom, onBackToList }: Ch
   const [chatRooms, setChatRooms] = useState<(ChatRoom & { otherNickname: string | null })[]>([]);
   const [isPending, setIsPending] = useState(true);
   const { unreadMessages, isError, refetch } = useUnreadMessageStore();
+
   // 채팅방 목록 로드 및 최신 메시지 업데이트
   const fetchChatRooms = useCallback(async () => {
     const rooms = await getChatRoomList(userId);

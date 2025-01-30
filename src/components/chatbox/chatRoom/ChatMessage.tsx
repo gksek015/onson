@@ -44,6 +44,7 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  // 메세지를 전송하기 위한 함수
   const handleSend = async () => {
     if (!input.trim()) return;
 
