@@ -37,6 +37,7 @@ const PostDetail = ({ postPageId }: PostDetailProps) => {
         endDate={post.end_date}
         address={{ si: post.si, gu: post.gu, dong: post.dong }}
         isPostClosed={post.completed}
+        profileImgUrl = {post.users.profile_img_url}
       />
     </div>
   );

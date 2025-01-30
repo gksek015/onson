@@ -4,8 +4,9 @@ import { BackButtonIcon, MeatballMenuIcon, PencilIcon, RecruitmentIcon, TrashBin
 import { useGetPostById } from '@/hooks/useGetPostById';
 import { useUserStore } from '@/utils/store/userStore';
 import { useQueryClient } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BottomSheet } from 'react-spring-bottom-sheet-updated';
 import 'react-spring-bottom-sheet-updated/dist/style.css';
 import Swal from 'sweetalert2';
@@ -21,6 +22,20 @@ const Header = ({ postPageId }: PostDetailProps) => {
   const router = useRouter();
 
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    // end_date가 현재 날짜 이전이고, 아직 모집이 완료되지 않았다면
+    if (post && dayjs(post.end_date).isBefore(dayjs(), 'day') && !post.completed) {
+      updateCompletedById.mutate(postPageId, {
+        onSuccess: () => {
+          // 관련 캐시 무효화
+          queryClient.invalidateQueries({ queryKey: ['infinitePosts'] });
+          queryClient.invalidateQueries({ queryKey: ['posts'] });
+        },
+      });
+    }
+  }, [post, postPageId, updateCompletedById, queryClient]);
+  // 위 useEffect는 post와 postPageId가 변경될 때마다 동작
 
   const handleBack = () => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -67,13 +82,23 @@ const Header = ({ postPageId }: PostDetailProps) => {
   };
 
   const handleToggleRecruitment = () => {
-    updateCompletedById.mutate(postPageId, {
-      onSuccess: () => {
-        // 모집 마감 업데이트 성공 시 관련 데이터 무효화
-        queryClient.invalidateQueries({ queryKey: ['infinitePosts'] });
-        queryClient.invalidateQueries({ queryKey: ['posts'] }); // 게시물 리스트 쿼리 무효화
-      }
-    });
+    const isPastEndDate = dayjs(post?.end_date).isBefore(dayjs(), 'day'); // 마감 조건 확인
+  
+    if (!isPastEndDate) {
+      updateCompletedById.mutate(postPageId, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['infinitePosts'] });
+          queryClient.invalidateQueries({ queryKey: ['posts'] });
+        },
+      });
+    } else {
+      Swal.fire({
+        title: `모집 마감 불가`,
+        text: `기한이 이미 끝난 봉사활동입니다.`,
+        icon: 'warning',
+        confirmButtonText: '확인',
+      });
+    }
     closeSheet();
   };
 
