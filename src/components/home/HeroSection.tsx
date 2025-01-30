@@ -1,6 +1,6 @@
 'use client';
 
-import banner from '@/assets/Banner-5.png';
+import banner from '@/assets/Frame.png';
 import ChatBoxModal from '@/components/chatbox/ChatBoxModal';
 import useModal from '@/hooks/ui/useModal';
 import Image from 'next/image';
