@@ -1,10 +1,20 @@
-import { supabase } from "@/utils/supabase/client"
+import { supabase } from "@/utils/supabase/client";
+import dayjs from "dayjs";
 
 interface Param  {
     pageParam: number
     }
 
 export const getInfinitePost = async ({ pageParam = 0 }: Param) => {
+  const today = dayjs().format('YYYY-MM-DD');
+
+  // 마감 여부를 업데이트하는 쿼리 실행
+  await supabase
+    .from('posts')
+    .update({ completed: true })
+    .lte('end_date', today) // 마감 날짜가 지난 게시글만 업데이트
+    .eq('completed', false); // 아직 마감되지 않은 게시글만
+
     const { data: post, error } = await supabase
     .from('posts')
     .select(`*, images(img_url), users(nickname, profile_img_url)`)
