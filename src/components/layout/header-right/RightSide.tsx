@@ -1,26 +1,15 @@
 import Link from 'next/link';
-import ProfileDropdawn from './ProfileDropdown';
 
 const RightSide = () => {
   return (
     <div className="flex flex-row gap-4">
-      <Link
-        href="/login"
-        className="text-black  
-      border border-black rounded-full px-4 py-2 hover:bg-blue-200"
-      >
+      <Link href="/login" className="rounded-full border border-black px-4 py-2 text-black hover:bg-blue-200">
         봉사요청
       </Link>
 
-      <Link
-        href="/list"
-        className="text-black  
-      border border-black rounded-full px-4 py-2 hover:bg-blue-200"
-      >
-        봉사찾기
+      <Link href="/list" className="rounded-full border border-black px-4 py-2 text-black hover:bg-blue-200">
+        봉사게시판
       </Link>
-
-      <ProfileDropdawn />
     </div>
   );
 };
