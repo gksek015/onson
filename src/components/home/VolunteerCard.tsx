@@ -4,7 +4,7 @@ import type { PostType } from '@/types/PostType';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MapPinIcon } from '../icons/Icons';
+import { MapPinIcon, MyProfileIcon } from '../icons/Icons';
 
 interface VolunteerCardProps {
   post: PostType;
@@ -19,6 +19,10 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
   const formattedStart = dayjs(post.date).format('YY.MM.DD.');
   const formattedEnd = dayjs(post.end_date).format('YY.MM.DD.');
 
+  const isPastEndDate = dayjs(post.end_date).isBefore(dayjs(), 'day'); // 오늘이 end_date 이후인지 확인
+  const isCloseToEndDate = dayjs(post.end_date).diff(dayjs(), 'day') <= 2 && !isPastEndDate; // 오늘 기준 이틀 이하 인지 확인
+
+
   return (
     <div className="flex w-full flex-row items-start gap-3.5 self-stretch border-b border-[#e7e7e7] px-5 py-8">
       <Link href={`/detail/${post.id}/?from=list`} className="w-full">
@@ -31,7 +35,18 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
           ) : (
             <span className="hidden"></span>
           )}
-          <span className="flex items-center justify-center gap-2 rounded-full bg-[#FFF5EC] px-2.5 py-0.5 text-sm text-[#FF9214]">
+           {isCloseToEndDate && !post.completed && !isPastEndDate && (
+            <span
+              className="flex items-center justify-center gap-2 rounded-full bg-[#FFEBE5] px-2.5 py-0.5 text-sm text-[#FF0000]"
+            >
+              마감 임박 봉사
+            </span>
+          )}
+          <span
+            className={
+              'flex items-center justify-center gap-2 rounded-full bg-[#FFF5EC] px-2.5 py-0.5 text-sm text-[#FF9214]'
+            }
+          >
             {post.category}
           </span>
           <span className="flex items-center justify-center gap-2 rounded-full bg-[#FFF5EC] px-2.5 py-0.5 text-sm text-[#FF9214]">
@@ -42,7 +57,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
         <div className="flex w-full flex-1 items-start justify-between gap-2">
           <div className="flex flex-1 flex-col items-start gap-[8px]">
             {/* 제목 */}
-            <div className="tracking-custom text-lg font-medium leading-7 text-black">{post.title}</div>
+            <div className="text-lg font-medium leading-7 tracking-custom text-black">{post.title}</div>
             {/* 주소 */}
             <div className="flex items-center gap-[8px] self-stretch">
               <MapPinIcon />
@@ -51,9 +66,22 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
               </span>
             </div>
             {/* 작성자 */}
-            <div className="flex items-start gap-3 self-stretch text-sm leading-4 text-[#7e7e7e]">
+            <div className="flex items-center gap-2 self-stretch text-sm leading-4 text-[#7e7e7e]">
+              {post.users.profile_img_url ? (
+                <div className="relative h-6 w-6 overflow-hidden rounded-full bg-gray-200">
+                  <Image
+                    src={post.users.profile_img_url}
+                    alt={`${post.users.nickname}의 프로필 이미지`}
+                    width={32}
+                    height={32}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              ) : (
+                <MyProfileIcon width="24" height="24" />
+              )}
               <span>{post.users.nickname}</span>
-              <span>{post.created_at.split('T')[0]}</span>
+              {/* <span>{post.created_at.split('T')[0]}</span> */}
             </div>
           </div>
 

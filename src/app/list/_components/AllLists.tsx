@@ -5,17 +5,19 @@ import VolunteerCard from '@/components/home/VolunteerCard';
 import { WarningIcon } from '@/components/icons/Icons';
 import useGetPostsbyFilter from '@/hooks/useGetPostsbyFilter';
 import { getInfinitePost } from '@/lib/posts/getInfinitePost';
+import { PostType } from '@/types/PostType';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { toast } from 'react-toastify';
 
 const AllLists = () => {
   const searchParams = useSearchParams();
-  const address = searchParams.get('address') || undefined; // 쿼리스트링에서 'address' 값 가져오기
-  const category = searchParams.get('category') || undefined; // 쿼리스트링에서 'category' 값 가져오기
-  const searchedKeyword = searchParams.get('searchedKeyword') || undefined; // 쿼리스트링에서 'searchedKeyword' 값 가져오기
+  const address = searchParams.get('address') || undefined;
+  const category = searchParams.get('category') || undefined;
+  const searchedKeyword = searchParams.get('searchedKeyword') || undefined;
+  const [isOnlyOpen, setIsOnlyOpen] = useState(false);   // 체크박스 상태 (모집 중인 게시글만 보기)
 
   const { data: filteredPosts } = useGetPostsbyFilter(address, category, searchedKeyword);
 
@@ -43,11 +45,9 @@ const AllLists = () => {
     }
   });
 
-  // 이전에 메시지가 표시되었는지 여부를 추적하기 위한 useRef 사용
   const hasShownToastRef = useRef(false);
 
   useEffect(() => {
-    // 주소가 있고, 이전에 토스트 메시지를 표시한 적이 없는 경우에만 메시지를 표시
     if (address && !hasShownToastRef.current) {
       toast('위치태그를 누르면 지역을 다시 설정할 수 있어요', {
         position: 'top-center',
@@ -59,17 +59,26 @@ const AllLists = () => {
         theme: 'dark',
         closeButton: false
       });
-      hasShownToastRef.current = true; // 토스트가 표시되었음을 기록
+      hasShownToastRef.current = true;
     }
   }, [address]);
 
-  if (!posts) {
-    return;
-  }
+  // 모집중 필터링 로직
+  const filterByStatus = (posts: PostType[]) => {
+    if (isOnlyOpen) {
+      return posts.filter((post) => !post.completed); // 모집 완료되지 않은 게시물만 반환
+    }
+    return posts; // 모든 게시물 반환
+  };
+
+  // 필터링된 게시물을 가져옴 (주소, 카테고리, 검색어가 있을 때와 없을 때를 나눔)
+  const filteredData = 
+  address || category || searchedKeyword
+    ? filterByStatus((filteredPosts || []) as PostType[]) 
+    : (posts?.pages.flatMap((page) => filterByStatus((page?.post || []) as PostType[])) || []);
 
   return (
     <div className="w-full">
-      {/* 동적 타이틀 */}
       <div className="flex flex-col items-start justify-center gap-1 self-stretch px-5 pb-1 pt-5">
         {searchedKeyword ? (
           <h1 className="text-xl font-semibold">{`${searchedKeyword}에 해당된 검색 결과입니다`}</h1>
@@ -80,27 +89,31 @@ const AllLists = () => {
         )}
       </div>
 
-      {/* 로딩 중 상태 */}
+      <div className="flex items-center px-5 py-2">
+        <label htmlFor="filter-recruiting" className="flex items-center gap-2 text-sm">
+          <input
+            id="filter-recruiting"
+            type="checkbox"
+            checked={isOnlyOpen}
+            onChange={(e) => setIsOnlyOpen(e.target.checked)}
+            className="form-checkbox h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+          />
+          모집 중인 게시글만 보기
+        </label>
+      </div>
+
       {isLoading && <Loading />}
 
-      {/* 에러 메시지 */}
       {isError && <p className="text-red-500">에러발생</p>}
 
-      {/* 게시글 리스트 */}
-      {address || category || searchedKeyword ? (
-        <ul>{filteredPosts?.map((post) => <VolunteerCard key={post.id} post={post} />)}</ul>
-      ) : (
-        // 모든 게시물 리스트를 보여줌
-        <ul>
-          {posts.pages.map((page, pageIndex) => (
-            <div key={pageIndex}>{page?.post.map((p) => <VolunteerCard key={p.id} post={p} />)}</div>
-          ))}
-          <div ref={ref}>{isFetchingNextPage && <Loading />}</div>
-        </ul>
-      )}
+      <ul>
+        {filteredData.map((post) => (
+          <VolunteerCard key={post.id} post={post} />
+        ))}
+        <div ref={ref}>{isFetchingNextPage && <Loading />}</div>
+      </ul>
 
-      {/* 아무 결과가 없을 때 */}
-      {filteredPosts?.length === 0 && (
+      {!isLoading && filteredData.length === 0 && (
         <div className="flex h-full flex-col items-center justify-center pt-40">
           <div className="mb-4">
             <WarningIcon />
