@@ -1,8 +1,8 @@
 'use client';
 
+import AddressButton from '@/app/(home)/AddressButton';
+import HeroSection from '@/app/(home)/HeroSection';
 import { Loading } from '@/components/common/Loading';
-import AddressButton from '@/components/home/AddressButton';
-import HeroSection from '@/components/home/HeroSection';
 import useGetUrgentPosts from '@/hooks/useUrgentPosts';
 import VolunteerCard from './VolunteerCard';
 

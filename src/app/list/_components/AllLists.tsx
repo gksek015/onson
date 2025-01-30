@@ -1,7 +1,7 @@
 'use client';
 
+import VolunteerCard from '@/app/(home)/VolunteerCard';
 import { Loading } from '@/components/common/Loading';
-import VolunteerCard from '@/components/home/VolunteerCard';
 import { WarningIcon } from '@/components/icons/Icons';
 import useGetPostsbyFilter from '@/hooks/useGetPostsbyFilter';
 import { getInfinitePost } from '@/lib/posts/getInfinitePost';

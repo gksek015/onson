@@ -1,9 +1,9 @@
 'use client';
 
 import { useBottomSheetStore } from '@/utils/store/useBottomSheetStore';
-import AddressSearch from '../common/AddressSearch';
-import { BottomSheet } from '../common/BottomSheet';
-import { SearchIcon } from '../icons/Icons';
+import AddressSearch from '../../components/common/AddressSearch';
+import { BottomSheet } from '../../components/common/BottomSheet';
+import { SearchIcon } from '../../components/icons/Icons';
 
 const AddressButton = () => {
   const { open } = useBottomSheetStore();
