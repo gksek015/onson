@@ -10,6 +10,7 @@ import { useUnreadMessageStore } from '@/utils/store/useUnreadMessageStore';
 import { useCallback, useEffect, useState } from 'react';
 import ChatList from './chatRoom/ChatList';
 import ChatMessage from './chatRoom/ChatMessage';
+import Spinner from './chatUI/ChatSpinner';
 
 interface ChatInBoxProps {
   userId: string;
@@ -20,8 +21,8 @@ interface ChatInBoxProps {
 
 const ChatInBox = ({ selectedChatId, userId, onEnterChatRoom, onBackToList }: ChatInBoxProps) => {
   const [chatRooms, setChatRooms] = useState<(ChatRoom & { otherNickname: string | null })[]>([]);
+  const [isPending, setIsPending] = useState(true);
   const { unreadMessages, isError, refetch } = useUnreadMessageStore();
-
   // 채팅방 목록 로드 및 최신 메시지 업데이트
   const fetchChatRooms = useCallback(async () => {
     const rooms = await getChatRoomList(userId);
@@ -32,6 +33,7 @@ const ChatInBox = ({ selectedChatId, userId, onEnterChatRoom, onBackToList }: Ch
       })
     );
     setChatRooms(roomsWithNicknames);
+    setIsPending(false);
   }, [userId]);
 
   useEffect(() => {
@@ -48,12 +50,16 @@ const ChatInBox = ({ selectedChatId, userId, onEnterChatRoom, onBackToList }: Ch
   };
 
   if (isError) return <p>Error loading chat rooms</p>;
-  if (!chatRooms.length) return <p className="text-black">No chats available.</p>;
+  if (isPending) return <Spinner />;
 
   return selectedChatId ? (
     <ChatMessage selectedChatId={selectedChatId} userId={userId} onBackToList={onBackToList} />
+  ) : chatRooms.length === 0 ? ( // ✅ 채팅방이 없을 경우 메시지 표시
+    <div className="flex h-full flex-col items-center justify-center text-gray-600">
+      <p>채팅을 보내거나 받으면 채팅이 여기에 표시됩니다.</p>
+    </div>
   ) : (
-    <div className="pb-20">
+    <div>
       <ChatList
         chatRooms={chatRooms}
         onDeleteRoom={handleDeleteRoom}

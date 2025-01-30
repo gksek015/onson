@@ -79,8 +79,6 @@ const ChatList = ({ chatRooms, onSelectRoom, onDeleteRoom, unreadMessagesMap }: 
         slidRoomIdRef.current = null;
       }
     }
-
-    // touchStartXRef.current = null;
   };
 
   return (

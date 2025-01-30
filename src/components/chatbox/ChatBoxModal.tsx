@@ -2,6 +2,7 @@
 
 import { getMarkMessageAsRead } from '@/lib/chats/getMarkMessageAsRead';
 import useChatbotStore from '@/utils/store/useChatBotStore';
+import { useGNBStore } from '@/utils/store/useGNBStore';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -18,8 +19,9 @@ interface ChatBoxModalProps {
 const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
   const [activeTab, setActiveTab] = useState('온손 AI'); //'실시간채팅'과  '온손 AI' 두개의 탭 상태 관리
   const [selectedChatId, setSelectedChatId] = useState<string | null>(initialChatId || null);
-  const { isChatbotVisible, showChatbot, setIsChatbotVisible, setShowChatbot } = useChatbotStore();
   const { user } = useUserStore();
+  const { isChatbotVisible, showChatbot, setIsChatbotVisible, setShowChatbot } = useChatbotStore();
+  const { setActiveTab: setGNBActiveTab, setIsGNBVisible } = useGNBStore();
   const router = useRouter();
 
   useEffect(() => {
@@ -41,6 +43,7 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
     }
     setIsChatbotVisible(false);
     setShowChatbot(false);
+    setGNBActiveTab('home');
     onClose();
   };
 
@@ -55,6 +58,8 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
     } else if (selectedChatId) {
       // 채팅방 -> 채팅 리스트로 복귀
       setSelectedChatId(null);
+      setActiveTab('실시간 채팅');
+      setIsGNBVisible(true);
     }
   };
 
