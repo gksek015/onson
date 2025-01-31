@@ -108,7 +108,7 @@ body {
 }
 
 .common_input_err_massege {
-  @apply mt-[8px] py-[2.5px] pl-[10px] text-[14px] text-red-500;
+  @apply mt-[8px] py-[2.5px] pl-[10px] text-[14px];
 }
 
 .login_wrapper {
@@ -147,7 +147,7 @@ body {
 }
 
 .btn-kakao {
-  @apply flex h-[56px] w-full items-center justify-center self-stretch rounded-[8px] bg-[#5F4A38] p-3 px-[12px] py-[10px] text-[18px] font-semibold leading-[24px] tracking-[-0.4px] text-white;
+  @apply flex h-[56px] w-full items-center justify-center self-stretch rounded-[8px] bg-[#FAE100] p-3 px-[12px] py-[10px] text-[18px] font-semibold leading-[24px] tracking-[-0.4px] text-[#3C1D1E];
 }
 
 .auth_bottom_text_wrapper {
@@ -160,4 +160,19 @@ body {
 
 .auth_bottom_text_normall {
   @apply text-center text-[14px] font-medium not-italic leading-[19px] tracking-[-0.3px] text-[#4D4D4D];
+}
+
+@keyframes wave-hand {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(-8deg); } /* 각도를 줄임 */
+  40% { transform: rotate(-12deg); }
+  60% { transform: rotate(0deg); }
+  80% { transform: rotate(12deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.animate-custom {
+  display: inline-block;
+  transform-origin: bottom center; /* 회전 중심점 유지 */
+  animation: wave-hand 0.8s cubic-bezier(0.42, 0, 0.58, 1) infinite; /* 더 부드러운 전환 곡선 */
 }

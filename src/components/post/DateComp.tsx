@@ -62,13 +62,13 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
         placeholder="기간을 선택하세요"
         onClick={() => open('sheetC')}
         readOnly
-        className="tracking-[-0.4px] h-12 w-full rounded-[8px] border border-[#A1A6AA] px-3 py-[10px] text-base placeholder-[#868C92]"
+        className="focus:border-[1.4px] focus:border-primary-3 focus:outline-none tracking-[-0.4px] h-12 w-full rounded-[8px] border border-[#A1A6AA] px-3 py-[10px] text-base placeholder-[#868C92]"
       />
 
       {/* 바텀시트 */}
       <BottomSheet id='sheetC'>
         <div className="flex h-full flex-col">
-          <div className="flex-grow overflow-y-auto px-5 pb-[90px]">
+          <div className="flex-grow overflow-y-auto px-5 pb-[150px]">
             <h3 className="mb-14 text-left text-2xl font-semibold text-[#000]">
               봉사 날짜를 <br />
               선택해 주세요
@@ -82,12 +82,13 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
                 locale="ko-KR"
                 formatDay={(locale, date) => `${dayjs(date).date()}`}
                 calendarType="hebrew"
+                minDate={new Date()}
                 className="custom-calendar w-full"
               />
             </div>
           </div>
 
-          <div className="bg-white fixed bottom-0 left-0 w-full flex items-center justify-between rounded-t-md border-t border-gray-200 px-5 py-3">
+          <div className="z-10 bg-white fixed bottom-0 left-0 w-full flex items-center justify-between rounded-t-md border-t border-gray-200 px-5 py-6">
             <div className="flex flex-col">
               <p className="text-xs font-normal text-[#333]">봉사 날짜</p>
               {selectedRange && (

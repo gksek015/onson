@@ -1,17 +1,18 @@
 /* 캘린더 전체 스타일 */
 .custom-calendar {
-  margin-bottom: 20px;
+  width: 400px; /* 캘린더 전체 너비 */
+  height: auto; /* 필요에 따라 높이 자동 설정 */
+  margin: 0 auto; /* 중앙 정렬 */
   background: white;
   border: none;
-  width: 320px;
+  margin-top: 20px;
 }
-
 /* 타일 기본 스타일 */
 .custom-calendar .react-calendar__tile {
   text-align: center;
   padding: 0;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   line-height: 40px;
   font-size: 14px;
   transition: all 0.15s ease-in-out;

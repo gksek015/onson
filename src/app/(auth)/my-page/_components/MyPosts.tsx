@@ -1,6 +1,6 @@
 'use client';
 
-import VolunteerCard from '@/components/home/VolunteerCard';
+import VolunteerCard from '@/app/(home)/VolunteerCard';
 import useGetPost from '@/hooks/useGetPost';
 import { useUserStore } from '@/utils/store/userStore';
 
@@ -19,7 +19,7 @@ const MyPosts = () => {
   }
 
   if (!posts || posts.length === 0) {
-    return <p>내가 쓴 글이 없습니다.</p>;
+    return <p className="my_profile_no_contents">내가 쓴 글이 없습니다.</p>;
   }
 
   return (

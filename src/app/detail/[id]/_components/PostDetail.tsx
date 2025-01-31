@@ -17,7 +17,9 @@ const PostDetail = ({ postPageId }: PostDetailProps) => {
     return (
   <Loading/>
 );
-  if (isError || !post) return <div>에러 발생</div>;
+  if (isError || !post) return (
+    <Loading/>
+  );
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -35,6 +37,7 @@ const PostDetail = ({ postPageId }: PostDetailProps) => {
         endDate={post.end_date}
         address={{ si: post.si, gu: post.gu, dong: post.dong }}
         isPostClosed={post.completed}
+        profileImgUrl = {post.users.profile_img_url}
       />
     </div>
   );
