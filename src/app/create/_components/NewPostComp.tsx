@@ -16,12 +16,12 @@ const NewPostComp = () => {
   }
 
   return (
-    <div className="min-h-screen items-center">
-      <header className="fixed top-0 left-0 z-10 flex w-full items-center justify-center border-b bg-white px-4 py-3">
+    <div className="min-h-screen">
+      <header className="fixed top-0 left-1/2 -translate-x-1/2 z-10 flex w-full max-w-content items-center justify-center border-b bg-white px-4 py-3">
         <button onClick={() => router.back()} className="absolute left-4">
           <BackIcon />
         </button>
-        <h1 className="text-center text-xl font-bold tracking-[-0.5px]">봉사요청</h1>
+        <h1 className="text-xl font-bold tracking-[-0.5px]">봉사요청</h1>
         <button
           type="submit"
           onClick={isFormValid() ? handleSubmit : undefined}

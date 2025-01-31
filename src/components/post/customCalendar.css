@@ -1,6 +1,6 @@
 /* 캘린더 전체 스타일 */
 .custom-calendar {
-  width: 350px; /* 캘린더 전체 너비 */
+  width: 400px; /* 캘린더 전체 너비 */
   height: auto; /* 필요에 따라 높이 자동 설정 */
   margin: 0 auto; /* 중앙 정렬 */
   background: white;
