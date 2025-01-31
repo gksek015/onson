@@ -31,21 +31,26 @@ const AllLists = () => {
   } = useInfiniteQuery({
     queryKey: ['infinitePosts'],
     queryFn: ({ pageParam = 0 }) => getInfinitePost({ pageParam }),
-    getNextPageParam: (lastPage) => lastPage?.nextCursor || undefined,
+    getNextPageParam: (lastPage) => {
+      console.log({ lastPage });
+      return lastPage?.nextCursor || undefined;
+    },
     getPreviousPageParam: (firstPage) => firstPage?.prevCursor || undefined,
     initialPageParam: 0
   });
 
-  const { ref } = useInView({
-    threshold: 0,
-    onChange: (inView) => {
-      if (inView && hasNextPage && !isFetchingNextPage) {
-        fetchNextPage();
-      }
-    }
+  const { ref, inView } = useInView({
+    threshold: 0
   });
 
   const hasShownToastRef = useRef(false);
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      // 다음 데이터 불러오는 로직
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   useEffect(() => {
     if (address && !hasShownToastRef.current) {
@@ -78,7 +83,7 @@ const AllLists = () => {
       : posts?.pages.flatMap((page) => filterByStatus((page?.post || []) as PostType[])) || [];
 
   return (
-    <div className="mx-auto w-full md:w-[1125px]">
+    <div className="mx-auto w-full md:w-[1280px]">
       <div className="flex flex-col items-start justify-center gap-1 self-stretch px-5 pb-1 pt-5 md:pt-10">
         {searchedKeyword ? (
           <h1 className="text-xl font-semibold">{`${searchedKeyword}에 해당된 검색 결과입니다`}</h1>
@@ -106,12 +111,12 @@ const AllLists = () => {
 
       {isError && <p className="text-red-500">에러발생</p>}
 
-      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="grid grid-cols-1 gap-[1px] bg-[#e7e7e7] sm:grid-cols-2 lg:grid-cols-3">
         {filteredData.map((post) => (
           <VolunteerCard key={post.id} post={post} />
         ))}
-        <div ref={ref}>{isFetchingNextPage && <Loading />}</div>
       </ul>
+      <div ref={ref}>{isFetchingNextPage && <Loading />}</div>
 
       {!isLoading && filteredData.length === 0 && (
         <div className="flex h-full flex-col items-center justify-center pt-40">
