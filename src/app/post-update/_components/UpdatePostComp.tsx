@@ -18,12 +18,12 @@ const UpdatePostComp = () => {
   }
 
   return isAuthorized ? (
-    <div className="min-h-screen items-center">
-      <header className="relative flex items-center justify-center border-b px-4 py-3">
+    <div className="min-h-screen">
+      <header className="fixed top-0 left-1/2 -translate-x-1/2 z-10 flex w-full max-w-content items-center justify-center border-b bg-white px-4 py-3">
         <button type="button" onClick={navigateToDetail} className="absolute left-4">
           <BackButtonIcon />
         </button>
-        <h1 className="text-center text-xl font-bold tracking-[-0.5px]">수정</h1>
+        <h1 className="text-xl font-bold tracking-[-0.5px]">수정</h1>
         <button type="submit" onClick={handleUpdate} className="absolute right-4 text-xl font-medium text-[#424242]">
           수정
         </button>

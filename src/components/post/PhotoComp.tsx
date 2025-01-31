@@ -57,7 +57,7 @@ const PhotoComp = ({ onImageSelect, onRemoveImage, formData }: PhotoCompProps) =
   };
 
   return (
-    <div className="mt-7 border-t border-[#BEBEBE] px-7">
+    <div className="mt-7 border-t border-[#BEBEBE] px-5">
       <div className="mt-2 flex flex-wrap gap-3">
         {/* 업로드 버튼 */}
         <label
