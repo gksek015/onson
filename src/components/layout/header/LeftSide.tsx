@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const LeftSide = () => {
   return (
-    <div className="flex hidden flex-row gap-4 sm:block">
+    <div className="flex flex-row gap-4 mobile:hidden desktop:block">
       <Link href="/list" className="px-4 py-2 text-xl font-medium text-black">
         봉사게시판
       </Link>
