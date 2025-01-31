@@ -1,7 +1,7 @@
 import { BottomSheet } from '@/components/common/BottomSheet';
 import type { FormData } from '@/types/formdata';
-import AddressSearch from '../AddressSearch';
 import { useBottomSheetStore } from '@/utils/store/useBottomSheetStore';
+import AddressSearch from '../common/AddressSearch';
 
 interface AddressCompProps {
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;

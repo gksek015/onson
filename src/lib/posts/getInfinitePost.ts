@@ -30,6 +30,7 @@ export const getInfinitePost = async ({ pageParam = 0 }: Param) => {
     
     const totalPage = post.length || 0
     const nextCursor = totalPage === 9 ? pageParam + 1 : undefined
+
     const prevCursor = pageParam > 0 ? pageParam - 1 : undefined
     return {
       post,

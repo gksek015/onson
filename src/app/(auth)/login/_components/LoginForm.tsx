@@ -9,8 +9,8 @@ import { login } from '@lib/actions/auth/action';
 import Button from '@/components/common/Button';
 import AuthInput from '@app/(auth)/_components/AuthInput';
 
+import { userLoginSchema } from '@/utils/revalidation/userSchema';
 import { supabase } from '@/utils/supabase/client';
-import { userLoginSchema } from '@lib/revalidation/userSchema';
 import Swal from 'sweetalert2';
 
 type LoginFormData = z.infer<typeof userLoginSchema>;

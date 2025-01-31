@@ -8,8 +8,8 @@ import { z } from 'zod';
 import Button from '@/components/common/Button';
 import AuthInput from '@app/(auth)/_components/AuthInput';
 
+import { userSignUpSchema } from '@/utils/revalidation/userSchema';
 import { signup } from '@lib/actions/auth/action';
-import { userSignUpSchema } from '@lib/revalidation/userSchema';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
 

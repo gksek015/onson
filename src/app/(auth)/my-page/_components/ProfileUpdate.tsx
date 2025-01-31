@@ -10,9 +10,9 @@ import Button from '@/components/common/Button';
 import AuthInput from '@app/(auth)/_components/AuthInput';
 
 import { CameraIcon } from '@/components/icons/Icons';
+import { nicknameSchema } from '@/utils/revalidation/userSchema';
 import { useUserStore } from '@/utils/store/userStore';
 import { supabase } from '@/utils/supabase/client';
-import { nicknameSchema } from '@lib/revalidation/userSchema';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import Swal from 'sweetalert2';
