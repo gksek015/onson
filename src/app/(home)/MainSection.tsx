@@ -3,10 +3,12 @@
 import AddressButton from '@/app/(home)/AddressButton';
 import HeroSection from '@/app/(home)/HeroSection';
 import { Loading } from '@/components/common/Loading';
+import useInitializeUser from '@/hooks/useInitializeUser';
 import useGetUrgentPosts from '@/hooks/useUrgentPosts';
 import VolunteerCard from './VolunteerCard';
 
 const MainSection = () => {
+  useInitializeUser();
   const { data: urgentPosts, isLoading } = useGetUrgentPosts();
 
   return (
@@ -24,7 +26,7 @@ const MainSection = () => {
         </div>
         {isLoading && <Loading />} {/* 데이터 로딩 중일 때 */}
         {/* 마감 임박 봉사 리스트 최대 9개 표시 */}
-        <ul className="grid grid-cols-1 gap-[1px] bg-[#e7e7e7] mobile:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-[1px] bg-[#e7e7e7] sm:grid-cols-2 lg:grid-cols-3">
           {urgentPosts?.map((post) => <VolunteerCard key={post.id} post={post} />)}
         </ul>
       </div>

@@ -34,14 +34,15 @@ const ProfileUpdate = () => {
 
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
-  console.log('user?.profileImage', user?.profileImage);
   const [previewUrl, setPreviewUrl] = useState<string | null>(user?.profileImage || null);
   const [useDefaultImage, setUseDefaultImage] = useState(false); // 체크박스 상태 관리
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const openSheet = () => setIsSheetOpen(true);
   const closeSheet = () => setIsSheetOpen(false);
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -50,9 +51,10 @@ const ProfileUpdate = () => {
         setPreviewUrl(reader.result as string); // 로컬 미리보기 URL 설정
       };
       reader.readAsDataURL(file);
+      setSelectedFile(file); //선택한 파일을 상태에 저장
+      setUseDefaultImage(false); // 파일 선택 시 기본 이미지 체크 해제
+      closeSheet();
     }
-    setUseDefaultImage(false); // 파일 선택 시 기본 이미지 체크 해제
-    closeSheet();
   };
 
   const onSubmit: SubmitHandler<NicknameFormData> = async (data) => {
@@ -68,8 +70,7 @@ const ProfileUpdate = () => {
       if (useDefaultImage) {
         formData.append('profileImage', '');
         previewImageUrl = null;
-      } else if (fileInputRef.current?.files?.[0]) {
-        const selectedFile = fileInputRef.current.files[0];
+      } else if (selectedFile) {
         formData.append('profileImage', selectedFile);
         previewImageUrl = URL.createObjectURL(selectedFile);
         setPreviewUrl(previewImageUrl);
@@ -92,9 +93,6 @@ const ProfileUpdate = () => {
 
       // 닉네임 및 이미지 업데이트 후 상태 반영
       if (user) {
-        console.log('useDefaultImage', useDefaultImage);
-        console.log('result.profileImageUrl', result.profileImageUrl);
-        console.log('previewImageUrl', previewImageUrl);
         setUser({
           ...user,
           nickname: result.nickname,
@@ -150,21 +148,6 @@ const ProfileUpdate = () => {
 
             <div className="ml-[8px] flex flex-col">
               <span className="text-lg font-bold text-[#242628]">{user?.nickname || '사용자 이름'}</span>
-              <div className="flex items-center gap-[4px]">
-                {/* 기본 이미지로 변경하는 체크박스 */}
-                <input
-                  type="checkbox"
-                  id="use-default-image"
-                  checked={useDefaultImage}
-                  onChange={(e) => {
-                    setUseDefaultImage(e.target.checked);
-                    if (e.target.checked) setPreviewUrl(null); // 기본 이미지 사용 시 미리보기 URL 제거
-                  }}
-                />
-                <label htmlFor="use-default-image" className="cursor-pointer text-sm text-[#868C92]">
-                  기본 이미지 사용
-                </label>
-              </div>
             </div>
           </div>
 
@@ -189,7 +172,7 @@ const ProfileUpdate = () => {
             defaultSnap={({ maxHeight }) => maxHeight * 0.3} // 기본 열림 위치 설정
           >
             <div className="p-4">
-              <button className="flex w-full items-center gap-2 px-4 py-2 text-left">
+              <button className="flex w-full items-center gap-2 px-4 py-2 text-left outline-none focus:outline-none">
                 <label htmlFor="photo-upload" className="h-full w-full cursor-pointer">
                   사진에서 선택
                 </label>
@@ -209,7 +192,7 @@ const ProfileUpdate = () => {
                   setPreviewUrl(null);
                   closeSheet();
                 }}
-                className="flex w-full items-center gap-2 px-4 py-2 text-left text-red-500"
+                className="flex w-full items-center gap-2 px-4 py-2 text-left"
               >
                 기본이미지 선택
               </button>
