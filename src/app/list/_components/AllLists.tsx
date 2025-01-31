@@ -32,7 +32,6 @@ const AllLists = () => {
     queryKey: ['infinitePosts'],
     queryFn: ({ pageParam = 0 }) => getInfinitePost({ pageParam }),
     getNextPageParam: (lastPage) => {
-      console.log({ lastPage });
       return lastPage?.nextCursor || undefined;
     },
     getPreviousPageParam: (firstPage) => firstPage?.prevCursor || undefined,
