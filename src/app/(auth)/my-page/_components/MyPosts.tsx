@@ -19,7 +19,7 @@ const MyPosts = () => {
   }
 
   if (!posts || posts.length === 0) {
-    return <p>내가 쓴 글이 없습니다.</p>;
+    return <p className="my_profile_no_contents">내가 쓴 글이 없습니다.</p>;
   }
 
   return (
