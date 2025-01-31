@@ -34,7 +34,6 @@ const ProfileUpdate = () => {
 
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
-  console.log('user?.profileImage', user?.profileImage);
   const [previewUrl, setPreviewUrl] = useState<string | null>(user?.profileImage || null);
   const [useDefaultImage, setUseDefaultImage] = useState(false); // 체크박스 상태 관리
   const fileInputRef = useRef<HTMLInputElement | null>(null);
