@@ -21,6 +21,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: aiResponse });
   } catch (error) {
     console.error("OpenAI API 에러남:", error);
-    return NextResponse.json({ error: "Failed to fetch response from OpenAI API" }, { status: 500 });
+    return NextResponse.json({ error: "OPEN API 패치 실패함" }, { status: 500 });
   }
 }

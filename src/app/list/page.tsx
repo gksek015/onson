@@ -21,7 +21,7 @@ const ListPage = () => {
       <Header />
       <div className="mx-auto mb-20 flex max-w-content flex-col pt-2">
         <Suspense>
-          <div className="mx-auto flex w-full flex-col items-start gap-3 self-stretch px-5 md:w-[760px]">
+          <div className="mx-auto flex w-full flex-col items-start gap-3 self-stretch px-5 desktop:w-[760px]">
             <div className="flex w-full gap-3">
               <SearchBar />
               <CategoryButton categories={categories} />
@@ -34,7 +34,7 @@ const ListPage = () => {
           <AllLists />
         </Suspense>
       </div>
-      <div className="block sm:hidden">
+      <div className="block mobile:hidden">
         <BottomNav />
       </div>
       <UpScrollButton />

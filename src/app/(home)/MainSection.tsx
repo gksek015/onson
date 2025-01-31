@@ -3,10 +3,12 @@
 import AddressButton from '@/app/(home)/AddressButton';
 import HeroSection from '@/app/(home)/HeroSection';
 import { Loading } from '@/components/common/Loading';
+import useInitializeUser from '@/hooks/useInitializeUser';
 import useGetUrgentPosts from '@/hooks/useUrgentPosts';
 import VolunteerCard from './VolunteerCard';
 
 const MainSection = () => {
+  useInitializeUser();
   const { data: urgentPosts, isLoading } = useGetUrgentPosts();
 
   return (
@@ -17,7 +19,7 @@ const MainSection = () => {
       <div className='bg-[#FFEAD3] '>
         <HeroSection />
       </div>
-      <div className="mx-auto w-full lg:w-[1280px]">
+      <div className="mx-auto w-full desktop:w-[1125px]">
         <div className="px-5 pt-7 tracking-[-0.4px]">
           <h2 className="text-sm text-[#FB657E]">HOT</h2>
           <h1 className="text-xl font-semibold">곧 마감되는 봉사</h1>

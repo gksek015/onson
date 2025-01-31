@@ -71,20 +71,20 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
     }
   };
 
-    // 입력창 변경 시 처리 함수
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
-      setKeyword(value);
-  
-      if (value.trim() === '') {
-        // 검색어가 비어있으면 결과를 초기화
-        setSearchResults([]);
-      }
-    };
+  // 입력창 변경 시 처리 함수
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setKeyword(value);
+
+    if (value.trim() === '') {
+      // 검색어가 비어있으면 결과를 초기화
+      setSearchResults([]);
+    }
+  };
 
   return (
-    <div className="flex h-full flex-grow flex-col overflow-y-auto p-5 md:p-10">
-      <h1 className="mb-6 text-2xl font-semibold leading-7 tracking-[-0.55px] md:text-4xl">위치</h1>
+    <div className="flex h-full flex-grow flex-col overflow-y-auto p-5">
+      <h1 className="mb-6 text-2xl font-semibold leading-7 tracking-[-0.55px]">위치</h1>
 
       {/* 검색 입력 필드 */}
       <div className="relative flex w-auto items-center gap-2">
@@ -94,12 +94,12 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
           value={keyword}
           onKeyUp={(e) => e.key === 'Enter' && handleSearch()} // 엔터 키 동작
           onChange={handleInputChange}
-          className="my-4 w-full flex-1 cursor-pointer rounded-full border border-[#FB657E] p-0.5 px-5 py-3.5 text-base text-black shadow-input focus:outline-none md:mb-6 md:text-2xl"
+          className="my-4 w-full flex-1 cursor-pointer rounded-full border border-[#FB657E] p-0.5 px-5 py-3.5 text-base text-black shadow-input focus:outline-none"
         />
         <button
           type="submit"
           onClick={handleSearch}
-          className="absolute right-5 top-1/2 -translate-y-1/2 text-[#4b4b4b] md:text-4xl"
+          className="absolute right-5 top-1/2 -translate-y-1/2 text-[#4b4b4b]"
         >
           <span className="sr-only">Search</span>
           <SearchIcon />{' '}
@@ -114,7 +114,7 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
         {searchResults.map((juso, index) => (
           <li
             key={index}
-            className="cursor-pointer py-2.5 text-base font-semibold tracking-content md:text-2xl"
+            className="cursor-pointer py-2.5 text-base font-semibold tracking-content"
             onClick={() => {
               // 검색하는 기능은 'search' / 새글 작성 시 선택하는 기능에서는 'select'로 따로 option줘서 onClick 분리하기
               const addressList = juso.split(' ');
@@ -149,4 +149,3 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
 };
 
 export default AddressSearch;
-

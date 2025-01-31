@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useEffect } from 'react';
-import { useBottomSheetStore } from '@/utils/store/useBottomSheetStore';
 import { CloseIcon } from '../icons/Icons';
+import { useDialogStore } from '@/utils/store/useDialogStore';
 
 interface BottomSheetProps {
   id: string;
@@ -9,7 +9,7 @@ interface BottomSheetProps {
 }
 
 export const BottomSheet = ({ id, children }: BottomSheetProps) => {
-  const { activeId, close } = useBottomSheetStore();
+  const { activeId, close } = useDialogStore();
 
   const isOpen = activeId === id;
 

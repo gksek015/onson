@@ -24,7 +24,7 @@ const ChatIcon = () => {
   const getChatIcon = () => (hasUnreadMessages ? <MessageCircleIcon /> : <MessageStrokeIcon />);
 
   return (
-    <div className="hidden sm:block">
+    <div className="mobile:hidden desktop:block">
       <button onClick={toggleModal}>{getChatIcon()}</button>
       {isOpen && <ChatBoxModal onClose={closeModal} />}
     </div>
