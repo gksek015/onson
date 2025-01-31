@@ -51,23 +51,30 @@ const ChatInBox = ({ selectedChatId, userId, onEnterChatRoom, onBackToList }: Ch
   };
 
   if (isError) return <p>Error loading chat rooms</p>;
-  if (isPending) return <Spinner />;
 
-  return selectedChatId ? (
-    <ChatMessage selectedChatId={selectedChatId} userId={userId} onBackToList={onBackToList} />
-  ) : chatRooms.length === 0 ? ( // ✅ 채팅방이 없을 경우 메시지 표시
-    <div className="flex h-full flex-col items-center justify-center text-gray-600">
-      <p>채팅을 보내거나 받으면 채팅이 여기에 표시됩니다.</p>
+  return (
+    <div className="relative h-full">
+      {isPending ? (
+        <div className="flex flex-1 items-center justify-center">
+          <Spinner />
+        </div>
+      ) : selectedChatId ? (
+        <ChatMessage selectedChatId={selectedChatId} userId={userId} onBackToList={onBackToList} />
+      ) : chatRooms.length === 0 ? ( // ✅ 채팅방이 없을 경우 메시지 표시
+        <div className="flex h-full flex-col items-center justify-center text-[#343434]">
+          <p>채팅을 보내거나 받으면 채팅이 여기에 표시됩니다.</p>
+        </div>
+      ) : (
+        <>
+          <ChatList
+            chatRooms={chatRooms}
+            onDeleteRoom={handleDeleteRoom}
+            onSelectRoom={handleSelectRoom}
+            unreadMessagesMap={unreadMessages || {}}
+          />
+        </>
+      )}
     </div>
-  ) : (
-    <>
-      <ChatList
-        chatRooms={chatRooms}
-        onDeleteRoom={handleDeleteRoom}
-        onSelectRoom={handleSelectRoom}
-        unreadMessagesMap={unreadMessages || {}}
-      />
-    </>
   );
 };
 

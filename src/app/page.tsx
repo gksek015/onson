@@ -7,13 +7,13 @@ export default function Home() {
   return (
     <section>
       <Header />
-      <div className="mx-auto mb-20 ">
+      <div className="mx-auto mb-20">
         <MainSection />
       </div>
       <div>
         <ChatBoxButton />
       </div>
-      <div className="block mobile:hidden">
+      <div className="block desktop:hidden">
         <BottomNav />
       </div>
     </section>
