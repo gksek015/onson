@@ -3,7 +3,7 @@
 import { RightArrowForChatIcon, UnReadMarkIcon } from '@/components/icons/Icons';
 import { deleteChatRoom } from '@/lib/chats/deleteChatRoom';
 import type { ChatRoom } from '@/types/chatType';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 import Swal from 'sweetalert2';
 
@@ -15,8 +15,8 @@ interface ChatListProps {
 }
 
 const ChatList = ({ chatRooms, onSelectRoom, onDeleteRoom, unreadMessagesMap }: ChatListProps) => {
-  const [slidStates, setSlidStates] = useState<{ [key: string]: boolean }>({});
-  const touchStartXRef = useRef<number | null>(null);
+  const [slidRoomId, setSlidRoomId] = useState<string | null>(null);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   const formatDate = (created_at: string | null) => {
     if (!created_at) return '날짜 없음'; // 예외 처리
@@ -60,59 +60,58 @@ const ChatList = ({ chatRooms, onSelectRoom, onDeleteRoom, unreadMessagesMap }: 
   };
 
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    e.stopPropagation(); // 이벤트 전파 중단
-    touchStartXRef.current = e.touches[0].clientX; // 터치 시작 위치 저장
+    e.stopPropagation();
+    setTouchStartX(e.touches[0].clientX); // 터치 시작 위치 저장
   };
 
+  // 터치 이동 이벤트
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>, roomId: string) => {
-    e.stopPropagation(); // 이벤트 전파 중단
-
+    e.stopPropagation();
     const touchEndX = e.changedTouches[0].clientX;
 
-    if (touchStartXRef.current !== null) {
-      const deltaX = touchStartXRef.current - touchEndX;
+    if (touchStartX !== null) {
+      const deltaX = touchStartX - touchEndX;
 
-      if (deltaX < -50) {
-        // 슬라이드 활성화
-        setSlidStates((prev) => ({ ...prev, [roomId]: true }));
-      } else if (deltaX > 50) {
-        // 슬라이드 비활성화
-        setSlidStates((prev) => ({ ...prev, [roomId]: false }));
+      if (deltaX > 50) {
+        // 새로운 채팅방 슬라이드 시 기존 슬라이드 해제
+        setSlidRoomId((prev) => (prev === roomId ? prev : roomId));
+      } else if (deltaX < -50 && slidRoomId === roomId) {
+        // 반대로 슬라이드하면 해제
+        setSlidRoomId(null);
       }
     }
-    touchStartXRef.current = null;
   };
 
   return (
-    <div className="w-full">
+    <div className="overlow w-full">
       {sortedRooms.map((room) => {
         const lastMessage = room.messages?.[room.messages.length - 1];
         const hasUnreadMessagesMap = unreadMessagesMap[room.id];
-        const isSlid = slidStates[room.id];
+        const isSlid = slidRoomId === room.id;
 
         return (
           <div
             key={room.id}
-            className="relative mb-2 mt-2 flex w-full flex-col"
-            onTouchStart={(e) => handleTouchStart(e)}
+            className="relative mb-2 mt-2 flex w-full flex-col overflow-hidden"
+            onTouchStart={handleTouchStart}
             onTouchMove={(e) => handleTouchMove(e, room.id)}
-            onTouchEnd={(e) => e.stopPropagation()} // 터치 종료 이벤트
+            onTouchEnd={() => setTimeout(() => setSlidRoomId(null), 3000)} // ✅ 자동 해제 (3초 후)
           >
-            {/* 채팅 리스트 */}
-            <div
-              className={`flex w-full transition-transform duration-200 ease-in-out ${
-                isSlid ? 'translate-x-[-80px]' : 'translate-x-0'
-              }`}
-            >
+            <div className="relative flex w-full">
+              {/* 채팅 리스트 (✅ 오른쪽으로 80px만큼 이동) */}
               <button
-                className="w-full px-5 py-3 text-left"
+                className={`w-full min-w-0 px-5 py-3 text-left transition-transform duration-200 ease-in-out ${
+                  isSlid ? 'translate-x-[-80px]' : 'translate-x-0'
+                }`}
                 onClick={() => onSelectRoom(room.id, room.otherNickname || '사용자가 없습니다.')}
               >
                 {/* 상단: 닉네임과 날짜+화살표 */}
                 <div className="flex w-full items-center justify-between">
-                  <div className="flex flex-1 items-center">
-                    <span className="text-lg font-medium text-black">{room.otherNickname || '사용자가 없습니다.'}</span>
-                    <span className="ml-2">{hasUnreadMessagesMap && <UnReadMarkIcon />}</span>
+                  <div className="flex min-w-0 flex-1 items-center">
+                    <span className="truncate text-lg font-medium text-black">
+                      {room.otherNickname || '사용자가 없습니다.'}
+                    </span>
+                    {hasUnreadMessagesMap && <UnReadMarkIcon />}
                   </div>
                   <div className="flex-end flex items-center space-x-2 text-right">
                     <span className="text-xs text-[#989898]">
@@ -130,10 +129,10 @@ const ChatList = ({ chatRooms, onSelectRoom, onDeleteRoom, unreadMessagesMap }: 
                 </div>
               </button>
 
-              {/* 삭제 버튼 */}
+              {/* ✅ 삭제 버튼 - 슬라이드된 공간 안에 표시 */}
               <div
-                className={`absolute right-[-80px] top-1/2 h-full w-[80px] -translate-y-1/2 transform whitespace-nowrap bg-[#F66B55] text-center font-medium text-white transition-transform duration-300 ${
-                  isSlid ? 'translate-x-[-80px]' : 'translate-x-0'
+                className={`absolute right-0 top-0 flex h-full w-[80px] items-center justify-center bg-[#F66B55] text-white transition-all duration-300 ${
+                  isSlid ? 'opacity-100' : 'pointer-events-none opacity-0'
                 }`}
               >
                 <button className="h-full w-full" onClick={() => handleDeleteRoom(room.id)}>

@@ -3,7 +3,7 @@ import CategoryButton from '@/app/list/_components/CategoryButton';
 import Tags from '@/app/list/_components/Tags';
 import BottomNav from '@/components/layout/BottomNav';
 import Header from '@/components/layout/Header';
-import { categories } from '@/data/categories';
+import { categories } from '@/constants/categories';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import AllLists from './_components/AllLists';
@@ -19,14 +19,14 @@ const ListPage = () => {
   return (
     <div>
       <Header />
-      <div className="mx-auto mb-20 flex max-w-content flex-col items-center justify-center pt-2">
+      <div className="mx-auto mb-20 flex max-w-content flex-col pt-2">
         <Suspense>
-          <div className="flex flex-col items-start gap-3 self-stretch">
-            <div className="flex w-full items-center justify-center gap-3 px-5">
+          <div className="mx-auto flex w-full flex-col items-start gap-3 self-stretch px-5 desktop:w-[760px]">
+            <div className="flex w-full gap-3">
               <SearchBar />
               <CategoryButton categories={categories} />
             </div>
-            <div className="ml-5 flex gap-3">
+            <div className="flex gap-3">
               <AddressTags />
               <Tags />
             </div>
@@ -34,7 +34,7 @@ const ListPage = () => {
           <AllLists />
         </Suspense>
       </div>
-      <div className="block sm:hidden">
+      <div className="block mobile:hidden">
         <BottomNav />
       </div>
       <UpScrollButton />

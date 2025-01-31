@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 // 게시물 데이터를 Supabase Posts 테이블에 삽입하는 함수
 export const insertPost = async (formData: FormData, userId: string): Promise<{ id: string }> => {
   try {
-    const [si, gu, dong] = formData.address.split(' ')
+    const [si, gu, dong = ''] = formData.address.split(' ')
     const { data: post, error } = await supabase
       .from('posts')
       .insert({

@@ -13,11 +13,8 @@ import { supabase } from '@/utils/supabase/client';
       // 클라이언트 상태 초기화
       useUserStore.getState().clearUser();
 
-      const logoutRedirectUri = process.env.NEXT_PUBLIC_BASE_URL;
-      const result = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&logout_redirect_uri=${logoutRedirectUri}`;
-
       // 카카오 로그아웃
-      window.location.href = result;
+      window.location.href = window.location.origin;
     } catch (err) {
       if (err instanceof Error) {
         console.error('로그아웃 처리 중 오류:', err.message);

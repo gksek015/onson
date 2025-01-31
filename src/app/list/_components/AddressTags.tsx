@@ -1,14 +1,14 @@
 'use client';
 
 import AddressSearch from '@/components/common/AddressSearch';
-import { BottomSheet } from '@/components/common/BottomSheet';
+import { ModalSheet } from '@/components/common/ModalSheet';
 import { CloseIcon, MapPinIcon } from '@/components/icons/Icons';
-import { useBottomSheetStore } from '@/utils/store/useBottomSheetStore';
+import { useDialogStore } from '@/utils/store/useDialogStore';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
 const AddressTags = () => {
-  const { open, close } = useBottomSheetStore();
+  const { open, close } = useDialogStore();
   const searchParams = useSearchParams();
   const router = useRouter();
   const [tag, setTag] = useState(searchParams.get('addressKeyword'));
@@ -62,10 +62,10 @@ const AddressTags = () => {
       )}
 
       {/* BottomSheet */}
-      <BottomSheet id="sheetD">
+      <ModalSheet id="sheetD">
         {/* AddressSearch를 바텀시트에 렌더링 */}
         <AddressSearch option={'search'} onAddressSelect={handleAddressSelect} />
-      </BottomSheet>
+      </ModalSheet>
     </div>
   );
 };

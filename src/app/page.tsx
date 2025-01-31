@@ -1,21 +1,19 @@
-import InitializeUser from '@/components/auth/InitializeUser';
+import MainSection from '@/app/(home)/MainSection';
 import ChatBoxButton from '@/components/chatbox/ChatBoxButton';
-import MainSection from '@/components/home/MainSection';
 import BottomNav from '@/components/layout/BottomNav';
 import Header from '@/components/layout/Header';
 
 export default function Home() {
   return (
     <section>
-      <InitializeUser />
       <Header />
-      <div className="mx-auto mb-20 max-w-content">
+      <div className="mx-auto mb-20 ">
         <MainSection />
       </div>
       <div>
         <ChatBoxButton />
       </div>
-      <div className="block sm:hidden">
+      <div className="block mobile:hidden">
         <BottomNav />
       </div>
     </section>

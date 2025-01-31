@@ -1,7 +1,7 @@
 'use server';
 
 
-import { userLoginSchema } from '@lib/revalidation/userSchema';
+import { userLoginSchema } from '@/utils/revalidation/userSchema';
 
 import { createClient } from '@/utils/supabase/server';
 
@@ -9,48 +9,84 @@ import type { AuthError } from '@supabase/supabase-js';
 
 import { User } from '@supabase/supabase-js';
 
-const supabase = createClient(); 
 // 회원가입
 export const signup = async (formData: FormData) => {
   try {
     const data = {
       email: formData.get('email') as string,
       password: formData.get('password') as string,
-      options: {
-        data: {
-          nickname: formData.get('nickname') as string,
-          profileImage: '',
-        },
-      },
+      nickname: formData.get('nickname') as string
     };
 
-    console.log('회원가입 요청 데이터:', data);
+    const supabase = createClient();
 
-    // Supabase 회원가입 요청
-    const { data: userData, error } = await supabase.auth.signUp(data);
+    // 닉네임 중복 체크
+    const { count: nicknameCount, error: nicknameCheckError } = await supabase
+      .from('users')
+      .select('id', { count: 'exact', head: true })
+      .eq('nickname', data.nickname);
 
-    if (error) {
-      console.error('회원가입 오류:', error.message);
-      return { error: error.message }; // 에러 메시지 반환
+    if (nicknameCount && nicknameCount > 0) {
+      console.error('이미 사용 중인 닉네임입니다.');
+      return { error: '이미 사용 중인 닉네임입니다.' };
     }
 
-    // 사용자 정보를 public users 테이블에 삽입
-    const pubilcUserData = {
+    if (nicknameCheckError) {
+      console.error('닉네임 조회 오류:', nicknameCheckError.message);
+      return { error: '닉네임 확인 중 오류가 발생했습니다.' };
+    }
+
+    // 이메일 중복 체크 (회원가입 전에 미리 체크)
+    const { count: emailCount, error: emailCheckError } = await supabase
+      .from('users')
+      .select('id', { count: 'exact', head: true })
+      .eq('email', data.email);
+
+    if (emailCount && emailCount > 0) {
+      console.error('이미 가입된 이메일입니다.');
+      return { error: '이미 가입된 이메일입니다.' };
+    }
+
+    if (emailCheckError) {
+      console.error('이메일 조회 오류:', emailCheckError.message);
+      return { error: '이메일 확인 중 오류가 발생했습니다.' };
+    }
+
+    // Supabase 회원가입
+    const { data: userData, error: signUpError } = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+      options: {
+        data: {
+          nickname: data.nickname,
+          profileImage: ''
+        }
+      }
+    });
+
+    if (signUpError) {
+      console.error('회원가입 오류:', signUpError.message);
+      return { error: signUpError.message };
+    }
+
+    await supabase.auth.signOut();
+
+    // users 테이블에 사용자 정보 저장
+    const publicUserData = {
       id: userData.user?.id,
       email: userData.user?.email,
-      nickname: formData.get('nickname') as string,
+      nickname: data.nickname
     };
 
-    const { error: insertError } = await supabase.from('users').insert(pubilcUserData);
+    const { error: insertError } = await supabase.from('users').insert(publicUserData);
 
     if (insertError) {
       console.error('유저 정보 삽입 오류:', insertError.message);
       return { error: insertError.message };
     }
 
-    console.log('회원가입 성공:', userData);
+    return { success: true };
 
-    return { success: true }; // 성공 반환
   } catch (err) {
     console.error('회원가입 중 알 수 없는 오류:', err);
     return { error: '회원가입 중 알 수 없는 오류가 발생했습니다.' };
@@ -116,7 +152,7 @@ export const checkSupabaseSession = async () => {
         user: {
           id: user.id,
           email: user.email || 'Unknown', // 기본값 할당
-          nickname: user.user_metadata?.nickname || 'Unknown',
+          nickname: user.user_metadata?.nickname || user.user_metadata?.name || 'Unknown',
           profileImage: user.user_metadata?.profileImage || null,
         },
       };
@@ -139,12 +175,8 @@ export const updateNicknameAndImage = async (formData: FormData) => {
     const supabase = createClient();
 
     // 닉네임과 이미지 데이터 가져오기
-    const nickname = formData.get('nickname') as string;
+    const nickname = formData.get('nickname') as string | null;
     const image = formData.get('profileImage') as File | null;
-
-    if (!nickname || nickname.trim().length === 0) {
-      throw new Error('닉네임을 입력해주세요.');
-    }
 
     // 현재 로그인한 사용자 가져오기
     const {
@@ -154,69 +186,78 @@ export const updateNicknameAndImage = async (formData: FormData) => {
 
     if (userError) {
       console.error('사용자 가져오기 오류:', userError.message);
-      throw new Error('사용자 정보를 가져오는 중 오류가 발생했습니다.');
+      return { error: '사용자 정보를 가져오는 중 오류가 발생했습니다.' };
     }
 
     if (!user) {
-      throw new Error('로그인이 필요합니다.');
+      return { error: '로그인이 필요합니다.' };
     }
 
     let profileImageUrl = user.user_metadata?.profileImage || null;
 
+    // 닉네임 중복 체크 (count 방식 적용)
+    if (nickname && nickname !== user.user_metadata?.nickname) {
+      const { count: nicknameCount, error: nicknameCheckError } = await supabase
+        .from('users')
+        .select('id', { count: 'exact', head: true }) 
+        .eq('nickname', nickname);
+
+      if (nicknameCheckError) {
+        console.error('닉네임 조회 오류:', nicknameCheckError.message);
+        return { error: '닉네임 확인 중 오류가 발생했습니다.' };
+      }
+
+      if (nicknameCount && nicknameCount > 0) {
+        console.error('이미 사용 중인 닉네임입니다.');
+        return { error: '이미 사용 중인 닉네임입니다.' };
+      }
+    }
+
     // 이미지 업로드 처리
     if (image) {
       const bucketName = 'users_bucket';
-
-      // 고유한 파일 이름 생성
       const filename = `${user.id}-${Date.now()}.${image.name.split('.').pop()}`;
 
-      // Supabase 스토리지에 이미지 업로드
-      const { error: uploadError } = await supabase.storage
-        .from(bucketName)
-        .upload(filename, image);
-
+      const { error: uploadError } = await supabase.storage.from(bucketName).upload(filename, image);
       if (uploadError) {
         console.error('이미지 업로드 오류:', uploadError.message);
-        throw new Error('이미지 업로드 중 오류가 발생했습니다.');
+        return { error: '이미지 업로드 중 오류가 발생했습니다.' };
       }
 
       // 업로드된 이미지의 퍼블릭 URL 가져오기
-      const { data: publicUrlData } = supabase.storage
-        .from(bucketName)
-        .getPublicUrl(filename);
-
-      if (!publicUrlData) {
-        throw new Error('업로드된 이미지의 URL을 가져올 수 없습니다.');
-      }
-
+      const { data: publicUrlData } = supabase.storage.from(bucketName).getPublicUrl(filename);
       profileImageUrl = publicUrlData.publicUrl;
     }
 
-    // 닉네임 업데이트
-    const { error: updateError } = await supabase.auth.updateUser({
-      data: { nickname, profileImage: profileImageUrl },
-    });
+    // 닉네임 또는 프로필 이미지 업데이트
+    const updateData: { nickname?: string; profileImage?: string } = {};
+    if (nickname) updateData.nickname = nickname;
+    if (profileImageUrl) updateData.profileImage = profileImageUrl;
 
+    const { error: updateError } = await supabase.auth.updateUser({ data: updateData });
     if (updateError) {
-      console.error('닉네임 업데이트 오류:', updateError.message);
-      throw new Error('닉네임 업데이트에 실패했습니다.');
+      console.error('유저 메타데이터 업데이트 오류:', updateError.message);
+      return { error: '유저 메타데이터 업데이트에 실패했습니다.' };
     }
 
-    // 사용자 테이블 업데이트
+    // users 테이블 업데이트
+    const userTableUpdateData: { nickname?: string; profile_img_url?: string } = {};
+    if (nickname) userTableUpdateData.nickname = nickname;
+    if (profileImageUrl) userTableUpdateData.profile_img_url = profileImageUrl;
+
     const { error: userTableError } = await supabase
       .from('users')
-      .update({ nickname, profile_img_url: profileImageUrl })
+      .update(userTableUpdateData)
       .eq('id', user.id);
 
     if (userTableError) {
       console.error('사용자 테이블 업데이트 오류:', userTableError.message);
-      throw new Error('닉네임 및 이미지 업데이트 중 오류가 발생했습니다.');
+      return { error: '닉네임 및 이미지 업데이트 중 오류가 발생했습니다.' };
     }
 
-    return { nickname, profileImageUrl };
+    return { nickname: nickname || user.user_metadata?.nickname || user.user_metadata?.name, profileImageUrl };
   } catch (err) {
     console.error('닉네임 및 이미지 수정 중 오류 발생:', err);
-    throw new Error(err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다.');
+    return { error: '알 수 없는 오류가 발생했습니다.' };
   }
 };
-

@@ -5,8 +5,10 @@ import { RightArrowForChatIcon } from '@/components/icons/Icons';
 import useModal from '@/hooks/ui/useModal';
 import { newChatApi } from '@/lib/chats/newChatRoom';
 import { sendMessage } from '@/lib/chats/newMessage';
+import { useGNBStore } from '@/utils/store/useGNBStore';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import Swal from 'sweetalert2';
 
 interface PostActionButtonsProps {
@@ -15,10 +17,12 @@ interface PostActionButtonsProps {
   title: string;
 }
 
-const PostActionButtons = ({title, nickname, postOwnerId }: PostActionButtonsProps) => {
+const PostActionButtons = ({ title, nickname, postOwnerId }: PostActionButtonsProps) => {
   const { isOpen, toggleModal } = useModal();
   const { user } = useUserStore();
   const router = useRouter();
+  const [chatId, setChatId] = useState<string | null>(null);
+  const { setActiveTab } = useGNBStore();
 
   const handleChatClick = async () => {
     if (!user) {
@@ -63,6 +67,8 @@ const PostActionButtons = ({title, nickname, postOwnerId }: PostActionButtonsPro
     }
 
     // 채팅 모달 열기
+    setActiveTab('chat');
+    setChatId(chatRoom.id);
     toggleModal();
   };
 
@@ -77,7 +83,7 @@ const PostActionButtons = ({title, nickname, postOwnerId }: PostActionButtonsPro
           <RightArrowForChatIcon />
         </button>
       )}
-      {isOpen && <ChatBoxModal onClose={toggleModal} />}
+      {isOpen && <ChatBoxModal onClose={toggleModal} initialChatId={chatId} />}
     </>
   );
 };

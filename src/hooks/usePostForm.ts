@@ -40,6 +40,8 @@ export const usePostForm = () => {
         text: '글을 작성하시려면 로그인이 필요합니다.',
         icon: 'warning',
         showCancelButton: true,
+        confirmButtonColor: 'var(--primary-3)',
+        cancelButtonColor: '#B4B4B4',
         confirmButtonText: '로그인하러 가기',
         cancelButtonText: '취소',
 
