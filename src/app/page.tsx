@@ -9,7 +9,7 @@ export default function Home() {
     <section>
       <InitializeUser />
       <Header />
-      <div className="mx-auto mb-20 max-w-content">
+      <div className="mx-auto mb-20 ">
         <MainSection />
       </div>
       <div>

@@ -1,6 +1,6 @@
 'use client';
 
-import banner from '@/assets/Frame.png';
+import banner from '@/assets/banner-mob.png';
 import ChatBoxModal from '@/components/chatbox/ChatBoxModal';
 import useModal from '@/hooks/ui/useModal';
 import { useGNBStore } from '@/utils/store/useGNBStore';
@@ -16,8 +16,8 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="cursor-pointer">
-      <Image src={banner} alt="hero section image" onClick={handleChatOpen} priority />
+    <div className="md:ml-56">
+      <Image src={banner} alt="hero section image" onClick={handleChatOpen} priority className="cursor-pointer" />
       {isOpen && <ChatBoxModal onClose={closeModal} />}
     </div>
   );
