@@ -9,8 +9,13 @@ import { login } from '@lib/actions/auth/action';
 import Button from '@/components/common/Button';
 import AuthInput from '@app/(auth)/_components/AuthInput';
 
+
 import { userLoginSchema } from '@/utils/revalidation/userSchema';
 import { supabase } from '@/utils/supabase/client';
+
+import { Loading } from '@/components/common/Loading';
+
+import { useState } from 'react';
 import Swal from 'sweetalert2';
 
 type LoginFormData = z.infer<typeof userLoginSchema>;
@@ -19,13 +24,24 @@ const LoginForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    trigger
   } = useForm<LoginFormData>({
-    resolver: zodResolver(userLoginSchema)
+    resolver: zodResolver(userLoginSchema),
+    mode: 'onChange'
   });
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleInputChange = async (fieldName: keyof LoginFormData) => {
+    // 특정 필드에 대해서만 유효성 검사를 실행
+    await trigger(fieldName);
+  };
 
   const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
     try {
+      setIsLoading(true);
+
       const formData = new FormData();
       Object.entries(data).forEach(([key, value]) => {
         formData.append(key, value);
@@ -61,6 +77,8 @@ const LoginForm = () => {
         icon: 'error',
         confirmButtonText: '확인'
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -69,14 +87,18 @@ const LoginForm = () => {
     await supabase.auth.signInWithOAuth({
       provider: 'kakao',
       options: {
-        redirectTo: `${currentUrl}/api/auth/callback`
+        redirectTo: `${currentUrl}/api/auth/callback`,
+        queryParams: {
+          prompt: 'login'
+        }
       }
     });
   };
 
   return (
     <>
-      <div className="login_wrapper">
+      {isLoading && <Loading />}
+      <div className={`login_wrapper ${isLoading ? 'pointer-events-none opacity-50' : ''}`}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="title" className="input_title_label">
             아이디
@@ -85,8 +107,11 @@ const LoginForm = () => {
             type="email"
             id="title"
             placeholder="email를 입력해주세요"
-            {...register('email')}
+            {...register('email', {
+              onChange: () => handleInputChange('email') // 이메일 입력 시 유효성 검사 실행
+            })}
             errorMessage={errors.email?.message}
+            errorMessageStyle={errors.email?.message ? 'text-red-500' : 'text-[#868C92]'}
           />
           <label htmlFor="password" className="input_title_label mt-[12px]">
             비밀번호
@@ -95,8 +120,11 @@ const LoginForm = () => {
             type="password"
             id="password"
             placeholder="비밀번호를 입력해주세요"
-            {...register('password')}
+            {...register('password', {
+              onChange: () => handleInputChange('password') // 비밀번호 입력 시 유효성 검사 실행
+            })}
             errorMessage={errors.password?.message}
+            errorMessageStyle={errors.password?.message ? 'text-red-500' : 'text-[#868C92]'}
           />
           <Button className="btn-pink mt-[28px]" type="submit" label="로그인" />
           <Button className="btn-kakao mt-[10px]" type="button" onClick={kakaoLogin} label="카카오 소셜로그인" />
