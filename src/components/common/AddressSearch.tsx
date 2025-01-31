@@ -71,16 +71,16 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
     }
   };
 
-    // 입력창 변경 시 처리 함수
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
-      setKeyword(value);
-  
-      if (value.trim() === '') {
-        // 검색어가 비어있으면 결과를 초기화
-        setSearchResults([]);
-      }
-    };
+  // 입력창 변경 시 처리 함수
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setKeyword(value);
+
+    if (value.trim() === '') {
+      // 검색어가 비어있으면 결과를 초기화
+      setSearchResults([]);
+    }
+  };
 
   return (
     <div className="flex h-full flex-grow flex-col overflow-y-auto p-5">
@@ -149,4 +149,3 @@ const AddressSearch = ({ onAddressSelect, option, onSelect }: AddressSearchProps
 };
 
 export default AddressSearch;
-

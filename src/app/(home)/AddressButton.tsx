@@ -1,7 +1,7 @@
 'use client';
 
 import { ModalSheet } from '@/components/common/ModalSheet';
-import AddressSearch from '../../components/common/AddressSearch';
+import AddressSearch from '@/components/common/AddressSearch';
 import { SearchIcon } from '../../components/icons/Icons';
 import { useDialogStore } from '@/utils/store/useDialogStore';
 
@@ -9,7 +9,7 @@ const AddressButton = () => {
   const { open } = useDialogStore();
 
   return (
-    <div className="relative flex w-full items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571] md:w-[760px]">
+    <div className="relative flex w-full items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571] desktop:w-[760px]">
       <input
         readOnly
         placeholder="지역을 검색하세요"

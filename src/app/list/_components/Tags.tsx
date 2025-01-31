@@ -31,7 +31,7 @@ const Tags = () => {
   };
 
   return (
-    <div className="flex items-center justify-start gap-3 text-xs md:pb-5">
+    <div className="flex items-center justify-start gap-3 text-xs desktop:pb-5">
       {/* category 태그 */}
       {category && (
         <div className="flex rounded-lg border border-[#e6e6e6] py-1.5 pl-2 pr-1.5">

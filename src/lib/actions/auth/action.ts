@@ -152,7 +152,7 @@ export const checkSupabaseSession = async () => {
         user: {
           id: user.id,
           email: user.email || 'Unknown', // 기본값 할당
-          nickname: user.user_metadata?.nickname || 'Unknown',
+          nickname: user.user_metadata?.nickname || user.user_metadata?.name || 'Unknown',
           profileImage: user.user_metadata?.profileImage || null,
         },
       };
@@ -195,11 +195,11 @@ export const updateNicknameAndImage = async (formData: FormData) => {
 
     let profileImageUrl = user.user_metadata?.profileImage || null;
 
-    // 🔹 **닉네임 중복 체크 (count 방식 적용)**
+    // 닉네임 중복 체크 (count 방식 적용)
     if (nickname && nickname !== user.user_metadata?.nickname) {
       const { count: nicknameCount, error: nicknameCheckError } = await supabase
         .from('users')
-        .select('id', { count: 'exact', head: true }) // ✅ 기존 `.single()` → `count` 방식으로 변경
+        .select('id', { count: 'exact', head: true }) 
         .eq('nickname', nickname);
 
       if (nicknameCheckError) {
@@ -213,7 +213,7 @@ export const updateNicknameAndImage = async (formData: FormData) => {
       }
     }
 
-    // 🔹 **이미지 업로드 처리**
+    // 이미지 업로드 처리
     if (image) {
       const bucketName = 'users_bucket';
       const filename = `${user.id}-${Date.now()}.${image.name.split('.').pop()}`;
@@ -229,7 +229,7 @@ export const updateNicknameAndImage = async (formData: FormData) => {
       profileImageUrl = publicUrlData.publicUrl;
     }
 
-    // 🔹 **닉네임 또는 프로필 이미지 업데이트**
+    // 닉네임 또는 프로필 이미지 업데이트
     const updateData: { nickname?: string; profileImage?: string } = {};
     if (nickname) updateData.nickname = nickname;
     if (profileImageUrl) updateData.profileImage = profileImageUrl;
@@ -240,7 +240,7 @@ export const updateNicknameAndImage = async (formData: FormData) => {
       return { error: '유저 메타데이터 업데이트에 실패했습니다.' };
     }
 
-    // 🔹 **users 테이블 업데이트**
+    // users 테이블 업데이트
     const userTableUpdateData: { nickname?: string; profile_img_url?: string } = {};
     if (nickname) userTableUpdateData.nickname = nickname;
     if (profileImageUrl) userTableUpdateData.profile_img_url = profileImageUrl;
@@ -255,7 +255,7 @@ export const updateNicknameAndImage = async (formData: FormData) => {
       return { error: '닉네임 및 이미지 업데이트 중 오류가 발생했습니다.' };
     }
 
-    return { nickname: nickname || user.user_metadata?.nickname, profileImageUrl };
+    return { nickname: nickname || user.user_metadata?.nickname || user.user_metadata?.name, profileImageUrl };
   } catch (err) {
     console.error('닉네임 및 이미지 수정 중 오류 발생:', err);
     return { error: '알 수 없는 오류가 발생했습니다.' };
