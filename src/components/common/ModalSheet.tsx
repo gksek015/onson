@@ -12,11 +12,10 @@ export const ModalSheet = ({ id, children }: ModalSheetProps) => {
   const { activeId, close } = useDialogStore();
   const isOpen = activeId === id;
 
-  // ✅ 초기값을 `false`로 설정하고, 클라이언트에서 업데이트
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return; // 서버 환경에서는 실행하지 않음
+    if (typeof window === 'undefined') return;
 
     const updateScreenSize = () => {
       setIsDesktop(window.innerWidth >= 1025);
@@ -35,7 +34,7 @@ export const ModalSheet = ({ id, children }: ModalSheetProps) => {
       window.removeEventListener('resize', updateScreenSize);
       document.body.style.overflow = ''; // 모달 닫힐 때 스크롤 복구
     };
-  }, [isOpen]); // `isOpen`이 변경될 때 실행
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
