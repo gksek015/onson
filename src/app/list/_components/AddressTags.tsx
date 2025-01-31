@@ -37,12 +37,12 @@ const AddressTags = () => {
   };
 
   return (
-    <div className="flex justify-start text-xs">
+    <div className="flex justify-start text-xs desktop:pb-5">
       {/* tag가 null이거나 falsy하면 렌더링 안하기 */}
       {tag && (
         <div
           onClick={() => open('sheetD')}
-          className="flex cursor-pointer rounded-lg border border-[#e6e6e6] py-1.5 pl-2 pr-1.5"
+          className="flex cursor-pointer rounded-lg border border-[#e6e6e6] py-1.5 pl-2 pr-2"
         >
           <MapPinIcon />
           <span className="text-sm text-[#656565]">{tag}</span>
