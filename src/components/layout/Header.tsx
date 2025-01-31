@@ -1,5 +1,5 @@
 import ChatIcon from './header/ChatIcon';
-import HeaderLogo from './header/headerLogo';
+import HeaderLogo from './header/HeaderLogo';
 import IsLogin from './header/IsLogin';
 import LeftSide from './header/LeftSide';
 

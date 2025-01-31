@@ -60,14 +60,14 @@ const ChatInBox = ({ selectedChatId, userId, onEnterChatRoom, onBackToList }: Ch
       <p>채팅을 보내거나 받으면 채팅이 여기에 표시됩니다.</p>
     </div>
   ) : (
-    <div>
+    <>
       <ChatList
         chatRooms={chatRooms}
         onDeleteRoom={handleDeleteRoom}
         onSelectRoom={handleSelectRoom}
         unreadMessagesMap={unreadMessages || {}}
       />
-    </div>
+    </>
   );
 };
 
