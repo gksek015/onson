@@ -1,8 +1,10 @@
 'use client';
 
+import onson from '@/assets/onson.png';
 import { SendMessageGradientIcon, SendMessageIcon } from '@/components/icons/Icons';
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import Spinner from './Spinner';
+import { OnsonLoading } from './OnsonLoading';
 
 const AIChatbot = () => {
   const [messages, setMessages] = useState<{ role: string; text: string }[]>([]);
@@ -20,7 +22,8 @@ const AIChatbot = () => {
     '온손 웹사이트가 궁금해요!',
     '봉사 요청을 어떻게 하는지 궁금해요!',
     '봉사를 어떻게 검색하는지 궁금해요!',
-    '사용자와 채팅은 어떻게 해야하는지 궁금해요!'
+    '사용자와 채팅은 어떻게 해야하는지 궁금해요!',
+    '나를 위한 봉사 게시글 추천해줘!'
   ];
 
   // 옵션 클릭 시 처리
@@ -74,7 +77,7 @@ const AIChatbot = () => {
   return (
     <div className="flex h-screen flex-col bg-[#F2F2F2] p-4">
       {/* 채팅창 */}
-      <div className="flex-1">
+      <div className="flex-1 overflow-auto bg-[#F2F2F2]">
         <div className="mx-auto mt-2 w-full max-w-md">
           {/* 상단 안내 문구 */}
           <div className="mb-2 rounded-lg bg-white p-2 text-center text-sm font-light">
@@ -109,6 +112,9 @@ const AIChatbot = () => {
           <div className="mt-6 space-y-4">
             {messages.map((msg, index) => (
               <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                {msg.role !== 'user' && (
+                  <Image src={onson} alt="Onson 프로필 이미지" className="mr-2 h-8 w-8 rounded-full" />
+                )}
                 <div
                   className={`max-w-xs px-4 py-2 text-sm font-medium ${
                     msg.role === 'user'
@@ -125,7 +131,7 @@ const AIChatbot = () => {
         </div>
         {loading && (
           <div className="mt-4 text-center">
-            <Spinner />
+            <OnsonLoading />
           </div>
         )}
       </div>
