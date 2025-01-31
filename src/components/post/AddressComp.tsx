@@ -19,9 +19,12 @@ const AddressComp = ({ formData, setFormData }: AddressCompProps) => {
 
   return (
     <div>
+      <div className="flex items-center">
       <label htmlFor="address" className="tracking-[-0.5px] block text-lg font-semibold">
         위치
       </label>
+      <span className="px-2 text-sm font-medium text-[#868C92]">* 필수</span>
+      </div>
       <input
         type="text"
         id="address"
@@ -29,7 +32,7 @@ const AddressComp = ({ formData, setFormData }: AddressCompProps) => {
         readOnly
         placeholder="지역 선택"
         value={formData.address}
-        className="px-3 py-[10px] tracking-[-0.4px] mt-3 block h-12 w-full rounded-[8px] border border-[#A1A6AA] text-base placeholder-[#868C92]"
+        className="focus:border-[1.4px] focus:border-primary-3 focus:outline-none px-3 py-[10px] tracking-[-0.4px] mt-3 block h-12 w-full rounded-[8px] border border-[#A1A6AA] text-base placeholder-[#868C92]"
         onClick={() => open('sheetA')}
       />
 
