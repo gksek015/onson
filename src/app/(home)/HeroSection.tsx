@@ -1,6 +1,6 @@
 'use client';
 
-import banner from '@/assets/banner-mob.png';
+import banner from '@/assets/Frame.png';
 import ChatBoxModal from '@/components/chatbox/ChatBoxModal';
 import useModal from '@/hooks/ui/useModal';
 import { useGNBStore } from '@/utils/store/useGNBStore';
