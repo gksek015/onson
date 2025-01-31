@@ -83,7 +83,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
       <li className="flex w-full items-start self-stretch bg-white px-5 py-8">
         <Link href={`/detail/${post.id}/?from=list`} className="w-full">
           {/* 태그 */}
-          <div className="mb-2 flex w-full flex-wrap items-center text-sm font-normal">
+          <div className="mb-2 flex w-full flex-wrap gap-2 items-center text-sm font-normal">
             {post.completed ? (
               <span className="flex items-center justify-center gap-2 rounded-full border bg-[#A6A6A6] px-2.5 py-0.5 text-sm text-white">
                 모집 마감
@@ -109,7 +109,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
           </div>
 
           <div className="flex w-full flex-1 items-start justify-between gap-2">
-            <div className="flex flex-1 flex-col items-start gap-[8px]">
+            <div className="flex flex-1 flex-col items-start gap-2">
               {/* 제목 */}
               <div className="text-lg font-medium leading-7 tracking-custom text-black">{post.title}</div>
               {/* 주소 */}

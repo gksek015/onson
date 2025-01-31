@@ -16,8 +16,8 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="cursor-pointer">
-      <Image src={banner} alt="hero section image" onClick={handleChatOpen} priority />
+    <div className="md:ml-56">
+      <Image src={banner} alt="hero section image" onClick={handleChatOpen} priority className="cursor-pointer" />
       {isOpen && <ChatBoxModal onClose={closeModal} />}
     </div>
   );

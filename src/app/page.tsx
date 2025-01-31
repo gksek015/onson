@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <section>
       <Header />
-      <div className="mx-auto mb-20 max-w-content">
+      <div className="mx-auto mb-20 ">
         <MainSection />
       </div>
       <div>
