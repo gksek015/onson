@@ -13,7 +13,7 @@ export default function Home() {
       <div>
         <ChatBoxButton />
       </div>
-      <div className="block mobile:hidden">
+      <div className="block desktop:hidden">
         <BottomNav />
       </div>
     </section>
