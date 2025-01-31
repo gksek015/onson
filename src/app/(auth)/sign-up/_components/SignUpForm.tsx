@@ -8,9 +8,9 @@ import { z } from 'zod';
 import Button from '@/components/common/Button';
 import AuthInput from '@app/(auth)/_components/AuthInput';
 
+import { userSignUpSchema } from '@/utils/revalidation/userSchema';
 import { Loading } from '@/components/common/Loading';
 import { signup } from '@lib/actions/auth/action';
-import { userSignUpSchema } from '@lib/revalidation/userSchema';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Swal from 'sweetalert2';

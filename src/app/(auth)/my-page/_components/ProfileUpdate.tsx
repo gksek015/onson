@@ -11,8 +11,8 @@ import AuthInput from '@app/(auth)/_components/AuthInput';
 
 import { Loading } from '@/components/common/Loading';
 import { CameraIcon } from '@/components/icons/Icons';
+import { nicknameSchema } from '@/utils/revalidation/userSchema';
 import { useUserStore } from '@/utils/store/userStore';
-import { nicknameSchema } from '@lib/revalidation/userSchema';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { BottomSheet } from 'react-spring-bottom-sheet-updated';

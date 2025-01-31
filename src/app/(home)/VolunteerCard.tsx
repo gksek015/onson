@@ -8,11 +8,11 @@ import { useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
+import { MapPinIcon, MyProfileIcon } from '../../components/icons/Icons';
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import { MapPinIcon, MyProfileIcon } from '../icons/Icons';
 
 interface VolunteerCardProps {
   post: PostType;
@@ -77,14 +77,15 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
     return;
   };
 
+
   return (
     <>
-      <div className="flex w-full flex-row items-start gap-3.5 self-stretch border-b border-[#e7e7e7] px-5 py-8">
+      <li className="flex w-full items-start self-stretch bg-white px-5 py-8">
         <Link href={`/detail/${post.id}/?from=list`} className="w-full">
           {/* 태그 */}
-          <div className="mb-[8px] flex w-full flex-wrap items-center gap-[8px] text-sm font-normal">
+          <div className="mb-2 flex w-full flex-wrap items-center text-sm font-normal">
             {post.completed ? (
-              <span className="flex items-center justify-center gap-2 rounded-full border bg-[#808080] px-2.5 py-0.5 text-sm text-white">
+              <span className="flex items-center justify-center gap-2 rounded-full border bg-[#A6A6A6] px-2.5 py-0.5 text-sm text-white">
                 모집 마감
               </span>
             ) : (
@@ -110,7 +111,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
           <div className="flex w-full flex-1 items-start justify-between gap-2">
             <div className="flex flex-1 flex-col items-start gap-[8px]">
               {/* 제목 */}
-              <div className="tracking-custom text-lg font-medium leading-7 text-black">{post.title}</div>
+              <div className="text-lg font-medium leading-7 tracking-custom text-black">{post.title}</div>
               {/* 주소 */}
               <div className="flex items-center gap-[8px] self-stretch">
                 <MapPinIcon />
@@ -134,7 +135,6 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
                   <MyProfileIcon width="24" height="24" />
                 )}
                 <span>{post.users.nickname}</span>
-                {/* <span>{post.created_at.split('T')[0]}</span> */}
               </div>
             </div>
 
@@ -159,7 +159,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
             )}
           </div>
         </Link>
-      </div>
+      </li>
       {/* 현재 경로에 따라 다르게 버튼 추가 */}
       {currentPath === '/my-page/bookmarks' && (
         <>

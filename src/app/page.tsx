@@ -1,6 +1,6 @@
+import MainSection from '@/app/(home)/MainSection';
 import InitializeUser from '@/components/auth/InitializeUser';
 import ChatBoxButton from '@/components/chatbox/ChatBoxButton';
-import MainSection from '@/components/home/MainSection';
 import BottomNav from '@/components/layout/BottomNav';
 import Header from '@/components/layout/Header';
 

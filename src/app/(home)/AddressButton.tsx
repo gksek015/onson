@@ -1,9 +1,9 @@
 'use client';
 
 import { useBottomSheetStore } from '@/utils/store/useBottomSheetStore';
-import AddressSearch from '../common/AddressSearch';
-import { BottomSheet } from '../common/BottomSheet';
-import { SearchIcon } from '../icons/Icons';
+import AddressSearch from '../../components/common/AddressSearch';
+import { BottomSheet } from '../../components/common/BottomSheet';
+import { SearchIcon } from '../../components/icons/Icons';
 
 const AddressButton = () => {
   const { open } = useBottomSheetStore();
@@ -12,7 +12,7 @@ const AddressButton = () => {
     <div className="relative flex w-full items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571] md:w-[760px]">
       <input
         readOnly
-        placeholder="어디에서 봉사활동을 하고 싶으신가요?"
+        placeholder="지역을 검색하세요"
         className="w-full flex-1 cursor-pointer rounded-full border border-[#FB657E] p-0.5 px-5 py-3.5 text-base text-black shadow-input focus:outline-none"
         onClick={() => open('sheetF')}
       />

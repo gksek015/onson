@@ -1,7 +1,7 @@
 'use server';
 
 
-import { userLoginSchema } from '@lib/revalidation/userSchema';
+import { userLoginSchema } from '@/utils/revalidation/userSchema';
 
 import { createClient } from '@/utils/supabase/server';
 

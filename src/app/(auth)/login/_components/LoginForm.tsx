@@ -9,9 +9,12 @@ import { login } from '@lib/actions/auth/action';
 import Button from '@/components/common/Button';
 import AuthInput from '@app/(auth)/_components/AuthInput';
 
-import { Loading } from '@/components/common/Loading';
+
+import { userLoginSchema } from '@/utils/revalidation/userSchema';
 import { supabase } from '@/utils/supabase/client';
-import { userLoginSchema } from '@lib/revalidation/userSchema';
+
+import { Loading } from '@/components/common/Loading';
+
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 

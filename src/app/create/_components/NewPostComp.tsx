@@ -1,9 +1,9 @@
 'use client';
 
 import { Loading } from '@/components/common/Loading';
-import PostForm from '@/components/common/post/PostForm';
 import { BackIcon } from '@/components/icons/Icons';
-import { categories } from '@/data/categories';
+import PostForm from '@/components/post/PostForm';
+import { categories } from '@/constants/categories';
 import { usePostForm } from '@/hooks/usePostForm';
 import { useRouter } from 'next/navigation';
 
