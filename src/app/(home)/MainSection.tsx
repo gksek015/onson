@@ -19,7 +19,7 @@ const MainSection = () => {
       <div>
         <HeroSection />
       </div>
-      <div className="mx-auto w-full md:w-[1125px]">
+      <div className="mx-auto w-full desktop:w-[1125px]">
         <div className="px-5 pt-7 tracking-[-0.4px]">
           <h2 className="text-sm text-[#FB657E]">HOT</h2>
           <h1 className="text-xl font-semibold">곧 마감되는 봉사</h1>
