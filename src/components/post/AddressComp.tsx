@@ -1,7 +1,7 @@
-import { BottomSheet } from '@/components/common/BottomSheet';
 import type { FormData } from '@/types/formdata';
-import { useBottomSheetStore } from '@/utils/store/useBottomSheetStore';
 import AddressSearch from '../common/AddressSearch';
+import { ModalSheet } from '../common/ModalSheet';
+import { useDialogStore } from '@/utils/store/useDialogStore';
 
 interface AddressCompProps {
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
@@ -9,7 +9,7 @@ interface AddressCompProps {
 }
 
 const AddressComp = ({ formData, setFormData }: AddressCompProps) => {
-  const { open, close } = useBottomSheetStore();
+  const { open, close } = useDialogStore();
 
   const handleAddressSelect = (selectedAddress: string) => {
     // 선택된 주소를 formData와 input에 반영
@@ -36,7 +36,7 @@ const AddressComp = ({ formData, setFormData }: AddressCompProps) => {
         onClick={() => open('sheetA')}
       />
 
-      <BottomSheet id="sheetA">
+      <ModalSheet id="sheetA">
         {/* 전달되는 Content 컴포넌트 */}
         <AddressSearch
           option={'select'}
@@ -44,7 +44,7 @@ const AddressComp = ({ formData, setFormData }: AddressCompProps) => {
             handleAddressSelect(selectedAddress); // 선택된 주소를 처리
           }}
         />
-      </BottomSheet>
+      </ModalSheet>
     </div>
   );
 };

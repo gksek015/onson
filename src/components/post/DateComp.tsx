@@ -1,13 +1,13 @@
 'use client';
 
-import { BottomSheet } from '@/components/common/BottomSheet';
 import type { FormData } from '@/types/formdata';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './customCalendar.css';
-import { useBottomSheetStore } from '@/utils/store/useBottomSheetStore';
+import { ModalSheet } from '../common/ModalSheet';
+import { useDialogStore } from '@/utils/store/useDialogStore';
 
 interface DateCompProps {
   onSelectRange: (range: [Date, Date]) => void;
@@ -15,7 +15,7 @@ interface DateCompProps {
 }
 
 const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
-    const { open, close } = useBottomSheetStore();
+    const { open, close } = useDialogStore();
   const [selectedRange, setSelectedRange] = useState<[Date, Date] | null>(null);
 
   // formData 값을 기반으로 selectedRange 초기화
@@ -66,7 +66,7 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
       />
 
       {/* 바텀시트 */}
-      <BottomSheet id='sheetC'>
+      <ModalSheet id='sheetC'>
         <div className="flex h-full flex-col">
           <div className="flex-grow overflow-y-auto px-5 pb-[150px]">
             <h3 className="mb-14 text-left text-2xl font-semibold text-[#000]">
@@ -108,7 +108,7 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
             </button>
           </div>
         </div>
-      </BottomSheet>
+      </ModalSheet>
     </div>
   );
 };
