@@ -11,6 +11,7 @@ const useInitializeUser = () => {
 
   useEffect(() => {
     const fetchSession = async () => {
+        
       try {
         // Supabase 세션 상태 확인
         const sessionData = await checkSupabaseSession();
