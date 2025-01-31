@@ -23,10 +23,10 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
   const isCloseToEndDate = dayjs(post.end_date).diff(dayjs(), 'day') <= 2 && !isPastEndDate; // 오늘 기준 이틀 이하 인지 확인
 
   return (
-    <li className="flex w-full flex-row items-start gap-3.5 self-stretch border-b border-[#e7e7e7] px-5 py-8 sm:border-r sm:last:border-r-0">
+    <li className="flex w-full items-start self-stretch bg-white px-5 py-8 ">
       <Link href={`/detail/${post.id}/?from=list`} className="w-full">
         {/* 태그 */}
-        <div className="mb-[8px] flex w-full flex-wrap items-center gap-[8px] text-sm font-normal">
+        <div className="mb-2 flex w-full flex-wrap items-center text-sm font-normal">
           {post.completed ? (
             <span className="flex items-center justify-center gap-2 rounded-full border bg-[#A6A6A6] px-2.5 py-0.5 text-sm text-white">
               모집 마감
@@ -78,7 +78,6 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
                 <MyProfileIcon width="24" height="24" />
               )}
               <span>{post.users.nickname}</span>
-              {/* <span>{post.created_at.split('T')[0]}</span> */}
             </div>
           </div>
 

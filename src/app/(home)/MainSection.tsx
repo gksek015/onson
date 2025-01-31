@@ -24,10 +24,10 @@ const MainSection = () => {
         </div>
         {isLoading && <Loading />} {/* 데이터 로딩 중일 때 */}
         {/* 마감 임박 봉사 리스트 최대 9개 표시 */}
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {urgentPosts?.map((post) => <VolunteerCard key={post.id} post={post} />)}
-        </ul>
-      </div>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 bg-[#e7e7e7] gap-[1px]">
+            {urgentPosts?.map((post) => <VolunteerCard key={post.id} post={post} />)}
+          </ul>
+        </div>
     </>
   );
 };
