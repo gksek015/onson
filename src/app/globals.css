@@ -161,3 +161,18 @@ body {
 .auth_bottom_text_normall {
   @apply text-center text-[14px] font-medium not-italic leading-[19px] tracking-[-0.3px] text-[#4D4D4D];
 }
+
+@keyframes wave-hand {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(-8deg); } /* 각도를 줄임 */
+  40% { transform: rotate(-12deg); }
+  60% { transform: rotate(0deg); }
+  80% { transform: rotate(12deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.animate-custom {
+  display: inline-block;
+  transform-origin: bottom center; /* 회전 중심점 유지 */
+  animation: wave-hand 0.8s cubic-bezier(0.42, 0, 0.58, 1) infinite; /* 더 부드러운 전환 곡선 */
+}

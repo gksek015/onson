@@ -7,7 +7,7 @@ interface Param  {
 export const getInfinitePost = async ({ pageParam = 0 }: Param) => {
     const { data: post, error } = await supabase
     .from('posts')
-    .select(`*, users(nickname), images(img_url)`)
+    .select(`*, images(img_url), users(nickname, profile_img_url)`)
     .order('created_at', { ascending: false })
     .range(pageParam * 8, (pageParam + 1) * 8 - 1)
     if (error) {

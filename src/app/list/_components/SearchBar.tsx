@@ -24,7 +24,7 @@ const SearchBar = () => {
         type="text"
         value={searchKeyword}
         onChange={(e) => setSearchKeyword(e.target.value)}
-        onKeyDown={(e) => e.key === 'Enter' && handleSearch()} // 엔터 키 동작
+        onKeyUp={(e) => e.key === 'Enter' && handleSearch()} // 엔터 키 동작
         placeholder="하고 싶은 봉사를 찾아보세요"
         className="w-full flex-1 cursor-pointer rounded-full border border-[#FB657E] p-0.5 px-5 py-3.5 text-base text-black shadow-input focus:outline-none"
       />

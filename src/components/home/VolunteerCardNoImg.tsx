@@ -13,6 +13,9 @@ const VolunteerCardNoImg = ({ post }: VolunteerCardProps) => {
   const formattedStart = dayjs(post.date).format('YY.MM.DD.');
   const formattedEnd = dayjs(post.end_date).format('YY.MM.DD.');
 
+  const isPastEndDate = dayjs(post.end_date).isBefore(dayjs(), 'day'); // 오늘이 end_date 이후인지 확인
+  const isCloseToEndDate = dayjs(post.end_date).diff(dayjs(), 'day') <= 2 && !isPastEndDate; // 오늘 기준 이틀 이하 인지
+
   return (
     <div className="flex min-w-[300px] flex-col items-start self-stretch border-r border-[#e7e7e7] px-[20px] py-[32px]">
       <Link href={`/detail/${post.id}/?from=list`} className="w-full">
@@ -25,6 +28,12 @@ const VolunteerCardNoImg = ({ post }: VolunteerCardProps) => {
           ) : (
             <span className="hidden"></span>
           )}
+          {isCloseToEndDate && !post.completed && !isPastEndDate && (
+            <span className="flex items-center justify-center gap-2 rounded-full bg-[#FFEBE5] px-2.5 py-0.5 text-sm text-[#FF0000]">
+              마감 임박 봉사
+            </span>
+          )}
+
           <span className="flex items-center justify-center gap-2 rounded-full bg-[#FFF5EC] px-2.5 py-0.5 text-sm text-[#FF9214]">
             {post.category}
           </span>
@@ -36,7 +45,7 @@ const VolunteerCardNoImg = ({ post }: VolunteerCardProps) => {
         <div className="flex w-full flex-1 items-start justify-between gap-2">
           <div className="flex flex-1 flex-col items-start gap-[8px]">
             {/* 제목 */}
-            <div className="tracking-custom w-[250px] truncate text-lg font-medium leading-7 text-black">
+            <div className="w-[250px] truncate text-lg font-medium leading-7 tracking-custom text-black">
               {post.title}
             </div>
             {/* 주소 */}

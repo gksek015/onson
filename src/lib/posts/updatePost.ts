@@ -9,7 +9,7 @@ export const getPost = async (postId: string): Promise<PostType | null> => {
   const supabase = createClient();
   const { data, error } = await supabase
     .from('posts')
-    .select(`*, users(nickname), images(img_url)`)
+    .select(`*, users(nickname, profile_img_url), images(img_url)`)
     .eq('id', postId)
     .single();
 
@@ -42,7 +42,7 @@ export const updatePostById = async (
 ): Promise<boolean> => {
   const supabase = createClient();
   try {
-    const [si, gu, dong] = updatedData.address ? updatedData.address.split(' ') : [];
+    const [si, gu, dong =''] = updatedData.address ? updatedData.address.split(' ') : [];
 
     // 1. `posts` 테이블 업데이트
     const { error: postError } = await supabase
