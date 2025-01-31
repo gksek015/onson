@@ -21,7 +21,8 @@ const BottomNav = () => {
   const { isOpen, toggleModal, closeModal } = useModal();
   const { user } = useUserStore();
   const { unreadMessages, subscribeToRealtimeMessages, refetch } = useUnreadMessageStore();
-  const { activeTab, setActiveTab, isGNBVisible } = useGNBStore();
+  const { activeTab, setActiveTab } = useGNBStore();
+
   const isInitialized = useSyncGNBStore();
 
   // GNB 상태를 URL과 동기화
@@ -67,7 +68,7 @@ const BottomNav = () => {
 
   return (
     <>
-      {isGNBVisible && isInitialized && (
+      {isInitialized && (
         <nav className="z-70 fixed bottom-0 flex w-full justify-around border-t bg-white p-4">
           {/* 홈 버튼 */}
           <button

@@ -15,7 +15,7 @@ export default function Home() {
       <div>
         <ChatBoxButton />
       </div>
-      <div className="block sm:hidden">
+      <div className="block mobile:hidden">
         <BottomNav />
       </div>
     </section>
