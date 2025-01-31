@@ -32,7 +32,6 @@ const AllLists = () => {
     queryKey: ['infinitePosts'],
     queryFn: ({ pageParam = 0 }) => getInfinitePost({ pageParam }),
     getNextPageParam: (lastPage) => {
-      console.log({ lastPage });
       return lastPage?.nextCursor || undefined;
     },
     getPreviousPageParam: (firstPage) => firstPage?.prevCursor || undefined,
@@ -111,7 +110,7 @@ const AllLists = () => {
 
       {isError && <p className="text-red-500">에러발생</p>}
 
-      <ul className="grid grid-cols-1 gap-[1px] bg-[#e7e7e7] mobile:grid-cols-2 lg:grid-cols-3">
+      <ul className="grid grid-cols-1 gap-[1px] bg-[#e7e7e7] md:grid-cols-2 lg:grid-cols-3">
         {filteredData.map((post) => (
           <VolunteerCard key={post.id} post={post} />
         ))}
