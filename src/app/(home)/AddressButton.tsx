@@ -1,12 +1,12 @@
 'use client';
 
-import { useBottomSheetStore } from '@/utils/store/useBottomSheetStore';
+import { ModalSheet } from '@/components/common/ModalSheet';
 import AddressSearch from '../../components/common/AddressSearch';
-import { BottomSheet } from '../../components/common/BottomSheet';
 import { SearchIcon } from '../../components/icons/Icons';
+import { useDialogStore } from '@/utils/store/useDialogStore';
 
 const AddressButton = () => {
-  const { open } = useBottomSheetStore();
+  const { open } = useDialogStore();
 
   return (
     <div className="relative flex w-full items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571] md:w-[760px]">
@@ -22,10 +22,10 @@ const AddressButton = () => {
       </button>
 
       {/* BottomSheet */}
-      <BottomSheet id="sheetF">
+      <ModalSheet id="sheetF">
         {/* 전달되는 Content 컴포넌트 */}
         <AddressSearch option={'search'} />
-      </BottomSheet>
+      </ModalSheet>
     </div>
   );
 };

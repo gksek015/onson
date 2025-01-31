@@ -1,8 +1,8 @@
 'use client';
 
-import { BottomSheet } from '@/components/common/BottomSheet';
+import { ModalSheet } from '@/components/common/ModalSheet';
 import { FilterIcon } from '@/components/icons/Icons';
-import { useBottomSheetStore } from '@/utils/store/useBottomSheetStore';
+import { useDialogStore } from '@/utils/store/useDialogStore';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
@@ -11,7 +11,7 @@ interface CategorySelectProps {
 }
 
 const CategoryButton = ({ categories }: CategorySelectProps) => {
-        const { open, close } = useBottomSheetStore();
+        const { open, close } = useDialogStore();
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -36,7 +36,7 @@ const CategoryButton = ({ categories }: CategorySelectProps) => {
         <FilterIcon />
       </button>
       {/* 바텀시트 */}
-      <BottomSheet id='sheetE'>
+      <ModalSheet id='sheetE'>
         <div className="flex-grow overflow-y-auto flex h-full flex-col p-5">
           <h2 className="mb-10 text-2xl font-semibold">봉사 종류</h2>
           <p className="mb-3 text-base font-semibold text-[#222227]">종류 선택</p>
@@ -77,7 +77,7 @@ const CategoryButton = ({ categories }: CategorySelectProps) => {
             적용하기
           </button>
         </div>
-      </BottomSheet>
+      </ModalSheet>
     </div>
   );
 };
