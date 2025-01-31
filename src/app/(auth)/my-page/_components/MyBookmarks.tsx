@@ -1,6 +1,6 @@
 'use client';
 
-import VolunteerCard from '@/components/home/VolunteerCard';
+import VolunteerCard from '@/app/(home)/VolunteerCard';
 import { useBookmarks } from '@/hooks/useBookmarks';
 import useGetPost from '@/hooks/useGetPost';
 import { useUserStore } from '@/utils/store/userStore';
@@ -19,14 +19,14 @@ const MyBookmarks = () => {
   }
 
   if (!bookmarks || bookmarks.length === 0) {
-    return <p>북마크된 게시물이 없습니다.</p>;
+    return <p className="my_profile_no_contents">북마크된 게시물이 없습니다.</p>;
   }
 
   // 북마크된 게시물 필터링
   const bookmarkedPosts = posts?.filter((post) => bookmarks.some((bookmark) => bookmark.post_id === post.id));
 
   if (!bookmarkedPosts || bookmarkedPosts.length === 0) {
-    return <p>북마크된 게시물이 없습니다.</p>;
+    return <p className="my_profile_no_contents">북마크된 게시물이 없습니다.</p>;
   }
 
   return (

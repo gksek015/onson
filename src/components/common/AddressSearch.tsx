@@ -1,6 +1,6 @@
 'use client';
 
-import { JSON_DATA } from '@/app/constants/restructured_administrative_data';
+import { JSON_DATA } from '@/constants/restructured_administrative_data';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { SearchIcon } from '../icons/Icons';

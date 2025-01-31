@@ -1,9 +1,9 @@
 'use client';
 
 import useModal from '@/hooks/ui/useModal';
+import { useGNBStore, useSyncGNBStore } from '@/utils/store/useGNBStore';
 import { useUserStore } from '@/utils/store/userStore';
 import { useUnreadMessageStore } from '@/utils/store/useUnreadMessageStore';
-import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import ChatBoxModal from '../chatbox/ChatBoxModal';
 import {
@@ -18,10 +18,21 @@ import {
 } from '../icons/Icons';
 
 const BottomNav = () => {
-  const pathname = usePathname();
   const { isOpen, toggleModal, closeModal } = useModal();
   const { user } = useUserStore();
   const { unreadMessages, subscribeToRealtimeMessages, refetch } = useUnreadMessageStore();
+  const { activeTab, setActiveTab, isGNBVisible } = useGNBStore();
+  const isInitialized = useSyncGNBStore();
+
+  // GNB 상태를 URL과 동기화
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname;
+      if (path.includes('/list')) setActiveTab('list');
+      else if (path.includes('/create')) setActiveTab('create');
+      else setActiveTab('home');
+    }
+  }, []);
 
   // 실시간 메시지 구독
   useEffect(() => {
@@ -29,65 +40,77 @@ const BottomNav = () => {
       refetch(user.id); // 초기 데이터 로드
       subscribeToRealtimeMessages(user.id); // 실시간 동기화
     }
-  }, [user?.id, refetch, subscribeToRealtimeMessages]);
+  }, [user?.id]);
 
   const hasUnreadMessages = Object.values(unreadMessages).some((val) => val);
 
   // 채팅 아이콘 메모이제이션
-  const getChatIcon = () => {
-    if (isOpen) {
-      return hasUnreadMessages ? <MessageCircleIcon /> : <MessagePillIcon />;
-    }
-    return hasUnreadMessages ? <MessageCircleIcon /> : <MessageStrokeIcon />;
-  };
+  const getChatIcon = () =>
+    activeTab === 'chat' ? (
+      hasUnreadMessages ? (
+        <MessageCircleIcon />
+      ) : (
+        <MessagePillIcon />
+      )
+    ) : hasUnreadMessages ? (
+      <MessageCircleIcon />
+    ) : (
+      <MessageStrokeIcon />
+    );
 
-  // 네비게이션 핸들러
-  const handleNavClick = (path: string) => {
-    closeModal(); // 모달 닫기
-    if (pathname !== path) {
-      window.location.href = path; // 경로 변경
-    }
+  const handleNavClick = (tab: 'home' | 'create' | 'list', path: string) => {
+    setActiveTab(tab); // GNB 상태 변경
+    closeModal();
+    // 모달 닫기
+    window.location.href = path; // 새로고침 없이 페이지 이동
   };
 
   return (
     <>
-      <nav className="fixed bottom-0 flex w-full justify-around border-t bg-white p-4">
-        {/* 홈 버튼 */}
-        <button
-          type="button"
-          onClick={() => handleNavClick('/')}
-          className="flex flex-col items-center justify-center gap-1"
-        >
-          {pathname === '/' ? <HomePillIcon /> : <HomeStrokeIcon />}
-          <span className="text-sm font-medium leading-[16.4px] text-black">홈</span>
-        </button>
+      {isGNBVisible && isInitialized && (
+        <nav className="z-70 fixed bottom-0 flex w-full justify-around border-t bg-white p-4">
+          {/* 홈 버튼 */}
+          <button
+            type="button"
+            onClick={() => handleNavClick('home', '/')}
+            className="flex flex-col items-center justify-center gap-1"
+          >
+            {activeTab === 'home' ? <HomePillIcon /> : <HomeStrokeIcon />}
+            <span className="text-sm font-medium leading-[16.4px] text-black">홈</span>
+          </button>
 
-        {/* 게시글 작성 버튼 */}
-        <button
-          type="button"
-          onClick={() => handleNavClick('/create')}
-          className="flex flex-col items-center justify-center gap-1"
-        >
-          <PencilPlusIcon />
-          <span className="text-sm font-medium leading-[16.4px] text-black">봉사요청</span>
-        </button>
+          {/* 게시글 작성 버튼 */}
+          <button
+            type="button"
+            onClick={() => handleNavClick('create', '/create')}
+            className="flex flex-col items-center justify-center gap-1"
+          >
+            <PencilPlusIcon />
+            <span className="text-sm font-medium leading-[16.4px] text-black">봉사요청</span>
+          </button>
 
-        {/* 게시글 리스트 버튼 */}
-        <button
-          type="button"
-          onClick={() => handleNavClick('/list')}
-          className="flex flex-col items-center justify-center gap-1"
-        >
-          {pathname === '/list' ? <NotePillIcon /> : <NoteStrokeIcon />}
-          <span className="text-sm font-medium leading-[16.4px] text-black">봉사찾기</span>
-        </button>
+          <button
+            type="button"
+            onClick={() => handleNavClick('list', '/list')}
+            className="flex flex-col items-center justify-center gap-1"
+          >
+            {activeTab === 'list' ? <NotePillIcon /> : <NoteStrokeIcon />}
+            <span className="text-sm font-medium leading-[16.4px] text-black">봉사게시판</span>
+          </button>
 
-        {/* 채팅 모달 열기 버튼 */}
-        <button type="button" onClick={toggleModal} className="flex flex-col items-center justify-center gap-1">
-          {getChatIcon()}
-          <span className="text-sm font-medium leading-[16.4px] text-black">Chat</span>
-        </button>
-      </nav>
+          <button
+            type="button"
+            onClick={() => {
+              setActiveTab('chat');
+              toggleModal();
+            }}
+            className="flex flex-col items-center justify-center gap-1"
+          >
+            {getChatIcon()}
+            <span className="text-sm font-medium leading-[16.4px] text-black">Chat</span>
+          </button>
+        </nav>
+      )}
 
       {/* 채팅 모달 */}
       {isOpen && <ChatBoxModal onClose={closeModal} />}

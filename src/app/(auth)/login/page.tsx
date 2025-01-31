@@ -20,7 +20,7 @@ const LoginPage = () => {
           비밀번호 찾기
         </Link> */}
         <Link className="auth_bottom_text_normall mt-[24px]" href="sign-up">
-          아직 가입하지 않으셨나요?
+          회원가입
         </Link>
       </div>
     </div>

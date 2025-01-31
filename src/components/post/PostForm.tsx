@@ -1,10 +1,9 @@
-import CategorySelectComp from '@/components/common/post/CategorySelectComp';
-import DateComp from '@/components/common/post/DateComp';
-import PhotoComp from '@/components/common/post/PhotoComp';
-
-import AddressComp from '@/components/common/post/AddressComp';
 import type { FormData } from '@/types/formdata';
 import dayjs from 'dayjs';
+import AddressComp from './AddressComp';
+import CategorySelectComp from './CategorySelectComp';
+import DateComp from './DateComp';
+import PhotoComp from './PhotoComp';
 
 interface PostFormProps {
   categories: string[];

@@ -3,7 +3,7 @@ import CategoryButton from '@/app/list/_components/CategoryButton';
 import Tags from '@/app/list/_components/Tags';
 import BottomNav from '@/components/layout/BottomNav';
 import Header from '@/components/layout/Header';
-import { categories } from '@/data/categories';
+import { categories } from '@/constants/categories';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import AllLists from './_components/AllLists';
