@@ -48,7 +48,7 @@ const PostContent = ({
         </div>
 
         <div className="mb-2 flex items-center justify-between">
-          <div className='flex items-center gap-2'>
+          <div className="flex items-center gap-2">
             {profileImgUrl ? (
               <div className="relative h-7 w-7 overflow-hidden rounded-full bg-gray-200">
                 <Image
@@ -73,7 +73,7 @@ const PostContent = ({
 
       {/* 가로선 */}
       <hr className="mt-4 border-gray-300" />
-      <div className="mx-5 mt-5 leading-6 whitespace-pre-line">{content}</div>
+      <div className="mx-5 mt-5 whitespace-pre-line leading-6">{content}</div>
     </div>
   );
 };

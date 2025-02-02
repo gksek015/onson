@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <section>
       <Header />
-      <div className="mx-auto mb-20">
+      <div className="mx-auto">
         <MainSection />
       </div>
       <div>

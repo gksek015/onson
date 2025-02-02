@@ -5,7 +5,7 @@ import LeftSide from './header/LeftSide';
 
 const Header = () => {
   return (
-    <header className="flex h-[72px] justify-center bg-white p-4">
+    <header className="flex h-[56px] justify-center bg-white px-[20px] py-[8px]">
       <div className="flex w-full max-w-content items-center justify-between">
         <div className="flex flex-row items-center gap-6">
           <HeaderLogo />
