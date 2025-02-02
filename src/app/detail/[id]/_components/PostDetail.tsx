@@ -22,7 +22,7 @@ const PostDetail = ({ postPageId }: PostDetailProps) => {
   );
 
   return (
-    <div className="mx-auto max-w-2xl">
+    <div className="mx-auto max-w-[800px]">
       {post.images && <ImageSwiper images={post.images} isPostClosed={post.completed} />}
       {/* 이미지 없으면 그냥 컨텐트만 보여줌 */}
       <PostContent
