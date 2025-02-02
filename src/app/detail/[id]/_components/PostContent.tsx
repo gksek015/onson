@@ -3,6 +3,7 @@
 import { MapPinIcon, MyProfileIcon } from '@/components/icons/Icons';
 import Image from 'next/image';
 import BookmarkButton from './BookmarkButton';
+import ParticipantList from './ParticipantList';
 import PostActionButtons from './PostActionButtons';
 import PostTags from './PostTags';
 
@@ -68,12 +69,17 @@ const PostContent = ({
         </div>
 
         {/* 버튼 */}
-        <PostActionButtons title={title} nickname={nickname} postOwnerId={postOwnerId} />
+        <PostActionButtons title={title} postId={postId} nickname={nickname} postOwnerId={postOwnerId} />
       </div>
 
       {/* 가로선 */}
       <hr className="mt-4 border-gray-300" />
+
+      {/* 본문 내용 */}
       <div className="mx-5 mt-5 whitespace-pre-line leading-6">{content}</div>
+
+      {/* 봉사 참여자 목록 */}
+      <ParticipantList postId={postId} postOwnerId={postOwnerId} />
     </div>
   );
 };
