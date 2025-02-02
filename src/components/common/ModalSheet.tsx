@@ -9,10 +9,9 @@ interface ModalSheetProps {
 }
 
 export const ModalSheet = ({ id, children }: ModalSheetProps) => {
+    const [isDesktop, setIsDesktop] = useState(false);
   const { activeId, close } = useDialogStore();
   const isOpen = activeId === id;
-
-  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -22,17 +21,25 @@ export const ModalSheet = ({ id, children }: ModalSheetProps) => {
     };
 
     const updateBodyScroll = () => {
-      document.body.style.overflow = isOpen ? 'hidden' : '';
+      if (isOpen) {
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+        document.body.style.overflow = 'hidden';
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      } else {
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+      }
     };
 
-    updateScreenSize(); // 초기 실행 시 화면 크기 설정
-    updateBodyScroll(); // 모달 열릴 때 스크롤 방지 적용
+    updateScreenSize();
+    updateBodyScroll(); 
 
     window.addEventListener('resize', updateScreenSize);
 
     return () => {
       window.removeEventListener('resize', updateScreenSize);
-      document.body.style.overflow = ''; // 모달 닫힐 때 스크롤 복구
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
     };
   }, [isOpen]);
 
