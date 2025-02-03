@@ -13,30 +13,9 @@ export const useGetPostById = (postId: string) => {
     enabled: !!postId, // id가 존재할 때만 실행
   });
 
-
+  // 포스트 삭제
   const deletePostById = useMutation({
-        mutationFn: (postId: string) => deletePost(postId),
-        onMutate: async (postId) => {
-          console.log('id',postId)
-          await queryClient.cancelQueries({
-            queryKey: ["post", postId],
-          })
-
-          const previousPost = queryClient.getQueryData<PostType>(["post", postId])
-
-          console.log('previousPost', previousPost)
-        queryClient.setQueryData<PostType | null>(['post', postId], null);
-
-        return { previousPost };
-        },
-        onError: (context : {previousPost : PostType}) => {
-          queryClient.setQueryData( ["post", postId], context.previousPost)
-        },
-        onSettled: (postId) => {
-          queryClient.invalidateQueries({
-            queryKey:  ["post", postId],
-          })
-        },
+        mutationFn: async (postId: string) => await deletePost(postId),
   })
 
    // completed 값 업데이트 함수

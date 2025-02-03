@@ -106,16 +106,16 @@ const PostContent = ({
       confirmButtonText: '삭제하기',
       cancelButtonText: '취소'
     }).then((result) => {
-      console.log('result', result)
       if (result.isConfirmed) {
-        console.log('11',postPageId)
         deletePostById.mutate(postPageId, {
           onSuccess: () => {
-            console.log('test');
             // 삭제 후 관련 데이터를 무효화
             queryClient.invalidateQueries({ queryKey: ['infinitePosts'] });
             queryClient.invalidateQueries({ queryKey: ['posts'] });
-            // router.push('/list');
+            router.push('/list');
+          },
+          onError: (error) => {
+            console.log(error);
           }
         });
       }
