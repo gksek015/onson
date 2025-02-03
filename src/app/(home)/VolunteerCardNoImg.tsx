@@ -1,7 +1,9 @@
 'use client';
 
+import useIsMobile from '@/hooks/ui/useIsMobile';
 import type { PostType } from '@/types/PostType';
 import dayjs from 'dayjs';
+import Image from 'next/image';
 import Link from 'next/link';
 import { MapPinIcon } from '../../components/icons/Icons';
 
@@ -10,14 +12,18 @@ interface VolunteerCardProps {
 }
 
 const VolunteerCardNoImg = ({ post }: VolunteerCardProps) => {
-  const formattedStart = dayjs(post.date).format('YY.MM.DD.');
-  const formattedEnd = dayjs(post.end_date).format('YY.MM.DD.');
-
   const isPastEndDate = dayjs(post.end_date).isBefore(dayjs(), 'day'); // 오늘이 end_date 이후인지 확인
   const isCloseToEndDate = dayjs(post.end_date).diff(dayjs(), 'day') <= 2 && !isPastEndDate; // 오늘 기준 이틀 이하 인지
 
+  let firstImg = null;
+  if (post.images && post.images.length > 0) {
+    firstImg = post.images[0].img_url;
+  }
+
+  //브라우저 좌우 사이즈 상태 및 변경
+  const isMobile = useIsMobile();
   return (
-    <div className="flex min-w-[300px] flex-col items-start self-stretch border-r border-[#e7e7e7] px-[20px] py-[32px]">
+    <div className="flex min-w-[276px] flex-col items-start self-stretch border-r border-[#e7e7e7] px-[20px] py-[32px] desktop:min-w-[426px]">
       <Link href={`/detail/${post.id}/?from=list`} className="w-full">
         {/* 태그 */}
         <div className="mb-[8px] flex w-full flex-wrap items-center gap-[8px] text-sm font-normal">
@@ -36,9 +42,6 @@ const VolunteerCardNoImg = ({ post }: VolunteerCardProps) => {
 
           <span className="flex items-center justify-center gap-2 rounded-full bg-[#FFF5EC] px-2.5 py-0.5 text-sm text-[#FF9214]">
             {post.category}
-          </span>
-          <span className="flex items-center justify-center gap-2 rounded-full bg-[#FFF5EC] px-2.5 py-0.5 text-sm text-[#FF9214]">
-            {`${formattedStart}~${formattedEnd}`}
           </span>
         </div>
 
@@ -61,6 +64,19 @@ const VolunteerCardNoImg = ({ post }: VolunteerCardProps) => {
               <span>{post.created_at.split('T')[0]}</span>
             </div>
           </div>
+          {/* 이미지 */}
+          {!isMobile && firstImg && (
+            <div className="relative flex h-20 w-20 items-center self-end">
+              <Image src={firstImg} alt={post.title} width={100} height={100} className="h-full w-full object-cover" />
+              {post.completed && (
+                <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
+                  <div className="inline-flex rounded-md bg-white bg-opacity-20 px-2.5 py-1">
+                    <span className="text-xs font-medium text-white">모집마감</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </Link>
     </div>

@@ -32,7 +32,7 @@ const QuickMyBookmarks = () => {
   }
 
   return (
-    <div className="flex w-full flex-row gap-4 overflow-x-auto">
+    <div className="flex w-full flex-row overflow-x-auto desktop:overflow-x-hidden desktop:px-[60px]">
       {bookmarkedPosts.map((post) => (
         <VolunteerCardNoImg key={post.id} post={post} />
       ))}

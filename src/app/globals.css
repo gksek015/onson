@@ -112,11 +112,19 @@ body {
 }
 
 .login_wrapper {
-  @apply px-[20px] pt-[12px];
+  @apply mobile:px-[20px] mobile:pt-[12px];
+}
+
+.login_wrapper_desktop {
+  @apply desktop:px-[10px] desktop:pt-[32px];
 }
 
 .sign_up_wrapper {
-  @apply px-[20px] pt-[18px];
+  @apply mobile:w-full mobile:px-[20px] mobile:pt-[18px];
+}
+
+.sign_up_wrapper_desk {
+  @apply desktop:w-[580px] desktop:px-[20px] desktop:pt-[28px];
 }
 
 .my_profile_wrapper {
@@ -124,7 +132,7 @@ body {
 }
 
 .my_profile_titlebtn_wrapper {
-  @apply flex w-full items-center justify-between border-b border-[#F1F1F1] px-[20px] py-[28px] font-semibold focus:outline-none;
+  @apply flex w-full items-center justify-between border-b border-[#F1F1F1] px-[20px] py-[28px] font-semibold focus:outline-none desktop:px-[80px];
 }
 
 .my_profile_blank {
@@ -163,12 +171,24 @@ body {
 }
 
 @keyframes wave-hand {
-  0% { transform: rotate(0deg); }
-  20% { transform: rotate(-8deg); } /* 각도를 줄임 */
-  40% { transform: rotate(-12deg); }
-  60% { transform: rotate(0deg); }
-  80% { transform: rotate(12deg); }
-  100% { transform: rotate(0deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(-8deg);
+  } /* 각도를 줄임 */
+  40% {
+    transform: rotate(-12deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  }
+  80% {
+    transform: rotate(12deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 .animate-custom {

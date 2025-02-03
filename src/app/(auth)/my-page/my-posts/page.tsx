@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const MyPostPage = () => {
   return (
-    <div>
+    <div className="mx-auto w-full desktop:w-[1280px]">
       <SetPageTitle title="나의 봉사요청" />
       <MyPosts />
     </div>
