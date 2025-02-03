@@ -10,7 +10,8 @@ import Button from '@/components/common/Button';
 import AuthInput from '@app/(auth)/_components/AuthInput';
 
 import { Loading } from '@/components/common/Loading';
-import { CameraIcon } from '@/components/icons/Icons';
+import { CameraIcon, CloseIcon } from '@/components/icons/Icons';
+import useIsMobile from '@/hooks/ui/useIsMobile';
 import { nicknameSchema } from '@/utils/revalidation/userSchema';
 import { useUserStore } from '@/utils/store/userStore';
 import Image from 'next/image';
@@ -35,7 +36,7 @@ const ProfileUpdate = () => {
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
   const [previewUrl, setPreviewUrl] = useState<string | null>(user?.profileImage || null);
-  const [useDefaultImage, setUseDefaultImage] = useState(false); // 체크박스 상태 관리
+  const [useDefaultImage, setUseDefaultImage] = useState(false); // 디폴트 이미지 상태 관리
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -43,17 +44,22 @@ const ProfileUpdate = () => {
   const openSheet = () => setIsSheetOpen(true);
   const closeSheet = () => setIsSheetOpen(false);
 
+  //브라우저 좌우 사이즈 상태 및 변경
+  const isMobile = useIsMobile();
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setPreviewUrl(reader.result as string); // 로컬 미리보기 URL 설정
+        setPreviewUrl(reader.result as string); // 미리보기 업데이트
       };
       reader.readAsDataURL(file);
-      setSelectedFile(file); //선택한 파일을 상태에 저장
-      setUseDefaultImage(false); // 파일 선택 시 기본 이미지 체크 해제
+
+      setSelectedFile(file); // 파일을 상태에 저장만 하고 저장 실행 X
+      setUseDefaultImage(false); // 기본 이미지 체크 해제
       closeSheet();
+      closeDesktopUpload();
     }
   };
 
@@ -83,7 +89,7 @@ const ProfileUpdate = () => {
       if (result?.error) {
         await Swal.fire({
           title: '프로필 업데이트 실패',
-          text: result.error, //서버에서 전달된 에러 메시지 출력
+          text: result.error,
           icon: 'error',
           confirmButtonText: '확인'
         });
@@ -122,15 +128,29 @@ const ProfileUpdate = () => {
     }
   };
 
+  const [isDesktopUploadOpen, setIsDesktopUploadOpen] = useState(false);
+
+  const handleProfileClick = () => {
+    if (isMobile) {
+      openSheet(); // 모바일에서는 바텀 시트 오픈
+    } else {
+      setIsDesktopUploadOpen(true); // 데스크탑에서는 파일 업로드 UI 띄우기
+    }
+  };
+
+  const closeDesktopUpload = () => {
+    setIsDesktopUploadOpen(false);
+    return;
+  };
   return (
     <>
       {isLoading && <Loading />}
       <div className={`my_profile_wrapper ${isLoading ? 'pointer-events-none opacity-50' : ''}`}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="relative">
           <div className="flex items-center">
             {/* 동그라미 프로필 이미지 나오는곳 */}
             <label
-              onClick={openSheet}
+              onClick={handleProfileClick}
               className="flex h-[52px] w-[52px] cursor-pointer items-center justify-center rounded-full border-[2px] border-[#ECEDEE]"
             >
               {previewUrl ? (
@@ -163,42 +183,75 @@ const ProfileUpdate = () => {
             errorMessageStyle={errors.nickname?.message ? 'text-red-500' : 'text-[#868C92]'}
           />
           <Button type="submit" className="btn-pink mt-[28px]" label="저장" />
-
-          {/* 바텀 시트*/}
-          <BottomSheet
-            open={isSheetOpen}
-            onDismiss={closeSheet}
-            snapPoints={({ maxHeight }) => [maxHeight * 0.3, maxHeight * 0.4]} // 스냅 포인트 설정(참고로 첫번째는 처음 열리는 위치, 두번쨰는 사용자가 올릴 수 있는 만큼 올린 위치임)
-            defaultSnap={({ maxHeight }) => maxHeight * 0.3} // 기본 열림 위치 설정
-          >
-            <div className="p-4">
-              <button className="flex w-full items-center gap-2 px-4 py-2 text-left outline-none focus:outline-none">
-                <label htmlFor="photo-upload" className="h-full w-full cursor-pointer">
-                  사진에서 선택
-                </label>
-              </button>
-
-              <input
-                id="photo-upload"
-                type="file"
-                accept="image/*"
-                style={{ opacity: 0, width: '1px', height: '1px', position: 'absolute' }}
-                onChange={handleFileChange}
-                ref={fileInputRef}
-              />
-              <button
-                onClick={() => {
-                  setUseDefaultImage(true);
-                  setPreviewUrl(null);
-                  closeSheet();
-                }}
-                className="flex w-full items-center gap-2 px-4 py-2 text-left"
-              >
-                기본이미지 선택
-              </button>
-            </div>
-          </BottomSheet>
         </form>
+        {isDesktopUploadOpen && (
+          <div className="absolute left-[44px] top-[133px] z-50 rounded-md border border-gray-300 bg-white p-4 shadow-lg">
+            <button className="flex w-full items-center gap-2 px-4 py-2 text-left outline-none focus:outline-none">
+              <label htmlFor="photo-upload" className="h-full w-full cursor-pointer">
+                사진에서 선택
+              </label>
+            </button>
+
+            <input
+              id="photo-upload"
+              type="file"
+              accept="image/*"
+              style={{ opacity: 0, width: '1px', height: '1px', position: 'absolute' }}
+              onChange={handleFileChange}
+              ref={fileInputRef}
+            />
+
+            <button
+              onClick={() => {
+                setUseDefaultImage(true);
+                setPreviewUrl(null);
+                closeDesktopUpload();
+              }}
+              className="flex w-full items-center gap-2 px-4 py-2 text-left"
+            >
+              기본이미지 선택
+            </button>
+
+            {/* 닫기 버튼 */}
+            <button onClick={closeDesktopUpload} className="absolute right-[7px] top-[7px] text-center text-gray-500">
+              <CloseIcon width="16" height="16" />
+            </button>
+          </div>
+        )}
+        {/* 바텀 시트*/}
+        <BottomSheet
+          open={isSheetOpen}
+          onDismiss={closeSheet}
+          snapPoints={({ maxHeight }) => [maxHeight * 0.3, maxHeight * 0.4]} // 스냅 포인트 설정(참고로 첫번째는 처음 열리는 위치, 두번쨰는 사용자가 올릴 수 있는 만큼 올린 위치임)
+          defaultSnap={({ maxHeight }) => maxHeight * 0.3} // 기본 열림 위치 설정
+        >
+          <div className="p-4 desktop:absolute">
+            <button className="flex w-full items-center gap-2 px-4 py-2 text-left outline-none focus:outline-none">
+              <label htmlFor="photo-upload" className="h-full w-full cursor-pointer">
+                사진에서 선택
+              </label>
+            </button>
+
+            <input
+              id="photo-upload"
+              type="file"
+              accept="image/*"
+              style={{ opacity: 0, width: '1px', height: '1px', position: 'absolute' }}
+              onChange={handleFileChange}
+              ref={fileInputRef}
+            />
+            <button
+              onClick={() => {
+                setUseDefaultImage(true);
+                setPreviewUrl(null);
+                closeSheet();
+              }}
+              className="flex w-full items-center gap-2 px-4 py-2 text-left"
+            >
+              기본이미지 선택
+            </button>
+          </div>
+        </BottomSheet>
       </div>
     </>
   );

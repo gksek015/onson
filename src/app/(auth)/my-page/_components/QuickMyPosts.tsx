@@ -26,7 +26,7 @@ const QuickMyPosts = () => {
     return <p className="my_profile_no_contents">내가 쓴 글이 없습니다.</p>;
   }
   return (
-    <div className="flex w-full flex-row overflow-x-auto">
+    <div className="flex w-full flex-row overflow-x-auto desktop:overflow-x-hidden desktop:px-[60px]">
       {posts.map((post) => (
         <VolunteerCardNoImg key={post.id} post={post} />
       ))}
