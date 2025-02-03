@@ -1,6 +1,5 @@
 import { deletePost } from '@/lib/posts/deletePostbyID';
-import { updateCompleted } from '@/lib/posts/updatePost';
-import { getPost } from "@/lib/posts/updatePost";
+import { getPost, updateCompleted } from '@/lib/posts/updatePost';
 import { PostType } from "@/types/PostType";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -18,12 +17,14 @@ export const useGetPostById = (postId: string) => {
   const deletePostById = useMutation({
         mutationFn: (postId: string) => deletePost(postId),
         onMutate: async (postId) => {
+          console.log('id',postId)
           await queryClient.cancelQueries({
             queryKey: ["post", postId],
           })
 
           const previousPost = queryClient.getQueryData<PostType>(["post", postId])
 
+          console.log('previousPost', previousPost)
         queryClient.setQueryData<PostType | null>(['post', postId], null);
 
         return { previousPost };

@@ -56,6 +56,8 @@ export const getPostbyFilter = async ({ address, category, searchedkeyword }: Ge
 
   const { data, error } = await query;
 
+  console.log('data', data)
+
   if (error) {
     console.error('Error fetching posts:', error);
     throw new Error('게시물 데이터를 가져오는 데 실패했습니다.');

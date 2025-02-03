@@ -31,7 +31,7 @@ const Header = ({ postPageId }: PostDetailProps) => {
           // 관련 캐시 무효화
           queryClient.invalidateQueries({ queryKey: ['infinitePosts'] });
           queryClient.invalidateQueries({ queryKey: ['posts'] });
-        },
+        }
       });
     }
   }, [post, postPageId, updateCompletedById, queryClient]);
@@ -67,13 +67,17 @@ const Header = ({ postPageId }: PostDetailProps) => {
       confirmButtonText: '삭제하기',
       cancelButtonText: '취소'
     }).then((result) => {
+      console.log('result', result);
       if (result.isConfirmed) {
+        console.log('11', postPageId);
+
         deletePostById.mutate(postPageId, {
           onSuccess: () => {
+            console.log('test');
             // 삭제 후 관련 데이터를 무효화
             queryClient.invalidateQueries({ queryKey: ['infinitePosts'] });
             queryClient.invalidateQueries({ queryKey: ['posts'] });
-            router.push('/list');
+            // router.push('/list');
           }
         });
       }
@@ -83,20 +87,20 @@ const Header = ({ postPageId }: PostDetailProps) => {
 
   const handleToggleRecruitment = () => {
     const isPastEndDate = dayjs(post?.end_date).isBefore(dayjs(), 'day'); // 마감 조건 확인
-  
+
     if (!isPastEndDate) {
       updateCompletedById.mutate(postPageId, {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ['infinitePosts'] });
           queryClient.invalidateQueries({ queryKey: ['posts'] });
-        },
+        }
       });
     } else {
       Swal.fire({
         title: `모집 마감 불가`,
         text: `기한이 이미 끝난 봉사활동입니다.`,
         icon: 'warning',
-        confirmButtonText: '확인',
+        confirmButtonText: '확인'
       });
     }
     closeSheet();

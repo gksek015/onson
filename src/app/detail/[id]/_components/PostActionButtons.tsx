@@ -12,14 +12,13 @@ import { useState } from 'react';
 import Swal from 'sweetalert2';
 
 interface PostActionButtonsProps {
-  nickname: string;
   postOwnerId: string;
   title: string;
   isPostClosed: boolean;
   postId: string;
 }
 
-const PostActionButtons = ({ title, nickname, postOwnerId, isPostClosed, postId }: PostActionButtonsProps) => {
+const PostActionButtons = ({ title, postOwnerId, isPostClosed, postId }: PostActionButtonsProps) => {
   const { isOpen, toggleModal } = useModal();
   const { user } = useUserStore();
   const router = useRouter();
@@ -102,10 +101,10 @@ const PostActionButtons = ({ title, nickname, postOwnerId, isPostClosed, postId 
             className={`flex w-full items-center justify-between rounded-lg border ${
               isPostClosed
                 ? 'cursor-not-allowed border-2 border-gray-400 text-[#656565]' // 모집 마감 스타일
-                : 'border-transparent bg-white text-[#656565]' // 모집 진행 중 스타일
+                : 'border-transparent bg-white font-semibold text-[#656565]' // 모집 진행 중 스타일
             } p-2 px-4 py-3 focus:outline-none`}
           >
-            <span>{nickname}님과 채팅하기</span>
+            <span>채팅으로 봉사 신청하기</span>
             <RightArrowForChatIcon />
           </button>
         </div>

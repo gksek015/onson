@@ -28,7 +28,6 @@ const PostDetail = ({ postPageId }: PostDetailProps) => {
       <PostContent
         title={post.title}
         nickname={post.users.nickname}
-        created_at={post.date}
         content={post.content}
         postId={post.id}
         postOwnerId={post.user_id}
@@ -38,9 +37,10 @@ const PostDetail = ({ postPageId }: PostDetailProps) => {
         address={{ si: post.si, gu: post.gu, dong: post.dong }}
         isPostClosed={post.completed}
         profileImgUrl = {post.users.profile_img_url}
+        postPageId={postPageId}
       />
     </div>
   );
 };
 
-export default PostDetail;
+export default PostDetail; 
