@@ -57,7 +57,6 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
       setIsChatbotVisible(true);
       setActiveTab('실시간 채팅');
       setShowGNB(true);
-      // setGNBActiveTab('chat');
     } else if (isChatbotVisible) {
       setIsChatbotVisible(false);
     }
@@ -86,7 +85,9 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
               <button
                 onClick={() => setActiveTab('온손 AI')}
                 className={`inline-block py-[15px] text-center ${
-                  activeTab === '온손 AI' ? 'border-b-2 border-black font-bold text-black' : 'text-gray-500'
+                  activeTab === '온손 AI'
+                    ? 'border-b-2 border-[#FB657E] font-bold text-[#FB657E] desktop:border-hidden'
+                    : 'text-gray-500'
                 }`}
               >
                 온손 AI
@@ -94,7 +95,9 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
               <button
                 onClick={() => setActiveTab('실시간 채팅')}
                 className={`inline-block py-[15px] text-center ${
-                  activeTab === '실시간 채팅' ? 'border-b-2 border-black font-bold text-[#595959]' : 'text-gray-500'
+                  activeTab === '실시간 채팅'
+                    ? 'border-b-2 border-[#FB657E] font-bold text-[#FB657E] desktop:border-hidden'
+                    : 'text-gray-500'
                 }`}
               >
                 실시간 채팅

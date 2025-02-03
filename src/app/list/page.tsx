@@ -32,7 +32,7 @@ const ListPage = () => {
           <AllLists />
         </Suspense>
       </div>
-      <div className="block mobile:hidden">
+      <div className="block desktop:hidden">
         <BottomNav />
       </div>
       <UpScrollButton />
