@@ -22,6 +22,7 @@ const NewPostComp = () => {
       cancelButtonColor: '#B4B4B4',
       confirmButtonText: '취소',
       cancelButtonText: '아니오',
+      scrollbarPadding: false,
     }).then((result) => {
       if (result.isConfirmed) {
         router.back();
