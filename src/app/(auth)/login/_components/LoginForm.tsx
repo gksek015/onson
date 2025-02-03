@@ -9,7 +9,6 @@ import { login } from '@lib/actions/auth/action';
 import Button from '@/components/common/Button';
 import AuthInput from '@app/(auth)/_components/AuthInput';
 
-
 import { userLoginSchema } from '@/utils/revalidation/userSchema';
 import { supabase } from '@/utils/supabase/client';
 
@@ -98,7 +97,7 @@ const LoginForm = () => {
   return (
     <>
       {isLoading && <Loading />}
-      <div className={`login_wrapper ${isLoading ? 'pointer-events-none opacity-50' : ''}`}>
+      <div className={`login_wrapper ${isLoading ? 'pointer-events-none opacity-50' : ''}login_wrapper_desktop`}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="title" className="input_title_label">
             아이디
@@ -113,7 +112,7 @@ const LoginForm = () => {
             errorMessage={errors.email?.message}
             errorMessageStyle={errors.email?.message ? 'text-red-500' : 'text-[#868C92]'}
           />
-          <label htmlFor="password" className="input_title_label mt-[12px]">
+          <label htmlFor="password" className="input_title_label mobile:mt-[12px] desktop:mt-[28px]">
             비밀번호
           </label>
           <AuthInput
@@ -126,8 +125,13 @@ const LoginForm = () => {
             errorMessage={errors.password?.message}
             errorMessageStyle={errors.password?.message ? 'text-red-500' : 'text-[#868C92]'}
           />
-          <Button className="btn-pink mt-[28px]" type="submit" label="로그인" />
-          <Button className="btn-kakao mt-[10px]" type="button" onClick={kakaoLogin} label="카카오 소셜로그인" />
+          <Button className="btn-pink mobile:mt-[28px] desktop:mt-[42px]" type="submit" label="로그인" />
+          <Button
+            className="btn-kakao mobile:mt-[10px] desktop:mt-[12px]"
+            type="button"
+            onClick={kakaoLogin}
+            label="카카오 소셜로그인"
+          />
         </form>
       </div>
     </>

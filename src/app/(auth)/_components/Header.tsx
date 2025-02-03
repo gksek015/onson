@@ -1,13 +1,17 @@
 'use client';
 
 import { BackButtonIcon } from '@/components/icons/Icons';
+import useIsMobile from '@/hooks/ui/useIsMobile';
 import { usePageTitleStore } from '@/utils/store/pageTitleStore';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import 'react-spring-bottom-sheet-updated/dist/style.css';
 
 const Header = () => {
   const router = useRouter();
-  // const pathname = usePathname();
+  const isMobile = useIsMobile();
+  const pathname = usePathname();
+  console.log('pathname', pathname);
+
   const title = usePageTitleStore((state) => state.title);
 
   const handleBack = () => {
@@ -26,13 +30,18 @@ const Header = () => {
   };
 
   return (
-    <div className="relative flex h-[60px] items-center justify-center leading-[60px]">
-      <button className="absolute left-0 top-1/2 -translate-y-1/2 pl-[18px]" onClick={handleBack}>
-        <BackButtonIcon />
-      </button>
+    <>
+      {isMobile ||
+        (pathname === '/sign-up' && (
+          <div className="relative flex h-[60px] items-center justify-center leading-[60px]">
+            <button className="absolute left-0 top-1/2 -translate-y-1/2 pl-[18px]" onClick={handleBack}>
+              <BackButtonIcon />
+            </button>
 
-      <h1 className="text-center text-lg font-bold">{title}</h1>
-    </div>
+            <h1 className="text-center text-[20px] font-bold">{title}</h1>
+          </div>
+        ))}
+    </>
   );
 };
 

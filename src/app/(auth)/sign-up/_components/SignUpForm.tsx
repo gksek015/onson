@@ -8,8 +8,8 @@ import { z } from 'zod';
 import Button from '@/components/common/Button';
 import AuthInput from '@app/(auth)/_components/AuthInput';
 
-import { userSignUpSchema } from '@/utils/revalidation/userSchema';
 import { Loading } from '@/components/common/Loading';
+import { userSignUpSchema } from '@/utils/revalidation/userSchema';
 import { signup } from '@lib/actions/auth/action';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -83,7 +83,7 @@ const SignUpForm = () => {
   return (
     <>
       {isLoading && <Loading />}
-      <div className={`sign_up_wrapper ${isLoading ? 'pointer-events-none opacity-50' : ''}`}>
+      <div className={`sign_up_wrapper ${isLoading ? 'pointer-events-none opacity-50' : ''} sign_up_wrapper_desk`}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="title" className="input_title_label">
             아이디
@@ -98,7 +98,7 @@ const SignUpForm = () => {
             errorMessage={errors.email?.message}
             errorMessageStyle={errors.email?.message ? 'text-red-500' : 'text-[#868C92]'}
           />
-          <label htmlFor="nickname" className="input_title_label mt-[12px]">
+          <label htmlFor="nickname" className="input_title_label mobile:mt-[12px] desktop:mt-[28px]">
             닉네임
           </label>
           <AuthInput
@@ -111,7 +111,7 @@ const SignUpForm = () => {
             errorMessage={errors.nickname?.message || '최소 1자 이상 10글자 이하로 작성 가능'}
             errorMessageStyle={errors.nickname?.message ? 'text-red-500' : 'text-[#868C92]'}
           />
-          <label htmlFor="password" className="input_title_label mt-[12px]">
+          <label htmlFor="password" className="input_title_label mobile:mt-[12px] desktop:mt-[28px]">
             비밀번호
           </label>
           <AuthInput
@@ -124,7 +124,7 @@ const SignUpForm = () => {
             errorMessage={errors.password?.message || '최소 8자 이상, 소문자, 숫자, 특수문자(@$!%*?&^) 포함'}
             errorMessageStyle={errors.password?.message ? 'text-red-500' : 'text-[#868C92]'}
           />
-          <label htmlFor="password_confirm" className="input_title_label mt-[12px]">
+          <label htmlFor="password_confirm" className="input_title_label mobile:mt-[12px] desktop:mt-[28px]">
             비밀번호 확인
           </label>
           <AuthInput
