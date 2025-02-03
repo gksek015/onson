@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'; // useState 추가
 import { BottomSheet } from 'react-spring-bottom-sheet-updated'; // Bottom Sheet 추가
 import Swal from 'sweetalert2';
 import BookmarkButton from './BookmarkButton';
+import ParticipantList from './ParticipantList';
 import PostActionButtons from './PostActionButtons';
 import PostTags from './PostTags';
 
@@ -174,6 +175,8 @@ const PostContent = ({
           <hr className="mt-4 border-gray-300" />
           <div className="mx-5 mt-5 whitespace-pre-line leading-6 desktop:mx-0">{content}</div>
         </div>
+        {/* 봉사 참여자 목록 */}
+        <ParticipantList postId={postId} postOwnerId={postOwnerId} />
       </div>
 
       {/* 바텀 시트 */}

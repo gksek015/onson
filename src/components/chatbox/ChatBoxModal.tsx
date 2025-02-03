@@ -21,9 +21,9 @@ interface ChatBoxModalProps {
 const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
   const [activeTab, setActiveTab] = useState('온손 AI');
   const [selectedChatId, setSelectedChatId] = useState<string | null>(initialChatId || null);
-  const [showGNB, setShowGNB] = useState(false); // ✅ GNB 표시 여부
+  const [showGNB, setShowGNB] = useState(false);
   const { user } = useUserStore();
-  const { setActiveTab: setGNBActiveTab } = useGNBStore(); // ✅ GNB 상태 변경 추가
+  const { setActiveTab: setGNBActiveTab } = useGNBStore();
   const { isChatbotVisible, showChatbot, setIsChatbotVisible, setShowChatbot } = useChatbotStore();
   const router = useRouter();
 
@@ -44,7 +44,7 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
     }
     setIsChatbotVisible(false);
     setShowChatbot(false);
-    setGNBActiveTab('home'); // ✅ 홈으로 이동
+    setGNBActiveTab('home');
     setShowGNB(false);
     onClose();
   };
@@ -52,15 +52,14 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
   const handleBackToList = () => {
     if (showChatbot) {
       setShowChatbot(false);
-    } else if (isChatbotVisible) {
-      setIsChatbotVisible(false);
     } else if (selectedChatId) {
       setSelectedChatId(null);
+      setIsChatbotVisible(true);
       setActiveTab('실시간 채팅');
-
-      // ✅ 디테일 페이지에서 채팅 버튼을 눌렀을 때만 GNB 보이게 설정
       setShowGNB(true);
-      setGNBActiveTab('chat'); // ✅ 'chat' 상태 유지
+      // setGNBActiveTab('chat');
+    } else if (isChatbotVisible) {
+      setIsChatbotVisible(false);
     }
   };
 
@@ -106,7 +105,7 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
 
         {/* 모달쪽 헤더 */}
         {isChatbotVisible && showChatbot && (
-          <ModalHeader title="AI Chat" onClose={handleClose} onBack={handleBackToList} />
+          <ModalHeader title="온손 AI" onClose={handleClose} onBack={handleBackToList} />
         )}
 
         {/* 채팅방 헤더 */}
@@ -143,7 +142,7 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
                 </div>
                 <div className="p-4">
                   <button
-                    className="mx-auto mb-20 w-full max-w-xs rounded bg-[#fb657e] py-3 text-center text-white"
+                    className="mx-auto w-full max-w-xs rounded bg-[#fb657e] py-3 text-center text-white"
                     onClick={() => {
                       router.push('/login');
                       onClose();
@@ -160,8 +159,8 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
         </div>
       </div>
 
-      {/* ✅ GNB 추가 & 'chat' 유지 (디테일 페이지에서 채팅 버튼을 눌렀을 때만) */}
-      <div className="flex justify-center tablet:hidden desktop:hidden">{showGNB && <BottomNav />}</div>
+      {/* GNB 추가 & 'chat' 유지*/}
+      <div className="tablet:hidden flex justify-center desktop:hidden">{showGNB && <BottomNav />}</div>
     </div>
   );
 };

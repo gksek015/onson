@@ -5,6 +5,7 @@ import { RightArrowForChatIcon } from '@/components/icons/Icons';
 import useModal from '@/hooks/ui/useModal';
 import { newChatApi } from '@/lib/chats/newChatRoom';
 import { sendMessage } from '@/lib/chats/newMessage';
+import { insertParticipant } from '@/lib/detail/participants';
 import { useGNBStore } from '@/utils/store/useGNBStore';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
@@ -79,6 +80,9 @@ const PostActionButtons = ({ title, postOwnerId, isPostClosed, postId }: PostAct
         return;
       }
     }
+
+    // 참여자 목록에 자동 추가
+    await insertParticipant(postId, user.id);
 
     // 채팅 모달 열기
     setActiveTab('chat');

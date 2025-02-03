@@ -23,11 +23,11 @@ const MyPosts = () => {
   }
 
   return (
-    <>
+    <ul className="grid grid-cols-1 gap-[1px] desktop:grid-cols-3 desktop:bg-[#e7e7e7]">
       {posts.map((post) => (
         <VolunteerCard key={post.id} post={post} />
       ))}
-    </>
+    </ul>
   );
 };
 
