@@ -2,7 +2,6 @@ import { supabase } from "@/utils/supabase/client";
 
 // postId를 받아 해당 게시물을 삭제하는 함수
 export const deletePost = async (postId: string): Promise<boolean> => {
-  console.log('??',postId)
   try {
     const { error } = await supabase
       .from('posts')
