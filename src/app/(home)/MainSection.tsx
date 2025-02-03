@@ -12,7 +12,7 @@ const MainSection = () => {
   const { data: urgentPosts, isLoading } = useGetUrgentPosts();
 
   return (
-    <>
+    <div className="mb-20">
       <div className="mx-4 mb-4 mt-2 flex items-center justify-center gap-3">
         <AddressButton />
       </div>
@@ -30,7 +30,7 @@ const MainSection = () => {
           {urgentPosts?.map((post) => <VolunteerCard key={post.id} post={post} />)}
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 
