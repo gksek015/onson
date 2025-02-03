@@ -8,7 +8,7 @@ interface ChatbotStore {
 }
 
 const useChatbotStore = create<ChatbotStore>((set) => ({
-  isChatbotVisible: false,
+  isChatbotVisible: true,
   showChatbot: false,
   setIsChatbotVisible: (visible) => set({ isChatbotVisible: visible }),
   setShowChatbot: (show) => set({ showChatbot: show }),

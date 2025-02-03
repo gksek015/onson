@@ -26,10 +26,10 @@ export const useSyncGNBStore = () => {
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    if (typeof window === "undefined") return; // ✅ 서버에서 실행 방지
+    if (typeof window === "undefined") return;
 
-   setTimeout(() => {
     const storedTab = localStorage.getItem("activeTab") as 'home' | 'create' | 'list' | 'chat' | null;
+    
     if (storedTab) {
       setActiveTab(storedTab);
     } else {
@@ -37,7 +37,6 @@ export const useSyncGNBStore = () => {
     }
   
     setIsInitialized(true);
-  }, 100); // 100ms 지연으로 초기화 충돌 방지
   }, [setActiveTab]);
 
   return isInitialized;

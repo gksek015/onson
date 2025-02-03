@@ -1,8 +1,9 @@
+import Header from '@/components/layout/Header';
 import type { Metadata } from 'next';
+import localFont from 'next/font/local';
 import { ToastContainer } from 'react-toastify';
 import './globals.css';
 import QueryProvider from './QueryProvider';
-import localFont from "next/font/local";
 
 export const metadata: Metadata = {
   title: 'ON:SON',
@@ -10,9 +11,9 @@ export const metadata: Metadata = {
 };
 
 const pretendard = localFont({
-  src: "./font/PretendardVariable.woff2",
-  display: "swap",
-  weight: "45 920",
+  src: './font/PretendardVariable.woff2',
+  display: 'swap',
+  weight: '45 920'
 });
 
 export default function RootLayout({
@@ -29,6 +30,7 @@ export default function RootLayout({
         <div>
           <QueryProvider>
             <ToastContainer />
+            <Header />
             <main className="flex-1">{children}</main>
           </QueryProvider>
         </div>

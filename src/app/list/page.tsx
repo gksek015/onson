@@ -2,7 +2,6 @@ import AddressTags from '@/app/list/_components/AddressTags';
 import CategoryButton from '@/app/list/_components/CategoryButton';
 import Tags from '@/app/list/_components/Tags';
 import BottomNav from '@/components/layout/BottomNav';
-import Header from '@/components/layout/Header';
 import { categories } from '@/constants/categories';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
@@ -18,7 +17,6 @@ export const metadata: Metadata = {
 const ListPage = () => {
   return (
     <div>
-      <Header />
       <div className="mx-auto mb-20 flex max-w-content flex-col pt-2">
         <Suspense>
           <div className="mx-auto flex w-full flex-col items-start gap-3 self-stretch px-5 desktop:w-[760px]">
