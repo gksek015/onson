@@ -1,6 +1,6 @@
 'use client';
 
-import { MapPinIcon, MeatballMenuIcon, MyProfileIcon } from '@/components/icons/Icons'; // MeatballMenuIcon 추가
+import { CloseIcon, MapPinIcon, MeatballMenuIcon, MyProfileIcon } from '@/components/icons/Icons'; // MeatballMenuIcon 추가
 import { useGetPostById } from '@/hooks/useGetPostById';
 import { useUserStore } from '@/utils/store/userStore'; // 유저 정보를 가져오기 위해 추가
 import { useQueryClient } from '@tanstack/react-query';
@@ -8,7 +8,6 @@ import dayjs from 'dayjs';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react'; // useState 추가
-import { BottomSheet } from 'react-spring-bottom-sheet-updated'; // Bottom Sheet 추가
 import Swal from 'sweetalert2';
 import BookmarkButton from './BookmarkButton';
 import ParticipantList from './ParticipantList';
@@ -46,13 +45,10 @@ const PostContent = ({
 }: PostContentProps) => {
   const { data: post, deletePostById, updateCompletedById } = useGetPostById(postPageId);
   const { user } = useUserStore(); // 현재 로그인한 사용자 가져오기
-  const [isSheetOpen, setIsSheetOpen] = useState(false);
   const queryClient = useQueryClient();
   const router = useRouter();
   const [isDesktop, setIsDesktop] = useState(false);
-
-  const openSheet = () => setIsSheetOpen(true);
-  const closeSheet = () => setIsSheetOpen(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // 드롭다운 상태 추가
 
   // 브라우저 크기 변경에 따라 상태 업데이트
   useEffect(() => {
@@ -67,6 +63,14 @@ const PostContent = ({
       window.removeEventListener('resize', checkIsDesktop); // 클린업
     };
   }, []);
+
+  const handleMeatballClick = () => {
+    setIsDropdownOpen((prevState) => !prevState); // 드롭다운 열림/닫힘 토글
+  };
+
+  const handleCloseSheet = () => {
+    setIsDropdownOpen(false); // 드롭다운 닫기
+  };
 
   // 모집 마감 토글 핸들러
   const handleToggleRecruitment = () => {
@@ -87,18 +91,18 @@ const PostContent = ({
         confirmButtonText: '확인'
       });
     }
-    closeSheet();
+    handleCloseSheet();
   };
 
   // 게시글 수정 핸들러
   const handleEdit = () => {
     router.push(`/post-update/${postId}`);
-    closeSheet();
+    handleCloseSheet();
   };
 
   // 게시글 삭제 핸들러
   const handleDelete = () => {
-    closeSheet();
+    handleCloseSheet();
     Swal.fire({
       title: `게시물 삭제`,
       text: `정말 삭제하시겠습니까?`,
@@ -159,7 +163,7 @@ const PostContent = ({
             {/* 조건부 렌더링 */}
             {user?.id === postOwnerId ? (
               isDesktop ? (
-                <button onClick={openSheet}>
+                <button onClick={handleMeatballClick}>
                   <MeatballMenuIcon />
                 </button>
               ) : null // 모바일에서는 아무것도 렌더링하지 않음
@@ -179,25 +183,30 @@ const PostContent = ({
         <ParticipantList postId={postId} postOwnerId={postOwnerId} />
       </div>
 
-      {/* 바텀 시트 */}
-      <BottomSheet
-        open={isSheetOpen}
-        onDismiss={closeSheet}
-        snapPoints={({ maxHeight }) => [maxHeight * 0.3, maxHeight * 0.4]}
-        defaultSnap={({ maxHeight }) => maxHeight * 0.3}
-      >
-        <div className="p-4">
-          <button onClick={handleToggleRecruitment} className="flex w-full items-center gap-2 px-4 py-2 text-left">
+      {/* 드롭다운 */}
+      {isDropdownOpen && (
+        <div className="absolute right-[570px] top-[540px] z-50 rounded-md border border-gray-300 bg-white p-4 pr-5 shadow-lg">
+          <button
+            onClick={handleToggleRecruitment}
+            className="flex w-full items-center gap-2 px-4 py-2 text-left outline-none focus:outline-none"
+          >
             {isPostClosed ? '모집 마감 해제' : '모집 마감'}
           </button>
+
           <button onClick={handleEdit} className="flex w-full items-center gap-2 px-4 py-2 text-left">
             게시물 수정하기
           </button>
+
           <button onClick={handleDelete} className="flex w-full items-center gap-2 px-4 py-2 text-left text-red-500">
             게시물 삭제하기
           </button>
+
+          {/* 닫기 버튼 */}
+          <button onClick={handleCloseSheet} className="absolute right-[7px] top-[7px] text-center text-gray-500">
+            <CloseIcon width="16" height="16" />
+          </button>
         </div>
-      </BottomSheet>
+      )}
     </div>
   );
 };
