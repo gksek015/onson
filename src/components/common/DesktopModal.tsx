@@ -20,13 +20,11 @@ export const DesktopModal = ({ isOpen, onClose, children }: DesktopModalProps) =
                       top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
                       flex flex-col overflow-auto">
 
-        <div className="p-4 flex justify-end items-center h-12 relative">
-          <button type="button" onClick={onClose}>
+          <button type="button" onClick={onClose} className="p-4 flex justify-end">
             <CloseIcon />
           </button>
-        </div>
 
-        <div className="flex-grow overflow-auto px-6">{children}</div>
+        <div className="flex-grow overflow-auto">{children}</div>
       </div>
     </>
   );

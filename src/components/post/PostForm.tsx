@@ -62,9 +62,9 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
   };
 
   return (
-    <div className="mt-20 h-[calc(100vh-60px)]">
-      <form onSubmit={handleSubmit} className="mx-auto w-full max-w-[800px]">
-        <div className="mt-7 space-y-7 px-5">
+    <div className="min-h-screen pt-[60px]">
+      <form onSubmit={handleSubmit} className="mx-auto w-full max-w-[800px] pt-7">
+        <div className="space-y-7 px-5">
           <div>
             <div className="flex items-center">
               <label htmlFor="title" className="block text-lg font-semibold tracking-[-0.5px]">

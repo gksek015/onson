@@ -36,7 +36,7 @@ const NewPostComp = () => {
 
   return (
     <div className="min-h-screen">
-      <header className="fixed top-0 left-1/2 -translate-x-1/2 z-10 flex w-full max-w-content items-center justify-center border-b bg-white px-4 py-3">
+      <header className="h-[60px] fixed top-0 left-1/2 -translate-x-1/2 z-10 flex w-full max-w-content items-center justify-center border-b bg-white px-4 py-3">
         <button onClick={handleBackButton} className="absolute left-4">
           <BackIcon />
         </button>

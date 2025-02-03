@@ -45,7 +45,7 @@ const CategorySelectComp = ({ categories, onSelectCategory, formData }: Category
 
       {/* 바텀시트 */}
       <ModalSheet id='sheetB'>
-        <div className="flex-grow overflow-y-auto flex h-full flex-col p-5">
+        <div className="flex-grow overflow-y-auto flex h-full flex-col px-5 pb-5">
           <h2 className="mb-10 text-2xl font-semibold">봉사 종류</h2>
           <p className="mb-3 text-base font-semibold text-[#222227]">종류 선택</p>
           <ul className="space-y-4 border-t border-[#BEBEBE]">
