@@ -40,7 +40,7 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
 
   // 메시지가 입력될 때 스크롤을 자동으로 내려주는 로직
   useEffect(() => {
-    if (messages.length <= 5) return;
+    if (messages.length <= 10) return;
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
@@ -48,14 +48,16 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
   const handleSend = async () => {
     if (!input.trim()) return;
 
-    const { error } = await sendMessage(selectedChatId, userId, input.trim());
+    const { data, error } = await sendMessage(selectedChatId, userId, input.trim());
 
     if (error) {
       console.error('Error sending message:', error);
       return;
     }
 
-    setInput('');
+    if (data) {
+      setInput('');
+    }
   };
 
   // 인풋창에 엔터키를 입력해도 메시지가 전송되도록 하는 이벤트
@@ -97,7 +99,7 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
         <div ref={messageEndRef} />
       </div>
 
-      {/* Input Box */}
+      {/* 메세지 입력 Input */}
       <footer className="sticky bottom-2 mt-2">
         <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571] p-[2px]">
           <div className="flex w-full items-center rounded-full bg-white">

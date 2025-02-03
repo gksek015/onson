@@ -64,7 +64,7 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center overflow-hidden">
       <div
         className={`fixed inset-0 z-50 flex flex-col bg-white ${
           !selectedChatId && !showChatbot ? 'mb-[81.41px]' : ''

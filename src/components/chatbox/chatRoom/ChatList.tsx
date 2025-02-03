@@ -102,7 +102,7 @@ const ChatList = ({ chatRooms, onSelectRoom, onDeleteRoom, unreadMessagesMap }: 
   };
 
   return (
-    <div className="overlow w-full">
+    <div className="w-full">
       {sortedRooms.map((room) => {
         const lastMessage = room.messages?.[room.messages.length - 1];
         const hasUnreadMessagesMap = unreadMessagesMap[room.id];
