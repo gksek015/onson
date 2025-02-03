@@ -14,7 +14,7 @@ const IsLogin = () => {
   const { user } = useUserStore(); // 로그인 상태 확인
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
-  const { open } = useDialogStore();
+  const { open, close } = useDialogStore();
 
   //브라우저 좌우 사이즈 상태 및 변경
   const isMobile = useIsMobile();
@@ -52,7 +52,11 @@ const IsLogin = () => {
         <h1 className="absolute left-1/2 top-[16px] -translate-x-1/2 text-[20px] font-bold">로그인</h1>
         <LoginForm />
         <div className="auth_bottom_text_wrapper">
-          <Link className="auth_bottom_text_normall mobile:mt-[24px] desktop:mt-[36px]" href="sign-up">
+          <Link
+            className="auth_bottom_text_normall mobile:mt-[24px] desktop:mt-[36px]"
+            href="sign-up"
+            onClick={() => close()}
+          >
             회원가입
           </Link>
         </div>
