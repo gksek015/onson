@@ -49,7 +49,7 @@ const AllLists = () => {
       // 다음 데이터 불러오는 로직
       fetchNextPage();
     }
-  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
+  }, [inView, hasNextPage]);
 
   useEffect(() => {
     if (address && !hasShownToastRef.current) {
