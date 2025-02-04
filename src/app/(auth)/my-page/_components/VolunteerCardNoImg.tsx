@@ -5,7 +5,7 @@ import type { PostType } from '@/types/PostType';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MapPinIcon } from '../../components/icons/Icons';
+import { MapPinIcon } from '../../../../components/icons/Icons';
 
 interface VolunteerCardProps {
   post: PostType;

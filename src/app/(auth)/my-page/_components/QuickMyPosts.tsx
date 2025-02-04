@@ -1,6 +1,6 @@
 'use client';
 
-import VolunteerCardNoImg from '@/app/(home)/VolunteerCardNoImg';
+import VolunteerCardNoImg from '@/app/(auth)/my-page/_components/VolunteerCardNoImg';
 import useGetPost from '@/hooks/useGetPost';
 import { useUserStore } from '@/utils/store/userStore';
 
