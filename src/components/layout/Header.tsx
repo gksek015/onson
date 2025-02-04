@@ -9,7 +9,7 @@ import LeftSide from './header/LeftSide';
 const Header = () => {
   const pathname = usePathname();
 
-  const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/signup');
+  const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/sign-up') || pathname.startsWith('/create') || pathname.startsWith('/post-update')
 
   const isMobileVisible = pathname === '/' || pathname.startsWith('/list');
 
