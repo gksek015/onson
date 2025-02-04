@@ -23,7 +23,7 @@ const Footer = () => {
 
             {/* 내용 그룹 */}
             <div className="flex flex-col">
-              <span>김진실, 김문식, 이경민, 한다영</span>
+              <span>김진실, 김문식, 이경민, 이지원, 한다영</span>
               <Link href="https://github.com/gksek015/onson" className="mt-2">
                 https://github.com/gksek015/onson
               </Link>
@@ -41,7 +41,7 @@ const Footer = () => {
             {/* 내용 그룹 */}
             <div className="flex w-[316px] flex-col">
               <span>서한솔</span>
-              <span className="mt-2">J공주와 다섯 P넛츠 (Princess J and the Five P-nuts)</span>
+              <span className="mt-2">J공주와 다섯 P쟁이들 (Princess J and the Five P-nuts)</span>
             </div>
           </div>
         </div>

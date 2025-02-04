@@ -1,8 +1,6 @@
 'use client';
-
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
 const LeftSide = () => {
   const pathname = usePathname();
   return (
@@ -13,14 +11,10 @@ const LeftSide = () => {
       >
         봉사게시판
       </Link>
-      <Link
-        href="/create"
-        className={`px-7 py-2 text-xl font-medium ${pathname === '/list' ? 'text-primary-3' : 'text-black'}`}
-      >
+      <Link href="/create" className="px-7 py-2 text-xl font-medium text-black">
         봉사요청
       </Link>
     </div>
   );
 };
-
 export default LeftSide;
