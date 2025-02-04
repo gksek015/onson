@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 const BookmarksPage = () => {
   return (
-    <div>
+    <div className="mx-auto w-full desktop:w-[1280px]">
       <SetPageTitle title="관심있는 봉사" />
       <MyBookmarks />
     </div>

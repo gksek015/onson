@@ -1,7 +1,6 @@
 'use client';
 
 //대화방 디자인
-// TODO: 여기서부터 경민님 작업하시면 됩니당. 대화방 목록 만드시고 각 메세지 방 클릭시 넘어가는 채팅방 UI는 Chatroom 이용하시면 됩니다.
 
 import { getChatUserNickname } from '@/lib/chats/getChatNickname';
 import { getChatRoomList } from '@/lib/chats/getChatRoomList';
@@ -51,23 +50,30 @@ const ChatInBox = ({ selectedChatId, userId, onEnterChatRoom, onBackToList }: Ch
   };
 
   if (isError) return <p>Error loading chat rooms</p>;
-  if (isPending) return <Spinner />;
 
-  return selectedChatId ? (
-    <ChatMessage selectedChatId={selectedChatId} userId={userId} onBackToList={onBackToList} />
-  ) : chatRooms.length === 0 ? ( // ✅ 채팅방이 없을 경우 메시지 표시
-    <div className="flex h-full flex-col items-center justify-center text-gray-600">
-      <p>채팅을 보내거나 받으면 채팅이 여기에 표시됩니다.</p>
+  return (
+    <div className="relative h-full">
+      {isPending ? (
+        <div className="flex flex-1 items-center justify-center">
+          <Spinner />
+        </div>
+      ) : selectedChatId ? (
+        <ChatMessage selectedChatId={selectedChatId} userId={userId} onBackToList={onBackToList} />
+      ) : chatRooms.length === 0 ? ( // 채팅방이 없을 경우 메시지 표시
+        <div className="flex h-full flex-col items-center justify-center text-[#343434]">
+          <p>채팅을 보내거나 받으면 채팅이 여기에 표시됩니다.</p>
+        </div>
+      ) : (
+        <>
+          <ChatList
+            chatRooms={chatRooms}
+            onDeleteRoom={handleDeleteRoom}
+            onSelectRoom={handleSelectRoom}
+            unreadMessagesMap={unreadMessages || {}}
+          />
+        </>
+      )}
     </div>
-  ) : (
-    <>
-      <ChatList
-        chatRooms={chatRooms}
-        onDeleteRoom={handleDeleteRoom}
-        onSelectRoom={handleSelectRoom}
-        unreadMessagesMap={unreadMessages || {}}
-      />
-    </>
   );
 };
 

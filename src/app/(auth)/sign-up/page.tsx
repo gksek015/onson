@@ -13,10 +13,10 @@ export const metadata: Metadata = {
 const SignUpPage = () => {
   return (
     <>
-      <div className="auth_page_wrapper">
+      <div className="auth_page_wrapper desktop:flex desktop:justify-center">
         <SetPageTitle title="회원가입" />
         <SignUpForm />
-        <div className="auth_bottom_text_wrapper">
+        <div className="auth_bottom_text_wrapper desktop:hidden">
           <Link href="/login" className="mt-[24px]">
             이미 계정이 있으신가요?
           </Link>

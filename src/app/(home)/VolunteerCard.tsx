@@ -10,6 +10,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { MapPinIcon, MyProfileIcon } from '../../components/icons/Icons';
 
+import useIsMobile from '@/hooks/ui/useIsMobile';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
@@ -25,6 +26,9 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
   const router = useRouter();
   const { deletePostById } = useGetPostById(post.id);
   const queryClient = useQueryClient();
+
+  //브라우저 좌우 사이즈 상태 및 변경
+  const isMobile = useIsMobile();
 
   // 현재 경로를 가져오기 위한 useEffect
   useEffect(() => {
@@ -77,13 +81,13 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
     return;
   };
 
-
   return (
     <>
-      <li className="flex w-full items-start self-stretch bg-white px-5 py-8">
+      {/* <li className="flex w-full items-start self-stretch bg-white px-5 py-8"> */}
+      <li className="flex w-full items-start desktop:border rounded-xl self-stretch bg-white px-5 py-8">
         <Link href={`/detail/${post.id}/?from=list`} className="w-full">
           {/* 태그 */}
-          <div className="mb-2 flex w-full flex-wrap gap-2 items-center text-sm font-normal">
+          <div className="mb-2 flex w-full flex-wrap items-center gap-2 text-sm font-normal">
             {post.completed ? (
               <span className="flex items-center justify-center gap-2 rounded-full border bg-[#A6A6A6] px-2.5 py-0.5 text-sm text-white">
                 모집 마감
@@ -161,7 +165,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
         </Link>
       </li>
       {/* 현재 경로에 따라 다르게 버튼 추가 */}
-      {currentPath === '/my-page/bookmarks' && (
+      {isMobile && currentPath === '/my-page/bookmarks' && (
         <>
           <div className="flex justify-between px-[20px] py-[12px]">
             <button onClick={handleRemoveBookmark}>삭제</button>
@@ -169,7 +173,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
           <div className="my_profile_blank"></div>
         </>
       )}
-      {currentPath === '/my-page/my-posts' && (
+      {isMobile && currentPath === '/my-page/my-posts' && (
         <>
           <div className="flex justify-between px-[20px] py-[12px]">
             <button onClick={handleDelete}>삭제</button>

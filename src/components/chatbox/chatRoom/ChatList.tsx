@@ -17,6 +17,7 @@ interface ChatListProps {
 const ChatList = ({ chatRooms, onSelectRoom, onDeleteRoom, unreadMessagesMap }: ChatListProps) => {
   const [slidRoomId, setSlidRoomId] = useState<string | null>(null);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [mouseStartX, setMouseStartX] = useState<number | null>(null);
 
   const formatDate = (created_at: string | null) => {
     if (!created_at) return '날짜 없음'; // 예외 처리
@@ -64,7 +65,7 @@ const ChatList = ({ chatRooms, onSelectRoom, onDeleteRoom, unreadMessagesMap }: 
     setTouchStartX(e.touches[0].clientX); // 터치 시작 위치 저장
   };
 
-  // 터치 이동 이벤트
+  // 모바일 터치 이동 이벤트
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>, roomId: string) => {
     e.stopPropagation();
     const touchEndX = e.changedTouches[0].clientX;
@@ -82,8 +83,26 @@ const ChatList = ({ chatRooms, onSelectRoom, onDeleteRoom, unreadMessagesMap }: 
     }
   };
 
+  // 데스크탑 마우스 이벤트(슬라이드 동작)
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    setMouseStartX(e.clientX);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, roomId: string) => {
+    if (mouseStartX !== null) {
+      const deltaX = mouseStartX - e.clientX;
+      if (deltaX > 50)
+        setSlidRoomId(roomId); // 오른쪽으로 슬라이드
+      else if (deltaX < -50 && slidRoomId === roomId) setSlidRoomId(null); // 왼쪽으로 슬라이드 해제
+    }
+  };
+
+  const handleMouseUp = () => {
+    setMouseStartX(null);
+  };
+
   return (
-    <div className="overlow w-full">
+    <div className="w-full">
       {sortedRooms.map((room) => {
         const lastMessage = room.messages?.[room.messages.length - 1];
         const hasUnreadMessagesMap = unreadMessagesMap[room.id];
@@ -95,10 +114,13 @@ const ChatList = ({ chatRooms, onSelectRoom, onDeleteRoom, unreadMessagesMap }: 
             className="relative mb-2 mt-2 flex w-full flex-col overflow-hidden"
             onTouchStart={handleTouchStart}
             onTouchMove={(e) => handleTouchMove(e, room.id)}
-            onTouchEnd={() => setTimeout(() => setSlidRoomId(null), 3000)} // ✅ 자동 해제 (3초 후)
+            onTouchEnd={() => setTimeout(() => setSlidRoomId(null), 3000)} //자동 해제 (3초 후)
+            onMouseDown={handleMouseDown}
+            onMouseMove={(e) => handleMouseMove(e, room.id)}
+            onMouseUp={handleMouseUp}
           >
             <div className="relative flex w-full">
-              {/* 채팅 리스트 (✅ 오른쪽으로 80px만큼 이동) */}
+              {/* 채팅 리스트 (오른쪽으로 80px만큼 이동) */}
               <button
                 className={`w-full min-w-0 px-5 py-3 text-left transition-transform duration-200 ease-in-out ${
                   isSlid ? 'translate-x-[-80px]' : 'translate-x-0'
@@ -129,7 +151,7 @@ const ChatList = ({ chatRooms, onSelectRoom, onDeleteRoom, unreadMessagesMap }: 
                 </div>
               </button>
 
-              {/* ✅ 삭제 버튼 - 슬라이드된 공간 안에 표시 */}
+              {/* 삭제 버튼 - 슬라이드된 공간 안에 표시 */}
               <div
                 className={`absolute right-0 top-0 flex h-full w-[80px] items-center justify-center bg-[#F66B55] text-white transition-all duration-300 ${
                   isSlid ? 'opacity-100' : 'pointer-events-none opacity-0'

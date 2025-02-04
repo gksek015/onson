@@ -26,8 +26,7 @@ export const getInfinitePost = async ({ pageParam = 0 }: Param) => {
     if (!post) {
       return
     }
-    
-    
+        
     const totalPage = post.length || 0
     const nextCursor = totalPage === 9 ? pageParam + 1 : undefined
 

@@ -1,15 +1,16 @@
-import { useEffect, useState } from 'react';
 import { BottomSheet } from '@/components/common/BottomSheet';
 import { DesktopModal } from '@/components/common/DesktopModal';
 import { useDialogStore } from '@/utils/store/useDialogStore';
+import { useEffect, useState } from 'react';
 
 interface ModalSheetProps {
   id: string;
   children: React.ReactNode;
+  title?: string;
 }
 
-export const ModalSheet = ({ id, children }: ModalSheetProps) => {
-    const [isDesktop, setIsDesktop] = useState(false);
+export const ModalSheet = ({ id, children, title }: ModalSheetProps) => {
+  const [isDesktop, setIsDesktop] = useState(false);
   const { activeId, close } = useDialogStore();
   const isOpen = activeId === id;
 
@@ -32,7 +33,7 @@ export const ModalSheet = ({ id, children }: ModalSheetProps) => {
     };
 
     updateScreenSize();
-    updateBodyScroll(); 
+    updateBodyScroll();
 
     window.addEventListener('resize', updateScreenSize);
 
@@ -45,7 +46,11 @@ export const ModalSheet = ({ id, children }: ModalSheetProps) => {
 
   if (!isOpen) return null;
 
-  return isDesktop 
-    ? <DesktopModal id={id} isOpen onClose={close}>{children}</DesktopModal> 
-    : <BottomSheet id={id}>{children}</BottomSheet>;
+  return isDesktop ? (
+    <DesktopModal id={id} isOpen onClose={close} title={title}>
+      {children}
+    </DesktopModal>
+  ) : (
+    <BottomSheet id={id}>{children}</BottomSheet>
+  );
 };

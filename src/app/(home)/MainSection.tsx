@@ -12,7 +12,7 @@ const MainSection = () => {
   const { data: urgentPosts, isLoading } = useGetUrgentPosts();
 
   return (
-    <>
+    <div className="mb-20">
       <div className="mx-4 mb-4 mt-2 flex items-center justify-center gap-3">
         <AddressButton />
       </div>
@@ -26,11 +26,12 @@ const MainSection = () => {
         </div>
         {isLoading && <Loading />} {/* 데이터 로딩 중일 때 */}
         {/* 마감 임박 봉사 리스트 최대 9개 표시 */}
-        <ul className="grid grid-cols-1 gap-[1px] bg-[#e7e7e7] md:grid-cols-2 lg:grid-cols-3">
+        {/* <ul className="grid grid-cols-1 gap-[1px] bg-[#e7e7e7] md:grid-cols-2 lg:grid-cols-3"> */}
+        <ul className="grid grid-cols-1 desktop:gap-4 md:grid-cols-2 lg:grid-cols-3 desktop:mt-7">
           {urgentPosts?.map((post) => <VolunteerCard key={post.id} post={post} />)}
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 
