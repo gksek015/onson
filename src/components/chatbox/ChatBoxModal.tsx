@@ -63,7 +63,7 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
   };
 
   return (
-    <div className="flex justify-center overflow-hidden">
+    <div className="flex justify-center">
       <div
         className={`fixed inset-0 z-50 flex flex-col bg-white ${
           !selectedChatId && !showChatbot ? 'mb-[81.41px]' : ''
@@ -79,7 +79,7 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
         )}
 
         {/* 상단 탭바 (모바일: 상단, 데스크탑: 하단) */}
-        {!selectedChatId && (!isChatbotVisible || !showChatbot) && (
+        {!selectedChatId && !showChatbot && (
           <div className="flex items-center justify-between border-b desktop:absolute desktop:bottom-0 desktop:left-0 desktop:w-full desktop:border-t">
             <div className="flex flex-1 justify-center gap-12">
               <button

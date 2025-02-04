@@ -11,10 +11,15 @@ const AIChatbot = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [input, setInput] = useState<string>(''); // 사용자가 입력하는 텍스트
   const messagesEndRef = useRef<HTMLDivElement>(null); // 메시지 끝을 참조
+  const scrollableDivRef = useRef<HTMLDivElement>(null); // 스크롤 컨테이너
 
-  // 메시지 목록이 업데이트될 때 스크롤을 자동으로 아래로 이동
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (scrollableDivRef.current) {
+      scrollableDivRef.current.scrollTo({
+        top: scrollableDivRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
   }, [messages]);
 
   // 옵션 리스트
@@ -75,9 +80,9 @@ const AIChatbot = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-[#F2F2F2] p-4">
+    <div className="flex h-full flex-col bg-[#F2F2F2]">
       {/* 채팅창 */}
-      <div className="flex-1 overflow-auto bg-[#F2F2F2]">
+      <div ref={scrollableDivRef} className="flex-1 overflow-y-auto bg-[#F2F2F2] p-4">
         <div className="mx-auto mt-2 w-full max-w-md">
           {/* 상단 안내 문구 */}
           <div className="mb-2 rounded-lg bg-white p-2 text-center text-sm font-light">
@@ -126,14 +131,14 @@ const AIChatbot = () => {
                 </div>
               </div>
             ))}
+            {loading && (
+              <div className="mt-4 text-center">
+                <OnsonLoading />
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </div>
         </div>
-        {loading && (
-          <div className="mt-4 text-center">
-            <OnsonLoading />
-          </div>
-        )}
       </div>
 
       {/* 입력창 */}
