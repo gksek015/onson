@@ -23,15 +23,30 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
   const [selectedChatId, setSelectedChatId] = useState<string | null>(initialChatId || null);
   const [showGNB, setShowGNB] = useState(false);
   const { user } = useUserStore();
-  const { setActiveTab: setGNBActiveTab } = useGNBStore();
+  const { activeTab: prevGNBTab, setActiveTab: setGNBActiveTab } = useGNBStore();
   const { isChatbotVisible, showChatbot, setIsChatbotVisible, setShowChatbot } = useChatbotStore();
   const router = useRouter();
+
+  const [prevGNBActiveTab, setPrevGNBActiveTab] = useState(prevGNBTab);
+
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
 
   useEffect(() => {
     if (initialChatId) {
       setSelectedChatId(initialChatId);
     }
   }, [initialChatId]);
+
+  useEffect(() => {
+    setPrevGNBActiveTab(prevGNBTab);
+  }, []);
 
   const handleEnterChatRoom = async (chatId: string) => {
     setSelectedChatId(chatId);
@@ -44,8 +59,10 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
     }
     setIsChatbotVisible(false);
     setShowChatbot(false);
-    setGNBActiveTab('home');
     setShowGNB(false);
+    if (prevGNBActiveTab) {
+      setGNBActiveTab(prevGNBActiveTab);
+    }
     onClose();
   };
 
@@ -65,12 +82,12 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
   return (
     <div className="flex justify-center overflow-hidden">
       <div
-        className={`fixed inset-0 z-50 flex flex-col bg-white ${
+        className={`z-80 fixed inset-0 flex flex-col bg-white ${
           !selectedChatId && !showChatbot ? 'mb-[81.41px]' : ''
         } desktop:absolute desktop:bottom-[80px] desktop:left-auto desktop:right-[80px] desktop:top-auto desktop:mb-0 desktop:h-[650px] desktop:w-[396px] desktop:rounded-[20px] desktop:border desktop:shadow-lg`}
       >
         {/* 닫기 버튼 (모바일 & 데스크탑) */}
-        {!selectedChatId && (!isChatbotVisible || !showChatbot) && (
+        {!selectedChatId && !showChatbot && (
           <div className="hidden items-center justify-end border-b p-2 desktop:flex">
             <button onClick={handleClose} className="hidden items-center justify-center p-2 desktop:flex">
               <CloseIcon />
@@ -79,7 +96,7 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
         )}
 
         {/* 상단 탭바 (모바일: 상단, 데스크탑: 하단) */}
-        {!selectedChatId && (!isChatbotVisible || !showChatbot) && (
+        {!selectedChatId && !showChatbot && (
           <div className="flex items-center justify-between border-b desktop:absolute desktop:bottom-0 desktop:left-0 desktop:w-full desktop:border-t">
             <div className="flex flex-1 justify-center gap-12">
               <button

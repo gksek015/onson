@@ -27,20 +27,27 @@ const ChatIcon = () => {
 
   const hasUnreadMessages = Object.values(unreadMessages).some((val) => val);
 
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    toggleModal();
+  };
+
   return (
     <div className="mobile:hidden desktop:block">
-      <button onClick={toggleModal} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-        {isHovered ? (
-          hasUnreadMessages ? (
-            <MessageDesktopHoverAlertIcon />
+      <button onClick={handleClick}>
+        <span onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+          {isHovered ? (
+            hasUnreadMessages ? (
+              <MessageDesktopHoverAlertIcon />
+            ) : (
+              <MessageDesktopHoverIcon />
+            )
+          ) : hasUnreadMessages ? (
+            <MessageDesktopCircleIcon />
           ) : (
-            <MessageDesktopHoverIcon />
-          )
-        ) : hasUnreadMessages ? (
-          <MessageDesktopCircleIcon />
-        ) : (
-          <MessageDesktopStrokeIcon />
-        )}
+            <MessageDesktopStrokeIcon />
+          )}
+        </span>
       </button>
       {isOpen && <ChatBoxModal onClose={closeModal} />}
     </div>

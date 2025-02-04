@@ -75,9 +75,9 @@ const AIChatbot = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-[#F2F2F2] p-4">
+    <div className="m-4 flex h-screen flex-col bg-[#F2F2F2]">
       {/* 채팅창 */}
-      <div className="flex-1 overflow-auto bg-[#F2F2F2]">
+      <div className="flex-1 bg-[#F2F2F2]">
         <div className="mx-auto mt-2 w-full max-w-md">
           {/* 상단 안내 문구 */}
           <div className="mb-2 rounded-lg bg-white p-2 text-center text-sm font-light">

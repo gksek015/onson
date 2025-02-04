@@ -9,7 +9,7 @@ interface GNBState {
 
 // Zustand Store 생성
 export const useGNBStore = create<GNBState>((set) => ({
-  activeTab: 'home', // ✅ 기본값을 'home'으로 설정
+  activeTab: 'home',
   isGNBVisible: true,
   setActiveTab: (tab) => {
     if (typeof window !== "undefined") {

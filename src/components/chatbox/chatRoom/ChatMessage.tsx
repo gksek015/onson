@@ -16,32 +16,35 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
   const [showNotice, setShowNotice] = useState(true); // 공지사항 표시 여부
   const messages = useRealTimeMessages(selectedChatId);
   const messageEndRef = useRef<HTMLDivElement>(null);
+  // const chatContainer = useRef<HTMLDivElement>(null);
 
   // 스크롤 이벤트 핸들러
-  const handleScroll = () => {
-    const chatContainer = document.getElementById('chat-container');
-    if (chatContainer) {
-      setShowNotice(chatContainer.scrollTop === 0); // 스크롤이 최상단이면 공지사항 표시
-    }
-  };
+  // const handleScroll = () => {
+  //   const chatContainer = document.getElementById('chat-container');
+  //   if (chatContainer) {
+  //     setShowNotice(chatContainer.scrollTop === 0); // 스크롤이 최상단이면 공지사항 표시
+  //   }
+  // };
 
   // 컴포넌트가 마운트된 후 스크롤 이벤트 추가
   useEffect(() => {
-    const chatContainer = document.getElementById('chat-container');
-    if (chatContainer) {
-      chatContainer.addEventListener('scroll', handleScroll);
-    }
-    return () => {
-      if (chatContainer) {
-        chatContainer.removeEventListener('scroll', handleScroll);
-      }
-    };
+    // const chatContainer = document.getElementById('chat-container');
+    // if (chatContainer) {
+    //   chatContainer.addEventListener('scroll', handleScroll);
+    // }
+    // return () => {
+    //   if (chatContainer) {
+    //     chatContainer.removeEventListener('scroll', handleScroll);
+    //   }
+    // };
+    // messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
   // 메시지가 입력될 때 스크롤을 자동으로 내려주는 로직
   useEffect(() => {
     if (messages.length <= 10) return;
-    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const chatContainer = document.getElementById('chat-container');
+    // messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
   // 메세지를 전송하기 위한 함수
@@ -100,23 +103,25 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
       </div>
 
       {/* 메세지 입력 Input */}
-      <footer className="sticky bottom-2 mt-2">
-        <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571] p-[2px]">
-          <div className="flex w-full items-center rounded-full bg-white">
-            <input
-              type="text"
-              className="flex-1 rounded-full indent-4 text-base text-black focus:outline-none"
-              placeholder="메시지를 입력하세요..."
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyEnter}
-            />
-            <button className="flex items-center justify-center p-2" onClick={handleSend}>
-              {input.trim() ? <SendMessageGradientIcon /> : <SendMessageIcon />}
-            </button>
+      <div className="sticky bottom-0 bg-[#F2F2F2]">
+        <footer className="mt-2 desktop:bottom-0">
+          <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571] p-[2px]">
+            <div className="flex w-full items-center rounded-full bg-white">
+              <input
+                type="text"
+                className="flex-1 rounded-full indent-4 text-base text-black focus:outline-none"
+                placeholder="메시지를 입력하세요..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyEnter}
+              />
+              <button className="flex items-center justify-center p-2" onClick={handleSend}>
+                {input.trim() ? <SendMessageGradientIcon /> : <SendMessageIcon />}
+              </button>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   );
 };

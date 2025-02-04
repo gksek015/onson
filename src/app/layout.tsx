@@ -31,7 +31,7 @@ export default function RootLayout({
           <QueryProvider>
             <ToastContainer />
             <Header />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 desktop:pt-[72px]">{children}</main>
           </QueryProvider>
         </div>
       </body>
