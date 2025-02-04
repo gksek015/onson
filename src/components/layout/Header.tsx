@@ -9,7 +9,7 @@ import LeftSide from './header/LeftSide';
 const Header = () => {
   const pathname = usePathname();
 
-  const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/signup');
+  const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/sign-up');
 
   const isMobileVisible = pathname === '/' || pathname.startsWith('/list');
 
@@ -17,7 +17,7 @@ const Header = () => {
 
   return (
     <header
-      className={`maxWidth-[1440px] flex h-[56px] justify-center bg-white px-[20px] py-[8px] desktop:left-0 desktop:top-0 desktop:flex desktop:w-full ${isMobileVisible ? 'mobile:block' : 'mobile:hidden'}`}
+      className={`maxWidth-[1440px] flex h-[56px] justify-center bg-white px-[20px] mobile:py-[8px] desktop:left-0 desktop:top-0 desktop:flex desktop:w-full desktop:py-[14px] ${isMobileVisible ? 'mobile:block' : 'mobile:hidden'}`}
     >
       <div className="flex w-full max-w-content items-center justify-between">
         <div className="flex flex-row items-center">

@@ -1,25 +1,17 @@
 'use client';
 
 import { BackButtonIcon } from '@/components/icons/Icons';
+import useIsMobile from '@/hooks/ui/useIsMobile';
 import { usePageTitleStore } from '@/utils/store/pageTitleStore';
 import { usePathname, useRouter } from 'next/navigation';
 import 'react-spring-bottom-sheet-updated/dist/style.css';
 
 const Header = () => {
   const router = useRouter();
-  const pathname = usePathname();
-  console.log('pathname', pathname);
 
   const title = usePageTitleStore((state) => state.title);
 
   const handleBack = () => {
-    // const segments = pathname.split('/').filter(Boolean);
-    // if (segments.length > 1) {
-    //   const parentPath = '/' + segments.slice(0, -1).join('/');
-    //   router.push(parentPath);
-    // } else {
-    //   router.push('/');
-    // }
     if (window.history.length > 1) {
       router.back(); // 이전 페이지로 이동
     } else {
@@ -27,6 +19,14 @@ const Header = () => {
     }
   };
 
+  //브라우저 좌우 사이즈 상태 및 변경
+  const isMobile = useIsMobile();
+
+  const pathname = usePathname();
+
+  const isAuthPage = !isMobile && (pathname.startsWith('/my-page') || pathname.startsWith('/user-page'));
+
+  if (isAuthPage) return null;
   return (
     <>
       <div className="relative flex h-[60px] items-center justify-center leading-[60px]">

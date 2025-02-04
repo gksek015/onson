@@ -1,7 +1,10 @@
 'use client';
 
 import { MapPinIcon, MyProfileIcon } from '@/components/icons/Icons';
+import { useNicknameStore } from '@/utils/store/useNicknameStore';
+import { supabase } from '@/utils/supabase/client';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import BookmarkButton from './BookmarkButton';
 import ParticipantList from './ParticipantList';
 import PostActionButtons from './PostActionButtons';
@@ -35,6 +38,23 @@ const PostContent = ({
   isPostClosed,
   profileImgUrl
 }: PostContentProps) => {
+  const router = useRouter();
+  const { setUser } = useNicknameStore();
+
+  const handleClick = async () => {
+    const { data: idData, error: idError } = await supabase.from('users').select().eq('nickname', nickname).single();
+    if (idError || !idData) {
+      console.error('유저 UUID 조회 오류:', idError);
+      throw new Error('Failed to fetch user UUID');
+    }
+    setUser({
+      id: idData.id,
+      nickname: nickname,
+      profileImage: idData.profile_img_url ?? null // null 허용
+    });
+    router.push('/user-page');
+  };
+
   return (
     <div className="my-6 flex flex-col justify-center gap-4 pb-20">
       <div className="mx-4 flex flex-col justify-center gap-2">
@@ -49,7 +69,7 @@ const PostContent = ({
         </div>
 
         <div className="mb-2 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex cursor-pointer items-center gap-2" onClick={handleClick}>
             {profileImgUrl ? (
               <div className="relative h-7 w-7 overflow-hidden rounded-full bg-gray-200">
                 <Image
