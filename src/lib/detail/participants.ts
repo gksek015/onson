@@ -29,7 +29,7 @@ export const insertParticipant = async (postId: string, userId: string) => {
   // 참여자 추가
   const { error } = await supabase
     .from('participant')
-    .insert([{ post_id: postId, user_id: userId, is_checked: false }]);
+    .insert([{ post_id: postId, user_id: userId, is_checked: true }]);
 
   if (error) {
     throw new Error('참여자 추가 중 오류 발생');
