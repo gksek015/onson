@@ -11,6 +11,7 @@ import useModal from '@/hooks/ui/useModal';
 import { useUserStore } from '@/utils/store/userStore';
 import { useUnreadMessageStore } from '@/utils/store/useUnreadMessageStore';
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 const ChatIcon = () => {
   const { unreadMessages, subscribeToRealtimeMessages, refetch } = useUnreadMessageStore();
@@ -27,14 +28,13 @@ const ChatIcon = () => {
 
   const hasUnreadMessages = Object.values(unreadMessages).some((val) => val);
 
-  const handleClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleClick = () => {
     toggleModal();
   };
 
   return (
-    <div className="mobile:hidden desktop:block">
-      <button onClick={handleClick}>
+    <div className="relative mobile:hidden desktop:block">
+      <button onClick={handleClick} className="relative">
         <span onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
           {isHovered ? (
             hasUnreadMessages ? (
@@ -49,7 +49,15 @@ const ChatIcon = () => {
           )}
         </span>
       </button>
-      {isOpen && <ChatBoxModal onClose={closeModal} />}
+
+      {isOpen &&
+        typeof document !== 'undefined' &&
+        createPortal(
+          <div className="fixed inset-0 z-50">
+            <ChatBoxModal onClose={closeModal} />
+          </div>,
+          document.body
+        )}
     </div>
   );
 };

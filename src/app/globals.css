@@ -139,7 +139,7 @@ body {
   @apply h-[12px] bg-[#F4F5F5];
 }
 .my_profile_no_contents {
-  @apply p-[20px] text-[#868c92];
+  @apply p-[20px] text-[#868c92] desktop:px-[80px];
 }
 
 .info_message_wrapper {
