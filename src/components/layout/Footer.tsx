@@ -23,7 +23,7 @@ const Footer = () => {
 
             {/* 내용 그룹 */}
             <div className="flex flex-col">
-              <span>김진실, 김문식, 이경민, 한다영</span>
+              <span>김진실, 김문식, 이경민, 이지원, 한다영</span>
               <Link href="https://github.com/gksek015/onson" className="mt-2">
                 https://github.com/gksek015/onson
               </Link>

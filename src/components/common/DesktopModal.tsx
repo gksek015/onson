@@ -5,9 +5,10 @@ interface DesktopModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  title?: string;
 }
 
-export const DesktopModal = ({ isOpen, onClose, children }: DesktopModalProps) => {
+export const DesktopModal = ({ isOpen, onClose, children, title }: DesktopModalProps) => {
   if (!isOpen) return null;
 
   return (
@@ -16,14 +17,21 @@ export const DesktopModal = ({ isOpen, onClose, children }: DesktopModalProps) =
       <div className="fixed inset-0 z-50 bg-black bg-opacity-50" onClick={onClose}></div>
 
       {/* 모달 */}
-      <div className="fixed left-1/2 top-1/2 z-50 flex h-[605px] w-[608px] -translate-x-1/2 -translate-y-1/2 transform flex-col overflow-auto rounded-lg bg-white shadow-lg">
-        <div className="relative flex h-[60px] items-center justify-end p-4">
+      <div className="fixed w-[608px] h-[605px] bg-white rounded-lg shadow-lg z-50 
+                      top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+                      flex flex-col overflow-hidden">
+
+        {/* 헤더: 제목과 닫기 버튼을 같은 줄에 배치 */}
+        <div className="flex items-center justify-between p-5">
+          <h2 className="text-2xl font-semibold tracking-[-0.5px]">{title}</h2>
           <button type="button" onClick={onClose}>
             <CloseIcon />
           </button>
         </div>
 
-        <div className="flex-grow overflow-auto px-6">{children}</div>
+        <div className="flex-grow overflow-auto py-4">
+          {children}
+        </div>
       </div>
     </>
   );

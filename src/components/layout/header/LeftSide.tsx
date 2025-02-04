@@ -1,8 +1,6 @@
 'use client';
-
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
 const LeftSide = () => {
   const pathname = usePathname();
   return (
@@ -19,5 +17,4 @@ const LeftSide = () => {
     </div>
   );
 };
-
 export default LeftSide;
