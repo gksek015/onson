@@ -29,7 +29,6 @@ export const DesktopModal = ({ isOpen, onClose, children, title }: DesktopModalP
           </button>
         </div>
 
-        {/* children이 들어갈 자리 */}
         <div className="flex-grow overflow-auto py-4">
           {children}
         </div>

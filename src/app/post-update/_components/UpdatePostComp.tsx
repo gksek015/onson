@@ -17,11 +17,11 @@ const UpdatePostComp = () => {
     <div className="min-h-screen">
       <Header
         title="수정"
-        onBack={navigateToDetail} // 게시글 상세 페이지로 이동
+        onBack={navigateToDetail}
         onSubmit={handleUpdate}
         submitLabel="수정"
         submitColor="#424242"
-        isUpdatePage={true} // 수정 페이지임을 `Header.tsx`에 전달하여 알림 표시
+        isUpdatePage={true}
       />
       <PostForm categories={categories} setFormData={setFormData} formData={formData} />
     </div>
