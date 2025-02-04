@@ -13,13 +13,13 @@ import { useState } from 'react';
 import Swal from 'sweetalert2';
 
 interface PostActionButtonsProps {
-  nickname: string;
   postOwnerId: string;
   title: string;
+  isPostClosed: boolean;
   postId: string;
 }
 
-const PostActionButtons = ({ title, nickname, postOwnerId, postId }: PostActionButtonsProps) => {
+const PostActionButtons = ({ title, postOwnerId, isPostClosed, postId }: PostActionButtonsProps) => {
   const { isOpen, toggleModal } = useModal();
   const { user } = useUserStore();
   const router = useRouter();
@@ -27,6 +27,19 @@ const PostActionButtons = ({ title, nickname, postOwnerId, postId }: PostActionB
   const { setActiveTab } = useGNBStore();
 
   const handleChatClick = async () => {
+    if (isPostClosed) {
+      Swal.fire({
+        title: '모집 마감',
+        text: '해당 게시글의 모집이 마감되었습니다.',
+        icon: 'info',
+        confirmButtonText: '확인'
+      }).then(() => {
+        // 다시 해당 게시글 페이지로 리다이렉트
+        router.push(`/detail/${postId}`);
+      });
+      return; // 종료
+    }
+
     if (!user) {
       Swal.fire({
         title: '로그인이 필요합니다',
@@ -82,10 +95,14 @@ const PostActionButtons = ({ title, nickname, postOwnerId, postId }: PostActionB
       {user?.id !== postOwnerId && (
         <button
           onClick={handleChatClick}
-          className="flex w-full items-center justify-between rounded-lg border-2 border-gray-500 px-4 py-3 text-gray-600 focus:outline-none"
+          className={`flex w-full items-center justify-between rounded-lg ${
+            isPostClosed
+              ? 'cursor-not-allowed border-2 border-[#A6A6A6] font-semibold text-[#A6A6A6]' // 모집 마감 스타일
+              : 'cursor-pointer border-2 border-[#FA5571] font-semibold text-[#FA5571]' // 모집 진행 중 스타일
+          } p-2.5 desktop:px-4 desktop:py-3 mb-2 focus:outline-none`}
         >
-          <span>{nickname}님과 채팅하기</span>
-          <RightArrowForChatIcon />
+          <span>채팅으로 봉사 신청하기</span>
+          <RightArrowForChatIcon color={isPostClosed ? '#A6A6A6' : '#FA5571'} />
         </button>
       )}
       {isOpen && <ChatBoxModal onClose={toggleModal} initialChatId={chatId} />}

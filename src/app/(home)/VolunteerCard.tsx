@@ -83,7 +83,8 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
 
   return (
     <>
-      <li className="flex w-full items-start self-stretch bg-white px-5 py-8">
+      {/* <li className="flex w-full items-start self-stretch bg-white px-5 py-8"> */}
+      <li className="flex w-full items-start desktop:border rounded-xl self-stretch bg-white px-5 py-8">
         <Link href={`/detail/${post.id}/?from=list`} className="w-full">
           {/* 태그 */}
           <div className="mb-2 flex w-full flex-wrap items-center gap-2 text-sm font-normal">
