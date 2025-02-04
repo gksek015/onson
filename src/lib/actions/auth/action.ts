@@ -140,8 +140,18 @@ export const checkSupabaseSession = async () => {
       await supabase.auth.getUser();
 
     if (error) {
+      if (error.message === 'Auth session missing!') {
+        return {
+          isLoggedIn: false,
+          user: null,
+        };
+      }
+
       console.error('Supabase 사용자 정보 확인 오류:', error.message);
-      throw new Error('Supabase 사용자 정보 확인에 실패했습니다.');
+      return {
+        isLoggedIn: false,
+        user: null,
+      };
     }
 
     const user = data.user;
@@ -151,20 +161,23 @@ export const checkSupabaseSession = async () => {
         isLoggedIn: true,
         user: {
           id: user.id,
-          email: user.email || 'Unknown', // 기본값 할당
+          email: user.email || 'Unknown',
           nickname: user.user_metadata?.nickname || user.user_metadata?.name || 'Unknown',
           profileImage: user.user_metadata?.profileImage || null,
         },
       };
-    } else {
-      return {
-        isLoggedIn: false,
-        user: null,
-      };
     }
+
+    return {
+      isLoggedIn: false,
+      user: null,
+    };
   } catch (err) {
-    console.error('Supabase 세션 확인 중 오류 발생:', err);
-    throw new Error('Supabase 세션 확인 중 오류 발생.');
+    console.error('Supabase 세션 확인 중 알 수 없는 오류:', err);
+    return {
+      isLoggedIn: false,
+      user: null,
+    };
   }
 };
 
