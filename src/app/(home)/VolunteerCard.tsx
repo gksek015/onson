@@ -44,7 +44,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
   const formattedEnd = dayjs(post.end_date).format('YY.MM.DD.');
 
   const isPastEndDate = dayjs(post.end_date).isBefore(dayjs(), 'day'); // 오늘이 end_date 이후인지 확인
-  const isCloseToEndDate = dayjs(post.end_date).diff(dayjs(), 'day') <= 2 && !isPastEndDate; // 오늘 기준 이틀 이하 인지 확인
+  const isCloseToEndDate = dayjs(post.end_date).diff(dayjs(), 'day') <= 2 && !isPastEndDate; // 오늘 기준 사흘 이하 인지 확인
 
   const handleRemoveBookmark = () => {
     if (!user?.id) {
