@@ -24,7 +24,10 @@ const IsLogin = () => {
   return (
     <div className="flex items-center">
       {!user ? (
-        <button onClick={handleProfileClick} className="text-sm font-medium text-gray-600 hover:text-gray-800">
+        <button
+          onClick={handleProfileClick}
+          className="text-lg font-semibold text-[#818181] desktop:text-xl desktop:font-medium desktop:text-[#343434]"
+        >
           로그인
         </button>
       ) : (
