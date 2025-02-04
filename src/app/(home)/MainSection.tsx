@@ -11,6 +11,14 @@ const MainSection = () => {
   useInitializeUser();
   const { data: urgentPosts, isLoading } = useGetUrgentPosts();
 
+  if (isLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <div className="mb-20">
       <div className="mx-4 mb-4 mt-2 flex items-center justify-center gap-3">
@@ -24,10 +32,10 @@ const MainSection = () => {
           <h2 className="text-sm text-[#FB657E]">HOT</h2>
           <h1 className="text-xl font-semibold">곧 마감되는 봉사</h1>
         </div>
-        {isLoading && <Loading />} {/* 데이터 로딩 중일 때 */}
+
         {/* 마감 임박 봉사 리스트 최대 9개 표시 */}
         {/* <ul className="grid grid-cols-1 gap-[1px] bg-[#e7e7e7] md:grid-cols-2 lg:grid-cols-3"> */}
-        <ul className="grid grid-cols-1 desktop:gap-4 md:grid-cols-2 lg:grid-cols-3 desktop:mt-7">
+        <ul className="grid grid-cols-1 md:grid-cols-2 desktop:mt-7 desktop:gap-4 lg:grid-cols-3">
           {urgentPosts?.map((post) => <VolunteerCard key={post.id} post={post} />)}
         </ul>
       </div>

@@ -8,6 +8,7 @@ import { Suspense } from 'react';
 import AllLists from './_components/AllLists';
 import SearchBar from './_components/SearchBar';
 import UpScrollButton from './_components/UpScrollButton';
+import { Loading } from '@/components/common/Loading';
 
 export const metadata: Metadata = {
   title: 'ON:SON',
@@ -18,7 +19,7 @@ const ListPage = () => {
   return (
     <div>
       <div className="mx-auto mb-20 flex max-w-content flex-col pt-2">
-        <Suspense>
+        <Suspense fallback={<Loading />}>
           <div className="mx-auto flex w-full flex-col items-start gap-3 self-stretch px-5 desktop:w-[760px]">
             <div className="flex w-full gap-3">
               <SearchBar />

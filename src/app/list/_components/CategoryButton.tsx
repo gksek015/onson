@@ -35,7 +35,7 @@ const CategoryButton = ({ categories }: CategorySelectProps) => {
       <button type="button" className="rounded-full border border-[#FB657E] p-3.5" onClick={() => open('sheetE')}>
         <FilterIcon />
       </button>
-      {/* 바텀시트 */}
+      {/* 바텀시트 or 모달 */}
       <ModalSheet id="sheetE">
         <div className="flex h-full flex-grow flex-col overflow-y-auto p-5">
           <h2 className="mb-10 text-2xl font-semibold">봉사 종류</h2>
