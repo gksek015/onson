@@ -30,12 +30,9 @@
     "react-spring-bottom-sheet-updated": "^3.6.0",
     "react-toastify": "^11.0.3",
     "slick-carousel": "^1.8.1",
-    "socket.io": "^4.8.1",
-    "socket.io-client": "^4.8.1",
     "sweetalert2": "^11.15.10",
     "swiper": "^11.2.0",
     "uuid": "^11.0.5",
-    "ws": "^8.18.0",
     "zod": "^3.24.1",
     "zustand": "^5.0.2"
   },
