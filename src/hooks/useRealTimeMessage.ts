@@ -35,7 +35,7 @@ export const useRealTimeMessages = (chatId: string) => {
         { event: 'INSERT', schema: 'public', table: 'messages', filter: `chat_id=eq.${chatId}` },
         (payload) => {
           const newMessage = payload.new as Message;
-          setMessages((prev) => [...prev, newMessage]);
+          setMessages((prev) => [...prev,newMessage]); // 최신 메시지가 위로 올라오도록 설정
         }
       )
       .on(

@@ -15,7 +15,7 @@ interface ImageSwiperProps {
 
 const ImageSwiper = ({ images, isPostClosed }: ImageSwiperProps) => {
   return (
-    <div className="relative">
+    <div className="relative mx-auto desktop:w-[340px]">
       <Swiper
         modules={[Pagination, Navigation]}
         pagination={{ dynamicBullets: true, clickable: true }} // 페이지네이션 활성화(점으로 표시: 해당 슬라이드는 점 커짐)
@@ -47,10 +47,10 @@ const ImageSwiper = ({ images, isPostClosed }: ImageSwiperProps) => {
       </Swiper>
 
       {/* 커스텀 Navigation 버튼 */}
-      <div className="custom-swiper-button-prev absolute left-4 top-1/2 z-10 -translate-y-1/2 p-1">
+      <div className="custom-swiper-button-prev absolute left-4 top-1/2 z-10 -translate-y-1/2 p-1 desktop:-left-12">
         <CircleArrowLeftIcon />
       </div>
-      <div className="custom-swiper-button-next absolute right-4 top-1/2 z-10 -translate-y-1/2 p-1">
+      <div className="custom-swiper-button-next absolute right-4 top-1/2 z-10 -translate-y-1/2 p-1 desktop:-right-12">
         <CircleArrowRightIcon />
       </div>
     </div>

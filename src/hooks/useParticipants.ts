@@ -5,10 +5,15 @@ const useParticipants = (postId: string) => {
   const queryClient = useQueryClient();
     
   // 참여자 목록 가져오기
-  const { data: participants, isPending, error } = useQuery({
+  const { data: rawParticipants, isPending, error } = useQuery({
     queryKey: ['participants', postId],
     queryFn: () => fetchParticipants(postId)
   });
+
+    // 체크된 사람이 먼저 오도록 정렬
+  const participants = rawParticipants
+    ? [...rawParticipants].sort((a, b) => Number(b.isChecked) - Number(a.isChecked))
+    : [];
 
   // 체크박스 업데이트
   const mutation = useMutation({

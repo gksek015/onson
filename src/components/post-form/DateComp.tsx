@@ -66,10 +66,10 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
       />
 
       {/* 바텀시트 */}
-      <ModalSheet id='sheetC'>
+      <ModalSheet id='sheetC' title='봉사 날짜를 선택해 주세요'>
         <div className="flex h-full flex-col">
           <div className="flex-grow overflow-y-auto px-5 pb-[150px]">
-            <h3 className="mb-14 text-left text-2xl font-semibold text-[#000]">
+            <h3 className="mb-14 text-left text-2xl font-semibold text-[#000] desktop:hidden">
               봉사 날짜를 <br />
               선택해 주세요
             </h3>

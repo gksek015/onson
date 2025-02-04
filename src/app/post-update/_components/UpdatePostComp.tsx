@@ -1,34 +1,28 @@
 'use client';
 
 import { Loading } from '@/components/common/Loading';
-import { BackButtonIcon } from '@/components/icons/Icons';
-import PostForm from '@/components/post/PostForm';
+import Header from '@/components/post-form/Header';
+import PostForm from '@/components/post-form/PostForm';
 import { categories } from '@/constants/categories';
 import { useUpdatePost } from '@/hooks/useUpdatePost';
 import { useParams } from 'next/navigation';
 
 const UpdatePostComp = () => {
   const { id: postId } = useParams();
-  const { formData, setFormData, isAuthorized, loading, handleUpdate, navigateToDetail } = useUpdatePost(
-    postId as string
-  );
+  const { formData, setFormData, isAuthorized, loading, handleUpdate, navigateToDetail } = useUpdatePost(postId as string);
 
-  if (loading) {
-    return <Loading />;
-  }
+  if (loading) return <Loading />;
 
   return isAuthorized ? (
     <div className="min-h-screen">
-      <header className="fixed top-0 left-1/2 -translate-x-1/2 z-10 flex w-full max-w-content items-center justify-center border-b bg-white px-4 py-3">
-        <button type="button" onClick={navigateToDetail} className="absolute left-4">
-          <BackButtonIcon />
-        </button>
-        <h1 className="text-xl font-bold tracking-[-0.5px]">수정</h1>
-        <button type="submit" onClick={handleUpdate} className="absolute right-4 text-xl font-medium text-[#424242]">
-          수정
-        </button>
-      </header>
-
+      <Header
+        title="수정"
+        onBack={navigateToDetail}
+        onSubmit={handleUpdate}
+        submitLabel="수정"
+        submitColor="#424242"
+        isUpdatePage={true}
+      />
       <PostForm categories={categories} setFormData={setFormData} formData={formData} />
     </div>
   ) : (

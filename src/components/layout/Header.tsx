@@ -9,7 +9,11 @@ import LeftSide from './header/LeftSide';
 const Header = () => {
   const pathname = usePathname();
 
-  const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/sign-up');
+  const isAuthPage =
+    pathname.startsWith('/login') ||
+    pathname.startsWith('/sign-up') ||
+    pathname.startsWith('/create') ||
+    pathname.startsWith('/post-update');
 
   const isMobileVisible = pathname === '/' || pathname.startsWith('/list');
 
@@ -17,14 +21,14 @@ const Header = () => {
 
   return (
     <header
-      className={`maxWidth-[1440px] flex h-[56px] justify-center bg-white px-[20px] mobile:py-[8px] desktop:left-0 desktop:top-0 desktop:flex desktop:w-full desktop:py-[14px] ${isMobileVisible ? 'mobile:block' : 'mobile:hidden'}`}
+      className={`maxWidth-[1440px] flex h-[56px] justify-center bg-white px-[20px] py-[8px] desktop:flex desktop:h-[72px] desktop:w-full desktop:px-[80px] desktop:py-4 ${isMobileVisible ? 'mobile:block' : 'mobile:hidden'}`}
     >
       <div className="flex w-full max-w-content items-center justify-between">
         <div className="flex flex-row items-center">
           <HeaderLogo />
           <LeftSide />
         </div>
-        <div className="flex flex-row items-center gap-6">
+        <div className="flex flex-row items-center justify-center gap-10">
           <ChatIcon />
           <IsLogin />
         </div>

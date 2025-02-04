@@ -36,7 +36,7 @@ const AddressComp = ({ formData, setFormData }: AddressCompProps) => {
         onClick={() => open('sheetA')}
       />
 
-      <ModalSheet id="sheetA">
+      <ModalSheet id="sheetA" title='위치'>
         {/* 전달되는 Content 컴포넌트 */}
         <AddressSearch
           option={'select'}
