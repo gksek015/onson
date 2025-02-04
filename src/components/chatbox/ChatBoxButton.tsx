@@ -21,7 +21,7 @@ const ChatBoxButton = () => {
     <>
       <button
         onClick={handleChatOpen}
-        className="z-100 fixed bottom-24 right-5 flex items-center justify-center rounded-full shadow-lg"
+        className="z-100 fixed bottom-24 right-5 flex items-center justify-center rounded-full shadow-lg desktop:bottom-[80px] desktop:right-[80px]"
       >
         <Image src={onson} alt="onson icon" width={80} height={80} priority />
       </button>
