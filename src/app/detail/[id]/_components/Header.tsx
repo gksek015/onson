@@ -19,9 +19,14 @@ const Header = ({ postPageId }: PostDetailProps) => {
   const { data: post, deletePostById, updateCompletedById } = useGetPostById(postPageId);
   const { user } = useUserStore();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
 
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     // end_date가 현재 날짜 이전이고, 아직 모집이 완료되지 않았다면
@@ -109,7 +114,7 @@ const Header = ({ postPageId }: PostDetailProps) => {
       </button>
 
       {/* 수정 삭제 버튼은 로그인 유저가 포스트 유저와 같은 id일때만 보여줌. */}
-      {user?.id === post?.user_id && (
+      {isMounted && user?.id === post?.user_id && (
         <button onClick={openSheet}>
           <MeatballMenuIcon />
         </button>

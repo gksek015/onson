@@ -141,6 +141,70 @@ export const MessagePillIcon = () => {
   );
 };
 
+export const MessageDesktopStrokeIcon = () => {
+  return (
+    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="1" width="42" height="42" rx="21" fill="white" />
+      <rect x="1" y="1" width="42" height="42" rx="21" stroke="#F2F2F2" strokeWidth="2" />
+      <path
+        d="M13 30L14.3794 25.8617C13.1872 24.0984 12.7559 22.0103 13.1658 19.9856C13.5756 17.9609 14.7986 16.1374 16.6075 14.8541C18.4164 13.5708 20.688 12.9151 22.9999 13.0088C25.3119 13.1026 27.5069 13.9394 29.1768 15.3637C30.8467 16.7881 31.8779 18.703 32.0787 20.7525C32.2794 22.8019 31.6361 24.8465 30.2682 26.5059C28.9004 28.1654 26.9011 29.3268 24.6422 29.7744C22.3833 30.2219 20.0183 29.925 17.9872 28.9389L13 30Z"
+        stroke="#8E8E93"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const MessageDesktopCircleIcon = () => {
+  return (
+    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="1" width="42" height="42" rx="21" fill="white" />
+      <rect x="1" y="1" width="42" height="42" rx="21" stroke="#F2F2F2" strokeWidth="2" />
+      <path
+        d="M13 30L14.3794 25.8617C13.1872 24.0984 12.7559 22.0103 13.1658 19.9856C13.5756 17.9609 14.7986 16.1374 16.6075 14.8541C18.4164 13.5708 20.688 12.9151 22.9999 13.0088C25.3119 13.1026 27.5069 13.9394 29.1768 15.3637C30.8467 16.7881 31.8779 18.703 32.0787 20.7525C32.2794 22.8019 31.6361 24.8465 30.2682 26.5059C28.9004 28.1654 26.9011 29.3268 24.6422 29.7744C22.3833 30.2219 20.0183 29.925 17.9872 28.9389L13 30Z"
+        stroke="#8E8E93"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="33.875" cy="12" r="3" fill="#E4290C" />
+    </svg>
+  );
+};
+
+export const MessageDesktopHoverIcon = () => {
+  return (
+    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="44" height="44" rx="22" fill="#F2F2F2" />
+      <path
+        d="M13 30L14.3794 25.8617C13.1872 24.0984 12.7559 22.0103 13.1658 19.9856C13.5756 17.9609 14.7986 16.1374 16.6075 14.8541C18.4164 13.5708 20.688 12.9151 22.9999 13.0088C25.3119 13.1026 27.5069 13.9394 29.1768 15.3637C30.8467 16.7881 31.8779 18.703 32.0787 20.7525C32.2794 22.8019 31.6361 24.8465 30.2682 26.5059C28.9004 28.1654 26.9011 29.3268 24.6422 29.7744C22.3833 30.2219 20.0183 29.925 17.9872 28.9389L13 30Z"
+        stroke="#8E8E93"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const MessageDesktopHoverAlertIcon = () => {
+  return (
+    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="44" height="44" rx="22" fill="#F2F2F2" />
+      <path
+        d="M13 30L14.3794 25.8617C13.1872 24.0984 12.7559 22.0103 13.1658 19.9856C13.5756 17.9609 14.7986 16.1374 16.6075 14.8541C18.4164 13.5708 20.688 12.9151 22.9999 13.0088C25.3119 13.1026 27.5069 13.9394 29.1768 15.3637C30.8467 16.7881 31.8779 18.703 32.0787 20.7525C32.2794 22.8019 31.6361 24.8465 30.2682 26.5059C28.9004 28.1654 26.9011 29.3268 24.6422 29.7744C22.3833 30.2219 20.0183 29.925 17.9872 28.9389L13 30Z"
+        stroke="#8E8E93"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="33.875" cy="12" r="3" fill="#E4290C" />
+    </svg>
+  );
+};
+
 export const NotePillIcon = () => {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
