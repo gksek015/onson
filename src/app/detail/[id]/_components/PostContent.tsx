@@ -133,16 +133,16 @@ const PostContent = ({
       <div className="mx-4 flex flex-col justify-center gap-2 desktop:mx-0">
         {/* 태그 */}
         <PostTags category={category} startDate={startDate} endDate={endDate} isPostClosed={isPostClosed} />
-        <div className="flex flex-col desktop:gap-5">
+        <div className="flex flex-col gap-1 desktop:gap-5">
           <div className="mt-1 text-lg font-semibold tracking-[-0.5px] desktop:text-3xl">{title}</div>
 
           {/* 주소 */}
-          <div className="my-2 flex items-center">
+          <div className="mt-3 mb-1 flex items-center desktop:mt-0 desktop:mb-0">
             <MapPinIcon />
             <span className="ml-1 font-semibold text-[#666]">{`${address.si} ${address.gu} ${address.dong}`}</span>
           </div>
 
-          <div className="mb-2 flex items-center justify-between">
+          <div className="mb-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
               {profileImgUrl ? (
                 <div className="relative h-7 w-7 overflow-hidden rounded-full bg-gray-200">
@@ -172,12 +172,12 @@ const PostContent = ({
             )}
           </div>
 
-          {/* 버튼 */}
+          {/* 채팅하기 버튼 */}
           <PostActionButtons title={title} postOwnerId={postOwnerId} isPostClosed={isPostClosed} postId={postId} />
 
           {/* 가로선 */}
           <hr className="mt-4 border-gray-300" />
-          <div className="mx-5 mt-5 whitespace-pre-line leading-6 desktop:mx-0">{content}</div>
+          <div className="mx-1 mt-5 whitespace-pre-line leading-6 desktop:mx-0">{content}</div>
         </div>
         {/* 봉사 참여자 목록 */}
         <ParticipantList postId={postId} postOwnerId={postOwnerId} />

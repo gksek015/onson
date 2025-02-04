@@ -256,10 +256,10 @@ export const BookmarkBlackIcon = () => {
   );
 };
 
-export const RightArrowForChatIcon = () => {
+export const RightArrowForChatIcon = ({color = '#656565'}) => {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M5 2L11 8L5 14" stroke="#656565" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M5 2L11 8L5 14" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 };

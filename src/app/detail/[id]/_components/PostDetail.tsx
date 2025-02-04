@@ -4,6 +4,7 @@ import {useGetPostById} from '@/hooks/useGetPostById';
 import ImageSwiper from './ImageSwiper';
 import PostContent from './PostContent';
 import { Loading } from '@/components/common/Loading';
+import { CheckBoxFillIcon } from '@/components/icons/Icons';
 
 interface PostDetailProps {
   postPageId: string;
@@ -23,6 +24,7 @@ const PostDetail = ({ postPageId }: PostDetailProps) => {
 
   return (
     <div className="mx-auto max-w-[800px]">
+      <div className='bg-[#feecd7] text-[#FB657E] h-[50px] flex justify-center items-center font-semibold'>모집 마감 이후 봉사자 확정 체크를 해주세요 <CheckBoxFillIcon /></div>
       {post.images && <ImageSwiper images={post.images} isPostClosed={post.completed} />}
       {/* 이미지 없으면 그냥 컨텐트만 보여줌 */}
       <PostContent

@@ -93,25 +93,17 @@ const PostActionButtons = ({ title, postOwnerId, isPostClosed, postId }: PostAct
   return (
     <>
       {user?.id !== postOwnerId && (
-        <div
-          className={`flex items-center gap-2 rounded-lg ${
+        <button
+          onClick={handleChatClick}
+          className={`flex w-full items-center justify-between rounded-lg ${
             isPostClosed
-              ? 'bg-white' // 모집 마감: 회색 배경
-              : 'bg-gradient-to-r from-[#F99A2C] to-[#FA5571]' // 모집 진행 중: 기존 그라데이션
-          } p-[2px]`}
+              ? 'cursor-not-allowed border-2 border-[#A6A6A6] font-semibold text-[#A6A6A6]' // 모집 마감 스타일
+              : 'cursor-pointer border-2 border-[#FA5571] font-semibold text-[#FA5571]' // 모집 진행 중 스타일
+          } p-2.5 desktop:px-4 desktop:py-3 mb-2 focus:outline-none`}
         >
-          <button
-            onClick={handleChatClick}
-            className={`flex w-full items-center justify-between rounded-lg border ${
-              isPostClosed
-                ? 'cursor-not-allowed border-2 border-gray-400 text-[#656565]' // 모집 마감 스타일
-                : 'border-transparent bg-white font-semibold text-[#656565]' // 모집 진행 중 스타일
-            } p-2 px-4 py-3 focus:outline-none`}
-          >
-            <span>채팅으로 봉사 신청하기</span>
-            <RightArrowForChatIcon />
-          </button>
-        </div>
+          <span>채팅으로 봉사 신청하기</span>
+          <RightArrowForChatIcon color={isPostClosed ? '#A6A6A6' : '#FA5571'} />
+        </button>
       )}
       {isOpen && <ChatBoxModal onClose={toggleModal} initialChatId={chatId} />}
     </>
