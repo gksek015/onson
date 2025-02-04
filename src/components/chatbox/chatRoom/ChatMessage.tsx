@@ -53,7 +53,7 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
 
   return (
     <div className="flex h-full flex-col bg-[#F2F2F2]">
-      <div ref={chatContainerRef} className="overflow-y-auto bg-[#F2F2F2] p-4">
+      <div ref={chatContainerRef} className="flex-1 overflow-y-auto bg-[#F2F2F2] p-4">
         <div className="mx-auto mt-2 w-full max-w-md">
           {/* 공지사항 영역 */}
           <div className="bg-[#F2F2F2]">
@@ -79,28 +79,28 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
             ))}
             <div ref={messageEndRef} />
           </div>
-
-          {/* 메세지 입력 Input */}
-          <div className="sticky bottom-0 bg-[#F2F2F2]">
-            <footer className="mt-2 desktop:bottom-2">
-              <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571] p-[2px]">
-                <div className="flex w-full items-center rounded-full bg-white">
-                  <input
-                    type="text"
-                    className="flex-1 rounded-full indent-4 text-base text-black focus:outline-none"
-                    placeholder="메시지를 입력하세요..."
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={handleKeyEnter}
-                  />
-                  <button className="flex items-center justify-center p-2" onClick={handleSend}>
-                    {input.trim() ? <SendMessageGradientIcon /> : <SendMessageIcon />}
-                  </button>
-                </div>
-              </div>
-            </footer>
-          </div>
         </div>
+      </div>
+
+      {/* 메세지 입력 Input */}
+      <div className="sticky bottom-2 bg-[#F2F2F2] p-4">
+        <footer className="mt-2 desktop:bottom-2">
+          <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571] p-[2px]">
+            <div className="flex w-full items-center rounded-full bg-white">
+              <input
+                type="text"
+                className="flex-1 rounded-full indent-4 text-base text-black focus:outline-none"
+                placeholder="메시지를 입력하세요..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyEnter}
+              />
+              <button className="flex items-center justify-center p-2" onClick={handleSend}>
+                {input.trim() ? <SendMessageGradientIcon /> : <SendMessageIcon />}
+              </button>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   );
