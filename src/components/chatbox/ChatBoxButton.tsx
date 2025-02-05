@@ -1,20 +1,19 @@
 'use client';
 
 import onson from '@/assets/onson.png';
-import useModal from '@/hooks/ui/useModal';
 import { useGNBStore } from '@/utils/store/useGNBStore';
+import { useModalStore } from '@/utils/store/useModalStore';
 import Image from 'next/image';
-import ChatBoxModal from './ChatBoxModal';
 
 // 실시간 채팅, ai chat봇을 위한 플로팅 버튼
 
 const ChatBoxButton = () => {
-  const { isOpen, toggleModal, closeModal } = useModal();
+  const { openModal } = useModalStore();
   const { setActiveTab } = useGNBStore();
 
   const handleChatOpen = () => {
     setActiveTab('chat');
-    toggleModal();
+    openModal();
   };
 
   return (
@@ -25,7 +24,6 @@ const ChatBoxButton = () => {
       >
         <Image src={onson} alt="onson icon" width={80} height={80} priority />
       </button>
-      {isOpen && <ChatBoxModal onClose={closeModal} />}
     </>
   );
 };

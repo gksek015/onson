@@ -1,7 +1,7 @@
 'use client';
 
-import useModal from '@/hooks/ui/useModal';
 import { useGNBStore, useSyncGNBStore } from '@/utils/store/useGNBStore';
+import { useModalStore } from '@/utils/store/useModalStore';
 import { useUserStore } from '@/utils/store/userStore';
 import { useUnreadMessageStore } from '@/utils/store/useUnreadMessageStore';
 import { useEffect } from 'react';
@@ -18,7 +18,7 @@ import {
 } from '../icons/Icons';
 
 const BottomNav = () => {
-  const { isOpen, toggleModal, closeModal } = useModal();
+  const { isOpen, openModal, closeModal } = useModalStore();
   const { user } = useUserStore();
   const { unreadMessages, subscribeToRealtimeMessages, refetch } = useUnreadMessageStore();
   const { activeTab, setActiveTab } = useGNBStore();
@@ -103,7 +103,7 @@ const BottomNav = () => {
             type="button"
             onClick={() => {
               setActiveTab('chat');
-              toggleModal();
+              openModal();
             }}
             className="flex flex-col items-center justify-center gap-1"
           >

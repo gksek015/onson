@@ -1,20 +1,19 @@
 'use client';
 
-import ChatBoxModal from '@/components/chatbox/ChatBoxModal';
 import {
   MessageDesktopCircleIcon,
   MessageDesktopHoverAlertIcon,
   MessageDesktopHoverIcon,
   MessageDesktopStrokeIcon
 } from '@/components/icons/Icons';
-import useModal from '@/hooks/ui/useModal';
+import { useModalStore } from '@/utils/store/useModalStore';
 import { useUserStore } from '@/utils/store/userStore';
 import { useUnreadMessageStore } from '@/utils/store/useUnreadMessageStore';
 import { useEffect, useState } from 'react';
 
 const ChatIcon = () => {
   const { unreadMessages, subscribeToRealtimeMessages, refetch } = useUnreadMessageStore();
-  const { isOpen, toggleModal, closeModal } = useModal();
+  const { openModal } = useModalStore();
   const { user } = useUserStore();
   const [isHovered, setIsHovered] = useState(false);
 
@@ -28,21 +27,22 @@ const ChatIcon = () => {
   const hasUnreadMessages = Object.values(unreadMessages).some((val) => val);
 
   return (
-    <div className="mobile:hidden desktop:block">
-      <button onClick={toggleModal} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-        {isHovered ? (
-          hasUnreadMessages ? (
-            <MessageDesktopHoverAlertIcon />
+    <div className="relative mobile:hidden desktop:block">
+      <button onClick={openModal} className="relative">
+        <span onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+          {isHovered ? (
+            hasUnreadMessages ? (
+              <MessageDesktopHoverAlertIcon />
+            ) : (
+              <MessageDesktopHoverIcon />
+            )
+          ) : hasUnreadMessages ? (
+            <MessageDesktopCircleIcon />
           ) : (
-            <MessageDesktopHoverIcon />
-          )
-        ) : hasUnreadMessages ? (
-          <MessageDesktopCircleIcon />
-        ) : (
-          <MessageDesktopStrokeIcon />
-        )}
+            <MessageDesktopStrokeIcon />
+          )}
+        </span>
       </button>
-      {isOpen && <ChatBoxModal onClose={closeModal} />}
     </div>
   );
 };

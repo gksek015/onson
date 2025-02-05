@@ -34,7 +34,7 @@ const MyParticipants = () => {
     return <p className="my_profile_no_contents">참여한 봉사가 없습니다.</p>;
   }
   return (
-    <ul className="grid grid-cols-1 gap-[1px] desktop:mt-[30px] desktop:grid-cols-3 desktop:bg-[#e7e7e7]">
+    <ul className="grid grid-cols-1 gap-[1px] desktop:mt-[30px] desktop:grid-cols-3 desktop:gap-4">
       {posts.map((post) => (
         <VolunteerCard key={post.id} post={post} />
       ))}
