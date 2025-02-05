@@ -53,7 +53,7 @@ const AddressTags = () => {
       )}
 
       {/* BottomSheet */}
-      <ModalSheet id="sheetD">
+      <ModalSheet id="sheetD" title="위치">
         {/* AddressSearch를 바텀시트에 렌더링 */}
         <AddressSearch option={'search'} onAddressSelect={handleAddressSelect} />
       </ModalSheet>

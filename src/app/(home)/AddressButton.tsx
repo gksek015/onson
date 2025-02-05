@@ -22,7 +22,7 @@ const AddressButton = () => {
       </button>
 
       {/* BottomSheet */}
-      <ModalSheet id="sheetF">
+      <ModalSheet id="sheetF" title='위치'>
         {/* 전달되는 Content 컴포넌트 */}
         <AddressSearch option={'search'} />
       </ModalSheet>

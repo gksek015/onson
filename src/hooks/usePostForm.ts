@@ -18,7 +18,6 @@ export const usePostForm = () => {
     deletedImages: [],
   });
   const [isLoading, setIsLoading] = useState(true);
-
   const { user, isLoggedIn } = useUserStore();
   const router = useRouter();
   const queryClient = useQueryClient(); // React Query의 queryClient 가져오기
@@ -32,25 +31,17 @@ export const usePostForm = () => {
       formData.category.trim() !== ''
     );
   }, [formData]);
-
+  
   useEffect(() => {
     if (!isLoggedIn()) {
       Swal.fire({
         title: '로그인이 필요합니다',
         text: '글을 작성하시려면 로그인이 필요합니다.',
         icon: 'warning',
-        showCancelButton: true,
         confirmButtonColor: 'var(--primary-3)',
-        cancelButtonColor: '#B4B4B4',
-        confirmButtonText: '로그인하러 가기',
-        cancelButtonText: '취소',
-
-      }).then((result) => {
-        if (result.isConfirmed) {
-          router.push('/login');
-        } else if (result.isDismissed) {
-          router.push('/');
-        }
+        confirmButtonText: '확인',
+      }).then(() => {
+        router.push('/');
       });
     } else {
       setIsLoading(false);
@@ -65,7 +56,6 @@ export const usePostForm = () => {
       });
       return;
     }
-
     if (!isFormValid()) {
       Swal.fire({
         title: '필수 필드를 입력해주세요.',
@@ -73,7 +63,6 @@ export const usePostForm = () => {
       });
       return;
     }
-
     try {
       Swal.fire({
         title: '등록 중입니다...',
@@ -84,12 +73,9 @@ export const usePostForm = () => {
           Swal.showLoading();
         },
       });
-
       const bucketName = 'images_bucket';
-
       // 게시물 삽입
       const post = await insertPost(formData, user.id);
-
       const remainingImages = formData.images.filter((img) => {
         return !(
           typeof img === 'object' &&
@@ -97,26 +83,21 @@ export const usePostForm = () => {
           formData.deletedImages.includes(img.img_url)
         );
       });
-
       for (const image of remainingImages) {
         const imageUrl =
           image instanceof File
             ? await uploadImage(image, bucketName)
             : image.img_url;
-
         await insertImageToPost(post.id, imageUrl);
       }
-
        // 게시글 등록 성공 후 React Query의 캐시 무효화
        queryClient.invalidateQueries({
         queryKey: ['posts', { address: null, category: null, searchedKeyword: null }], // queryKey와 같아야 함
       });
-
       Swal.fire({
         title: '봉사 요청이 성공적으로 등록되었습니다!',
         icon: 'success',
       });
-
       router.push(`/detail/${post.id}`);
     } catch (error) {
       console.error('Error submitting post:', error);
@@ -126,7 +107,6 @@ export const usePostForm = () => {
       });
     }
   }, [formData, isFormValid, user, router, queryClient]);
-
   return {
     formData,
     setFormData,
