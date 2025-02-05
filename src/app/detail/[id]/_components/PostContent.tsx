@@ -160,7 +160,7 @@ const PostContent = ({
             <span className="ml-1 font-semibold text-[#666]">{`${address.si} ${address.gu} ${address.dong}`}</span>
           </div>
 
-          <div className="mb-3 flex items-center justify-between">
+          <div className="relative mb-3 flex items-center justify-between">
             <div className="flex cursor-pointer items-center gap-2" onClick={handleClick}>
               {profileImgUrl ? (
                 <div className="relative h-7 w-7 overflow-hidden rounded-full bg-gray-200">
@@ -188,6 +188,33 @@ const PostContent = ({
             ) : (
               <BookmarkButton postId={postId} />
             )}
+            {/* 드롭다운 */}
+            {isDropdownOpen && (
+              <div className="absolute top-full right-0 z-50 rounded-md border border-gray-300 bg-white p-4 pr-5 shadow-lg">
+                <button
+                  onClick={handleToggleRecruitment}
+                  className="flex w-full items-center gap-2 px-4 py-2 text-left outline-none focus:outline-none"
+                >
+                  {isPostClosed ? '모집 마감 해제' : '모집 마감'}
+                </button>
+
+                <button onClick={handleEdit} className="flex w-full items-center gap-2 px-4 py-2 text-left">
+                  게시물 수정하기
+                </button>
+
+                <button
+                  onClick={handleDelete}
+                  className="flex w-full items-center gap-2 px-4 py-2 text-left text-red-500"
+                >
+                  게시물 삭제하기
+                </button>
+
+                {/* 닫기 버튼 */}
+                <button onClick={handleCloseSheet} className="absolute right-[7px] top-[7px] text-center text-gray-500">
+                  <CloseIcon width="16" height="16" />
+                </button>
+              </div>
+            )}
           </div>
 
           {/* 채팅하기 버튼 */}
@@ -200,31 +227,6 @@ const PostContent = ({
         {/* 봉사 참여자 목록 */}
         <ParticipantList postId={postId} postOwnerId={postOwnerId} />
       </div>
-
-      {/* 드롭다운 */}
-      {isDropdownOpen && (
-        <div className="absolute right-[570px] top-[540px] z-50 rounded-md border border-gray-300 bg-white p-4 pr-5 shadow-lg">
-          <button
-            onClick={handleToggleRecruitment}
-            className="flex w-full items-center gap-2 px-4 py-2 text-left outline-none focus:outline-none"
-          >
-            {isPostClosed ? '모집 마감 해제' : '모집 마감'}
-          </button>
-
-          <button onClick={handleEdit} className="flex w-full items-center gap-2 px-4 py-2 text-left">
-            게시물 수정하기
-          </button>
-
-          <button onClick={handleDelete} className="flex w-full items-center gap-2 px-4 py-2 text-left text-red-500">
-            게시물 삭제하기
-          </button>
-
-          {/* 닫기 버튼 */}
-          <button onClick={handleCloseSheet} className="absolute right-[7px] top-[7px] text-center text-gray-500">
-            <CloseIcon width="16" height="16" />
-          </button>
-        </div>
-      )}
     </div>
   );
 };
