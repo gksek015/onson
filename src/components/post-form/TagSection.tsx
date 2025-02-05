@@ -1,6 +1,6 @@
 import type { FormData } from '@/types/formdata';
-import CategorySelectComp from './CategorySelectComp';
-import DateComp from './DateComp';
+import CategorySelectComp from '@/components/post-form/CategorySelectComp';
+import DateComp from '@/components/post-form/DateComp';
 
 interface TagSectionProps {
   categories: string[];

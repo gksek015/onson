@@ -1,6 +1,6 @@
 import type { FormData } from '@/types/formdata';
-import AddressSearch from '../common/AddressSearch';
-import { ModalSheet } from '../common/ModalSheet';
+import AddressSearch from '@/components/common/AddressSearch';
+import { ModalSheet } from '@/components/common/ModalSheet';
 import { useDialogStore } from '@/utils/store/useDialogStore';
 
 interface AddressCompProps {

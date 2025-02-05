@@ -1,10 +1,10 @@
 import type { FormData } from '@/types/formdata';
 import dayjs from 'dayjs';
-import AddressComp from './AddressComp';
-import PhotoComp from './PhotoComp';
-import TitleComp from './TitleComp';
-import TagSection from './TagSection';
-import ContentTextarea from './ContentTextarea';
+import AddressComp from '@/components/post-form/AddressComp';
+import ContentComp from '@/components/post-form/ContentComp';
+import PhotoComp from '@/components/post-form/PhotoComp';
+import TagSection from '@/components/post-form/TagSection';
+import TitleComp from '@/components/post-form/TitleComp';
 
 interface PostFormProps {
   categories: string[];
@@ -66,7 +66,7 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
     <div className="min-h-screen pt-[60px]">
       <form onSubmit={handleSubmit} className="mx-auto w-full max-w-[800px] pt-7">
         <div className="space-y-7 px-5">
-            <TitleComp value={formData.title} onChange={handleInputChange}/>
+          <TitleComp value={formData.title} onChange={handleInputChange} />
           <AddressComp formData={formData} setFormData={setFormData} />
           <TagSection
             categories={categories}
@@ -74,7 +74,7 @@ const PostForm = ({ categories, setFormData, formData }: PostFormProps) => {
             onSelectCategory={handleCategorySelect}
             onSelectDate={handleDateSelect}
           />
-            <ContentTextarea value={formData.content} onChange={handleInputChange}/>
+          <ContentComp value={formData.content} onChange={handleInputChange} />
         </div>
         <PhotoComp onRemoveImage={handleRemoveImage} onImageSelect={handleImageSelect} formData={formData} />
       </form>

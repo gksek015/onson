@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './customCalendar.css';
-import { ModalSheet } from '../common/ModalSheet';
+import { ModalSheet } from '@/components/common/ModalSheet';
 import { useDialogStore } from '@/utils/store/useDialogStore';
 
 interface DateCompProps {
