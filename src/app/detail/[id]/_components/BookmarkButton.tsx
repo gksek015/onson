@@ -2,6 +2,7 @@
 
 import { BookmarkBlackIcon, BookmarkColorIcon } from '@/components/icons/Icons';
 import { useBookmarks } from '@/hooks/useBookmarks';
+import { useDialogStore } from '@/utils/store/useDialogStore';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
@@ -14,6 +15,7 @@ const BookmarkButton = ({ postId }: BookmarkButtonProps) => {
   const { user, isLoggedIn } = useUserStore();
   const { bookmarks, addBookmark, removeBookmark } = useBookmarks(user?.id || '');
   const router = useRouter();
+  const { open } = useDialogStore();
 
   const isBookmarked = isLoggedIn() ? bookmarks?.some((bookmark) => bookmark.post_id === postId) : false;
 
@@ -25,10 +27,17 @@ const BookmarkButton = ({ postId }: BookmarkButtonProps) => {
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: '로그인하기',
-        cancelButtonText: '취소'
+        confirmButtonColor: 'var(--primary-3)',
+        cancelButtonText: '취소',
+        cancelButtonColor: '#B4B4B4'
       }).then((result) => {
         if (result.isConfirmed) {
-          router.push('/login');
+          if (window.innerWidth < 768) {
+            router.push('/login');
+          } else {
+            open('loginModal');
+          }
+        } else if (result.isDismissed) {
         }
       });
       return;

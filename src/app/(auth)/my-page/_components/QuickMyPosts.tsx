@@ -15,7 +15,7 @@ const QuickMyPosts = () => {
 
   if (pathname.startsWith('/my-page')) {
     userId = userStore.user?.id;
-  } else if (pathname.startsWith('/user-page') || pathname === '/user-page/my-participants') {
+  } else if (pathname.startsWith('/user-page')) {
     userId = nicknameStore.user.id ?? '';
   }
 
@@ -35,8 +35,12 @@ const QuickMyPosts = () => {
 
   return (
     <div className="flex w-full flex-row overflow-x-auto desktop:overflow-x-hidden desktop:px-[60px]">
-      {posts.map((post) => (
-        <VolunteerCardNoImg key={post.id} post={post} />
+      {posts.map((post, index) => (
+        <VolunteerCardNoImg
+          key={post.id}
+          post={post}
+          isLast={index === posts.length - 1} // 마지막 카드인지 확인
+        />
       ))}
     </div>
   );

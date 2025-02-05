@@ -15,7 +15,7 @@ const MyPosts = () => {
 
   if (pathname.startsWith('/my-page')) {
     userId = userStore.user?.id;
-  } else if (pathname.startsWith('/user-page') || pathname === '/user-page/my-participants') {
+  } else if (pathname.startsWith('/user-page')) {
     userId = nicknameStore.user?.id ?? '';
   }
 
