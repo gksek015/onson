@@ -13,15 +13,6 @@ const AddressTags = () => {
   const router = useRouter();
   const [tag, setTag] = useState(searchParams.get('addressKeyword'));
 
-  // // 태그 지우기
-  // const removeAddress = () => {
-  //   const params = new URLSearchParams(searchParams.toString());
-  //   params.delete('addressKeyword');
-  //   params.delete('address');
-  //   router.push(`?${params.toString()}`);
-  //   setTag(null);
-  // };
-
   // 태그 초기화 (전체로 전환)
   const resetToAll = () => {
     const params = new URLSearchParams(searchParams.toString());
