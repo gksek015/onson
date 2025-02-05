@@ -28,7 +28,8 @@ const AIChatbot = () => {
     '봉사 요청을 어떻게 하는지 궁금해요!',
     '봉사를 어떻게 검색하는지 궁금해요!',
     '사용자와 채팅은 어떻게 해야하는지 궁금해요!',
-    '나를 위한 봉사 게시글 추천해줘!'
+    '봉사 참여는 어떻게 해야 하는지 알려줘!',
+    '내가 신청한 봉사는 어떻게 확인해야 하는지 알려줘!'
   ];
 
   // 옵션 클릭 시 처리
@@ -142,7 +143,7 @@ const AIChatbot = () => {
       </div>
 
       {/* 입력창 */}
-      <footer className="sticky bottom-2">
+      <footer className="sticky bottom-2 p-4">
         <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571] p-[2px]">
           <div className="flex w-full items-center rounded-full bg-white p-1">
             <input
