@@ -21,7 +21,7 @@ interface VolunteerCardProps {
 
 const VolunteerCard = ({ post }: VolunteerCardProps) => {
   const [currentPath, setCurrentPath] = useState<string>('');
-  const user = useUserStore((state) => state.user); // ✅ 현재 로그인한 사용자 정보 가져오기
+  const user = useUserStore((state) => state.user); // 현재 로그인한 사용자 정보 가져오기
   const { removeBookmark } = useBookmarks(user?.id || '');
   const router = useRouter();
   const { deletePostById } = useGetPostById(post.id);
@@ -44,7 +44,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
   const formattedEnd = dayjs(post.end_date).format('YY.MM.DD.');
 
   const isPastEndDate = dayjs(post.end_date).isBefore(dayjs(), 'day'); // 오늘이 end_date 이후인지 확인
-  const isCloseToEndDate = dayjs(post.end_date).diff(dayjs(), 'day') <= 2 && !isPastEndDate; // 오늘 기준 이틀 이하 인지 확인
+  const isCloseToEndDate = dayjs(post.end_date).diff(dayjs(), 'day') <= 2 && !isPastEndDate; // 오늘 기준 사흘 이하 인지 확인
 
   const handleRemoveBookmark = () => {
     if (!user?.id) {
@@ -181,6 +181,11 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
               수정
             </button>
           </div>
+          <div className="my_profile_blank"></div>
+        </>
+      )}
+      {isMobile && currentPath === '/my-page/my-participants' && (
+        <>
           <div className="my_profile_blank"></div>
         </>
       )}

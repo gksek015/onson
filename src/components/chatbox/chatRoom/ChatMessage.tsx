@@ -70,7 +70,7 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#F2F2F2] p-4">
+    <div className="flex h-full flex-col bg-[#F2F2F2] p-4">
       {/* 공지사항 영역 */}
 
       <div className="bg-[#F2F2F2]">

@@ -1,7 +1,7 @@
 'use client';
 
-import banner from '@/assets/Frame.png';
-import onson from '@/assets/onson.png';
+import banner from '@/assets/mob-banner.png';
+import onson from '@/assets/onson-loading.png';
 import ChatBoxModal from '@/components/chatbox/ChatBoxModal';
 import useModal from '@/hooks/ui/useModal';
 import { useGNBStore } from '@/utils/store/useGNBStore';
@@ -24,7 +24,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="md:ml-56">
+    <div className="desktop:ml-60">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
@@ -36,6 +36,7 @@ const HeroSection = () => {
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
       >
+        {/* 배너 이미지 슬라이드 */}
         <SwiperSlide>
           <Image src={banner} alt="hero section image" onClick={handleChatOpen} priority className="cursor-pointer" />
         </SwiperSlide>
@@ -43,6 +44,8 @@ const HeroSection = () => {
           <Image src={onson} alt="hero section image" onClick={handleChatOpen} priority className="cursor-pointer" />
         </SwiperSlide>
       </Swiper>
+
+      {/* 온손이 모달 버튼 */}
       {isOpen && <ChatBoxModal onClose={closeModal} />}
     </div>
   );

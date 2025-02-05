@@ -30,7 +30,7 @@ const MyBookmarks = () => {
   }
 
   return (
-    <ul className="grid grid-cols-1 gap-[1px] desktop:grid-cols-3 desktop:bg-[#e7e7e7]">
+    <ul className="grid grid-cols-1 gap-[1px] desktop:mt-[30px] desktop:grid-cols-3 desktop:bg-[#e7e7e7]">
       {bookmarkedPosts.map((post) => (
         <VolunteerCard key={post.id} post={post} />
       ))}
