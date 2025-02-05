@@ -1,9 +1,9 @@
 'use client';
 
-import VolunteerCardNoImg from '@/app/(auth)/my-page/_components/VolunteerCardNoImg';
 import useUserPosts from '@/hooks/useUserPosts';
 import { useNicknameStore } from '@/utils/store/useNicknameStore';
 import { useUserStore } from '@/utils/store/userStore';
+import VolunteerCardNoImg from '@app/(auth)/my-page/_components/VolunteerCardNoImg';
 import { usePathname } from 'next/navigation';
 
 const QuickParticipants = () => {
