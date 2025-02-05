@@ -23,11 +23,9 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
   const [selectedChatId, setSelectedChatId] = useState<string | null>(initialChatId || null);
   const [showGNB, setShowGNB] = useState(false);
   const { user } = useUserStore();
-  const { activeTab: prevGNBTab, setActiveTab: setGNBActiveTab } = useGNBStore();
+  const { prevActiveTab, setActiveTab: setCurrentGNBActiveTab } = useGNBStore();
   const { isChatbotVisible, showChatbot, setIsChatbotVisible, setShowChatbot } = useChatbotStore();
   const router = useRouter();
-
-  const [prevGNBActiveTab, setPrevGNBActiveTab] = useState(prevGNBTab);
 
   useEffect(() => {
     if (window.innerWidth < 768) {
@@ -44,10 +42,6 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
     }
   }, [initialChatId]);
 
-  useEffect(() => {
-    setPrevGNBActiveTab(prevGNBTab);
-  }, []);
-
   const handleEnterChatRoom = async (chatId: string) => {
     setSelectedChatId(chatId);
     await getMarkMessageAsRead(chatId, user?.id || '');
@@ -60,8 +54,8 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
     setIsChatbotVisible(false);
     setShowChatbot(false);
     setShowGNB(false);
-    if (prevGNBActiveTab) {
-      setGNBActiveTab(prevGNBActiveTab);
+    if (prevActiveTab && ['home', 'create', 'list', 'chat'].includes(prevActiveTab)) {
+      setCurrentGNBActiveTab(prevActiveTab as 'home' | 'create' | 'list' | 'chat');
     }
     onClose();
   };
@@ -74,6 +68,9 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
       setIsChatbotVisible(true);
       setActiveTab('실시간 채팅');
       setShowGNB(true);
+      setTimeout(() => {
+        setCurrentGNBActiveTab('chat');
+      }, 0);
     } else if (isChatbotVisible) {
       setIsChatbotVisible(false);
     }
@@ -180,7 +177,7 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
       </div>
 
       {/* GNB 추가 & 'chat' 유지*/}
-      <div className="tablet:hidden flex justify-center desktop:hidden">{showGNB && <BottomNav />}</div>
+      <div className="flex justify-center desktop:hidden">{showGNB && <BottomNav />}</div>
     </div>
   );
 };

@@ -29,7 +29,7 @@ const Header = () => {
             <HeaderLogo />
             <LeftSide />
           </div>
-          <div className="flex flex-row items-center justify-center gap-10">
+          <div className="flex h-[44px] flex-row items-center justify-center gap-10">
             <ChatIcon />
             <IsLogin />
           </div>

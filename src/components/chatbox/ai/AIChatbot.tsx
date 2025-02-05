@@ -143,7 +143,7 @@ const AIChatbot = () => {
       </div>
 
       {/* 입력창 */}
-      <footer className="sticky bottom-2">
+      <footer className="sticky bottom-2 p-4">
         <div className="flex items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571] p-[2px]">
           <div className="flex w-full items-center rounded-full bg-white p-1">
             <input
