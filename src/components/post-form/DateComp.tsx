@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './customCalendar.css';
-import { ModalSheet } from '../common/ModalSheet';
+import { ModalSheet } from '@/components/common/ModalSheet';
 import { useDialogStore } from '@/utils/store/useDialogStore';
 
 interface DateCompProps {
@@ -68,7 +68,7 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
       {/* 바텀시트 */}
       <ModalSheet id='sheetC' title='봉사 날짜를 선택해 주세요'>
         <div className="flex h-full flex-col">
-          <div className="flex-grow overflow-y-auto px-5 pb-[150px]">
+          <div className="flex-grow overflow-y-auto px-5 pb-[150px] desktop:pb-0">
             <h3 className="mb-14 text-left text-2xl font-semibold text-[#000] desktop:hidden">
               봉사 날짜를 <br />
               선택해 주세요
@@ -102,7 +102,7 @@ const DateComp = ({ onSelectRange, formData }: DateCompProps) => {
             <button
               type="button"
               onClick={close}
-              className="bg-primary-3 w-28 rounded-[8px] px-4 py-3 font-semibold text-[#FFF] hover:bg-gray-300"
+              className="bg-primary-3 w-28 rounded-[8px] px-4 py-3 font-semibold text-[#FFF]"
             >
               선택하기
             </button>
