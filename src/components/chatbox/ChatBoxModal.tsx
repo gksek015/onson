@@ -2,6 +2,7 @@
 
 import { getMarkMessageAsRead } from '@/lib/chats/getMarkMessageAsRead';
 import useChatbotStore from '@/utils/store/useChatBotStore';
+import { useDialogStore } from '@/utils/store/useDialogStore';
 import { useGNBStore } from '@/utils/store/useGNBStore';
 import { useModalStore } from '@/utils/store/useModalStore';
 import { useUserStore } from '@/utils/store/userStore';
@@ -16,18 +17,17 @@ import ModalHeader from './chatUI/ModalHeader';
 
 interface ChatBoxModalProps {
   onClose: () => void;
-  // initialChatId?: string | null;
 }
 
 const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   const [activeTab, setActiveTab] = useState('온손 AI');
-  // const [selectedChatId, setSelectedChatId] = useState<string | null>(initialChatId || null);
   const { selectedChatId, setSelectedChatId } = useModalStore();
   const [showGNB, setShowGNB] = useState(false);
   const { user } = useUserStore();
   const { prevActiveTab, setActiveTab: setCurrentGNBActiveTab } = useGNBStore();
   const { isChatbotVisible, showChatbot, setIsChatbotVisible, setShowChatbot } = useChatbotStore();
   const router = useRouter();
+  const { open } = useDialogStore();
 
   useEffect(() => {
     if (window.innerWidth < 768) {
@@ -37,12 +37,6 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
       document.body.style.overflow = 'auto';
     };
   }, []);
-
-  // useEffect(() => {
-  //   if (initialChatId) {
-  //     setSelectedChatId(initialChatId);
-  //   }
-  // }, [initialChatId]);
 
   const handleEnterChatRoom = async (chatId: string) => {
     setSelectedChatId(chatId);
@@ -75,6 +69,18 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
       }, 0);
     } else if (isChatbotVisible) {
       setIsChatbotVisible(false);
+    }
+  };
+
+  const handleLoginClick = () => {
+    if (window.innerWidth < 768) {
+      // 모바일에서는 로그인 페이지로 이동
+      router.push('/login');
+      onClose();
+    } else {
+      // 데스크탑에서는 채팅 모달 닫고 로그인 모달 열기
+      onClose();
+      open('loginModal');
     }
   };
 
@@ -162,10 +168,7 @@ const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
                 <div className="p-4">
                   <button
                     className="mx-auto w-full max-w-xs rounded bg-[#fb657e] py-3 text-center text-white"
-                    onClick={() => {
-                      router.push('/login');
-                      onClose();
-                    }}
+                    onClick={handleLoginClick}
                   >
                     로그인
                   </button>
