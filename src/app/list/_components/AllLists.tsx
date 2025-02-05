@@ -49,7 +49,7 @@ const AllLists = () => {
       // 다음 데이터 불러오는 로직
       fetchNextPage();
     }
-  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
+  }, [inView, hasNextPage]);
 
   useEffect(() => {
     if (address && !hasShownToastRef.current) {
@@ -66,6 +66,14 @@ const AllLists = () => {
       hasShownToastRef.current = true;
     }
   }, [address]);
+
+  if (isLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
 
   // 모집중 필터링 로직
   const filterByStatus = (posts: PostType[]) => {
@@ -106,12 +114,10 @@ const AllLists = () => {
         </label>
       </div>
 
-      {isLoading && <Loading />}
-
       {isError && <p className="text-red-500">에러발생</p>}
 
       {/* <ul className="grid grid-cols-1 gap-[1px] bg-[#e7e7e7] md:grid-cols-2 lg:grid-cols-3"> */}
-      <ul className="grid grid-cols-1 desktop:gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <ul className="grid grid-cols-1 md:grid-cols-2 desktop:gap-4 lg:grid-cols-3">
         {filteredData.map((post) => (
           <VolunteerCard key={post.id} post={post} />
         ))}

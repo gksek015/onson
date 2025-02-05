@@ -23,56 +23,6 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-  /* 텍스트 색상 */
-  .text-primary-1 {
-    color: var(--primary-1);
-  }
-  .text-primary-2 {
-    color: var(--primary-2);
-  }
-  .text-primary-3 {
-    color: var(--primary-3);
-  }
-  .text-secondary-1 {
-    color: var(--secondary-1);
-  }
-  .text-secondary-2 {
-    color: var(--secondary-2);
-  }
-
-  /* 보더 색상 */
-  .border-primary-1 {
-    border-color: var(--primary-1);
-  }
-  .border-primary-2 {
-    border-color: var(--primary-2);
-  }
-  .border-primary-3 {
-    border-color: var(--primary-3);
-  }
-  .border-secondary-1 {
-    border-color: var(--secondary-1);
-  }
-  .border-secondary-2 {
-    border-color: var(--secondary-2);
-  }
-
-  /* 배경색 */
-  .bg-primary-1 {
-    background-color: var(--primary-1);
-  }
-  .bg-primary-2 {
-    background-color: var(--primary-2);
-  }
-  .bg-primary-3 {
-    background-color: var(--primary-3);
-  }
-  .bg-secondary-1 {
-    background-color: var(--secondary-1);
-  }
-  .bg-secondary-2 {
-    background-color: var(--secondary-2);
-  }
 }
 
 /* 이미지 페이지 네이션 커스터마이즈드 스타일 */
@@ -139,7 +89,7 @@ body {
   @apply h-[12px] bg-[#F4F5F5];
 }
 .my_profile_no_contents {
-  @apply p-[20px] text-[#868c92];
+  @apply p-[20px] text-[#868c92] desktop:px-[80px];
 }
 
 .info_message_wrapper {

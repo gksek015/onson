@@ -82,8 +82,9 @@ const PhotoComp = ({ onImageSelect, onRemoveImage, formData }: PhotoCompProps) =
         {/* 이미지 미리보기 */}
         {previewUrls.map((imgUrl, index) => (
           <div key={index} className="relative h-24 w-24 overflow-hidden rounded-[8px] border">
-            <Image width={100} height={100} src={imgUrl} alt={`img-${index}`} className="h-full w-full object-cover" />
+            <Image width={100} height={100} src={imgUrl} alt={`img-${index}`} className="h-full w-full object-cover" priority/>
             <button
+            aria-label='미리보기 삭제'
               type="button"
               className="absolute right-1 top-1"
               onClick={() => handleRemoveFile(index)}

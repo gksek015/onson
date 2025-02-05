@@ -1,9 +1,7 @@
 'use client';
 
-import banner from '@/assets/Frame.png';
-import onson from '@/assets/onson.png';
-import ChatBoxModal from '@/components/chatbox/ChatBoxModal';
-import useModal from '@/hooks/ui/useModal';
+import banner from '@/assets/mob-banner.png';
+import onson from '@/assets/onson-loading.png';
 import { useGNBStore } from '@/utils/store/useGNBStore';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,10 +10,11 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+import { useModalStore } from '@/utils/store/useModalStore';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 
 const HeroSection = () => {
-  const { isOpen, openModal, closeModal } = useModal();
+  const { openModal } = useModalStore();
   const { setActiveTab } = useGNBStore();
 
   const handleChatOpen = () => {
@@ -24,7 +23,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="md:ml-56">
+    <div className="desktop:ml-60">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
@@ -36,6 +35,7 @@ const HeroSection = () => {
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
       >
+        {/* 배너 이미지 슬라이드 */}
         <SwiperSlide>
           <Image src={banner} alt="hero section image" onClick={handleChatOpen} priority className="cursor-pointer" />
         </SwiperSlide>
@@ -43,7 +43,6 @@ const HeroSection = () => {
           <Image src={onson} alt="hero section image" onClick={handleChatOpen} priority className="cursor-pointer" />
         </SwiperSlide>
       </Swiper>
-      {isOpen && <ChatBoxModal onClose={closeModal} />}
     </div>
   );
 };

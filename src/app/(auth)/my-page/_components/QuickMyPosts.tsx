@@ -1,18 +1,25 @@
 'use client';
 
-import VolunteerCardNoImg from '@/app/(home)/VolunteerCardNoImg';
+import VolunteerCardNoImg from '@/app/(auth)/my-page/_components/VolunteerCardNoImg';
 import useGetPost from '@/hooks/useGetPost';
+import { useNicknameStore } from '@/utils/store/useNicknameStore';
 import { useUserStore } from '@/utils/store/userStore';
+import { usePathname } from 'next/navigation';
 
 const QuickMyPosts = () => {
-  const user = useUserStore((state) => state.user);
+  const pathname = usePathname();
+  const userStore = useUserStore();
+  const nicknameStore = useNicknameStore();
 
-  // userId를 직접 전달
-  const { posts, isPending, isError } = useGetPost(user?.id, 3);
+  let userId;
 
-  if (!user) {
-    return <p>사용자 정보가 없습니다.</p>;
+  if (pathname.startsWith('/my-page')) {
+    userId = userStore.user?.id;
+  } else if (pathname.startsWith('/user-page') || pathname === '/user-page/my-participants') {
+    userId = nicknameStore.user.id ?? '';
   }
+
+  const { posts, isPending, isError } = useGetPost(userId, 3);
 
   if (isPending) {
     return <p>내가 쓴 글을 불러오는 중입니다...</p>;
@@ -25,6 +32,7 @@ const QuickMyPosts = () => {
   if (!posts || posts.length === 0) {
     return <p className="my_profile_no_contents">내가 쓴 글이 없습니다.</p>;
   }
+
   return (
     <div className="flex w-full flex-row overflow-x-auto desktop:overflow-x-hidden desktop:px-[60px]">
       {posts.map((post) => (

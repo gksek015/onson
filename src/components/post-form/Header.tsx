@@ -75,7 +75,7 @@ const Header = ({
 
   return (
     <header className="fixed left-1/2 top-0 z-10 flex h-[60px] w-full max-w-content -translate-x-1/2 items-center justify-center border-b bg-white px-4 py-3">
-      <button onClick={isMobile ? handleBackButton : handleLogoClick} className="absolute left-4">
+      <button aria-label='뒤로가기' type='button' onClick={isMobile ? handleBackButton : handleLogoClick} className="absolute left-4">
         {isMobile ? <BackIcon /> : <HomeDesktopLogoIcon />}
       </button>
       <h1 className="text-xl font-bold tracking-[-0.5px]">{title}</h1>

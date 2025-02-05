@@ -1,6 +1,6 @@
 import type { FormData } from '@/types/formdata';
-import AddressSearch from '../common/AddressSearch';
-import { ModalSheet } from '../common/ModalSheet';
+import AddressSearch from '@/components/common/AddressSearch';
+import { ModalSheet } from '@/components/common/ModalSheet';
 import { useDialogStore } from '@/utils/store/useDialogStore';
 
 interface AddressCompProps {
@@ -23,7 +23,7 @@ const AddressComp = ({ formData, setFormData }: AddressCompProps) => {
       <label htmlFor="address" className="tracking-[-0.5px] block text-lg font-semibold">
         위치
       </label>
-      <span className="px-2 text-sm font-medium text-[#868C92]">* 필수</span>
+      <span className="px-2 text-sm font-medium text-[#595d61]">* 필수</span>
       </div>
       <input
         type="text"

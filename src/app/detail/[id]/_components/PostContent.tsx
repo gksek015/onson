@@ -2,13 +2,16 @@
 
 import { CloseIcon, MapPinIcon, MeatballMenuIcon, MyProfileIcon } from '@/components/icons/Icons'; // MeatballMenuIcon 추가
 import { useGetPostById } from '@/hooks/useGetPostById';
+import { useNicknameStore } from '@/utils/store/useNicknameStore';
 import { useUserStore } from '@/utils/store/userStore'; // 유저 정보를 가져오기 위해 추가
+import { supabase } from '@/utils/supabase/client';
 import { useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react'; // useState 추가
 import Swal from 'sweetalert2';
+
 import BookmarkButton from './BookmarkButton';
 import ParticipantList from './ParticipantList';
 import PostActionButtons from './PostActionButtons';
@@ -46,9 +49,24 @@ const PostContent = ({
   const { data: post, deletePostById, updateCompletedById } = useGetPostById(postPageId);
   const { user } = useUserStore(); // 현재 로그인한 사용자 가져오기
   const queryClient = useQueryClient();
-  const router = useRouter();
   const [isDesktop, setIsDesktop] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false); // 드롭다운 상태 추가
+  const router = useRouter();
+  const { setUser } = useNicknameStore();
+
+  const handleClick = async () => {
+    const { data: idData, error: idError } = await supabase.from('users').select().eq('nickname', nickname).single();
+    if (idError || !idData) {
+      console.error('유저 UUID 조회 오류:', idError);
+      throw new Error('Failed to fetch user UUID');
+    }
+    setUser({
+      id: idData.id,
+      nickname: nickname,
+      profileImage: idData.profile_img_url ?? null // null 허용
+    });
+    router.push('/user-page');
+  };
 
   // 브라우저 크기 변경에 따라 상태 업데이트
   useEffect(() => {
@@ -137,13 +155,13 @@ const PostContent = ({
           <div className="mt-1 text-lg font-semibold tracking-[-0.5px] desktop:text-3xl">{title}</div>
 
           {/* 주소 */}
-          <div className="mt-3 mb-1 flex items-center desktop:mt-0 desktop:mb-0">
+          <div className="mb-1 mt-3 flex items-center desktop:mb-0 desktop:mt-0">
             <MapPinIcon />
             <span className="ml-1 font-semibold text-[#666]">{`${address.si} ${address.gu} ${address.dong}`}</span>
           </div>
 
-          <div className="mb-3 flex items-center justify-between">
-            <div className="flex items-center gap-2">
+          <div className="relative mb-3 flex items-center justify-between">
+            <div className="flex cursor-pointer items-center gap-2" onClick={handleClick}>
               {profileImgUrl ? (
                 <div className="relative h-7 w-7 overflow-hidden rounded-full bg-gray-200">
                   <Image
@@ -170,6 +188,33 @@ const PostContent = ({
             ) : (
               <BookmarkButton postId={postId} />
             )}
+            {/* 드롭다운 */}
+            {isDropdownOpen && (
+              <div className="absolute top-full right-0 z-50 rounded-md border border-gray-300 bg-white p-4 pr-5 shadow-lg">
+                <button
+                  onClick={handleToggleRecruitment}
+                  className="flex w-full items-center gap-2 px-4 py-2 text-left outline-none focus:outline-none"
+                >
+                  {isPostClosed ? '모집 마감 해제' : '모집 마감'}
+                </button>
+
+                <button onClick={handleEdit} className="flex w-full items-center gap-2 px-4 py-2 text-left">
+                  게시물 수정하기
+                </button>
+
+                <button
+                  onClick={handleDelete}
+                  className="flex w-full items-center gap-2 px-4 py-2 text-left text-red-500"
+                >
+                  게시물 삭제하기
+                </button>
+
+                {/* 닫기 버튼 */}
+                <button onClick={handleCloseSheet} className="absolute right-[7px] top-[7px] text-center text-gray-500">
+                  <CloseIcon width="16" height="16" />
+                </button>
+              </div>
+            )}
           </div>
 
           {/* 채팅하기 버튼 */}
@@ -182,31 +227,6 @@ const PostContent = ({
         {/* 봉사 참여자 목록 */}
         <ParticipantList postId={postId} postOwnerId={postOwnerId} />
       </div>
-
-      {/* 드롭다운 */}
-      {isDropdownOpen && (
-        <div className="absolute right-[570px] top-[540px] z-50 rounded-md border border-gray-300 bg-white p-4 pr-5 shadow-lg">
-          <button
-            onClick={handleToggleRecruitment}
-            className="flex w-full items-center gap-2 px-4 py-2 text-left outline-none focus:outline-none"
-          >
-            {isPostClosed ? '모집 마감 해제' : '모집 마감'}
-          </button>
-
-          <button onClick={handleEdit} className="flex w-full items-center gap-2 px-4 py-2 text-left">
-            게시물 수정하기
-          </button>
-
-          <button onClick={handleDelete} className="flex w-full items-center gap-2 px-4 py-2 text-left text-red-500">
-            게시물 삭제하기
-          </button>
-
-          {/* 닫기 버튼 */}
-          <button onClick={handleCloseSheet} className="absolute right-[7px] top-[7px] text-center text-gray-500">
-            <CloseIcon width="16" height="16" />
-          </button>
-        </div>
-      )}
     </div>
   );
 };
