@@ -20,7 +20,7 @@ const Header = () => {
   if (isAuthPage) return null;
 
   return (
-    <div className="desktop:fixed desktop:left-0 desktop:top-0 desktop:z-[40] desktop:w-full">
+    <div className="desktop:fixed desktop:left-0 desktop:top-0 desktop:z-[40] desktop:w-full desktop:bg-white">
       <header
         className={`flex h-[56px] w-full max-w-[1440px] items-center justify-between px-[20px] py-[8px] desktop:mx-auto desktop:h-[72px] desktop:px-[80px] desktop:py-4 ${isMobileVisible ? 'mobile:block' : 'mobile:hidden'} desktop:block`}
       >

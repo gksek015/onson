@@ -3,6 +3,7 @@
 import { getMarkMessageAsRead } from '@/lib/chats/getMarkMessageAsRead';
 import useChatbotStore from '@/utils/store/useChatBotStore';
 import { useGNBStore } from '@/utils/store/useGNBStore';
+import { useModalStore } from '@/utils/store/useModalStore';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -15,12 +16,13 @@ import ModalHeader from './chatUI/ModalHeader';
 
 interface ChatBoxModalProps {
   onClose: () => void;
-  initialChatId?: string | null;
+  // initialChatId?: string | null;
 }
 
-const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
+const ChatBoxModal = ({ onClose }: ChatBoxModalProps) => {
   const [activeTab, setActiveTab] = useState('온손 AI');
-  const [selectedChatId, setSelectedChatId] = useState<string | null>(initialChatId || null);
+  // const [selectedChatId, setSelectedChatId] = useState<string | null>(initialChatId || null);
+  const { selectedChatId, setSelectedChatId } = useModalStore();
   const [showGNB, setShowGNB] = useState(false);
   const { user } = useUserStore();
   const { prevActiveTab, setActiveTab: setCurrentGNBActiveTab } = useGNBStore();
@@ -36,11 +38,11 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
     };
   }, []);
 
-  useEffect(() => {
-    if (initialChatId) {
-      setSelectedChatId(initialChatId);
-    }
-  }, [initialChatId]);
+  // useEffect(() => {
+  //   if (initialChatId) {
+  //     setSelectedChatId(initialChatId);
+  //   }
+  // }, [initialChatId]);
 
   const handleEnterChatRoom = async (chatId: string) => {
     setSelectedChatId(chatId);
