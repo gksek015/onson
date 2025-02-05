@@ -18,6 +18,7 @@ const SearchBar = () => {
       setSearchKeyword('');
     }
   };
+  
   return (
     <div className="relative flex w-full items-center gap-2 rounded-full bg-gradient-to-r from-[#F99A2C] to-[#FA5571]">
       <input

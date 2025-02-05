@@ -4,13 +4,13 @@ import dayjs from 'dayjs';
 
 export const getUrgentPosts = async (): Promise<PostType[]> => {
   const today = dayjs().format('YYYY-MM-DD');
-  const twoDaysLater = dayjs().add(2, 'day').format('YYYY-MM-DD'); // 현재 날짜 + 2일
+  const threeDaysLater = dayjs().add(3, 'day').format('YYYY-MM-DD'); // 현재 날짜 + 3일
 
   const { data, error } = await supabase
     .from('posts')
     .select(`*, images(img_url), users(nickname, profile_img_url)`)
     .gte('end_date', today) // 마감일이 오늘 이후인 게시글
-    .lte('end_date', twoDaysLater) // 마감일이 2일 이내인 게시글
+    .lte('end_date', threeDaysLater) // 마감일이 3일 이내인 게시글
     .eq('completed', false) // 모집 완료되지 않은 게시글만 가져옴
     .order('end_date', { ascending: true }) // 마감일이 빠른 순으로 정렬
     .limit(9); // 최대 9개까지만 가져옴
