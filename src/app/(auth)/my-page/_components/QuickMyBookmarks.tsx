@@ -33,8 +33,12 @@ const QuickMyBookmarks = () => {
 
   return (
     <div className="flex w-full flex-row overflow-x-auto desktop:overflow-x-hidden desktop:px-[60px]">
-      {bookmarkedPosts.map((post) => (
-        <VolunteerCardNoImg key={post.id} post={post} />
+      {bookmarkedPosts.map((post, index) => (
+        <VolunteerCardNoImg
+          key={post.id}
+          post={post}
+          isLast={index === bookmarkedPosts.length - 1} // 마지막 카드인지 확인
+        />
       ))}
     </div>
   );
