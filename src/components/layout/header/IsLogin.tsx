@@ -35,7 +35,7 @@ const IsLogin = () => {
       {!user ? (
         <button
           onClick={isMobile ? handleProfileClick : () => open('loginModal')}
-          className="text-sm font-medium text-gray-600 hover:text-gray-800"
+          className="text-sm font-medium text-[#343434] desktop:text-xl"
         >
           로그인
         </button>
