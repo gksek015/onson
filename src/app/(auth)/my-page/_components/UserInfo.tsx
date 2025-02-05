@@ -27,7 +27,7 @@ const UserInfo = () => {
         onClick={
           isMyPage ? (isMobile ? () => router.push('/my-page/my-profile') : () => open('profileModal')) : undefined
         }
-        className="cursor-pointer desktop:mt-[30px] desktop:px-[60px]"
+        className={`${isMyPage ? 'cursor-pointer' : ''} desktop:mt-[30px] desktop:px-[60px]`}
       >
         <MyProfile />
       </div>
@@ -58,12 +58,14 @@ const UserInfo = () => {
       </Link>
       <QuickParticipants />
       <div className="my_profile_blank"></div>
-      <div
-        className="flex w-full cursor-pointer items-center justify-center px-[20px] py-[28px] text-[#E4290C] focus:outline-none"
-        onClick={logoutWithUser}
-      >
-        로그아웃
-      </div>
+      {isMyPage && (
+        <div
+          className="flex w-full cursor-pointer items-center justify-center px-[20px] py-[28px] text-[#E4290C] focus:outline-none"
+          onClick={logoutWithUser}
+        >
+          로그아웃
+        </div>
+      )}
 
       {/* BottomSheet */}
       <ModalSheet id="profileModal">

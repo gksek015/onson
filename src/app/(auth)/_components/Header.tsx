@@ -1,6 +1,6 @@
 'use client';
 
-import { BackButtonIcon } from '@/components/icons/Icons';
+import { BackButtonIcon, HomeDesktopLogoIcon } from '@/components/icons/Icons';
 import useIsMobile from '@/hooks/ui/useIsMobile';
 import { usePageTitleStore } from '@/utils/store/pageTitleStore';
 import { usePathname, useRouter } from 'next/navigation';
@@ -19,6 +19,10 @@ const Header = () => {
     }
   };
 
+  const handleLogoClick = () => {
+    router.push('/');
+  };
+
   //브라우저 좌우 사이즈 상태 및 변경
   const isMobile = useIsMobile();
 
@@ -30,8 +34,11 @@ const Header = () => {
   return (
     <>
       <div className="relative flex h-[60px] items-center justify-center leading-[60px]">
-        <button className="absolute left-0 top-1/2 -translate-y-1/2 pl-[18px]" onClick={handleBack}>
-          <BackButtonIcon />
+        <button
+          onClick={isMobile ? handleBack : handleLogoClick}
+          className="absolute left-0 top-1/2 -translate-y-1/2 pl-[18px]"
+        >
+          {isMobile ? <BackButtonIcon /> : <HomeDesktopLogoIcon />}
         </button>
 
         <h1 className="text-center text-[20px] font-bold">{title}</h1>
