@@ -58,7 +58,7 @@ export const useSyncGNBStore = () => {
     }
   
     setIsInitialized(true);
-  }, [setActiveTab]);
+  }, [setActiveTab, setPrevActiveTab]);
 
   return isInitialized;
 };
