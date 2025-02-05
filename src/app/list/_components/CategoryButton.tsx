@@ -36,9 +36,9 @@ const CategoryButton = ({ categories }: CategorySelectProps) => {
         <FilterIcon />
       </button>
       {/* 바텀시트 or 모달 */}
-      <ModalSheet id="sheetE">
-        <div className="flex h-full flex-grow flex-col overflow-y-auto p-5">
-          <h2 className="mb-10 text-2xl font-semibold">봉사 종류</h2>
+      <ModalSheet id="sheetE" title='봉사종류'>
+        <div className="flex h-full flex-grow flex-col overflow-y-auto px-5 pb-5">
+          <h2 className="mb-10 text-2xl font-semibold desktop:hidden">봉사 종류</h2>
           <p className="mb-3 text-base font-semibold text-[#222227]">종류 선택</p>
           <ul className="mt-2 space-y-4 border-t border-[#BEBEBE]">
             {categories?.map((category) => (

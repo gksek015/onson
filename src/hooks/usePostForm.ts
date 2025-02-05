@@ -5,6 +5,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+import useIsMobile from './ui/useIsMobile';
+import { useDialogStore } from '@/utils/store/useDialogStore';
 
 export const usePostForm = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -21,6 +23,8 @@ export const usePostForm = () => {
 
   const { user, isLoggedIn } = useUserStore();
   const router = useRouter();
+  const isMobile = useIsMobile();
+  const { open } = useDialogStore();
   const queryClient = useQueryClient(); // React Query의 queryClient 가져오기
 
   const isFormValid = useCallback((): boolean => {
@@ -44,18 +48,23 @@ export const usePostForm = () => {
         cancelButtonColor: '#B4B4B4',
         confirmButtonText: '로그인하러 가기',
         cancelButtonText: '취소',
-
       }).then((result) => {
         if (result.isConfirmed) {
-          router.push('/login');
-        } else if (result.isDismissed) {
+          if (isMobile) {
+            // 모바일: 로그인 페이지로 이동
+            router.push('/login');
+          } else {
+            // 데스크탑: 로그인 모달 띄우기
+            open('loginModal');
+          }
+        } else {
           router.push('/');
         }
       });
     } else {
       setIsLoading(false);
     }
-  }, [isLoggedIn, router]);
+  }, [isLoggedIn, isMobile, open, router]);
 
   const handleSubmit = useCallback(async () => {
     if (!user || !user.id) {
