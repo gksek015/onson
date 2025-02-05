@@ -6,6 +6,7 @@ import { RightArrowForChatIcon } from '@/components/icons/Icons';
 import { newChatApi } from '@/lib/chats/newChatRoom';
 import { sendMessage } from '@/lib/chats/newMessage';
 import { insertParticipant } from '@/lib/detail/participants';
+import { useDialogStore } from '@/utils/store/useDialogStore';
 import { useGNBStore } from '@/utils/store/useGNBStore';
 import { useModalStore } from '@/utils/store/useModalStore';
 import { useUserStore } from '@/utils/store/userStore';
@@ -24,6 +25,7 @@ const PostActionButtons = ({ title, postOwnerId, isPostClosed, postId }: PostAct
   const { user } = useUserStore();
   const router = useRouter();
   const { setActiveTab } = useGNBStore();
+  const { open } = useDialogStore();
 
   const handleChatClick = async () => {
     if (isPostClosed) {
@@ -46,10 +48,17 @@ const PostActionButtons = ({ title, postOwnerId, isPostClosed, postId }: PostAct
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: '로그인하기',
-        cancelButtonText: '취소'
+        confirmButtonColor: 'var(--primary-3)',
+        cancelButtonText: '취소',
+        cancelButtonColor: '#B4B4B4'
       }).then((result) => {
         if (result.isConfirmed) {
-          router.push('/login');
+          if (window.innerWidth < 768) {
+            router.push('/login');
+          } else {
+            open('loginModal');
+          }
+        } else if (result.isDismissed) {
         }
       });
       return;
