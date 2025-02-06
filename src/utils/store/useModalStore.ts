@@ -5,13 +5,17 @@ interface ModalState {
   selectedChatId: string | null;
   openModal: () => void;
   closeModal: () => void;
-  toggleModal: () => void;
+    toggleModal: () => void;
+      activeTab: string;
+  setActiveTab: (tab: string) => void;
   setSelectedChatId: (chatId: string | null) => void;
 }
 
 export const useModalStore = create<ModalState>((set) => ({
   isOpen: false,
-  selectedChatId: null,
+    selectedChatId: null,
+   activeTab: '온손 AI', 
+  setActiveTab: (tab) => set({ activeTab: tab }), 
   openModal: () => set({ isOpen: true }),
   closeModal: () => set({ isOpen: false, selectedChatId: null }),
   toggleModal: () => set((state) => ({ isOpen: !state.isOpen })),

@@ -3,6 +3,7 @@
 import { SendMessageGradientIcon, SendMessageIcon } from '@/components/icons/Icons';
 import { useRealTimeMessages } from '@/hooks/useRealTimeMessage';
 import { sendMessage } from '@/lib/chats/newMessage';
+import { useModalStore } from '@/utils/store/useModalStore';
 import { useEffect, useRef, useState } from 'react';
 
 interface ChatMessageProps {
@@ -12,6 +13,7 @@ interface ChatMessageProps {
 }
 
 const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
+  const { setActiveTab } = useModalStore();
   const [input, setInput] = useState('');
   const messages = useRealTimeMessages(selectedChatId);
   const messageEndRef = useRef<HTMLDivElement>(null);
@@ -50,6 +52,10 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
       handleSend();
     }
   };
+
+  useEffect(() => {
+    setActiveTab('실시간 채팅');
+  }, [setActiveTab]);
 
   return (
     <div className="flex h-full flex-col bg-[#F2F2F2]">
