@@ -5,7 +5,6 @@ import { useModalStore } from '@/utils/store/useModalStore';
 import { useUserStore } from '@/utils/store/userStore';
 import { useUnreadMessageStore } from '@/utils/store/useUnreadMessageStore';
 import { useEffect } from 'react';
-import ChatBoxModal from '../chatbox/ChatBoxModal';
 import {
   HomePillIcon,
   HomeStrokeIcon,
@@ -18,7 +17,7 @@ import {
 } from '../icons/Icons';
 
 const BottomNav = () => {
-  const { isOpen, toggleModal, closeModal } = useModalStore();
+  const { toggleModal, closeModal } = useModalStore();
   const { user } = useUserStore();
   const { unreadMessages, subscribeToRealtimeMessages, refetch } = useUnreadMessageStore();
   const { activeTab, setActiveTab } = useGNBStore();
@@ -111,9 +110,6 @@ const BottomNav = () => {
           </button>
         </nav>
       )}
-
-      {/* 채팅 모달 */}
-      {isOpen && <ChatBoxModal onClose={closeModal} />}
     </>
   );
 };
