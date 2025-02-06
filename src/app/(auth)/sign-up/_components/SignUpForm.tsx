@@ -10,6 +10,7 @@ import AuthInput from '@app/(auth)/_components/AuthInput';
 
 import { Loading } from '@/components/common/Loading';
 import { userSignUpSchema } from '@/utils/revalidation/userSchema';
+import { useDialogStore } from '@/utils/store/useDialogStore';
 import { signup } from '@lib/actions/auth/action';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -19,6 +20,7 @@ type SignUpFormData = z.infer<typeof userSignUpSchema>;
 
 const SignUpForm = () => {
   const router = useRouter();
+  const { open } = useDialogStore();
   const {
     register,
     handleSubmit,
@@ -64,7 +66,14 @@ const SignUpForm = () => {
         confirmButtonText: '확인'
       }).then((result) => {
         if (result.isConfirmed) {
-          router.push('/login');
+          if (window.innerWidth < 768) {
+            router.push('/login');
+          } else {
+            router.push('/');
+            setTimeout(() => {
+              open('loginModal');
+            }, 500);
+          }
         }
       });
     } catch (err) {
