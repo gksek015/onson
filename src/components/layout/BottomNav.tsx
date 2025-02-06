@@ -18,11 +18,10 @@ import {
 } from '../icons/Icons';
 
 const BottomNav = () => {
-  const { isOpen, openModal, closeModal } = useModalStore();
+  const { isOpen, toggleModal, closeModal } = useModalStore();
   const { user } = useUserStore();
   const { unreadMessages, subscribeToRealtimeMessages, refetch } = useUnreadMessageStore();
   const { activeTab, setActiveTab } = useGNBStore();
-
   const isInitialized = useSyncGNBStore();
 
   // GNB 상태를 URL과 동기화
@@ -103,7 +102,7 @@ const BottomNav = () => {
             type="button"
             onClick={() => {
               setActiveTab('chat');
-              openModal();
+              toggleModal();
             }}
             className="flex flex-col items-center justify-center gap-1"
           >
