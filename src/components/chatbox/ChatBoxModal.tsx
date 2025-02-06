@@ -7,7 +7,7 @@ import { useGNBStore } from '@/utils/store/useGNBStore';
 import { useModalStore } from '@/utils/store/useModalStore';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { CloseIcon } from '../icons/Icons';
 import BottomNav from '../layout/BottomNav';
 import AIChatroom from './ai/AIChatroom';
@@ -22,8 +22,7 @@ interface ChatBoxModalProps {
 
 const ChatBoxModal = ({ onClose, currentChatId }: ChatBoxModalProps) => {
   const { open } = useDialogStore();
-  const { selectedChatId, setSelectedChatId, activeTab, setActiveTab } = useModalStore();
-  const [showGNB, setShowGNB] = useState(false);
+  const { selectedChatId, setSelectedChatId, activeTab, setActiveTab, showGNB, setShowGNB } = useModalStore();
   const { user } = useUserStore();
   const { prevActiveTab, setActiveTab: setCurrentGNBActiveTab } = useGNBStore();
   const { isChatbotVisible, showChatbot, setIsChatbotVisible, setShowChatbot } = useChatbotStore();
@@ -67,8 +66,8 @@ const ChatBoxModal = ({ onClose, currentChatId }: ChatBoxModalProps) => {
       setShowChatbot(false);
     } else if (selectedChatId) {
       setSelectedChatId(null);
-      setShowGNB(true);
       setActiveTab('실시간 채팅');
+      setShowGNB(true);
       setTimeout(() => {
         setCurrentGNBActiveTab('chat');
       }, 0);
