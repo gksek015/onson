@@ -49,7 +49,7 @@ const UserInfo = () => {
         className="my_profile_titlebtn_wrapper auth_page_desktop_width"
         href={isMyPage ? '/my-page/my-posts' : '/user-page/user-posts'}
       >
-        <span>내 봉사 요청</span>
+        <span>봉사 요청</span>
         <RightArrowForChatIcon />
       </Link>
       <div className="auth_page_desktop_width">
@@ -60,7 +60,7 @@ const UserInfo = () => {
         className="my_profile_titlebtn_wrapper auth_page_desktop_width"
         href={isMyPage ? '/my-page/my-participants' : '/user-page/user-participants'}
       >
-        <span>내 참여 봉사</span>
+        <span>참여 봉사</span>
         <RightArrowForChatIcon />
       </Link>
       <div className="auth_page_desktop_width">
