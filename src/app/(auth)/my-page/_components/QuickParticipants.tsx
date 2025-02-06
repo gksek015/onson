@@ -17,7 +17,7 @@ const QuickParticipants = () => {
     userId = userStore.user?.id || '';
   }
 
-  if (pathname.startsWith('/user-page') || pathname === '/user-page/my-participants') {
+  if (pathname.startsWith('/user-page')) {
     userId = nicknameStore.user?.id || '';
   }
 
@@ -36,8 +36,8 @@ const QuickParticipants = () => {
   }
   return (
     <div className="flex w-full flex-row overflow-x-auto desktop:overflow-x-hidden desktop:px-[60px]">
-      {posts.map((post) => (
-        <VolunteerCardNoImg key={post.id} post={post} />
+      {posts.map((post, index) => (
+        <VolunteerCardNoImg key={post.id} post={post} isLast={index === posts.length - 1} />
       ))}
     </div>
   );
