@@ -10,7 +10,7 @@ const ContentComp = ({ value, onChange }: ContentTextareaProps) => {
         <label htmlFor="content" className="block text-lg font-semibold tracking-[-0.5px]">
           본문
         </label>
-        <span className="ml-3 text-sm font-normal text-[#595d61]">*500자 이내</span>
+        <span className="ml-3 text-sm font-light text-[#595d61]">*500자 이내</span>
       </div>
       <textarea
         id="content"
