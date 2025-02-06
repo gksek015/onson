@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const MyPage = () => {
   return (
     <div className="auth_page_wrapper">
-      <SetPageTitle title="마이 페이지" />
+      <SetPageTitle title="마이페이지" />
       <UserInfo />
     </div>
   );
