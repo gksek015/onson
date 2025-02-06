@@ -52,6 +52,9 @@ body {
 .auth_page_wrapper {
   @apply min-h-screen pb-[30px];
 }
+.auth_page_desktop_width {
+  @apply w-full max-w-[1440px] items-center justify-center desktop:mx-auto;
+}
 
 .common_input {
   @apply mt-[12px] flex h-[56px] w-full flex-shrink-0 items-center gap-[10px] self-stretch rounded-[8px] border border-[#A1A6AA] px-[12px] py-[10px] text-base placeholder-[#868C92];
