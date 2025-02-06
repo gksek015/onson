@@ -780,12 +780,12 @@ export const CircleArrowLeftIcon = () => {
   );
 };
 
-export const ParticipantListIcon = () => {
+export const ParticipantListIcon = ({color = '#666666'}) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 25" fill="none">
       <path
         d="M3.5 6L5 7.5L7.5 5M3.5 12L5 13.5L7.5 11M3.5 18L5 19.5L7.5 17M11 6.5H20M11 12.5H20M11 18.5H20"
-        stroke="#666666"
+        stroke={color}
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
