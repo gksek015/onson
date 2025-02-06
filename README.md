@@ -17,32 +17,32 @@
 ### 1. **페이지 구성**
 
 - **홈페이지 (`/`)** : 마감 기한 임박 봉사 리스트, 온손이 플로팅 버튼을 통한 챗봇 ai와 채팅 모달창, 지역 검색 기능
-  <br>
+
 - **봉사게시판 (`/list`)** : 봉사 전체 리스트, 키워드 & 카테고리 검색 기능
-  <br>
+
 - **게시글 디테일 (`/detail/[id]`)** : 북마크, 내 게시글 모집 마감, 수정, 삭제 기능, 내 봉사에 참여한 봉사자 리스트
-  <br>
+
 - **봉사요청 (`/create`)** : 봉사를 요청하고자 하는 유저가 게시글을 작성하는 페이지
-  <br>
+
 - **게시글 수정 (`/post-update/[id]`)** : 해당 유저가 작성한 게시글을 수정하는 페이지
-   <br>
+
 - **마이 페이지 (`/my-page`)** : 나의 정보 제공 및 프로필 수정
-  <br>
+
 - **유저 페이지 (`/user-page`)** : 해당 유저에 대한 정보 제공
-  <br>
+
 - **로그인 (`/login` / modal)** : 이메일 로그인, 카카오 소셜 로그인
-  <br>
+
 - **회원가입 (`/sign-up`)** : 중복 이메일, 중복 닉네임 필터링
-   <br>
+
 - **온손 ai 챗봇 (modal)** : 웹 사이트에 대한 전반적인 소개 및 질문을 받는 ai 챗봇
-  <br>
+
 - **채팅하기 (modal)** : 채팅을 통해 봉사 신청
 
 <br>
 
 ### 2. **상세 기능**
 
-<details><summary>**회원가입 / 로그인**
+<details><summary>회원가입 / 로그인
 
 </summary>
 
@@ -58,7 +58,7 @@
 
 <br>
 
-<details><summary>**홈페이지**
+<details><summary>홈페이지
 
 </summary>
 
@@ -75,7 +75,7 @@
 
 <br>
 
-<details><summary>**봉사게시판**
+<details><summary>봉사게시판
 
 </summary>
 
@@ -91,7 +91,7 @@
 
 <br>
 
-<details><summary>**게시글 디테일 페이지**
+<details><summary>게시글 디테일 페이지
 
 </summary>
 
@@ -108,7 +108,7 @@
 
 <br>
 
-<details><summary>**ai 챗봇**
+<details><summary>ai 챗봇
 
 </summary>
 
@@ -125,7 +125,7 @@
 
 <br>
 
-<details><summary>**채팅하기**
+<details><summary>채팅하기
 
 </summary>
 
@@ -141,7 +141,7 @@
 
 <br>
 
-<details><summary>**마이페이지 / 유저페이지**
+<details><summary>마이페이지 / 유저페이지
 
 </summary>
 
@@ -170,8 +170,7 @@
 
 | 팀장 : 한다영                          | 부팀장 : 김진실                          | 팀원 : 김문식                                   | 팀원 : 이경민                           | 팀원 : 이지원                           | 디자이너 : 서한솔 |
 | -------------------------------------- | ---------------------------------------- | ----------------------------------------------- | --------------------------------------- | --------------------------------------- | ----------------- |
-| ![한다영](./images/image-5.png)        | ![김진실](./images/image-9.png)          | ![김문식](./images/image-3.png)                 | ![이경민](./images/image-4.png)         | ![이지원](./images/image-8.png)         | ![image](https://github.com/user-attachments/assets/bfd3e273-f501-4920-9480-99b60ccb3558)
-                 |
+| ![한다영](./images/image-5.png)        | ![김진실](./images/image-9.png)          | ![김문식](./images/image-3.png)                 | ![이경민](./images/image-4.png)         | ![이지원](./images/image-8.png)         | ![image](https://github.com/user-attachments/assets/bfd3e273-f501-4920-9480-99b60ccb3558)|
 | [@한다영](https://github.com/gksek015) | [@김진실](https://github.com/jinsil-kim) | [@김문식](https://github.com/kimmunsik20240905) | [@이경민](https://github.com/zzxx66052) | [@이지원](https://github.com/dongeul24) |                   |
 
   <br>
@@ -193,7 +192,7 @@
 
 ![아키텍쳐](./images/image-1.png)
 
-<details><summary>**설명**
+<details><summary>설명
 
 </summary>
 
@@ -213,7 +212,7 @@
 
 ![supabase erd](./images/image-10.png)
 
-<details><summary>**주요 테이블 및 관계 설명**
+<details><summary>주요 테이블 및 관계 설명
 
 </summary>
 
