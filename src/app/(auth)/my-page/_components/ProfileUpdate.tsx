@@ -201,7 +201,7 @@ const ProfileUpdate = () => {
           <div className="absolute left-[44px] top-[133px] z-50 rounded-md border border-gray-300 bg-white p-4 shadow-lg">
             <button className="flex w-full items-center gap-2 px-4 py-2 text-left outline-none focus:outline-none">
               <label htmlFor="photo-upload" className="h-full w-full cursor-pointer">
-                사진에서 선택
+                사진 선택
               </label>
             </button>
 
@@ -241,7 +241,7 @@ const ProfileUpdate = () => {
           <div className="p-4 desktop:absolute">
             <button className="flex w-full items-center gap-2 px-4 py-2 text-left outline-none focus:outline-none">
               <label htmlFor="photo-upload" className="h-full w-full cursor-pointer">
-                사진에서 선택
+                사진 선택
               </label>
             </button>
 

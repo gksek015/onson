@@ -36,7 +36,7 @@ const UserInfo = () => {
         <>
           <div className="my_profile_blank"></div>
           <Link className="my_profile_titlebtn_wrapper auth_page_desktop_width" href="/my-page/bookmarks">
-            <span>관심있는 봉사</span>
+            <span>관심 봉사</span>
             <RightArrowForChatIcon />
           </Link>
           <div className="auth_page_desktop_width">
@@ -49,7 +49,7 @@ const UserInfo = () => {
         className="my_profile_titlebtn_wrapper auth_page_desktop_width"
         href={isMyPage ? '/my-page/my-posts' : '/user-page/user-posts'}
       >
-        <span>나의 봉사요청</span>
+        <span>내 봉사 요청</span>
         <RightArrowForChatIcon />
       </Link>
       <div className="auth_page_desktop_width">
@@ -60,7 +60,7 @@ const UserInfo = () => {
         className="my_profile_titlebtn_wrapper auth_page_desktop_width"
         href={isMyPage ? '/my-page/my-participants' : '/user-page/user-participants'}
       >
-        <span>나의 참여봉사</span>
+        <span>내 참여 봉사</span>
         <RightArrowForChatIcon />
       </Link>
       <div className="auth_page_desktop_width">
