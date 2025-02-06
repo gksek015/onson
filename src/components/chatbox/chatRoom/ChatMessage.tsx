@@ -101,9 +101,11 @@ const ChatMessage = ({ selectedChatId, userId }: ChatMessageProps) => {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyEnter}
               />
-              <button className="flex items-center justify-center p-2" onClick={handleSend}>
-                {input.trim() ? <SendMessageGradientIcon /> : <SendMessageIcon />}
-              </button>
+              <div className="mr-1">
+                <button className="flex items-center justify-center p-2" onClick={handleSend}>
+                  {input.trim() ? <SendMessageGradientIcon /> : <SendMessageIcon />}
+                </button>
+              </div>
             </div>
           </div>
         </footer>

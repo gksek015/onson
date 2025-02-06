@@ -76,8 +76,6 @@ const ChatBoxModal = ({ onClose, currentChatId }: ChatBoxModalProps) => {
     }
   };
 
-  console.log('액티브 탭바 형태 : ', activeTab);
-
   const handleLoginClick = () => {
     if (window.innerWidth < 768) {
       // 모바일에서는 로그인 페이지로 이동
@@ -89,10 +87,6 @@ const ChatBoxModal = ({ onClose, currentChatId }: ChatBoxModalProps) => {
       open('loginModal');
     }
   };
-
-  // console.log('챗봇 활성화 보여짐 :', isChatbotVisible);
-  // console.log('온손이 대화 활성화 보여짐 :', showChatbot);
-  console.log('채팅 아이디 : ', selectedChatId);
 
   return (
     <div className="flex justify-center">
