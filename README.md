@@ -1,4 +1,3 @@
-
 # ON:SON
 
 따뜻한 마음을 함께 나누고, 세상을 밝히는 힘이 되어 주세요!
@@ -7,7 +6,7 @@
 
 <br>
 
-# ![온손이 아이콘](./images/image-13.png)프로젝트 소개
+# ![온손이 아이콘](./images/image-14.png)프로젝트 소개
 
 가까운 거리에 도움이 필요한 분들을 손쉽게 찾고, 봉사 활동에 참여하며 따뜻한 세상을 함께 만들어갈 수 있습니다.
 
@@ -27,78 +26,147 @@
 - **로그인 (`/login` / modal)** : 이메일 로그인, 카카오 소셜 로그인
 - **회원가입 (`/sign-up`)** : 중복 이메일, 중복 닉네임 필터링
 - **온손 ai 챗봇 (modal)** : 웹 사이트에 대한 전반적인 소개 및 질문을 받는 ai 챗봇
-- **채팅하기 (modal)** : 채팅을 통해 봉사 신청 
+- **채팅하기 (modal)** : 채팅을 통해 봉사 신청
 
 ### 2. **상세 기능**
 
-#### 회원가입 및 로그인
+<details><summary>회원가입 / 로그인
+
+</summary>
 
 - 사용자 회원가입 (이메일/비밀번호)
 - 중복 이메일과 중복 닉네임 필터링
 - Kakao 소셜 로그인
 - 비밀번호 실시간 유효성 검사
 
+    <br>
 
-#### 홈페이지
+  ![alt text](image-15.png)![alt text](image-16.png)
+  </details>
+
+<br>
+
+<details><summary>홈페이지
+
+</summary>
 
 - Swiper 기반의 배너 슬라이드 기능
 - 지역 검색을 통해 1차적으로 게시글 필터링
 - 마감 기한 임박한 게시글 리스트
 - Tanstack Query를 활용한 데이터 페칭
-  
 
-#### 봉사게시판
+    <br>
 
-- 전체 게시글 리스트 
+![alt text](image-17.png)![alt text](image-18.png)
+
+</details>
+
+<br>
+
+<details><summary>봉사게시판
+
+</summary>
+
+- 전체 게시글 리스트
 - 카테고리와 키워드 검색 기능
 - 모집 중인 게시글 필터링
 - useInfiniteQuery 훅을 사용하여 무한스크롤 구현
 
+    <br>
 
-#### 게시글 디테일 페이지
+  ![alt text](image-19.png)![alt text](image-20.png)![alt text](image-21.png)
+  </details>
+
+<br>
+
+<details><summary>게시글 디테일 페이지
+
+</summary>
 
 - 봉사활동 상세 정보 확인 기능
 - 상세 게시글에 대한 CRUD 기능
 - 내 봉사에 참여한 봉사자 체크 리스트
 - 북마크 기능
-- 디테일 페이지에서 글 작성한 유저에게 바로 채팅으로 봉사 신청하기 
+- 디테일 페이지에서 글 작성한 유저에게 바로 채팅으로 봉사 신청하기
 
+    <br>
 
+  ![alt text](image-22.png)![alt text](image-23.png)![alt text](image-24.png)
+  </details>
 
-#### ai 챗봇
+<br>
+
+<details><summary>ai 챗봇
+
+</summary>
+
 - 사용자가 웹사이트에 관해 궁금한 점을 'AI 챗봇'과 대화를 통해 해결 가능
 - AI 모델을 기반으로 봉사 활동 관련 정보 추천
 - 프로젝트에서 OpenAI API 활용
 - 온손이의 마스코트와 연계하여 자연스러운 UX 제공
 
-#### 채팅하기
+  <br>
+
+![alt text](image-25.png)![alt text](image-26.png)
+
+</details>
+
+<br>
+
+<details><summary>채팅하기
+
+</summary>
+
 - 실시간으로 게시글 작성자와 봉사 관련 채팅
 - 채팅 모달에서 즉시 대화 가능
 - 봉사 신청자의 요청 및 진행 상황 관리
 
+  <br>
+
+![alt text](image-27.png)![alt text](image-28.png)
+
+</details>
+
 <br>
+
+<details><summary>마이페이지 / 유저페이지
+
+</summary>
+
+- 내 프로필 수정
+- 내가 참여한 봉사, 내가 쓴 게시글, 내가 북마크 한 게시글 확인
+- 상대방의 프로필 확인
+- 클릭한 유저가 올린 게시글과 참여할 게시글 확인 가능
+
+  <br>
+
+
+
+</details>
 
 ## 👨‍👩‍👧‍👦 팀 소개
 
-- ON:SON = ON(켜다) + SON(손) 
+- ON:SON = ON(켜다) + SON(손)
 - 프론트엔드 개발자 (5명)
 - 디자이너 (1명)
 
-| 팀장 : 한다영 | 부팀장 : 김진실 | 팀원 : 김문식 | 팀원 : 이경민   | 팀원 : 이지원| 디자이너 : 서한솔 |
-| ------------- | --------------- | ------------- | -------------- | ------------ | ---------------- |
-| ![한다영](./images/image-5.png) | ![김진실](./images/image-9.png) | ![김문식](./images/image-3.png) | ![이경민](./images/image-4.png) | ![이지원](./images/image-8.png) | 6 | 
-| [@한다영](https://github.com/gksek015) |  [@김진실](https://github.com/jinsil-kim)  |  [@김문식](https://github.com/kimmunsik20240905)  |  [@이경민](https://github.com/zzxx66052)  |  [@이지원](https://github.com/dongeul24)  |  |
+| 팀장 : 한다영                          | 부팀장 : 김진실                          | 팀원 : 김문식                                   | 팀원 : 이경민                           | 팀원 : 이지원                           | 디자이너 : 서한솔 |
+| -------------------------------------- | ---------------------------------------- | ----------------------------------------------- | --------------------------------------- | --------------------------------------- | ----------------- |
+| ![한다영](./images/image-5.png)        | ![김진실](./images/image-9.png)          | ![김문식](./images/image-3.png)                 | ![이경민](./images/image-4.png)         | ![이지원](./images/image-8.png)         | 6                 |
+| [@한다영](https://github.com/gksek015) | [@김진실](https://github.com/jinsil-kim) | [@김문식](https://github.com/kimmunsik20240905) | [@이경민](https://github.com/zzxx66052) | [@이지원](https://github.com/dongeul24) |                   |
 
 ## 🌱 역할 분담
 
-| 이름 | 역할 |
-| ---- | ---- | 
-| 한다영 | 게시글 작성, 게시글 수정 |
-| 김진실 | 메인페이지, 봉사게시판 페이지 | 
+| 이름   | 역할                                      |
+| ------ | ----------------------------------------- |
+| 한다영 | 게시글 작성, 게시글 수정                  |
+| 김진실 | 메인페이지, 봉사게시판 페이지             |
 | 김문식 | 로그인, 회원가입, 마이페이지, 유저 페이지 |
-| 이경민 | 채팅 기능, 봉사 참여자 리스트 |
-| 이지원 | 챗봇 ai, 게시글 디테일 |
-| 서한솔 | 모바일 디자인 및 웹 디자인 |
+| 이경민 | 채팅 기능, 봉사 참여자 리스트             |
+| 이지원 | 챗봇 ai, 게시글 디테일                    |
+| 서한솔 | 모바일 디자인 및 웹 디자인                |
+
+
 
 <br>
 
@@ -106,10 +174,19 @@
 
 ![아키텍쳐](./images/image-1.png)
 
-### 설명
+<details><summary>설명
+
+</summary>
+
 - 사용자는 클라이언트를 통해 Supabase DB에 저장된 데이터를 조회하거나 업데이트할 수 있음.
 - Supabase 인증 모듈을 통해 사용자 인증 및 세션 관리.
 - React Query를 활용해 캐싱된 상태 기반 데이터 요청 처리 및 무한 스크롤 구현.
+- Open Ai API를 사용해 ai 챗봇 기능 구현
+- Vercel을 통한 웹사이트 배포
+
+    <br>
+
+  </details>
 
 <br>
 
@@ -117,14 +194,24 @@
 
 ![supabase erd](./images/image-10.png)
 
-### 주요 테이블 및 관계 설명
-- `users` : 회원 정보를 저장하는 테이블. 봉사 요청 글 및 봉사자 활동과 연계됩니다.  
+<details><summary>주요 테이블 및 관계 설명
+
+</summary>
+
+- `users` : 회원 정보를 저장하는 테이블. 봉사 요청 글 및 봉사자 활동과 연계됩니다.
 - `posts` : 봉사 요청 및 지원 정보를 저장하는 테이블
-- `chats` : 채팅을 주고 받은 유저 정보를 저장하는 테이블  
+- `chats` : 채팅을 주고 받은 유저 정보를 저장하는 테이블
 - `bookmarks` : 사용자가 북마크한 게시글 기록. 다대다 관계 용도로 활용
 - `messages` : 작성자과 신청자 간의 채팅 대회 내용을 관리하는 테이블
 - `participant` : 참여자 리스트 정보를 저장하기 위한 테이블
 - `images` : 스토리지에 저장된 이미지 url을 관리하는 테이블
+
+    <br>
+
+  </details>
+
+
+
 
 <br>
 
@@ -132,10 +219,10 @@
 
 ### **프레임워크 및 라이브러리 코어**
 
-  <img src="https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=Next.js&logoColor=white"/>
-<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"/>
-<img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=Typescript&logoColor=white"/>
-<img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=flat-square&logo=Visual Studio Code&logoColor=white"/>
+- Next.js
+- React
+- Typescript
+- Visual Studio Code
 
 ### **상태 관리 및 데이터 베이스**
 
@@ -159,7 +246,6 @@
 - react-calendar
 - react-intersection-observer
 - slick-carousel
-
 
 ### **유틸리티 및 기타 개발 도구**
 
@@ -223,4 +309,5 @@
 ├── 📄 tsconfig.json            # TypeScript 설정 파일
 └── 📄 yarn.lock                # Yarn 패키지 버전 관리 파일
 ```
+
 
