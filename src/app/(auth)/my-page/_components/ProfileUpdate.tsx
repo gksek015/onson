@@ -15,7 +15,7 @@ import useIsMobile from '@/hooks/ui/useIsMobile';
 import { nicknameSchema } from '@/utils/revalidation/userSchema';
 import { useUserStore } from '@/utils/store/userStore';
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BottomSheet } from 'react-spring-bottom-sheet-updated';
 import Swal from 'sweetalert2';
 
@@ -32,7 +32,8 @@ const ProfileUpdate = () => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-
+  const [isClient, setIsClient] = useState(false);
+  const [nickname, setNickname] = useState<string | null>(null);
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
   const [previewUrl, setPreviewUrl] = useState<string | null>(user?.profileImage || null);
@@ -46,6 +47,12 @@ const ProfileUpdate = () => {
 
   //브라우저 좌우 사이즈 상태 및 변경
   const isMobile = useIsMobile();
+
+  useEffect(() => {
+    setIsClient(true); // 클라이언트 렌더링 이후 true 설정
+    setPreviewUrl(user?.profileImage || null); // 클라이언트에서만 previewUrl 설정
+    setNickname(user?.nickname || '사용자 이름'); // 클라이언트에서 닉네임 설정
+  }, [user?.profileImage, user?.nickname]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -153,21 +160,27 @@ const ProfileUpdate = () => {
               onClick={handleProfileClick}
               className="flex h-[52px] w-[52px] cursor-pointer items-center justify-center rounded-full border-[2px] border-[#ECEDEE]"
             >
-              {previewUrl ? (
-                <Image
-                  src={previewUrl}
-                  alt="미리보기"
-                  className="h-full w-full rounded-full object-cover"
-                  width={52}
-                  height={52}
-                />
+              {isClient ? (
+                previewUrl ? (
+                  <Image
+                    src={previewUrl}
+                    alt="미리보기"
+                    className="h-full w-full rounded-full object-cover"
+                    width={52}
+                    height={52}
+                  />
+                ) : (
+                  <CameraIcon color="#D1D4D6" width="26" height="26" />
+                )
               ) : (
-                <CameraIcon color="#D1D4D6" width="26" height="26" />
+                <div className="h-[52px] w-[52px]" /> // 서버에서는 빈 div 유지
               )}
             </label>
 
             <div className="ml-[8px] flex flex-col">
-              <span className="text-lg font-bold text-[#242628]">{user?.nickname || '사용자 이름'}</span>
+              <span className="text-lg font-bold text-[#242628]">
+                {isClient ? nickname : <span className="invisible">사용자 이름</span>}
+              </span>
             </div>
           </div>
 
