@@ -45,12 +45,15 @@ body {
   margin-top: 55px;
   font-size: 14px;
   padding: 10px;
-  font-weight: 100;
+  font-weight: 400;
 }
 
 /* Auth 영역 */
 .auth_page_wrapper {
   @apply min-h-screen pb-[30px];
+}
+.auth_page_desktop_width {
+  @apply w-full max-w-[1440px] items-center justify-center desktop:mx-auto;
 }
 
 .common_input {

@@ -27,7 +27,7 @@ const UserInfo = () => {
         onClick={
           isMyPage ? (isMobile ? () => router.push('/my-page/my-profile') : () => open('profileModal')) : undefined
         }
-        className={`${isMyPage ? 'cursor-pointer' : ''} desktop:mt-[30px] desktop:px-[60px]`}
+        className={`${isMyPage ? 'cursor-pointer' : ''} auth_page_desktop_width desktop:mt-[30px] desktop:px-[60px]`}
       >
         <MyProfile />
       </div>
@@ -35,28 +35,37 @@ const UserInfo = () => {
       {isMyPage && (
         <>
           <div className="my_profile_blank"></div>
-          <Link className="my_profile_titlebtn_wrapper" href="/my-page/bookmarks">
-            <span>관심있는 봉사</span>
+          <Link className="my_profile_titlebtn_wrapper auth_page_desktop_width" href="/my-page/bookmarks">
+            <span>관심 봉사</span>
             <RightArrowForChatIcon />
           </Link>
-          <QuickMyBookmarks />
+          <div className="auth_page_desktop_width">
+            <QuickMyBookmarks />
+          </div>
         </>
       )}
       <div className="my_profile_blank"></div>
-      <Link className="my_profile_titlebtn_wrapper" href={isMyPage ? '/my-page/my-posts' : '/user-page/user-posts'}>
-        <span>나의 봉사요청</span>
+      <Link
+        className="my_profile_titlebtn_wrapper auth_page_desktop_width"
+        href={isMyPage ? '/my-page/my-posts' : '/user-page/user-posts'}
+      >
+        <span>내 봉사 요청</span>
         <RightArrowForChatIcon />
       </Link>
-      <QuickMyPosts />
+      <div className="auth_page_desktop_width">
+        <QuickMyPosts />
+      </div>
       <div className="my_profile_blank"></div>
       <Link
-        className="my_profile_titlebtn_wrapper"
+        className="my_profile_titlebtn_wrapper auth_page_desktop_width"
         href={isMyPage ? '/my-page/my-participants' : '/user-page/user-participants'}
       >
-        <span>나의 참여봉사</span>
+        <span>내 참여 봉사</span>
         <RightArrowForChatIcon />
       </Link>
-      <QuickParticipants />
+      <div className="auth_page_desktop_width">
+        <QuickParticipants />
+      </div>
       <div className="my_profile_blank"></div>
       {isMyPage && (
         <div
