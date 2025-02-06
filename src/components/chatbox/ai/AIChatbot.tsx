@@ -1,15 +1,15 @@
 'use client';
 
 import { useGetFilteredPosts } from '@/hooks/useGetFilteredPosts';
+import { RecommendedPost } from '@/types/RecommendedPost';
 import { useEffect, useRef, useState } from 'react';
 import AddressSelector from './AddressSelector';
 import CategorySelector from './CategorySelector';
+import ChatMessage from './ChatMessage';
 import DateSelector from './DateSelector';
+import InputField from './InputField';
 import { OnsonLoading } from './OnsonLoading';
 import RecommendationList from './RecommendationList';
-import InputField from './InputField';
-import { RecommendedPost } from '@/types/RecommendedPost';
-import ChatMessage from './ChatMessage';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -53,14 +53,18 @@ const AIChatbot = () => {
     '봉사를 어떻게 검색하는지 궁금해요!',
     '사용자와 채팅은 어떻게 해야하는지 궁금해요!',
     '봉사 참여는 어떻게 해야 하는지 알려줘!',
-    '내가 신청한 봉사는 어떻게 확인해야 하는지 알려줘!'
+    '내가 신청한 봉사는 어떻게 확인해야 하는지 알려줘!',
+    '나를 위한 봉사 게시글 추천해줘!'
   ];
 
   const handleOptionClick = async (option: string) => {
     if (waitingForInput) {
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', text: '🙂 봉사게시글글 추천 받기를 중단했습니다. 나를 위한 봉사 게시물 찾기를 원하시면, 다시 상단에서 해당 옵션을 선택해주세요.' }
+        {
+          role: 'assistant',
+          text: '🙂 봉사게시글 추천 받기를 중단했습니다. 나를 위한 봉사 게시물 찾기를 원하시면, 다시 상단에서 해당 옵션을 선택해주세요.'
+        }
       ]);
       setWaitingForInput(null);
     }
@@ -76,7 +80,7 @@ const AIChatbot = () => {
         ...prev,
         {
           role: 'assistant',
-          text: '🙂 봉사게시글글 추천 받기를 중단했습니다. 나를 위한 봉사 게시물 찾기를 원하시면, 다시 상단에서 해당 옵션을 선택해주세요.'
+          text: '🙂 봉사게시글 추천 받기를 중단했습니다. 나를 위한 봉사 게시물 찾기를 원하시면, 다시 상단에서 해당 옵션을 선택해주세요.'
         }
       ]);
       setWaitingForInput(null);
@@ -224,9 +228,9 @@ const AIChatbot = () => {
           <div className="mt-6 space-y-4">
             {messages.map((msg, index) =>
               msg.type === 'recommendation' && msg.posts && msg.posts.length > 0 ? (
-                <RecommendationList posts={msg.posts} />
+                <RecommendationList key={`recommendation-${index}`} posts={msg.posts} />
               ) : (
-                <ChatMessage msg={msg} index={index} />
+                <ChatMessage key={`message-${index}`} msg={msg} />
               )
             )}
             {loading && (
@@ -253,5 +257,3 @@ const AIChatbot = () => {
 };
 
 export default AIChatbot;
-
-

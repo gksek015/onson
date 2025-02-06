@@ -8,8 +8,8 @@ interface Message {
   text?: string;
 }
 
-const ChatMessage = ({ msg, index }: { msg: Message; index: number }) => (
-  <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+const ChatMessage = ({ msg }: { msg: Message }) => (
+  <div className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
     {msg.role !== 'user' && <Image src={onson} alt="Onson 프로필 이미지" className="mr-2 h-8 w-8 rounded-full" />}
     <div
       className={`max-w-xs px-4 py-2 text-sm font-medium ${

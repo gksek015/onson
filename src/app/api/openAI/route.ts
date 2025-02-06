@@ -54,9 +54,8 @@ export async function POST(req: NextRequest) {
         ],
       });
 
-      let aiResponseJSON = completion.choices[0]?.message?.content;
+      const aiResponseJSON = completion.choices[0]?.message?.content;
       console.log(aiResponseJSON);
-      
 
       try {
         recommendedPosts = aiResponseJSON ? JSON.parse(aiResponseJSON).recommendations : [];
