@@ -34,9 +34,9 @@ export default function RootLayout({
             <ToastContainer />
             <Header />
             <ClientLayout>{children}</ClientLayout>
+            <ClientChatModal />
           </QueryProvider>
         </div>
-        <ClientChatModal />
       </body>
     </html>
   );

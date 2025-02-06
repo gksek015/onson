@@ -1,6 +1,5 @@
 'use client';
 
-import ChatBoxModal from '@/components/chatbox/ChatBoxModal';
 import { RightArrowForChatIcon } from '@/components/icons/Icons';
 
 import { newChatApi } from '@/lib/chats/newChatRoom';
@@ -21,7 +20,7 @@ interface PostActionButtonsProps {
 }
 
 const PostActionButtons = ({ title, postOwnerId, isPostClosed, postId }: PostActionButtonsProps) => {
-  const { isOpen, toggleModal, setSelectedChatId } = useModalStore();
+  const { toggleModal, setSelectedChatId } = useModalStore();
   const { user } = useUserStore();
   const router = useRouter();
   const { setActiveTab } = useGNBStore();
@@ -113,7 +112,6 @@ const PostActionButtons = ({ title, postOwnerId, isPostClosed, postId }: PostAct
           <RightArrowForChatIcon color={isPostClosed ? '#A6A6A6' : '#FA5571'} />
         </button>
       )}
-      {isOpen && <ChatBoxModal onClose={toggleModal} />}
     </>
   );
 };
