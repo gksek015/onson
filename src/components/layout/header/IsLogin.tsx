@@ -54,7 +54,7 @@ const IsLogin = () => {
         <div className="auth_bottom_text_wrapper">
           <Link
             className="auth_bottom_text_normall mobile:mt-[24px] desktop:mt-[36px]"
-            href="sign-up"
+            href="https://www.onson.kr/sign-up"
             onClick={() => close()}
           >
             회원가입
