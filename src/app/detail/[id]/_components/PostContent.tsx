@@ -147,7 +147,7 @@ const PostContent = ({
   };
 
   return (
-    <div className="my-7 flex flex-col justify-center gap-4 pb-20">
+    <div className="my-7 flex flex-col justify-center pb-20">
       <div className="mx-4 flex flex-col justify-center gap-2 desktop:mx-0">
         {/* 태그 */}
         <PostTags category={category} startDate={startDate} endDate={endDate} isPostClosed={isPostClosed} />
@@ -155,12 +155,12 @@ const PostContent = ({
           <div className="mt-1 text-lg font-semibold tracking-[-0.5px] desktop:text-3xl">{title}</div>
 
           {/* 주소 */}
-          <div className="mb-1 mt-3 flex items-center desktop:mb-0 desktop:mt-0">
+          <div className="mb-1 mt-1 flex items-center desktop:mb-0 desktop:mt-0">
             <MapPinIcon />
             <span className="ml-1 font-semibold text-[#666]">{`${address.si} ${address.gu} ${address.dong}`}</span>
           </div>
 
-          <div className="relative mb-3 flex items-center justify-between">
+          <div className="relative mb-3 mt-1 flex items-center justify-between desktop:mt-0">
             <div className="flex cursor-pointer items-center gap-2" onClick={handleClick}>
               {profileImgUrl ? (
                 <div className="relative h-7 w-7 overflow-hidden rounded-full bg-gray-200">
@@ -190,7 +190,7 @@ const PostContent = ({
             )}
             {/* 드롭다운 */}
             {isDropdownOpen && (
-              <div className="absolute top-full right-0 z-50 rounded-md border border-gray-300 bg-white p-4 pr-5 shadow-lg">
+              <div className="absolute right-0 top-full z-50 rounded-md border border-gray-300 bg-white p-4 pr-5 shadow-lg">
                 <button
                   onClick={handleToggleRecruitment}
                   className="flex w-full items-center gap-2 px-4 py-2 text-left outline-none focus:outline-none"
@@ -221,7 +221,7 @@ const PostContent = ({
           <PostActionButtons title={title} postOwnerId={postOwnerId} isPostClosed={isPostClosed} postId={postId} />
 
           {/* 가로선 */}
-          <hr className="mt-4 border-gray-300" />
+          <hr className="mt-2 border-[#ECEDEE]" />
           <div className="mx-1 mt-5 whitespace-pre-line leading-6 desktop:mx-0">{content}</div>
         </div>
         {/* 봉사 참여자 목록 */}

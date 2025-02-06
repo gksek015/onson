@@ -9,8 +9,6 @@ const openai = new OpenAI({
 export async function POST(req: NextRequest) {
   try {
     const { userMessage, filters, filteredPosts } = await req.json();
-
-
     let aiResponse = "";
     let recommendedPosts = [];
  

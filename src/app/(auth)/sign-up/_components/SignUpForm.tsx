@@ -79,7 +79,7 @@ const SignUpForm = () => {
       setIsLoading(false);
     }
   };
-  //
+
   return (
     <>
       {isLoading && <Loading />}

@@ -16,7 +16,7 @@ const TagSection = ({ categories, formData, onSelectCategory, onSelectDate }: Ta
         <label htmlFor="tag" className="block text-lg font-semibold tracking-[-0.5px]">
           태그
         </label>
-        <span className="px-2 text-sm font-medium text-[#595d61]">* 필수</span>
+        <span className="px-2 text-sm font-light text-[#595d61]">* 필수</span>
       </div>
       <div className="space-y-4">
         <CategorySelectComp formData={formData} categories={categories} onSelectCategory={onSelectCategory} />

@@ -1,3 +1,5 @@
+import ClientChatModal from '@/components/chatbox/ClientChatModal';
+import ClientLayout from '@/components/layout/ClientLayout';
 import Header from '@/components/layout/Header';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
@@ -31,9 +33,10 @@ export default function RootLayout({
           <QueryProvider>
             <ToastContainer />
             <Header />
-            <main className="flex-1">{children}</main>
+            <ClientLayout>{children}</ClientLayout>
           </QueryProvider>
         </div>
+        <ClientChatModal />
       </body>
     </html>
   );

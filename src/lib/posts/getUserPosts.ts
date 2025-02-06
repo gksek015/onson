@@ -20,7 +20,6 @@ export const getUserPosts = async (userId: string, limit?: number): Promise<Post
   }
 
   if (!postData || postData.length === 0) {
-    console.log('참가한 게시글이 없습니다.');
     return [];
   }
 

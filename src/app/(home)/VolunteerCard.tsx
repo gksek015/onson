@@ -84,12 +84,12 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
   return (
     <>
       {/* <li className="flex w-full items-start self-stretch bg-white px-5 py-8"> */}
-      <li className="flex w-full items-start desktop:border rounded-xl self-stretch bg-white px-5 py-8">
+      <li className="flex w-full items-start self-stretch border-b desktop:rounded-xl bg-white px-5 py-8 desktop:border">
         <Link href={`/detail/${post.id}/?from=list`} className="w-full">
           {/* 태그 */}
           <div className="mb-2 flex w-full flex-wrap items-center gap-2 text-sm font-normal">
             {post.completed ? (
-              <span className="flex items-center justify-center gap-2 rounded-full border bg-[#A6A6A6] px-2.5 py-0.5 text-sm text-white">
+              <span className="flex items-center justify-center gap-2 rounded-full bg-[#A6A6A6] px-2.5 py-0.5 text-sm text-white">
                 모집 마감
               </span>
             ) : (
@@ -124,7 +124,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
                 </span>
               </div>
               {/* 작성자 */}
-              <div className="flex items-center gap-2 self-stretch text-sm leading-4 text-[#7e7e7e]">
+              <div className="flex items-center gap-2 self-stretch text-sm leading-4 mt-2 text-[#7e7e7e]">
                 {post.users.profile_img_url ? (
                   <div className="relative h-6 w-6 overflow-hidden rounded-full bg-gray-200">
                     <Image
@@ -136,7 +136,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
                     />
                   </div>
                 ) : (
-                  <MyProfileIcon width="24" height="24" />
+                  <MyProfileIcon width="32" height="32" />
                 )}
                 <span>{post.users.nickname}</span>
               </div>
@@ -163,6 +163,7 @@ const VolunteerCard = ({ post }: VolunteerCardProps) => {
             )}
           </div>
         </Link>
+        
       </li>
       {/* 현재 경로에 따라 다르게 버튼 추가 */}
       {isMobile && currentPath === '/my-page/bookmarks' && (

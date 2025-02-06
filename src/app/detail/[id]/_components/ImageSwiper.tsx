@@ -34,7 +34,7 @@ const ImageSwiper = ({ images, isPostClosed }: ImageSwiperProps) => {
               <Image
                 src={image.img_url}
                 alt={`이미지 ${index}`}
-                className="object-contain" // 이미지 비율 유지
+                className="object-cover" // 이미지 비율 유지
                 fill={true} // 부모 컨테이너 크기에 맞게 채움
               />
               {/* 모집 마감 시 회색 오버레이 보여주기*/}

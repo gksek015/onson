@@ -2,14 +2,15 @@
 
 import ChatBoxModal from '@/components/chatbox/ChatBoxModal';
 import { RightArrowForChatIcon } from '@/components/icons/Icons';
-import useModal from '@/hooks/ui/useModal';
+
 import { newChatApi } from '@/lib/chats/newChatRoom';
 import { sendMessage } from '@/lib/chats/newMessage';
 import { insertParticipant } from '@/lib/detail/participants';
+import { useDialogStore } from '@/utils/store/useDialogStore';
 import { useGNBStore } from '@/utils/store/useGNBStore';
+import { useModalStore } from '@/utils/store/useModalStore';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import Swal from 'sweetalert2';
 
 interface PostActionButtonsProps {
@@ -20,11 +21,11 @@ interface PostActionButtonsProps {
 }
 
 const PostActionButtons = ({ title, postOwnerId, isPostClosed, postId }: PostActionButtonsProps) => {
-  const { isOpen, toggleModal } = useModal();
+  const { isOpen, toggleModal, setSelectedChatId } = useModalStore();
   const { user } = useUserStore();
   const router = useRouter();
-  const [chatId, setChatId] = useState<string | null>(null);
   const { setActiveTab } = useGNBStore();
+  const { open } = useDialogStore();
 
   const handleChatClick = async () => {
     if (isPostClosed) {
@@ -47,10 +48,17 @@ const PostActionButtons = ({ title, postOwnerId, isPostClosed, postId }: PostAct
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: '로그인하기',
-        cancelButtonText: '취소'
+        confirmButtonColor: 'var(--primary-3)',
+        cancelButtonText: '취소',
+        cancelButtonColor: '#B4B4B4'
       }).then((result) => {
         if (result.isConfirmed) {
-          router.push('/login');
+          if (window.innerWidth < 768) {
+            router.push('/login');
+          } else {
+            open('loginModal');
+          }
+        } else if (result.isDismissed) {
         }
       });
       return;
@@ -86,7 +94,7 @@ const PostActionButtons = ({ title, postOwnerId, isPostClosed, postId }: PostAct
 
     // 채팅 모달 열기
     setActiveTab('chat');
-    setChatId(chatRoom.id);
+    setSelectedChatId(chatRoom.id);
     toggleModal();
   };
 
@@ -99,13 +107,13 @@ const PostActionButtons = ({ title, postOwnerId, isPostClosed, postId }: PostAct
             isPostClosed
               ? 'cursor-not-allowed border-2 border-[#A6A6A6] font-semibold text-[#A6A6A6]' // 모집 마감 스타일
               : 'cursor-pointer border-2 border-[#FA5571] font-semibold text-[#FA5571]' // 모집 진행 중 스타일
-          } p-2.5 desktop:px-4 desktop:py-3 mb-2 focus:outline-none`}
+          } mb-2 p-2.5 focus:outline-none desktop:px-4 desktop:py-3`}
         >
           <span>채팅으로 봉사 신청하기</span>
           <RightArrowForChatIcon color={isPostClosed ? '#A6A6A6' : '#FA5571'} />
         </button>
       )}
-      {isOpen && <ChatBoxModal onClose={toggleModal} initialChatId={chatId} />}
+      {isOpen && <ChatBoxModal onClose={toggleModal} />}
     </>
   );
 };

@@ -2,7 +2,9 @@
 
 import { getMarkMessageAsRead } from '@/lib/chats/getMarkMessageAsRead';
 import useChatbotStore from '@/utils/store/useChatBotStore';
+import { useDialogStore } from '@/utils/store/useDialogStore';
 import { useGNBStore } from '@/utils/store/useGNBStore';
+import { useModalStore } from '@/utils/store/useModalStore';
 import { useUserStore } from '@/utils/store/userStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -15,23 +17,33 @@ import ModalHeader from './chatUI/ModalHeader';
 
 interface ChatBoxModalProps {
   onClose: () => void;
-  initialChatId?: string | null;
+  currentChatId?: string | null;
 }
 
-const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
-  const [activeTab, setActiveTab] = useState('온손 AI');
-  const [selectedChatId, setSelectedChatId] = useState<string | null>(initialChatId || null);
+const ChatBoxModal = ({ onClose, currentChatId }: ChatBoxModalProps) => {
+  const { open } = useDialogStore();
+  const { selectedChatId, setSelectedChatId, activeTab, setActiveTab } = useModalStore();
+  // const [activeTab, setActiveTab] = useState('온손 AI');
   const [showGNB, setShowGNB] = useState(false);
   const { user } = useUserStore();
-  const { setActiveTab: setGNBActiveTab } = useGNBStore();
+  const { prevActiveTab, setActiveTab: setCurrentGNBActiveTab } = useGNBStore();
   const { isChatbotVisible, showChatbot, setIsChatbotVisible, setShowChatbot } = useChatbotStore();
   const router = useRouter();
 
   useEffect(() => {
-    if (initialChatId) {
-      setSelectedChatId(initialChatId);
+    if (window.innerWidth < 768) {
+      document.body.style.overflow = 'hidden';
     }
-  }, [initialChatId]);
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
+  useEffect(() => {
+    if (currentChatId) {
+      setSelectedChatId(currentChatId);
+    }
+  }, [currentChatId, setSelectedChatId]);
 
   const handleEnterChatRoom = async (chatId: string) => {
     setSelectedChatId(chatId);
@@ -42,10 +54,12 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
     if (selectedChatId && user?.id) {
       await getMarkMessageAsRead(selectedChatId, user.id);
     }
-    setIsChatbotVisible(false);
+    setIsChatbotVisible(true);
     setShowChatbot(false);
-    setGNBActiveTab('home');
     setShowGNB(false);
+    if (prevActiveTab && ['home', 'create', 'list', 'chat'].includes(prevActiveTab)) {
+      setCurrentGNBActiveTab(prevActiveTab as 'home' | 'create' | 'list' | 'chat');
+    }
     onClose();
   };
 
@@ -54,11 +68,23 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
       setShowChatbot(false);
     } else if (selectedChatId) {
       setSelectedChatId(null);
-      setIsChatbotVisible(true);
-      setActiveTab('실시간 채팅');
       setShowGNB(true);
-    } else if (isChatbotVisible) {
-      setIsChatbotVisible(false);
+      setActiveTab('실시간 채팅');
+      setTimeout(() => {
+        setCurrentGNBActiveTab('chat');
+      }, 0);
+    }
+  };
+
+  const handleLoginClick = () => {
+    if (window.innerWidth < 768) {
+      // 모바일에서는 로그인 페이지로 이동
+      router.push('/login');
+      onClose();
+    } else {
+      // 데스크탑에서는 채팅 모달 닫고 로그인 모달 열기
+      onClose();
+      open('loginModal');
     }
   };
 
@@ -70,7 +96,7 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
         } desktop:absolute desktop:bottom-[80px] desktop:left-auto desktop:right-[80px] desktop:top-auto desktop:mb-0 desktop:h-[650px] desktop:w-[396px] desktop:rounded-[20px] desktop:border desktop:shadow-lg`}
       >
         {/* 닫기 버튼 (모바일 & 데스크탑) */}
-        {!selectedChatId && (!isChatbotVisible || !showChatbot) && (
+        {!selectedChatId && !showChatbot && (
           <div className="hidden items-center justify-end border-b p-2 desktop:flex">
             <button onClick={handleClose} className="hidden items-center justify-center p-2 desktop:flex">
               <CloseIcon />
@@ -92,6 +118,7 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
               >
                 온손 AI
               </button>
+
               <button
                 onClick={() => setActiveTab('실시간 채팅')}
                 className={`inline-block py-[15px] text-center ${
@@ -106,7 +133,7 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
           </div>
         )}
 
-        {/* 모달쪽 헤더 */}
+        {/* AI쪽 헤더 */}
         {isChatbotVisible && showChatbot && (
           <ModalHeader title="온손 AI" onClose={handleClose} onBack={handleBackToList} />
         )}
@@ -133,7 +160,7 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
           ) : activeTab === '실시간 채팅' ? (
             user ? (
               <ChatInBox
-                selectedChatId={null}
+                selectedChatId={selectedChatId}
                 userId={user?.id || ''}
                 onEnterChatRoom={handleEnterChatRoom}
                 onBackToList={handleBackToList}
@@ -146,10 +173,7 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
                 <div className="p-4">
                   <button
                     className="mx-auto w-full max-w-xs rounded bg-[#fb657e] py-3 text-center text-white"
-                    onClick={() => {
-                      router.push('/login');
-                      onClose();
-                    }}
+                    onClick={handleLoginClick}
                   >
                     로그인
                   </button>
@@ -163,7 +187,7 @@ const ChatBoxModal = ({ onClose, initialChatId }: ChatBoxModalProps) => {
       </div>
 
       {/* GNB 추가 & 'chat' 유지*/}
-      <div className="tablet:hidden flex justify-center desktop:hidden">{showGNB && <BottomNav />}</div>
+      <div className="flex justify-center desktop:hidden">{showGNB && <BottomNav />}</div>
     </div>
   );
 };

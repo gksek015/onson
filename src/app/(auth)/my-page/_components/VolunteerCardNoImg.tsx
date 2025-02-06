@@ -9,21 +9,24 @@ import { MapPinIcon } from '../../../../components/icons/Icons';
 
 interface VolunteerCardProps {
   post: PostType;
+  isLast?: boolean; // 마지막 카드 여부를 받는 prop 추가
 }
 
-const VolunteerCardNoImg = ({ post }: VolunteerCardProps) => {
-  const isPastEndDate = dayjs(post.end_date).isBefore(dayjs(), 'day'); // 오늘이 end_date 이후인지 확인
-  const isCloseToEndDate = dayjs(post.end_date).diff(dayjs(), 'day') <= 2 && !isPastEndDate; // 오늘 기준 이틀 이하 인지
-
+const VolunteerCardNoImg = ({ post, isLast }: VolunteerCardProps) => {
+  const isPastEndDate = dayjs(post.end_date).isBefore(dayjs(), 'day');
+  const isCloseToEndDate = dayjs(post.end_date).diff(dayjs(), 'day') <= 2 && !isPastEndDate;
   let firstImg = null;
+
   if (post.images && post.images.length > 0) {
     firstImg = post.images[0].img_url;
   }
 
-  //브라우저 좌우 사이즈 상태 및 변경
   const isMobile = useIsMobile();
+
   return (
-    <div className="flex min-w-[276px] flex-col items-start self-stretch border-r border-[#e7e7e7] px-[20px] py-[32px] desktop:min-w-[426px]">
+    <div
+      className={`flex min-w-[276px] flex-col items-start self-stretch px-[20px] py-[32px] desktop:min-w-[426px] ${isLast ? '' : 'border-r border-[#e7e7e7]'}`} // 마지막 카드일 경우 border 제거
+    >
       <Link href={`/detail/${post.id}/?from=list`} className="w-full">
         {/* 태그 */}
         <div className="mb-[8px] flex w-full flex-wrap items-center gap-[8px] text-sm font-normal">
