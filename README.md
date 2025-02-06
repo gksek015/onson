@@ -108,6 +108,23 @@
 
 <br>
 
+<details><summary>게시글 작성 / 수정 페이지
+
+</summary>
+
+- 봉사 요청 게시글 작성
+- 위치, 봉사 카테고리, 날짜, 사진, 내용 등록 가능
+- 내가 쓴 게시글 수정 가능
+
+    <br>
+
+  ![image](https://github.com/user-attachments/assets/507077c1-8c7b-479f-be26-d8a8cf0aa698)![image](https://github.com/user-attachments/assets/44e3c41e-7b37-4b64-9510-8e3252e751b5)![image](https://github.com/user-attachments/assets/08440a59-9ed0-4096-ad81-b920a92dbfdb)![image](https://github.com/user-attachments/assets/3ba54f98-96df-45a8-b56a-5fd42cf9b38b)![image](https://github.com/user-attachments/assets/ff4cfeae-9cbf-407c-a7c9-ce2747fa3551)
+
+  </details>
+
+<br>
+
+
 <details><summary>ai 챗봇
 
 </summary>
