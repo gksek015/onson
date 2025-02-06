@@ -23,7 +23,6 @@ interface ChatBoxModalProps {
 const ChatBoxModal = ({ onClose, currentChatId }: ChatBoxModalProps) => {
   const { open } = useDialogStore();
   const { selectedChatId, setSelectedChatId, activeTab, setActiveTab } = useModalStore();
-  // const [activeTab, setActiveTab] = useState('온손 AI');
   const [showGNB, setShowGNB] = useState(false);
   const { user } = useUserStore();
   const { prevActiveTab, setActiveTab: setCurrentGNBActiveTab } = useGNBStore();

@@ -55,11 +55,9 @@ export async function POST(req: NextRequest) {
       });
 
       const aiResponseJSON = completion.choices[0]?.message?.content;
-      console.log(aiResponseJSON);
 
       try {
         recommendedPosts = aiResponseJSON ? JSON.parse(aiResponseJSON).recommendations : [];
-        console.log(recommendedPosts);
         
       } catch (error) {
         console.error("AI 응답 JSON 파싱 오류:", error);
