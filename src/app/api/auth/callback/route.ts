@@ -1,36 +1,35 @@
-import { createClient } from '@/utils/supabase/server';
-import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server'
+// The client you created from the Server-Side Auth instructions
+import { createClient } from '@/utils/supabase/server'
 
 export async function GET(request: Request) {
-  
-    const origin = new URL(request.url).origin || process.env.NEXT_PUBLIC_BASE_URL; 
-    try {
-      const { searchParams } = new URL(request.url);
-      const code = searchParams.get('code');
-      const next = searchParams.get('next') 
-        ? new URL(searchParams.get('next')!, origin).toString() 
-        : `${origin}/`;
-        
-      if (!code) {
-        return NextResponse.redirect(`${origin}/auth/error`);
-      }
-      const supabase = createClient();
-      const { data: userData, error } = await supabase.auth.exchangeCodeForSession(code);
-      if (error) {
-        console.error('Error exchanging code:', error);
-        return NextResponse.redirect(`${origin}/auth/error`);
-      }
-  
+  const { searchParams, origin } = new URL(request.url)
+  const code = searchParams.get('code')
+  // if "next" is in param, use it as the redirect URL
+  const next = searchParams.get('next') ?? '/'
+
+  if (code) {
+    const supabase = await createClient()
+    const { data: userData, error } = await supabase.auth.exchangeCodeForSession(code)
+    if (!error) {
       await supabase.from('users').insert({
         id: userData.user?.id,
         email: userData.user?.email,
         nickname: userData.user?.user_metadata.name || 'Unknown',
       });
-  
-      return NextResponse.redirect(next);
-    } catch (err) {
-      console.error('Unexpected error:', err);
-      return NextResponse.redirect(process.env.NEXT_PUBLIC_BASE_URL || `${origin}/auth/error`); 
+      const forwardedHost = request.headers.get('x-forwarded-host') // original origin before load balancer
+      const isLocalEnv = process.env.NODE_ENV === 'development'
+      if (isLocalEnv) {
+        // we can be sure that there is no load balancer in between, so no need to watch for X-Forwarded-Host
+        return NextResponse.redirect(`${origin}${next}`)
+      } else if (forwardedHost) {
+        return NextResponse.redirect(`https://${forwardedHost}${next}`)
+      } else {
+        return NextResponse.redirect(`${origin}${next}`)
+      }
     }
   }
-  
+
+  // return the user to an error page with instructions
+  return NextResponse.redirect(`${origin}/auth/auth-code-error`)
+}
