@@ -83,15 +83,17 @@ const LoginForm = () => {
 
   const kakaoLogin = async () => {
     const currentUrl: string = 'https://onson.kr';
-    await supabase.auth.signInWithOAuth({
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'kakao',
       options: {
         redirectTo: `${currentUrl}/api/auth/callback`,
         queryParams: {
-          prompt: 'login'
+          prompt: 'login',
+          logLevel: 'debug'
         }
       }
     });
+    console.log(data, error);
   };
 
   return (
