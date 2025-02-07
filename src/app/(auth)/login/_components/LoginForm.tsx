@@ -82,7 +82,7 @@ const LoginForm = () => {
   };
 
   const kakaoLogin = async () => {
-    const currentUrl: string = window.location.origin;
+    const currentUrl: string = 'https://onson.kr';
     await supabase.auth.signInWithOAuth({
       provider: 'kakao',
       options: {
